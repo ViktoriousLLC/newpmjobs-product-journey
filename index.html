@@ -70,10 +70,13 @@ th { background: var(--accent); color: #fff; font-weight: 600; }
 tbody tr:nth-child(even) { background: var(--soft); }
 tbody tr:last-child td { border-bottom: 0; }
 
-/* concepts table: # | Concept | Details | Phase, easy to scan */
-.concepts-table th:first-child, .concepts-table td:first-child { width: 40px; text-align: center; color: var(--muted); font-variant-numeric: tabular-nums; }
+/* concepts table: # | Concept | Details | Phase, easy to scan.
+   Headers stay white (base th color); only the body cells of # and Phase are muted. */
+.concepts-table th:first-child, .concepts-table td:first-child { width: 40px; text-align: center; }
+.concepts-table td:first-child { color: var(--muted); font-variant-numeric: tabular-nums; }
 .concepts-table td:nth-child(2) { font-weight: 700; }
-.concepts-table th:last-child, .concepts-table td:last-child { width: 78px; white-space: nowrap; color: var(--muted); }
+.concepts-table th:last-child, .concepts-table td:last-child { width: 78px; white-space: nowrap; }
+.concepts-table td:last-child { color: var(--muted); }
 
 /* lead paragraph / callouts */
 blockquote {
@@ -211,7 +214,7 @@ code { background: var(--soft); padding: .12em .4em; border-radius: 5px; font-si
 .sum-count { margin-left: auto; font-size: .7rem; font-weight: 700; color: var(--muted); background: var(--soft); border: 1px solid var(--border); border-radius: 999px; padding: 2px 9px; white-space: nowrap; }
 .sum-chev { margin-left: 8px; color: var(--c); font-weight: 800; transition: transform .15s; flex: 0 0 auto; }
 .sum-stage[open] > summary .sum-chev { transform: rotate(90deg); }
-.sum-desc { color: var(--muted); font-size: .88rem; padding: 0 16px 11px; margin: 0; }
+.sum-desc { color: var(--muted); font-size: .88rem; padding: 12px 16px; margin: 0; }
 .sum-grid { display: grid; grid-template-columns: repeat(2, 1fr); border-top: 1px solid var(--border); }
 .sum-row { display: flex; gap: 10px; padding: 10px 16px; border-bottom: 1px solid var(--border); }
 .sum-row:nth-child(2n+1) { border-right: 1px solid var(--border); }
@@ -364,17 +367,17 @@ body.chapters-on .chapter:not(.active) { display: none; }
 <section class="chapter active" id="ch0">
 
 <h1>NewPMJobs Product Journey</h1>
-<p class="subtitle">A personal localhost project became a production multi-user site, built entirely with Claude Code and a dozen other AI tools. Every change was a deliberate product decision, and every decision taught me something new about AI development.</p>
+<p class="subtitle">A personal localhost project became a production multi-user site, built entirely with Claude Code and a dozen other AI tools. Every change was a deliberate product decision and every decision taught me something new about AI development.</p>
 
 <h2 id="tldr">The 30-second version</h2>
 <div data-tldr-block style="background:linear-gradient(135deg,#eef2ff,#e0f2fe);border:1px solid #c7d2fe;border-radius:14px;padding:22px 26px;margin:0 0 2em;">
 <div style="font-size:.78rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#6366f1;margin-bottom:.6em;">The 30-second version</div>
-<p style="margin:0 0 1em;font-size:1.08rem;line-height:1.65;">I've mentored 100+ PMs over the last few years, and one thread kept coming up: they wanted a simple way to catch a new role the moment it opened at a company they cared about. So that is what I built. NewPMJobs emails you the new PM roles every morning, straight from the companies, filtered to the ones you chose. The interesting part is who built it and how.</p>
+<p style="margin:0 0 1em;font-size:1.08rem;line-height:1.65;">I've mentored 100+ PMs over the last few years, and one thread kept coming up: they wanted a simple way to catch a new role the moment it opened at a company they cared about. So that is what I built. NewPMJobs emails you the new PM roles every morning, straight from the companies, filtered to the ones you chose.</p>
 <ul style="margin:0;font-size:1.02rem;line-height:1.55;">
-<li><strong>A full product, not a toy.</strong> Scraping, a self-healing data pipeline, a web app, a daily email and full monitoring. All live, all serving real users.</li>
-<li><strong>A PM built it.</strong> Every product decision and every architecture call was mine. The AI wrote the code, but going from concept to prototype to MVP to production took a PM with product taste and 15+ years of experience.</li>
+<li><strong>A full product, not a vibe-coded prototype.</strong> Scraping, a self-healing data pipeline, a web app, a daily email and full monitoring. All live, all serving 150+ real users.</li>
+<li><strong>A PM built it.</strong> Every product decision and every architecture call was mine. The AI wrote the code, but going from concept to prototype to MVP to production took a PM with AI product taste and 15+ years of experience.</li>
 <li><strong>Reliability is the actual feature.</strong> A job alert that quietly drops a role is worse than no alert, so most of the work went into catching the silent failures before anyone feels them.</li>
-<li><strong>The numbers.</strong> More than 5,000 PM roles tracked across 519 companies on 7 hiring platforms, and 150+ users and counting.</li>
+<li><strong>The impact.</strong> More than 5,000 PM roles tracked across 519 companies on 7 hiring platforms, and 150+ users and counting. More new AI features to come.</li>
 </ul>
 </div>
 
@@ -412,7 +415,7 @@ body.chapters-on .chapter:not(.active) { display: none; }
 
 <details class="sum-stage sum-c1" open>
 <summary><span class="sum-kicker">Stage 1</span><span class="sum-name">Concept</span><span class="sum-count">1 phase</span><span class="sum-chev">&#8250;</span></summary>
-<p class="sum-desc">One annoying chore: 30 minutes every morning checking career pages by hand. So I wrote the smallest script that could kill it.</p>
+<p class="sum-desc">One annoying chore: 30 minutes every morning checking career pages by hand. So I wrote the smallest script that could solve it.</p>
 <div class="sum-grid">
   <div class="sum-row"><div class="sum-num">1</div><div><div class="pn"><a href="#p1">The Localhost MVP</a></div><div class="pg">Stop checking career pages by hand every morning.</div></div></div>
 </div>
@@ -491,7 +494,7 @@ body.chapters-on .chapter:not(.active) { display: none; }
 
 <!-- ============ CONCEPTS (rewritten for a PM reader) ============ -->
 <h2 id="concepts">Summary of Concepts Learned</h2>
-<p>Every technical idea this project taught me, and the exact phase where I learned it the hard way.</p>
+<p>This is a list of every technical idea this project taught me and the exact phase where I learned the concept.</p>
 <div class="tablewrap">
 <table class="concepts-table">
 <thead><tr><th>#</th><th>Concept</th><th>Details</th><th>Phase</th></tr></thead>
@@ -548,7 +551,7 @@ body.chapters-on .chapter:not(.active) { display: none; }
 <div class="superphase">
   <div class="sp-bar" style="background:var(--sp1)"></div>
   <h2>1. Concept</h2>
-  <p class="sp-desc">It started with one annoying chore: 30 minutes every morning checking career pages by hand. So I wrote the smallest script that could kill it.</p>
+  <p class="sp-desc">It started with one annoying chore: 30 minutes every morning checking career pages by hand. So I wrote the smallest script that could solve it.</p>
 </div>
 
 
