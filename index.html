@@ -180,64 +180,102 @@ code { background: var(--soft); padding: .12em .4em; border-radius: 5px; font-si
 
 .skim-note { font-size: .95rem; color: var(--muted); margin: 2em 0 .4em; font-weight: 600; }
 .screens-note { font-size: .9rem; color: var(--muted); font-style: italic; margin: .6em 0 1.4em; }
+
+/* ===== grouped stage summary (default open, tap a stage to fold it) ===== */
+.sum { margin: 1em 0 1.8em; }
+.sum-stage { border: 1px solid var(--border); border-left: 5px solid var(--c); border-radius: 12px; margin: 0 0 12px; overflow: hidden; background: #fff; }
+.sum-stage > summary { list-style: none; cursor: pointer; display: flex; align-items: baseline; gap: 10px; padding: 13px 16px; }
+.sum-stage > summary::-webkit-details-marker { display: none; }
+.sum-kicker { font-size: .64rem; font-weight: 800; letter-spacing: .07em; text-transform: uppercase; color: var(--c); }
+.sum-name { font-weight: 700; font-size: 1.04rem; }
+.sum-count { margin-left: auto; font-size: .7rem; font-weight: 700; color: var(--muted); background: var(--soft); border: 1px solid var(--border); border-radius: 999px; padding: 2px 9px; white-space: nowrap; }
+.sum-chev { margin-left: 8px; color: var(--c); font-weight: 800; transition: transform .15s; flex: 0 0 auto; }
+.sum-stage[open] > summary .sum-chev { transform: rotate(90deg); }
+.sum-desc { color: var(--muted); font-size: .88rem; padding: 0 16px 11px; margin: 0; }
+.sum-grid { display: grid; grid-template-columns: repeat(2, 1fr); border-top: 1px solid var(--border); }
+.sum-row { display: flex; gap: 10px; padding: 10px 16px; border-bottom: 1px solid var(--border); }
+.sum-row:nth-child(2n+1) { border-right: 1px solid var(--border); }
+.sum-num { flex: 0 0 auto; width: 25px; height: 25px; border-radius: 7px; background: color-mix(in srgb, var(--c) 14%, #fff); color: var(--c); font-weight: 800; font-size: .78rem; display: flex; align-items: center; justify-content: center; }
+.sum-row .pn { font-weight: 650; font-size: .93rem; line-height: 1.3; }
+.sum-row .pn a { color: inherit; text-decoration: none; border-bottom: 1px solid transparent; }
+.sum-row .pn a:hover { border-bottom-color: currentColor; }
+.sum-row .pg { color: var(--muted); font-size: .84rem; }
+.sum-c1 { --c: var(--sp1); } .sum-c2 { --c: var(--sp2); } .sum-c3 { --c: var(--sp3); }
+.sum-c4 { --c: var(--sp4); } .sum-c5 { --c: var(--sp5); } .sum-c6 { --c: var(--sp6); }
+@media (max-width: 680px) {
+  .sum-grid { grid-template-columns: 1fr; }
+  .sum-row:nth-child(2n+1) { border-right: 0; }
+}
+
+/* ===== chapters (show one at a time) =====
+   Graceful degradation: the show/hide rule is scoped under body.chapters-on,
+   which the inline script adds on load. With JS off, every chapter shows and
+   the whole document stays readable top to bottom. */
+body.chapters-on .chapter:not(.active) { display: none; }
+
+/* the active TOC chapter link */
+.toc a.toc-active { color: #fff; font-weight: 700; }
+.toc a.toc-active::before { content: "\25B8\00a0"; color: var(--accent-2); }
+
+/* prev / next chapter buttons at the foot of each chapter */
+.chapter-nav { display: flex; justify-content: space-between; gap: 12px; margin: 3em 0 1em; padding-top: 1.4em; border-top: 1px solid var(--border); }
+.chapter-nav button {
+  flex: 0 1 auto; max-width: 48%; text-align: left; cursor: pointer;
+  font: inherit; font-size: .95rem; color: var(--ink); background: var(--soft);
+  border: 1px solid var(--border); border-radius: 12px; padding: 12px 16px; line-height: 1.35;
+}
+.chapter-nav button:hover { border-color: var(--accent); color: var(--accent); }
+.chapter-nav button[disabled] { opacity: 0; pointer-events: none; }
+.chapter-nav .cn-dir { display: block; font-size: .72rem; font-weight: 700; letter-spacing: .05em; text-transform: uppercase; color: var(--muted); margin-bottom: .15em; }
+.chapter-nav .cn-next { text-align: right; }
+
+/* compact sticky chapter selector for narrow screens (sidebar is hidden <=1179px) */
+.chapter-tabs { display: none; }
+@media (max-width: 1179px) {
+  body.chapters-on .chapter-tabs {
+    display: block; position: sticky; top: 0; z-index: 20;
+    background: var(--ink); margin: 0 -28px 1.4em; padding: 10px 14px;
+    box-shadow: 0 2px 10px rgba(20,20,60,.18);
+  }
+  .chapter-tabs-track { display: flex; gap: 8px; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  .chapter-tabs button {
+    flex: 0 0 auto; cursor: pointer; font: inherit; font-size: .8rem; white-space: nowrap;
+    color: #b9bcd4; background: transparent; border: 1px solid #3a3d55;
+    border-radius: 999px; padding: 6px 12px;
+  }
+  .chapter-tabs button.tab-active { color: #fff; background: var(--accent); border-color: var(--accent); }
+}
 </style>
 </head>
 <body class="has-toc">
 
 <nav class="toc">
-  <h2>Contents</h2>
-  <a href="#tldr">The 30-second version</a>
-  <a href="#index">Jump to a phase</a>
-
-  <span class="toc-group" style="border-color:var(--sp1)">1. Concept</span>
-  <a class="toc-link" href="#p1">1. The Localhost MVP</a>
-
-  <span class="toc-group" style="border-color:var(--sp2)">2. Setting the Foundation</span>
-  <a class="toc-link" href="#p2">2. Going Live</a>
-  <a class="toc-link" href="#p3">3. Covering The Companies I Care About</a>
-  <a class="toc-link" href="#p4">4. Turning It Into A Real Product</a>
-
-  <span class="toc-group" style="border-color:var(--sp3)">3. Building the MVP</span>
-  <a class="toc-link" href="#p5">5. A Safe Way To Add A Company</a>
-  <a class="toc-link" href="#p6">6. Showing What Roles Pay</a>
-  <a class="toc-link" href="#p7">7. The Landing Page</a>
-  <a class="toc-link" href="#p8">8. Making It Load Fast</a>
-  <a class="toc-link" href="#p9">9. Getting Safe For Real Users</a>
-
-  <span class="toc-group" style="border-color:var(--sp4)">4. Alpha and Beta</span>
-  <a class="toc-link" href="#p10">10. Getting Every Email Delivered</a>
-  <a class="toc-link" href="#p11">11. Knowing The Moment It Breaks</a>
-  <a class="toc-link" href="#p12">12. Making The Daily Run Dependable</a>
-  <a class="toc-link" href="#p13">13. Keeping It Fast As Data Grew</a>
-  <a class="toc-link" href="#p14">14. Building With AI Tools</a>
-  <a class="toc-link" href="#p15">15. Scrapers That Fix Themselves</a>
-  <a class="toc-link" href="#p16">16. Stopping Bad Data At The Source</a>
-  <a class="toc-link" href="#p17">17. Dropping The Fragile Browser</a>
-  <a class="toc-link" href="#p18">18. A Recovery System, Not A Patch</a>
-  <a class="toc-link" href="#p19">19. Less Noise, Tighter Security</a>
-
-  <span class="toc-group" style="border-color:var(--sp5)">5. Productionizing and Scale</span>
-  <a class="toc-link" href="#p20">20. A Team Of AI Helpers</a>
-  <a class="toc-link" href="#p21">21. Catching The Silent Zeros</a>
-  <a class="toc-link" href="#p22">22. Growing The Catalog The Right Way</a>
-  <a class="toc-link" href="#p23">23. A Job-First Feed</a>
-  <a class="toc-link" href="#p24">24. The Data Becomes Content</a>
-  <a class="toc-link" href="#p25">25. The Auth Incident</a>
-  <a class="toc-link" href="#p26">26. Letting The System Decide</a>
-
-  <span class="toc-group" style="border-color:var(--sp6)">6. Growth and New Features</span>
-  <a class="toc-link" href="#p27">27. A Planned Next Step</a>
-  <a class="toc-link" href="#p28">28. The Weekly Post Writes Itself</a>
-  <a class="toc-link" href="#p29">29. Audit Before Expansion</a>
-  <a class="toc-link" href="#p30">30. Doubling The Catalog</a>
-  <a class="toc-link" href="#p31">31. The Night It Died Silently</a>
-  <a class="toc-link" href="#p32">32. Seeing The Funnel</a>
-  <a class="toc-link" href="#p33">33. Three Models Review Everything</a>
-
-  <a href="#concepts" style="margin-top:1.2em">Concepts learned</a>
+  <h2>Chapters</h2>
+  <a class="toc-chapter" data-ch="ch0" href="#ch0">Overview</a>
+  <a class="toc-chapter" data-ch="ch1" href="#ch1">1. Concept</a>
+  <a class="toc-chapter" data-ch="ch2" href="#ch2">2. Setting the Foundation</a>
+  <a class="toc-chapter" data-ch="ch3" href="#ch3">3. Building the MVP</a>
+  <a class="toc-chapter" data-ch="ch4" href="#ch4">4. Alpha and Beta</a>
+  <a class="toc-chapter" data-ch="ch5" href="#ch5">5. Productionizing and Scale</a>
+  <a class="toc-chapter" data-ch="ch6" href="#ch6">6. Growth and New Features</a>
 </nav>
 
+<!-- compact sticky chapter selector for narrow screens -->
+<div class="chapter-tabs" aria-label="Chapter selector">
+  <div class="chapter-tabs-track">
+    <button type="button" data-ch="ch0">Overview</button>
+    <button type="button" data-ch="ch1">1. Concept</button>
+    <button type="button" data-ch="ch2">2. Setting the Foundation</button>
+    <button type="button" data-ch="ch3">3. Building the MVP</button>
+    <button type="button" data-ch="ch4">4. Alpha and Beta</button>
+    <button type="button" data-ch="ch5">5. Productionizing and Scale</button>
+    <button type="button" data-ch="ch6">6. Growth and New Features</button>
+  </div>
+</div>
+
 <main class="wrap">
+
+<section class="chapter active" id="ch0">
 
 <h1>NewPMJobs Product Journey</h1>
 <p class="subtitle">A personal localhost project became a production multi-user site, built entirely with Claude Code and a dozen other AI tools. Every change here was a deliberate product decision, and every decision taught me something.</p>
@@ -270,139 +308,157 @@ code { background: var(--soft); padding: .12em .4em; border-radius: 5px; font-si
 <h3 id="architecture">How it all fits together</h3>
 <p>Before the phase-by-phase story, here is the whole thing in one breath. Every morning a scheduled job scrapes each company's careers source, a backend cleans and stores what comes back, a web app and a daily email put it in front of users, and monitoring watches every layer. The rest of this document is how each of those pieces got built, one decision at a time.</p>
 <a href="images/architecture-reactflow.png" target="_blank" rel="noopener" title="Click to enlarge"><img src="images/architecture-reactflow.png" alt="System architecture (click to enlarge)" style="max-width:100%;width:100%;height:auto;display:block;margin:1.4em auto;border:1px solid #e7e9f2;border-radius:12px;cursor:zoom-in;"></a>
-<p class="screens-note" style="text-align:center;font-size:.9rem;color:#5b5f73;">Click to open a zoomed-in version.</p>
+<p class="screens-note" style="text-align:center;font-size:.9rem;color:#5b5f73;">How it all works</p>
 
 <h3 id="the-product">The Product</h3>
 <a href="images/product-home.png" target="_blank" rel="noopener" title="Click to enlarge"><img src="images/product-home.png" alt="The NewPMJobs homepage (click to enlarge)" style="max-width:100%;width:100%;height:auto;display:block;margin:1em auto;border:1px solid #e7e9f2;border-radius:12px;cursor:zoom-in;"></a>
-<p class="screens-note" style="text-align:center;font-size:.9rem;color:#5b5f73;">The live product: pick the companies you want, get the new PM roles by email.</p>
+<p class="screens-note" style="text-align:center;font-size:.9rem;color:#5b5f73;">The home page</p>
 <a href="images/product-dashboard.png" target="_blank" rel="noopener" title="Click to enlarge"><img src="images/product-dashboard.png" alt="The tracked-companies dashboard (click to enlarge)" style="max-width:100%;width:100%;height:auto;display:block;margin:1.4em auto;border:1px solid #e7e9f2;border-radius:12px;cursor:zoom-in;"></a>
-<p class="screens-note" style="text-align:center;font-size:.9rem;color:#5b5f73;">The dashboard: every company you track, with a live count of open roles.</p>
+<p class="screens-note" style="text-align:center;font-size:.9rem;color:#5b5f73;">The dashboard</p>
 <div style="margin:1.4em auto;padding:16px 22px;border:1px dashed #f59e0b;border-radius:12px;background:#fffbeb;text-align:center;font-size:1rem;">
 <strong style="color:#b45309;">Coming soon:</strong> live interview practice, a voice mock you can run anytime.
 </div>
 
-<!-- ============ TOP INDEX BY SUPER-PHASE ============ -->
-<h2 id="index">Jump to a phase</h2>
-<div class="spindex">
+<!-- ============ JOURNEY AT A GLANCE: grouped by stage ============ -->
+<h2 id="index">The journey at a glance</h2>
+<p class="skim-note">All 33 phases, grouped into the same 6 stages as above. Tap any stage to fold it. Tap a phase to jump to the full story.</p>
+<div class="sum">
 
-<div class="spindex-group idx-c1">
-<h3>1. Concept</h3>
-<ol start="1">
-<li><a href="#p1">The Localhost MVP</a></li>
-</ol>
+<details class="sum-stage sum-c1" open>
+<summary><span class="sum-kicker">Stage 1</span><span class="sum-name">Concept</span><span class="sum-count">1 phase</span><span class="sum-chev">&#8250;</span></summary>
+<p class="sum-desc">One annoying chore: 30 minutes every morning checking career pages by hand. So I wrote the smallest script that could kill it.</p>
+<div class="sum-grid">
+  <div class="sum-row"><div class="sum-num">1</div><div><div class="pn"><a href="#p1">The Localhost MVP</a></div><div class="pg">Stop checking career pages by hand every morning.</div></div></div>
 </div>
+</details>
 
-<div class="spindex-group idx-c2">
-<h3>2. Setting the Foundation</h3>
-<ol start="2">
-<li><a href="#p2">Going Live</a></li>
-<li><a href="#p3">Covering The Companies I Actually Care About</a></li>
-<li><a href="#p4">Turning It Into A Real Product Other People Can Use</a></li>
-</ol>
+<details class="sum-stage sum-c2" open>
+<summary><span class="sum-kicker">Stage 2</span><span class="sum-name">Setting the Foundation</span><span class="sum-count">3 phases</span><span class="sum-chev">&#8250;</span></summary>
+<p class="sum-desc">Get the tool off my laptop, onto the open web and covering the companies people actually job-hunt for.</p>
+<div class="sum-grid">
+  <div class="sum-row"><div class="sum-num">2</div><div><div class="pn"><a href="#p2">Going Live</a></div><div class="pg">Get it off my laptop and onto the open web.</div></div></div>
+  <div class="sum-row"><div class="sum-num">3</div><div><div class="pn"><a href="#p3">Covering The Companies I Care About</a></div><div class="pg">Go past Greenhouse to the companies people actually want.</div></div></div>
+  <div class="sum-row"><div class="sum-num">4</div><div><div class="pn"><a href="#p4">Turning It Into A Real Product</a></div><div class="pg">Let other people use it, not just me.</div></div></div>
 </div>
+</details>
 
-<div class="spindex-group idx-c3">
-<h3>3. Building the MVP</h3>
-<ol start="5">
-<li><a href="#p5">A Safe Way To Add A Company</a></li>
-<li><a href="#p6">Showing What These Roles Actually Pay</a></li>
-<li><a href="#p7">The Landing Page</a></li>
-<li><a href="#p8">Making It Load Fast</a></li>
-<li><a href="#p9">Getting Safe For Real Users</a></li>
-</ol>
+<details class="sum-stage sum-c3" open>
+<summary><span class="sum-kicker">Stage 3</span><span class="sum-name">Building the MVP</span><span class="sum-count">5 phases</span><span class="sum-chev">&#8250;</span></summary>
+<p class="sum-desc">The product takes shape. A safe way to add a company, salary data, a real landing page, a page that loads fast and a security pass before any stranger could touch it.</p>
+<div class="sum-grid">
+  <div class="sum-row"><div class="sum-num">5</div><div><div class="pn"><a href="#p5">A Safe Way To Add A Company</a></div><div class="pg">No garbage results when a user adds a company.</div></div></div>
+  <div class="sum-row"><div class="sum-num">6</div><div><div class="pn"><a href="#p6">Showing What Roles Pay</a></div><div class="pg">Put real salary data next to every role.</div></div></div>
+  <div class="sum-row"><div class="sum-num">7</div><div><div class="pn"><a href="#p7">The Landing Page</a></div><div class="pg">Explain the product to a stranger in one screen.</div></div></div>
+  <div class="sum-row"><div class="sum-num">8</div><div><div class="pn"><a href="#p8">Making It Load Fast</a></div><div class="pg">A first visit that loads fast, not in five seconds.</div></div></div>
+  <div class="sum-row"><div class="sum-num">9</div><div><div class="pn"><a href="#p9">Getting Safe For Real Users</a></div><div class="pg">Lock it down before anyone but me touches it.</div></div></div>
 </div>
+</details>
 
-<div class="spindex-group idx-c4">
-<h3>4. Alpha and Beta: Hardening With Real Users</h3>
-<ol start="10">
-<li><a href="#p10">Getting Every Email Delivered</a></li>
-<li><a href="#p11">Knowing The Moment Something Breaks</a></li>
-<li><a href="#p12">Making The Daily Run Dependable</a></li>
-<li><a href="#p13">Keeping It Fast As The Data Grew</a></li>
-<li><a href="#p14">Building With AI Tools</a></li>
-<li><a href="#p15">Scrapers That Fix Themselves</a></li>
-<li><a href="#p16">Stopping Bad Data At The Source</a></li>
-<li><a href="#p17">Dropping The Fragile Browser</a></li>
-<li><a href="#p18">A Recovery System, Not A One-Off Patch</a></li>
-<li><a href="#p19">Less Noise, Tighter Security</a></li>
-</ol>
+<details class="sum-stage sum-c4" open>
+<summary><span class="sum-kicker">Stage 4</span><span class="sum-name">Alpha and Beta</span><span class="sum-count">10 phases</span><span class="sum-chev">&#8250;</span></summary>
+<p class="sum-desc">Real users meant real failures. The loud ones I fixed in an hour. Most of this stretch is about the quiet ones, the failures that look exactly like everything working.</p>
+<div class="sum-grid">
+  <div class="sum-row"><div class="sum-num">10</div><div><div class="pn"><a href="#p10">Getting Every Email Delivered</a></div><div class="pg">Send the daily alert without dropping a single one.</div></div></div>
+  <div class="sum-row"><div class="sum-num">11</div><div><div class="pn"><a href="#p11">Knowing The Moment Something Breaks</a></div><div class="pg">Find out before a user tells me.</div></div></div>
+  <div class="sum-row"><div class="sum-num">12</div><div><div class="pn"><a href="#p12">Making The Daily Run Dependable</a></div><div class="pg">The scrape finishes every day with no babysitting.</div></div></div>
+  <div class="sum-row"><div class="sum-num">13</div><div><div class="pn"><a href="#p13">Keeping It Fast As Data Grew</a></div><div class="pg">Stay fast as companies, jobs and users pile up.</div></div></div>
+  <div class="sum-row"><div class="sum-num">14</div><div><div class="pn"><a href="#p14">Building With AI Tools</a></div><div class="pg">What the AI did well, and where I had to steer.</div></div></div>
+  <div class="sum-row"><div class="sum-num">15</div><div><div class="pn"><a href="#p15">Scrapers That Fix Themselves</a></div><div class="pg">A broken scraper should not stay invisible.</div></div></div>
+  <div class="sum-row"><div class="sum-num">16</div><div><div class="pn"><a href="#p16">Stopping Bad Data At The Source</a></div><div class="pg">Catch bad data before it reaches a user.</div></div></div>
+  <div class="sum-row"><div class="sum-num">17</div><div><div class="pn"><a href="#p17">Dropping The Fragile Browser</a></div><div class="pg">Trade the headless browser for clean data feeds.</div></div></div>
+  <div class="sum-row"><div class="sum-num">18</div><div><div class="pn"><a href="#p18">A Recovery System, Not A Patch</a></div><div class="pg">Handle dead APIs and platform moves on its own.</div></div></div>
+  <div class="sum-row"><div class="sum-num">19</div><div><div class="pn"><a href="#p19">Less Noise, Tighter Security</a></div><div class="pg">Trust the self-healing, and audit security weekly.</div></div></div>
 </div>
+</details>
 
-<div class="spindex-group idx-c5">
-<h3>5. Productionizing and Scale</h3>
-<ol start="20">
-<li><a href="#p20">A Team Of Specialized AI Helpers</a></li>
-<li><a href="#p21">Catching The Silent Zeros</a></li>
-<li><a href="#p22">Growing The Catalog The Right Way</a></li>
-<li><a href="#p23">A Job-First Feed</a></li>
-<li><a href="#p24">Turning The Data Into Content</a></li>
-<li><a href="#p25">The Auth Incident</a></li>
-<li><a href="#p26">Letting The System Decide For Itself</a></li>
-</ol>
+<details class="sum-stage sum-c5" open>
+<summary><span class="sum-kicker">Stage 5</span><span class="sum-name">Productionizing and Scale</span><span class="sum-count">7 phases</span><span class="sum-chev">&#8250;</span></summary>
+<p class="sum-desc">A working app is not an operation yet. This is where it grew up: a team of AI helpers, a deploy gate so no bad change reaches users, a bigger catalog and a feed built for someone actually hunting.</p>
+<div class="sum-grid">
+  <div class="sum-row"><div class="sum-num">20</div><div><div class="pn"><a href="#p20">A Team Of Specialized AI Helpers</a></div><div class="pg">One AI becomes a roster of focused agents.</div></div></div>
+  <div class="sum-row"><div class="sum-num">21</div><div><div class="pn"><a href="#p21">Catching The Silent Zeros</a></div><div class="pg">Kill the failure that looks exactly like success.</div></div></div>
+  <div class="sum-row"><div class="sum-num">22</div><div><div class="pn"><a href="#p22">Growing The Catalog The Right Way</a></div><div class="pg">Scale toward 1000 companies people actually chase.</div></div></div>
+  <div class="sum-row"><div class="sum-num">23</div><div><div class="pn"><a href="#p23">A Job-First Feed</a></div><div class="pg">A feed a real job-hunter would actually browse.</div></div></div>
+  <div class="sum-row"><div class="sum-num">24</div><div><div class="pn"><a href="#p24">Turning Data Into Content</a></div><div class="pg">Let the data write a weekly post.</div></div></div>
+  <div class="sum-row"><div class="sum-num">25</div><div><div class="pn"><a href="#p25">The Auth Incident</a></div><div class="pg">A login outage, a deep cookie bug, the fix.</div></div></div>
+  <div class="sum-row"><div class="sum-num">26</div><div><div class="pn"><a href="#p26">Letting The System Decide</a></div><div class="pg">Stop confirming what it could decide itself.</div></div></div>
 </div>
+</details>
 
-<div class="spindex-group idx-c6">
-<h3>6. Growth and New Features</h3>
-<ol start="27">
-<li><a href="#p27">A Planned Next Step</a></li>
-<li><a href="#p28">The Weekly Post Writes Itself</a></li>
-<li><a href="#p29">Auditing The Whole System Before A Major Expansion</a></li>
-<li><a href="#p30">Doubling The Catalog</a></li>
-<li><a href="#p31">The Night It Died Silently</a></li>
-<li><a href="#p32">Seeing The Funnel</a></li>
-<li><a href="#p33">Three Models Review Every Change</a></li>
-</ol>
+<details class="sum-stage sum-c6" open>
+<summary><span class="sum-kicker">Stage 6</span><span class="sum-name">Growth and New Features</span><span class="sum-count">7 phases</span><span class="sum-chev">&#8250;</span></summary>
+<p class="sum-desc">Now the product starts compounding. The data becomes content, the catalog doubles, and I finally measure everything honestly. Including my own wins, which turned out smaller than I claimed.</p>
+<div class="sum-grid">
+  <div class="sum-row"><div class="sum-num">27</div><div><div class="pn"><a href="#p27">A Planned Next Step</a></div><div class="pg">Interview practice, the natural next thing for the same people.</div></div></div>
+  <div class="sum-row"><div class="sum-num">28</div><div><div class="pn"><a href="#p28">The Weekly Post Writes Itself</a></div><div class="pg">In my voice, no more hand-writing the lead.</div></div></div>
+  <div class="sum-row"><div class="sum-num">29</div><div><div class="pn"><a href="#p29">Auditing The Whole System</a></div><div class="pg">Make the foundation sound before a big expansion.</div></div></div>
+  <div class="sum-row"><div class="sum-num">30</div><div><div class="pn"><a href="#p30">Doubling The Catalog</a></div><div class="pg">A real database, and Add that actually shows jobs.</div></div></div>
+  <div class="sum-row"><div class="sum-num">31</div><div><div class="pn"><a href="#p31">The Night The Daily Job Died</a></div><div class="pg">Make a silent failure impossible.</div></div></div>
+  <div class="sum-row"><div class="sum-num">32</div><div><div class="pn"><a href="#p32">Seeing The Funnel</a></div><div class="pg">Stop guessing and watch where people drop off.</div></div></div>
+  <div class="sum-row"><div class="sum-num">33</div><div><div class="pn"><a href="#p33">Three Models Review Every Change</a></div><div class="pg">The AI is no longer the only thing checking the AI.</div></div></div>
 </div>
+</details>
 
-</div>
-
-<p class="skim-note">Want the deeper skim? The 2-minute version below covers every phase with its problem, solution and the key lesson.</p>
-<div class="tablewrap">
-<table>
-<thead>
-<tr><th>Phase</th><th>Problem</th><th>Solution</th><th>Key Learning</th></tr>
-</thead>
-<tbody>
-<tr><td>1. The Localhost MVP</td><td>Spending 30+ min/day manually checking career pages</td><td>Express + Puppeteer script that scrapes Greenhouse and emails me</td><td>Build the smallest thing that works first. I found that Greenhouse has a free public data feed, so I didn't need to fake-browse their website at all.</td></tr>
-<tr><td>2. Going Live</td><td>Tool only worked on my laptop</td><td>Deployed backend to Railway, frontend to Vercel, daily cron for automated scrapes</td><td>When your frontend and backend live on different domains, browsers block the connection by default. Also, don't let your CDN and your hosting provider both try to manage security certificates.</td></tr>
-<tr><td>3. Covering The Companies I Care About</td><td>Only covered Greenhouse companies</td><td>Built 7 scraper types with a 7-layer auto-detection engine</td><td>If a company's job board has a structured data feed, use that instead of loading the page in a browser. It is 100x faster and way more reliable. Every job board platform has its own weird edge cases.</td></tr>
-<tr><td>4. Turning It Into A Real Product</td><td>Only I could use it</td><td>Magic link auth, shared company catalog, per-user subscriptions, admin dashboard, rate limiting</td><td>My database had two keys: one for regular users, one for admin access. Using the wrong one made every query silently return nothing. Also, login links sent by email do not work if you open them on a different device than where you requested them.</td></tr>
-<tr><td>5. A Safe Way To Add A Company</td><td>Users could add a company and get garbage results</td><td>4-state preview flow: input, checking, preview, confirm/retry. Nothing saved until user confirms.</td><td>What happens when things go wrong matters more than what happens when things go right. Also, matching companies by URL is way more reliable than matching by name ("OpenAI" vs "Open ai").</td></tr>
-<tr><td>6. Showing What Roles Pay</td><td>Job listings never show salary</td><td>Three-tier cache (memory 0ms, DB 50ms, live 1-3s) for levels.fyi data, lazy-loaded on frontend</td><td>Fetch salary data in the background the moment a company is added. By the time the user wants it, it is already there. If a data source is down, remember that it is down for 5 minutes so you do not keep asking.</td></tr>
-<tr><td>7. The Landing Page</td><td>Strangers saw a login page with zero context</td><td>10-section marketing page rendered as a fixed overlay, zero changes to existing app shell</td><td>Instead of restructuring the whole app to handle logged-out visitors, I layered the landing page on top of the existing app. Zero risk of breaking what already worked.</td></tr>
-<tr><td>8. Making It Load Fast</td><td>Desktop Lighthouse was 49 after building the landing page</td><td>Code-split above/below fold, pre-computed brand colors, deferred analytics init</td><td>Page speed score went from 49 to 100 with three changes: only load what is visible first, do not recalculate things that never change and do not load analytics until the page is already showing. Always measure before guessing what is slow.</td></tr>
-<tr><td>9. Getting Safe For Real Users</td><td>App was not safe for real users</td><td>CSP headers, open redirect fix, XSS escaping, SSRF protection, PII scrubbed from logs, DNS security</td><td>Security problems exist from day one; you just do not notice them until other people use your app. The scariest one: someone could submit a fake "careers URL" that tricks your server into fetching private internal data.</td></tr>
-<tr><td>10. Getting Every Email Delivered</td><td>Alert emails hitting rate limits, some users missing alerts</td><td>Batch sending (100/call), admin failure notifications, custom email domain</td><td>Even with just a few users, sending emails one at a time hit the provider's speed limit. Sending them in batches of 100 fixed it. Also, login emails and alert emails share the same daily quota, which I did not realize at first.</td></tr>
-<tr><td>11. Knowing The Moment Something Breaks</td><td>Errors were invisible unless I manually checked logs</td><td>Error tracking on frontend + backend (18 catch blocks), product analytics with hashed user IDs</td><td>Never send real email addresses to analytics tools. Scramble them first. And error tracking only works if you add it to every single place something can fail, not just the obvious ones.</td></tr>
-<tr><td>12. Making The Daily Run Dependable</td><td>Daily scrape sometimes did not finish</td><td>Await-based cron endpoint, overlap guard, 120s Puppeteer timeout, single-source scheduling</td><td>My hosting provider puts the server to sleep when it is idle. If the daily job says "start scraping" and immediately hangs up, the server falls asleep mid-scrape. It has to stay on the line until the work is done.</td></tr>
-<tr><td>13. Keeping It Fast As The Data Grew</td><td>Queries slowing as data grew</td><td>Targeted indexes based on actual query patterns, parallel query execution, local JWT verification (0ms vs 150ms)</td><td>Database indexes are like a book's index: add them for the questions you actually ask, not every possible question. Also, verifying login tokens locally instead of calling an external service cut 150ms off every single request.</td></tr>
-<tr><td>14. Building With AI Tools</td><td>Building a full-stack SaaS as a PM, not an engineer</td><td>Used Claude Code for implementation, maintained a persistent context file, steered all product/architecture decisions</td><td>AI wrote the code, but I made every product decision. The key skill is keeping a detailed context file so the AI remembers your architecture across sessions. Without it, you re-explain everything constantly.</td></tr>
-<tr><td>15. Scrapers That Fix Themselves</td><td>Companies change job platforms without warning, breaking the scraper silently</td><td>Auto-remediation detects platform migrations and re-scrapes, two-tier admin email shows what was fixed vs what needs attention</td><td>The hardest bugs to find are the ones that look like "working correctly." Zero PM jobs from a company could mean "they are not hiring PMs" or "the scraper is broken." Distinguishing them requires knowing that scrapers pre-filter internally, so an empty result is ambiguous.</td></tr>
-<tr><td>16. Stopping Bad Data At The Source</td><td>Microsoft showed 157 jobs including India, daily email had no quality checks</td><td>Backend location filtering (US only), daily eval email with per-company scorecard</td><td>Filtering in the UI is not filtering. If the backend stores and emails unfiltered data, the "filter" is just hiding the problem from some users while showing it to others. Always apply data quality rules at the source.</td></tr>
-<tr><td>17. Dropping The Fragile Browser</td><td>10 companies broke overnight, catalog was only 55 companies</td><td>Researched ATS for every company, built 5 new scraper types, expanded catalog to 126 (118 API-based), ran full security audit</td><td>When a dependency breaks, the fix is not to patch the dependency. It is to ask whether you need it at all. Also: npm version ranges in Docker builds are a time bomb. Pin exact versions.</td></tr>
-<tr><td>18. A Recovery System, Not A One-Off Patch</td><td>A company quietly deleted their public job board; one company breaks per month and I have to investigate each time</td><td>Three-tier auto-recovery, auto-disable after 7 failures, Monday probe re-enables companies that come back online</td><td>The right fix for "this one company broke" is usually "build the recovery system that catches the next ten." Some sources cannot be saved, but the architecture that handles them gracefully also handles every silent migration that has not happened yet.</td></tr>
-<tr><td>19. Less Noise, Tighter Security</td><td>Self-healing system sent 3 admin emails a day, mostly success notices; docs had quietly drifted from the code</td><td>Consolidated 3 emails into 1 attention-only digest. Ran 3 parallel security audits, shipped 11 fixes including a cookie-security mismatch, a cross-user data exposure and a published rate-limiter CVE. Added a weekly npm-audit check.</td><td>A system that emails you about every success trains you to ignore the channel by the time something actually needs attention. Also, your own documentation drifts from the code during refactors, which is the whole reason audits exist.</td></tr>
-<tr><td>20. A Team Of Specialized AI Helpers</td><td>Every task started with no context, and one careless change could hit production</td><td>Built 13 reusable AI helpers that already know the project, and made every change go through a review step with a preview before it can go live</td><td>Specialized helpers are worth it because each gives a predictable result you can check in seconds; most off-the-shelf ones need heavy trimming to fit a one-person project.</td></tr>
-<tr><td>21. Catching The Silent Zeros</td><td>About 90 companies showed zero jobs, and I could not tell if they were not hiring or the scraper had quietly broken</td><td>Made the system flag every unexplained zero for me to confirm, and built or fixed scrapers for Apple, Shopify, eBay and others</td><td>The dangerous bug is the one that looks like success, so a silent zero had to become something I would actually see. And published references go stale, so I always re-check against the live site.</td></tr>
-<tr><td>22. Growing The Catalog The Right Way</td><td>The catalog had stalled around 216 mostly-tech companies and I wanted it to feel like a real database</td><td>Tried finding companies in bulk (turned up 1,352, but all names nobody recognizes), dropped it and hand-added 29 recognizable banks, biotechs and consultancies instead</td><td>Growing in the wrong direction is worse than not growing. And a scraper that runs is not the same as one that returns useful jobs, so I check each against real results before counting it.</td></tr>
-<tr><td>23. A Job-First Feed</td><td>The dashboard did not scale, the daily email was getting noisy, and then I stopped getting my own email</td><td>Built a feed that lists jobs across all companies with filters, cleaned up the email noise and traced the missing email to a default that quietly stopped processing users once we passed 50</td><td>Default settings are silent traps: everything worked until we crossed an invisible line. And when someone else sends your email for you, ask them what happened instead of guessing.</td></tr>
-<tr><td>24. Turning The Data Into Content</td><td>The interesting trends in my data were invisible to anyone outside the product</td><td>Turned the data into a ready-to-post weekly LinkedIn summary that sends itself every Friday</td><td>Your own data is an edge when you lead with angles nobody else can see. And getting AI to write in your voice takes real guardrails, not a polite request.</td></tr>
-<tr><td>25. The Auth Incident</td><td>A change to the login emails broke the sign-in links, and a batch of users were locked out for two days before I caught it</td><td>Fixed the email templates and a second bug that was dropping people's logins, got the stuck users back in and added automatic checks so it cannot break silently again</td><td>A tiny visual change broke something critical, so I made the system catch that on its own instead of relying on me to remember.</td></tr>
-<tr><td>26. Letting The System Decide For Itself</td><td>The system kept emailing me to confirm things it already had enough information to decide on its own</td><td>Replaced a flaky alert with a simple one, and replaced the daily "please confirm these companies" email with rules that decide automatically and undo themselves if they are wrong</td><td>I could be aggressive here because this setting only affects my own admin email, never whether users get jobs. Know what a change can reach before you trust it to run itself.</td></tr>
-<tr><td>27. A Planned Next Step</td><td>Finding a role is only half of what this audience needs</td><td>Looking ahead, an AI interview-practice feature is planned as a natural next step for the same audience</td><td>Plan the next bet around the people you already serve; the rest of this journey stays focused on the job-discovery product itself.</td></tr>
-<tr><td>28. The Weekly Post Writes Itself</td><td>The digest led with the same hardcoded headline every Friday, and it turned out not even to be true</td><td>Made the lead rotate across honest weekly angles, written by AI in my voice with a matching banner image, emailed to me to approve</td><td>My own data can look like insight when it is really an artifact of how I built the pipeline, so I check the headline is real before publishing.</td></tr>
-<tr><td>29. Auditing The Whole System Before A Major Expansion</td><td>About to expand the system significantly, I wanted the foundation sound, and the audit kept finding failures that stay silent</td><td>Audited scrapers, security, login, cross-user access and speed; swept out queries that quietly returned partial results, locked down two publicly-readable tables and rebuilt the daily email in layers so a drop cannot hide</td><td>The most dangerous failures are the quiet ones: a loud one gets fixed in an hour, a silent one runs for months looking fine. Put a different alarm at each layer.</td></tr>
-<tr><td>30. Doubling The Catalog</td><td>The catalog had stalled, adding a company showed nothing until the next day, and a few big employers showed nothing at all</td><td>Grew the catalog from 247 to 519 off a public company-ranking list, added an "add a whole category" flow, decoupled scraping from the daily email and shipped a licensed-data restore for the employers we cannot scrape</td><td>A catalog you can add to is worthless if adding does not show results. The real blocker was not a missing feature, it was an old assumption that scraping and emailing always happen together.</td></tr>
-<tr><td>31. The Night It Died Silently</td><td>The daily run died partway through because I shipped a change that restarted the server mid-run, no email went out, and nothing told me</td><td>Built a watchdog that runs outside the app and emails me if the run did not finish, plus a start-heartbeat, a deploy-kill alert, a resumable run, a no-deploys window and a monthly probe that proves the alarms still work</td><td>You have to monitor the monitors. The fix for a silent failure is a witness standing outside the thing that failed, not another check inside it.</td></tr>
-<tr><td>32. Seeing The Funnel</td><td>I was running the product on gut: no real view of where signups drop off, whether the daily email gets opened or which jobs get clicked</td><td>Built a funnel dashboard from data I was already collecting, and a signed click-redirect for every job link in the daily email since open-tracking is dead. Added the project's first test suite.</td><td>Measuring flips your assumptions. The leak was activation, not signups: about 40% of people who sign up never track a single company. Email opens are unmeasurable now, which makes clicks the only honest signal. And measuring my own "fixes" showed they recovered about 10 jobs, not the hundreds the tickets claimed.</td></tr>
-<tr><td>33. Three Models Review Every Change</td><td>The only check on the AI building the product was that same AI re-reading its own diff, which shares all its own blind spots</td><td>Every pull request now gets reviewed independently and in parallel by three different AI models from three companies, with a running log of what each one caught that the others missed</td><td>The cheapest way to catch your own blind spots is to ask something that does not share them: diversity of reviewer beats effort of reviewer. The first thing the panel reviewed was itself, and a second model caught two silent bugs that three earlier passes had walked right past.</td></tr>
-</tbody>
-</table>
 </div>
 
 <hr>
 
+<!-- ============ CONCEPTS (rewritten for a PM reader) ============ -->
+<h2 id="concepts">Summary of Concepts Learned</h2>
+<p>Every technical idea this project taught me, and the exact phase where I learned it the hard way.</p>
+<div class="tablewrap">
+<table>
+<thead><tr><th>Concept</th><th>Where I learned it</th></tr></thead>
+<tbody>
+<tr><td>Scraping: API-first (structured data feeds) instead of browser HTML parsing</td><td>Phase 3: Covering The Companies I Care About</td></tr>
+<tr><td>Scraping: layered platform auto-detection across multiple ATS systems (Greenhouse, Lever, Ashby, Workday), degrading to a headless browser only as a last resort</td><td>Phase 3: Covering The Companies I Care About</td></tr>
+<tr><td>Architecture: shared catalog with per-user subscriptions, so cost scales with companies not users</td><td>Phase 4: Turning It Into A Real Product</td></tr>
+<tr><td>Auth: passwordless magic-link login, and the cross-device link problem</td><td>Phase 4: Turning It Into A Real Product</td></tr>
+<tr><td>Database: service-role vs. anon key, and how Row Level Security silently returns empty results</td><td>Phase 4: Turning It Into A Real Product</td></tr>
+<tr><td>UX: preview-before-commit state machine, with URL-based deduplication instead of name matching</td><td>Phase 5: A Safe Way To Add A Company</td></tr>
+<tr><td>Caching: in-memory, database and live-source tiers with background prefetch and negative caching</td><td>Phase 6: Showing What Roles Pay</td></tr>
+<tr><td>Frontend: overlay rendering to add a logged-out landing page with zero refactor of the app shell</td><td>Phase 7: The Landing Page</td></tr>
+<tr><td>Performance: code-splitting above/below the fold, precomputation and deferring analytics off first paint (Lighthouse 49 to 100)</td><td>Phase 8: Making It Load Fast</td></tr>
+<tr><td>Security: protecting against cross-site scripting (XSS), SSRF and open redirects, plus CSP and HSTS headers</td><td>Phase 9: Getting Safe For Real Users</td></tr>
+<tr><td>Email: batch sending to stay under provider rate limits, plus DMARC, DKIM and SPF deliverability records</td><td>Phase 10: Getting Every Email Delivered</td></tr>
+<tr><td>Observability: error tracking and session replay across frontend and backend catch blocks</td><td>Phase 11: Knowing The Moment Something Breaks</td></tr>
+<tr><td>Privacy: hashing personal data before it reaches analytics</td><td>Phase 11: Knowing The Moment Something Breaks</td></tr>
+<tr><td>Reliability: await-based cron with an overlap guard and timeouts, surviving idle-sleep hosting</td><td>Phase 12: Making The Daily Run Dependable</td></tr>
+<tr><td>Database: indexing on real query patterns, plus running independent queries in parallel</td><td>Phase 13: Keeping It Fast As The Data Grew</td></tr>
+<tr><td>AI-assisted development: directing the build while maintaining a persistent project context file</td><td>Phase 14: Building With AI Tools</td></tr>
+<tr><td>Reliability: self-healing scrapers that re-run platform detection to disambiguate a silent zero, with attention-only alerting to avoid alert fatigue</td><td>Phase 15: Scrapers That Fix Themselves</td></tr>
+<tr><td>Data quality: filtering at the validation layer at ingestion, not in the UI</td><td>Phase 16: Stopping Bad Data At The Source</td></tr>
+<tr><td>Dependencies: pinning exact versions (no Docker :latest) to stop silent breaking upgrades</td><td>Phase 17: Dropping The Fragile Browser</td></tr>
+<tr><td>Reliability: tiered auto-recovery with auto-disable after repeated failures and a weekly re-enable probe</td><td>Phase 18: A Recovery System, Not A Patch</td></tr>
+<tr><td>Security: parallel specialized audits (auth, data isolation, infrastructure) plus weekly dependency scanning</td><td>Phase 19: Less Noise, Tighter Security</td></tr>
+<tr><td>Tooling: specialized AI subagents with predictable output contracts, and PR-gated deploys with preview environments</td><td>Phase 20: A Team Of AI Helpers</td></tr>
+<tr><td>Reliability: verification columns that redefine success as proof-of-life, not just a non-crash</td><td>Phase 21: Catching The Silent Zeros</td></tr>
+<tr><td>Data sourcing: Common Crawl harvesting, then hand-picking for audience fit over raw row count</td><td>Phase 22: Growing The Catalog The Right Way</td></tr>
+<tr><td>SDK gotchas: explicit pagination instead of a default page size that silently caps results</td><td>Phase 23: A Job-First Feed</td></tr>
+<tr><td>Content automation: LLM-generated weekly post in-voice, gated inside the daily cron by day of week</td><td>Phase 24: The Data Becomes Content</td></tr>
+<tr><td>Auth: token-hash magic-link templates, and fixing a session cookie dropped across a redirect</td><td>Phase 25: The Auth Incident</td></tr>
+<tr><td>Defense-in-depth: independent CI checks, funnel analytics and a daily code audit as overlapping layers</td><td>Phase 25: The Auth Incident</td></tr>
+<tr><td>Alerting: a flat volume floor instead of a cross-window ratio that misfires on low traffic</td><td>Phase 26: Letting The System Decide</td></tr>
+<tr><td>Email reliability: layered safeguards at source, pre-send, post-send and against a historical baseline</td><td>Phase 29: Audit Before Expansion</td></tr>
+<tr><td>Security: revoking default public grants so a new database table is not anon-readable</td><td>Phase 29: Audit Before Expansion</td></tr>
+<tr><td>Architecture: decoupling scraping from emailing, with an on-demand background scrape on subscribe</td><td>Phase 30: Doubling The Catalog</td></tr>
+<tr><td>Reliability: out-of-band watchdogs (start heartbeat, resumable run) that verify the daily job actually ran</td><td>Phase 31: The Night It Died Silently</td></tr>
+<tr><td>Analytics: an AARRR funnel dashboard, and an HMAC-signed click redirect since email open-tracking is dead</td><td>Phase 32: Seeing The Funnel</td></tr>
+<tr><td>Quality: a cross-model eval reviewer running three LLMs in parallel on every pull request, with author validation and diff redaction</td><td>Phase 33: Three Models Review Everything</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="chapter-nav">
+  <button type="button" class="cn-prev" disabled></button>
+  <button type="button" class="cn-next" data-go="ch1"><span class="cn-dir">Next chapter</span>1. Concept</button>
+</div>
+
+</section>
+<!-- /chapter ch0 -->
+
 <!-- ============ SUPER-PHASE 1 ============ -->
+<section class="chapter" id="ch1">
 <div class="superphase">
   <div class="sp-bar" style="background:var(--sp1)"></div>
   <h2>1. Concept</h2>
@@ -437,9 +493,16 @@ Finding Greenhouse's structured feed on day one is the decision the next thirty 
 </div>
 </section>
 
-<hr>
+<div class="chapter-nav">
+  <button type="button" class="cn-prev" data-go="ch0"><span class="cn-dir">Previous</span>Overview</button>
+  <button type="button" class="cn-next" data-go="ch2"><span class="cn-dir">Next chapter</span>2. Setting the Foundation</button>
+</div>
+
+</section>
+<!-- /chapter ch1 -->
 
 <!-- ============ SUPER-PHASE 2 ============ -->
+<section class="chapter" id="ch2">
 <div class="superphase">
   <div class="sp-bar" style="background:var(--sp2)"></div>
   <h2>2. Setting the Foundation</h2>
@@ -555,9 +618,16 @@ This is the hinge of the whole project. It is the moment the tool stopped being 
 </div>
 </section>
 
-<hr>
+<div class="chapter-nav">
+  <button type="button" class="cn-prev" data-go="ch1"><span class="cn-dir">Previous</span>1. Concept</button>
+  <button type="button" class="cn-next" data-go="ch3"><span class="cn-dir">Next chapter</span>3. Building the MVP</button>
+</div>
+
+</section>
+<!-- /chapter ch2 -->
 
 <!-- ============ SUPER-PHASE 3 ============ -->
+<section class="chapter" id="ch3">
 <div class="superphase">
   <div class="sp-bar" style="background:var(--sp3)"></div>
   <h2>3. Building the MVP</h2>
@@ -711,9 +781,16 @@ This is what made "share the link" a safe move instead of a gamble. It also set 
 </div>
 </section>
 
-<hr>
+<div class="chapter-nav">
+  <button type="button" class="cn-prev" data-go="ch2"><span class="cn-dir">Previous</span>2. Setting the Foundation</button>
+  <button type="button" class="cn-next" data-go="ch4"><span class="cn-dir">Next chapter</span>4. Alpha and Beta</button>
+</div>
+
+</section>
+<!-- /chapter ch3 -->
 
 <!-- ============ SUPER-PHASE 4 ============ -->
+<section class="chapter" id="ch4">
 <div class="superphase">
   <div class="sp-bar" style="background:var(--sp4)"></div>
   <h2>4. Alpha and Beta: Hardening With Real Users</h2>
@@ -952,9 +1029,16 @@ This is the first time the system started healing itself instead of paging me, a
 <p><strong>Build the monitoring before you need it.</strong> The weekly dependency audit runs in the same cron, costs nothing, and catches the next unknown CVE months earlier than the next manual audit.</p>
 </section>
 
-<hr>
+<div class="chapter-nav">
+  <button type="button" class="cn-prev" data-go="ch3"><span class="cn-dir">Previous</span>3. Building the MVP</button>
+  <button type="button" class="cn-next" data-go="ch5"><span class="cn-dir">Next chapter</span>5. Productionizing and Scale</button>
+</div>
+
+</section>
+<!-- /chapter ch4 -->
 
 <!-- ============ SUPER-PHASE 5 ============ -->
+<section class="chapter" id="ch5">
 <div class="superphase">
   <div class="sp-bar" style="background:var(--sp5)"></div>
   <h2>5. Productionizing and Scale</h2>
@@ -1195,9 +1279,16 @@ This incident is what turned my auth flow from "tested by hand and hoped" into "
 <p><strong>When the data evolves, the workflow has to evolve with it.</strong> The "unverified zeros" email was right when it shipped, then outlived its information environment by months once the system could tell a proven scraper from an unproven one. Every workflow that asks a human to do something the system could do is unpaid tech debt.</p>
 </section>
 
-<hr>
+<div class="chapter-nav">
+  <button type="button" class="cn-prev" data-go="ch4"><span class="cn-dir">Previous</span>4. Alpha and Beta</button>
+  <button type="button" class="cn-next" data-go="ch6"><span class="cn-dir">Next chapter</span>6. Growth and New Features</button>
+</div>
+
+</section>
+<!-- /chapter ch5 -->
 
 <!-- ============ SUPER-PHASE 6 ============ -->
+<section class="chapter" id="ch6">
 <div class="superphase">
   <div class="sp-bar" style="background:var(--sp6)"></div>
   <h2>6. Growth and New Features</h2>
@@ -1362,56 +1453,91 @@ This closed the loop the entire journey had been circling: for months the thing 
 </div>
 </section>
 
-<hr>
-
-<hr>
-
-<!-- ============ CONCEPTS (rewritten for a PM reader) ============ -->
-<h2 id="concepts">Summary of Concepts Learned</h2>
-<p>Every technical idea this project taught me, and the exact phase where I learned it the hard way.</p>
-<div class="tablewrap">
-<table>
-<thead><tr><th>Concept</th><th>Where I learned it</th></tr></thead>
-<tbody>
-<tr><td>Scraping: API-first (structured data feeds) instead of browser HTML parsing</td><td>Phase 3: Covering The Companies I Care About</td></tr>
-<tr><td>Scraping: layered platform auto-detection across multiple ATS systems (Greenhouse, Lever, Ashby, Workday), degrading to a headless browser only as a last resort</td><td>Phase 3: Covering The Companies I Care About</td></tr>
-<tr><td>Architecture: shared catalog with per-user subscriptions, so cost scales with companies not users</td><td>Phase 4: Turning It Into A Real Product</td></tr>
-<tr><td>Auth: passwordless magic-link login, and the cross-device link problem</td><td>Phase 4: Turning It Into A Real Product</td></tr>
-<tr><td>Database: service-role vs. anon key, and how Row Level Security silently returns empty results</td><td>Phase 4: Turning It Into A Real Product</td></tr>
-<tr><td>UX: preview-before-commit state machine, with URL-based deduplication instead of name matching</td><td>Phase 5: A Safe Way To Add A Company</td></tr>
-<tr><td>Caching: in-memory, database and live-source tiers with background prefetch and negative caching</td><td>Phase 6: Showing What Roles Pay</td></tr>
-<tr><td>Frontend: overlay rendering to add a logged-out landing page with zero refactor of the app shell</td><td>Phase 7: The Landing Page</td></tr>
-<tr><td>Performance: code-splitting above/below the fold, precomputation and deferring analytics off first paint (Lighthouse 49 to 100)</td><td>Phase 8: Making It Load Fast</td></tr>
-<tr><td>Security: protecting against cross-site scripting (XSS), SSRF and open redirects, plus CSP and HSTS headers</td><td>Phase 9: Getting Safe For Real Users</td></tr>
-<tr><td>Email: batch sending to stay under provider rate limits, plus DMARC, DKIM and SPF deliverability records</td><td>Phase 10: Getting Every Email Delivered</td></tr>
-<tr><td>Observability: error tracking and session replay across frontend and backend catch blocks</td><td>Phase 11: Knowing The Moment Something Breaks</td></tr>
-<tr><td>Privacy: hashing personal data before it reaches analytics</td><td>Phase 11: Knowing The Moment Something Breaks</td></tr>
-<tr><td>Reliability: await-based cron with an overlap guard and timeouts, surviving idle-sleep hosting</td><td>Phase 12: Making The Daily Run Dependable</td></tr>
-<tr><td>Database: indexing on real query patterns, plus running independent queries in parallel</td><td>Phase 13: Keeping It Fast As The Data Grew</td></tr>
-<tr><td>AI-assisted development: directing the build while maintaining a persistent project context file</td><td>Phase 14: Building With AI Tools</td></tr>
-<tr><td>Reliability: self-healing scrapers that re-run platform detection to disambiguate a silent zero, with attention-only alerting to avoid alert fatigue</td><td>Phase 15: Scrapers That Fix Themselves</td></tr>
-<tr><td>Data quality: filtering at the validation layer at ingestion, not in the UI</td><td>Phase 16: Stopping Bad Data At The Source</td></tr>
-<tr><td>Dependencies: pinning exact versions (no Docker :latest) to stop silent breaking upgrades</td><td>Phase 17: Dropping The Fragile Browser</td></tr>
-<tr><td>Reliability: tiered auto-recovery with auto-disable after repeated failures and a weekly re-enable probe</td><td>Phase 18: A Recovery System, Not A Patch</td></tr>
-<tr><td>Security: parallel specialized audits (auth, data isolation, infrastructure) plus weekly dependency scanning</td><td>Phase 19: Less Noise, Tighter Security</td></tr>
-<tr><td>Tooling: specialized AI subagents with predictable output contracts, and PR-gated deploys with preview environments</td><td>Phase 20: A Team Of AI Helpers</td></tr>
-<tr><td>Reliability: verification columns that redefine success as proof-of-life, not just a non-crash</td><td>Phase 21: Catching The Silent Zeros</td></tr>
-<tr><td>Data sourcing: Common Crawl harvesting, then hand-picking for audience fit over raw row count</td><td>Phase 22: Growing The Catalog The Right Way</td></tr>
-<tr><td>SDK gotchas: explicit pagination instead of a default page size that silently caps results</td><td>Phase 23: A Job-First Feed</td></tr>
-<tr><td>Content automation: LLM-generated weekly post in-voice, gated inside the daily cron by day of week</td><td>Phase 24: The Data Becomes Content</td></tr>
-<tr><td>Auth: token-hash magic-link templates, and fixing a session cookie dropped across a redirect</td><td>Phase 25: The Auth Incident</td></tr>
-<tr><td>Defense-in-depth: independent CI checks, funnel analytics and a daily code audit as overlapping layers</td><td>Phase 25: The Auth Incident</td></tr>
-<tr><td>Alerting: a flat volume floor instead of a cross-window ratio that misfires on low traffic</td><td>Phase 26: Letting The System Decide</td></tr>
-<tr><td>Email reliability: layered safeguards at source, pre-send, post-send and against a historical baseline</td><td>Phase 29: Audit Before Expansion</td></tr>
-<tr><td>Security: revoking default public grants so a new database table is not anon-readable</td><td>Phase 29: Audit Before Expansion</td></tr>
-<tr><td>Architecture: decoupling scraping from emailing, with an on-demand background scrape on subscribe</td><td>Phase 30: Doubling The Catalog</td></tr>
-<tr><td>Reliability: out-of-band watchdogs (start heartbeat, resumable run) that verify the daily job actually ran</td><td>Phase 31: The Night It Died Silently</td></tr>
-<tr><td>Analytics: an AARRR funnel dashboard, and an HMAC-signed click redirect since email open-tracking is dead</td><td>Phase 32: Seeing The Funnel</td></tr>
-<tr><td>Quality: a cross-model eval reviewer running three LLMs in parallel on every pull request, with author validation and diff redaction</td><td>Phase 33: Three Models Review Everything</td></tr>
-</tbody>
-</table>
+<div class="chapter-nav">
+  <button type="button" class="cn-prev" data-go="ch5"><span class="cn-dir">Previous</span>5. Productionizing and Scale</button>
+  <button type="button" class="cn-next" disabled></button>
 </div>
 
+</section>
+<!-- /chapter ch6 -->
+
 </main>
+<script>
+(function () {
+  var CHAPTERS = [
+    { id: "ch0", label: "Overview" },
+    { id: "ch1", label: "1. Concept" },
+    { id: "ch2", label: "2. Setting the Foundation" },
+    { id: "ch3", label: "3. Building the MVP" },
+    { id: "ch4", label: "4. Alpha and Beta" },
+    { id: "ch5", label: "5. Productionizing and Scale" },
+    { id: "ch6", label: "6. Growth and New Features" }
+  ];
+  var ids = CHAPTERS.map(function (c) { return c.id; });
+
+  // turn on the show-one-at-a-time behavior (CSS is scoped under this class,
+  // so with JS off every chapter stays visible and the doc is fully readable)
+  document.body.classList.add("chapters-on");
+
+  function indexFromHash() {
+    var h = (location.hash || "").replace("#", "");
+    var i = ids.indexOf(h);
+    return i === -1 ? 0 : i;
+  }
+
+  function show(idx, updateHash, doScroll) {
+    if (idx < 0) idx = 0;
+    if (idx > ids.length - 1) idx = ids.length - 1;
+    var activeId = ids[idx];
+
+    CHAPTERS.forEach(function (c) {
+      var sec = document.getElementById(c.id);
+      if (sec) sec.classList.toggle("active", c.id === activeId);
+    });
+
+    // sidebar links
+    var tocLinks = document.querySelectorAll(".toc .toc-chapter");
+    tocLinks.forEach(function (a) {
+      a.classList.toggle("toc-active", a.getAttribute("data-ch") === activeId);
+    });
+
+    // mobile tab strip
+    var tabs = document.querySelectorAll(".chapter-tabs button");
+    tabs.forEach(function (b) {
+      b.classList.toggle("tab-active", b.getAttribute("data-ch") === activeId);
+    });
+
+    if (updateHash) {
+      if (history && history.replaceState) history.replaceState(null, "", "#" + activeId);
+      else location.hash = activeId;
+    }
+    if (doScroll) window.scrollTo(0, 0);
+  }
+
+  // nav clicks: sidebar + mobile tabs (anchors/buttons carry data-ch)
+  document.querySelectorAll(".toc .toc-chapter, .chapter-tabs button").forEach(function (el) {
+    el.addEventListener("click", function (e) {
+      var target = el.getAttribute("data-ch");
+      var i = ids.indexOf(target);
+      if (i !== -1) {
+        e.preventDefault();
+        show(i, true, true);
+      }
+    });
+  });
+
+  // prev / next buttons (carry data-go)
+  document.querySelectorAll(".chapter-nav button[data-go]").forEach(function (btn) {
+    btn.addEventListener("click", function () {
+      var i = ids.indexOf(btn.getAttribute("data-go"));
+      if (i !== -1) show(i, true, true);
+    });
+  });
+
+  // deep-link: honor the hash on load, and react to back/forward
+  window.addEventListener("hashchange", function () { show(indexFromHash(), false, true); });
+  show(indexFromHash(), false, false);
+})();
+</script>
 </body>
 </html>
