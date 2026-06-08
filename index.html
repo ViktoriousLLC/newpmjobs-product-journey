@@ -1,0 +1,1417 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>NewPMJobs Product Journey</title>
+<style>
+/* Shared style for the journey-doc HTML versions. Each HTML file embeds this
+   verbatim in a <style> tag so it stays a single self-contained, double-clickable file.
+   Goal: maximum readability for a non-engineer reviewer. No em or en dashes in any copy. */
+
+:root {
+  --ink: #15161d;
+  --muted: #5b5f73;
+  --accent: #6366f1;   /* indigo */
+  --accent-2: #0ea5e9; /* sky */
+  --gold: #d97706;
+  --bg: #ffffff;
+  --soft: #f6f7fb;
+  --border: #e7e9f2;
+  --maxw: 820px;
+
+  /* super-phase accent colors (one per group) */
+  --sp1: #0ea5e9; /* sky    - Concept */
+  --sp2: #6366f1; /* indigo - Foundation */
+  --sp3: #8b5cf6; /* violet - MVP */
+  --sp4: #d97706; /* amber  - Alpha and Beta */
+  --sp5: #059669; /* emerald- Productionizing */
+  --sp6: #e11d48; /* rose   - Growth */
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  color: var(--ink);
+  background: var(--soft);
+  line-height: 1.7;
+  font-size: 18px;
+  -webkit-font-smoothing: antialiased;
+}
+.wrap {
+  max-width: var(--maxw);
+  margin: 0 auto;
+  padding: 56px 28px 120px;
+  background: var(--bg);
+  box-shadow: 0 0 0 1px var(--border);
+}
+h1 { font-size: 2.3rem; line-height: 1.15; letter-spacing: -.02em; margin: 0 0 .25em; }
+.subtitle { font-size: 1.25rem; color: var(--muted); margin: 0 0 2em; font-weight: 400; }
+h2 {
+  font-size: 1.55rem; letter-spacing: -.01em; margin: 2.4em 0 .5em;
+  padding-top: .6em; border-top: 2px solid var(--border);
+}
+h3 { font-size: 1.12rem; margin: 1.7em 0 .35em; color: var(--accent); }
+h4 { font-size: 1rem; margin: 1.2em 0 .3em; color: var(--gold); text-transform: uppercase; letter-spacing: .05em; }
+p { margin: 0 0 1.15em; }
+a { color: var(--accent); text-decoration: none; border-bottom: 1px solid #cdd0e6; }
+a:hover { border-color: var(--accent); }
+strong { font-weight: 650; }
+ul, ol { margin: 0 0 1.15em; padding-left: 1.3em; }
+li { margin: .3em 0; }
+hr { border: 0; border-top: 1px solid var(--border); margin: 2.6em 0; }
+
+/* TL;DR and any table */
+.tablewrap { overflow-x: auto; margin: 1.6em 0; border: 1px solid var(--border); border-radius: 12px; }
+table { border-collapse: collapse; width: 100%; font-size: .95rem; }
+th, td { text-align: left; padding: 12px 14px; border-bottom: 1px solid var(--border); vertical-align: top; }
+th { background: var(--accent); color: #fff; font-weight: 600; }
+tbody tr:nth-child(even) { background: var(--soft); }
+tbody tr:last-child td { border-bottom: 0; }
+
+/* lead paragraph / callouts */
+blockquote {
+  margin: 1.3em 0; padding: .8em 1.2em; border-left: 4px solid var(--accent-2);
+  background: var(--soft); color: var(--muted); border-radius: 0 8px 8px 0;
+}
+code { background: var(--soft); padding: .12em .4em; border-radius: 5px; font-size: .88em; font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace; }
+
+/* phase blocks, used by the structured versions */
+.phase { border: 1px solid var(--border); border-radius: 14px; padding: 8px 26px 18px; margin: 1.4em 0; background: var(--bg); box-shadow: 0 2px 10px rgba(20,20,60,.04); }
+.phase h2 { border-top: 0; padding-top: 0; margin-top: .8em; }
+.tag { display: inline-block; font-size: .72rem; font-weight: 600; letter-spacing: .04em; text-transform: uppercase; padding: 3px 9px; border-radius: 999px; }
+.tag-problem { background: #fde8e8; color: #b42318; }
+.tag-solution { background: #e7f0ff; color: #1d4ed8; }
+.tag-impact { background: #e9f9ef; color: #047a4e; }
+
+/* phase subtitle (the small technical name kept under the readable title) */
+.phase-sub { font-size: .9rem; color: var(--muted); font-weight: 400; text-transform: none; letter-spacing: 0; margin: -.2em 0 .8em; font-style: italic; }
+
+/* floating table of contents */
+.toc {
+  position: fixed; top: 0; left: 0; height: 100vh; width: 250px; overflow-y: auto;
+  background: var(--ink); color: #cfd2e6; padding: 28px 18px; font-size: .82rem; line-height: 1.5;
+}
+.toc h2 { color: #fff; font-size: .8rem; text-transform: uppercase; letter-spacing: .08em; border: 0; margin: 0 0 1em; padding: 0; }
+.toc a { display: block; color: #b9bcd4; border: 0; padding: 3px 0; }
+.toc a:hover { color: #fff; }
+.toc .toc-group { display: block; color: #fff; font-weight: 700; font-size: .78rem; margin: 1.1em 0 .25em; padding-left: 8px; border-left: 3px solid; }
+.toc .toc-link { padding-left: 14px; }
+@media (min-width: 1180px) {
+  .has-toc .wrap { margin-left: calc(258px + max(0px, (100vw - 1078px) / 2)); margin-right: auto; }
+}
+@media (max-width: 1179px) { .toc { display: none; } }
+
+/* ideal-version extras: alternatives / edge-case / impact callouts.
+   Built on the existing tag + blockquote vocabulary so the page stays one visual family. */
+.deep { border: 1px solid var(--border); border-radius: 12px; padding: 2px 20px 12px; margin: 1.3em 0; background: var(--soft); }
+.deep h4 { margin-top: 1.1em; }
+.alt { border-left: 4px solid var(--accent); background: #fff; margin: 1em 0; padding: .7em 1.1em; border-radius: 0 8px 8px 0; }
+.edge { border-left: 4px solid var(--gold); background: #fff; margin: 1em 0; padding: .7em 1.1em; border-radius: 0 8px 8px 0; }
+.impact { border-left: 4px solid #047a4e; background: #f1fbf5; margin: 1em 0; padding: .7em 1.1em; border-radius: 0 8px 8px 0; }
+.label { display: inline-block; font-size: .7rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; margin-bottom: .25em; }
+.label-alt { color: var(--accent); }
+.label-edge { color: var(--gold); }
+.label-impact { color: #047a4e; }
+
+/* ===== v4 readable additions ===== */
+
+/* super-phase section header: big heading + colored accent bar + one-line description */
+.superphase { margin: 3.2em 0 1.4em; }
+.superphase:first-of-type { margin-top: 2em; }
+.superphase .sp-bar { height: 8px; width: 72px; border-radius: 999px; margin-bottom: .55em; background: var(--accent); }
+.superphase h2 { border-top: 0; padding-top: 0; margin: 0 0 .15em; font-size: 1.85rem; }
+.superphase .sp-desc { color: var(--muted); font-size: 1.05rem; margin: 0; }
+
+/* tint each phase header by the super-phase it belongs to */
+.sp-color-1 h2 { color: var(--sp1); }
+.sp-color-2 h2 { color: var(--sp2); }
+.sp-color-3 h2 { color: var(--sp3); }
+.sp-color-4 h2 { color: var(--sp4); }
+.sp-color-5 h2 { color: var(--sp5); }
+.sp-color-6 h2 { color: var(--sp6); }
+.sp-color-1 { border-left: 4px solid var(--sp1); }
+.sp-color-2 { border-left: 4px solid var(--sp2); }
+.sp-color-3 { border-left: 4px solid var(--sp3); }
+.sp-color-4 { border-left: 4px solid var(--sp4); }
+.sp-color-5 { border-left: 4px solid var(--sp5); }
+.sp-color-6 { border-left: 4px solid var(--sp6); }
+
+/* the horizontal funnel / stepper */
+.funnel { margin: 1.6em 0 2em; padding: 4px 2px; }
+.funnel-track {
+  display: flex; flex-wrap: wrap; align-items: flex-start; justify-content: center;
+  gap: 0; row-gap: 18px;
+}
+.funnel-step {
+  display: flex; flex-direction: column; align-items: center; text-align: center;
+  flex: 1 1 120px; min-width: 110px; max-width: 180px; position: relative;
+}
+.funnel-circle {
+  width: 46px; height: 46px; border-radius: 999px; color: #fff;
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 700; font-size: 1.15rem; z-index: 1; box-shadow: 0 2px 8px rgba(20,20,60,.18);
+}
+.funnel-label { font-size: .82rem; font-weight: 600; color: var(--ink); margin-top: .5em; line-height: 1.3; }
+/* the connecting line sits behind the circles, drawn as a pseudo-element to the LEFT of each step except the first */
+.funnel-step::before {
+  content: ""; position: absolute; top: 23px; left: -50%; width: 100%; height: 4px;
+  background: var(--border); z-index: 0;
+}
+.funnel-step:first-child::before { display: none; }
+@media (max-width: 560px) {
+  .funnel-step { flex-basis: 33%; }
+  .funnel-step::before { display: none; }
+}
+
+/* the grouped top index */
+.spindex { margin: 1.4em 0 1.8em; }
+.spindex-group { margin: 1.1em 0; padding-left: 14px; border-left: 4px solid var(--accent); }
+.spindex-group h3 { margin: 0 0 .3em; color: var(--ink); font-size: 1.05rem; }
+.spindex-group ol { margin: 0; padding-left: 1.4em; font-size: .95rem; }
+.spindex-group li { margin: .15em 0; }
+.idx-c1 { border-color: var(--sp1); }
+.idx-c2 { border-color: var(--sp2); }
+.idx-c3 { border-color: var(--sp3); }
+.idx-c4 { border-color: var(--sp4); }
+.idx-c5 { border-color: var(--sp5); }
+.idx-c6 { border-color: var(--sp6); }
+
+.skim-note { font-size: .95rem; color: var(--muted); margin: 2em 0 .4em; font-weight: 600; }
+.screens-note { font-size: .9rem; color: var(--muted); font-style: italic; margin: .6em 0 1.4em; }
+</style>
+</head>
+<body class="has-toc">
+
+<nav class="toc">
+  <h2>Contents</h2>
+  <a href="#tldr">The 30-second version</a>
+  <a href="#index">Jump to a phase</a>
+
+  <span class="toc-group" style="border-color:var(--sp1)">1. Concept</span>
+  <a class="toc-link" href="#p1">1. The Localhost MVP</a>
+
+  <span class="toc-group" style="border-color:var(--sp2)">2. Setting the Foundation</span>
+  <a class="toc-link" href="#p2">2. Going Live</a>
+  <a class="toc-link" href="#p3">3. Covering The Companies I Care About</a>
+  <a class="toc-link" href="#p4">4. Turning It Into A Real Product</a>
+
+  <span class="toc-group" style="border-color:var(--sp3)">3. Building the MVP</span>
+  <a class="toc-link" href="#p5">5. A Safe Way To Add A Company</a>
+  <a class="toc-link" href="#p6">6. Showing What Roles Pay</a>
+  <a class="toc-link" href="#p7">7. The Landing Page</a>
+  <a class="toc-link" href="#p8">8. Making It Load Fast</a>
+  <a class="toc-link" href="#p9">9. Getting Safe For Real Users</a>
+
+  <span class="toc-group" style="border-color:var(--sp4)">4. Alpha and Beta</span>
+  <a class="toc-link" href="#p10">10. Getting Every Email Delivered</a>
+  <a class="toc-link" href="#p11">11. Knowing The Moment It Breaks</a>
+  <a class="toc-link" href="#p12">12. Making The Daily Run Dependable</a>
+  <a class="toc-link" href="#p13">13. Keeping It Fast As Data Grew</a>
+  <a class="toc-link" href="#p14">14. Building With AI Tools</a>
+  <a class="toc-link" href="#p15">15. Scrapers That Fix Themselves</a>
+  <a class="toc-link" href="#p16">16. Stopping Bad Data At The Source</a>
+  <a class="toc-link" href="#p17">17. Dropping The Fragile Browser</a>
+  <a class="toc-link" href="#p18">18. A Recovery System, Not A Patch</a>
+  <a class="toc-link" href="#p19">19. Less Noise, Tighter Security</a>
+
+  <span class="toc-group" style="border-color:var(--sp5)">5. Productionizing and Scale</span>
+  <a class="toc-link" href="#p20">20. A Team Of AI Helpers</a>
+  <a class="toc-link" href="#p21">21. Catching The Silent Zeros</a>
+  <a class="toc-link" href="#p22">22. Growing The Catalog The Right Way</a>
+  <a class="toc-link" href="#p23">23. A Job-First Feed</a>
+  <a class="toc-link" href="#p24">24. The Data Becomes Content</a>
+  <a class="toc-link" href="#p25">25. The Auth Incident</a>
+  <a class="toc-link" href="#p26">26. Letting The System Decide</a>
+
+  <span class="toc-group" style="border-color:var(--sp6)">6. Growth and New Features</span>
+  <a class="toc-link" href="#p27">27. A Planned Next Step</a>
+  <a class="toc-link" href="#p28">28. The Weekly Post Writes Itself</a>
+  <a class="toc-link" href="#p29">29. Audit Before Expansion</a>
+  <a class="toc-link" href="#p30">30. Doubling The Catalog</a>
+  <a class="toc-link" href="#p31">31. The Night It Died Silently</a>
+  <a class="toc-link" href="#p32">32. Seeing The Funnel</a>
+  <a class="toc-link" href="#p33">33. Three Models Review Everything</a>
+
+  <a href="#concepts" style="margin-top:1.2em">Concepts learned</a>
+</nav>
+
+<main class="wrap">
+
+<h1>NewPMJobs Product Journey</h1>
+<p class="subtitle">A personal localhost project became a production multi-user site, built entirely with Claude Code and a dozen other AI tools. Every change here was a deliberate product decision, and every decision taught me something.</p>
+
+<h2 id="tldr">The 30-second version</h2>
+<div data-tldr-block style="background:linear-gradient(135deg,#eef2ff,#e0f2fe);border:1px solid #c7d2fe;border-radius:14px;padding:22px 26px;margin:0 0 2em;">
+<div style="font-size:.78rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#6366f1;margin-bottom:.6em;">The 30-second version</div>
+<p style="margin:0 0 1em;font-size:1.08rem;line-height:1.65;">NewPMJobs is a daily job-alert tool for product managers: pick the companies you want to work for, and every morning it emails you the new, relevant PM roles, pulled from each company's own careers page and filtered down to what actually fits. The part worth knowing is who built it and how.</p>
+<ul style="margin:0;font-size:1.02rem;line-height:1.55;">
+<li><strong>One product, end to end:</strong> scraping, a self-healing data pipeline, a web app, a daily email and full monitoring, all live and serving real users.</li>
+<li><strong>Built by a PM, coded by AI:</strong> I made every product, design and architecture decision, and AI tools wrote the code under that direction.</li>
+<li><strong>Reliability treated as a feature:</strong> most of the effort went into catching silent failures (a broken source, a quiet zero, a missed email) before a user ever notices.</li>
+<li><strong>The proof in numbers:</strong> page speed went from 49 to 100, sub-second data calls replaced multi-minute browser scrapes, and the catalog grew to 519 companies across 7 hiring platforms.</li>
+</ul>
+</div>
+
+<!-- ============ FUNNEL / STEPPER ============ -->
+<div class="funnel" role="img" aria-label="The six stages of the journey in order">
+<div class="funnel-track">
+  <div class="funnel-step"><div class="funnel-circle" style="background:var(--sp1)">1</div><div class="funnel-label">Concept</div></div>
+  <div class="funnel-step"><div class="funnel-circle" style="background:var(--sp2)">2</div><div class="funnel-label">Setting the Foundation</div></div>
+  <div class="funnel-step"><div class="funnel-circle" style="background:var(--sp3)">3</div><div class="funnel-label">Building the MVP</div></div>
+  <div class="funnel-step"><div class="funnel-circle" style="background:var(--sp4)">4</div><div class="funnel-label">Alpha and Beta</div></div>
+  <div class="funnel-step"><div class="funnel-circle" style="background:var(--sp5)">5</div><div class="funnel-label">Productionizing and Scale</div></div>
+  <div class="funnel-step"><div class="funnel-circle" style="background:var(--sp6)">6</div><div class="funnel-label">Growth and New Features</div></div>
+</div>
+</div>
+
+<!-- ============ HOW IT ALL FITS TOGETHER ============ -->
+<h3 id="architecture">How it all fits together</h3>
+<p>Before the phase-by-phase story, here is the system at a glance: a daily scheduled job scrapes each company's careers source, a backend cleans and stores the results, a web app and a daily email surface them to users, and monitoring watches every layer. The rest of this document is how each of those pieces came to exist.</p>
+<a href="images/architecture-reactflow.png" target="_blank" rel="noopener" title="Click to enlarge"><img src="images/architecture-reactflow.png" alt="System architecture (click to enlarge)" style="max-width:100%;width:100%;height:auto;display:block;margin:1.4em auto;border:1px solid #e7e9f2;border-radius:12px;cursor:zoom-in;"></a>
+<p class="screens-note" style="text-align:center;font-size:.9rem;color:#5b5f73;">Click to open a zoomed-in version.</p>
+
+<h3 id="the-product">The Product</h3>
+<a href="images/product-home.png" target="_blank" rel="noopener" title="Click to enlarge"><img src="images/product-home.png" alt="The NewPMJobs homepage (click to enlarge)" style="max-width:100%;width:100%;height:auto;display:block;margin:1em auto;border:1px solid #e7e9f2;border-radius:12px;cursor:zoom-in;"></a>
+<p class="screens-note" style="text-align:center;font-size:.9rem;color:#5b5f73;">The live product: pick the companies you want, get the new PM roles by email.</p>
+<a href="images/product-dashboard.png" target="_blank" rel="noopener" title="Click to enlarge"><img src="images/product-dashboard.png" alt="The tracked-companies dashboard (click to enlarge)" style="max-width:100%;width:100%;height:auto;display:block;margin:1.4em auto;border:1px solid #e7e9f2;border-radius:12px;cursor:zoom-in;"></a>
+<p class="screens-note" style="text-align:center;font-size:.9rem;color:#5b5f73;">The dashboard: every company you track, with a live count of open roles.</p>
+<div style="margin:1.4em auto;padding:16px 22px;border:1px dashed #f59e0b;border-radius:12px;background:#fffbeb;text-align:center;font-size:1rem;">
+<strong style="color:#b45309;">Coming soon:</strong> live interview practice, a voice mock you can run anytime.
+</div>
+
+<!-- ============ TOP INDEX BY SUPER-PHASE ============ -->
+<h2 id="index">Jump to a phase</h2>
+<div class="spindex">
+
+<div class="spindex-group idx-c1">
+<h3>1. Concept</h3>
+<ol start="1">
+<li><a href="#p1">The Localhost MVP</a></li>
+</ol>
+</div>
+
+<div class="spindex-group idx-c2">
+<h3>2. Setting the Foundation</h3>
+<ol start="2">
+<li><a href="#p2">Going Live</a></li>
+<li><a href="#p3">Covering The Companies I Actually Care About</a></li>
+<li><a href="#p4">Turning It Into A Real Product Other People Can Use</a></li>
+</ol>
+</div>
+
+<div class="spindex-group idx-c3">
+<h3>3. Building the MVP</h3>
+<ol start="5">
+<li><a href="#p5">A Safe Way To Add A Company</a></li>
+<li><a href="#p6">Showing What These Roles Actually Pay</a></li>
+<li><a href="#p7">The Landing Page</a></li>
+<li><a href="#p8">Making It Load Fast</a></li>
+<li><a href="#p9">Getting Safe For Real Users</a></li>
+</ol>
+</div>
+
+<div class="spindex-group idx-c4">
+<h3>4. Alpha and Beta: Hardening With Real Users</h3>
+<ol start="10">
+<li><a href="#p10">Getting Every Email Delivered</a></li>
+<li><a href="#p11">Knowing The Moment Something Breaks</a></li>
+<li><a href="#p12">Making The Daily Run Dependable</a></li>
+<li><a href="#p13">Keeping It Fast As The Data Grew</a></li>
+<li><a href="#p14">Building With AI Tools</a></li>
+<li><a href="#p15">Scrapers That Fix Themselves</a></li>
+<li><a href="#p16">Stopping Bad Data At The Source</a></li>
+<li><a href="#p17">Dropping The Fragile Browser</a></li>
+<li><a href="#p18">A Recovery System, Not A One-Off Patch</a></li>
+<li><a href="#p19">Less Noise, Tighter Security</a></li>
+</ol>
+</div>
+
+<div class="spindex-group idx-c5">
+<h3>5. Productionizing and Scale</h3>
+<ol start="20">
+<li><a href="#p20">A Team Of Specialized AI Helpers</a></li>
+<li><a href="#p21">Catching The Silent Zeros</a></li>
+<li><a href="#p22">Growing The Catalog The Right Way</a></li>
+<li><a href="#p23">A Job-First Feed</a></li>
+<li><a href="#p24">Turning The Data Into Content</a></li>
+<li><a href="#p25">The Auth Incident</a></li>
+<li><a href="#p26">Letting The System Decide For Itself</a></li>
+</ol>
+</div>
+
+<div class="spindex-group idx-c6">
+<h3>6. Growth and New Features</h3>
+<ol start="27">
+<li><a href="#p27">A Planned Next Step</a></li>
+<li><a href="#p28">The Weekly Post Writes Itself</a></li>
+<li><a href="#p29">Auditing The Whole System Before A Major Expansion</a></li>
+<li><a href="#p30">Doubling The Catalog</a></li>
+<li><a href="#p31">The Night It Died Silently</a></li>
+<li><a href="#p32">Seeing The Funnel</a></li>
+<li><a href="#p33">Three Models Review Every Change</a></li>
+</ol>
+</div>
+
+</div>
+
+<p class="skim-note">Want the deeper skim? The 2-minute version below covers every phase with its problem, solution and the key lesson.</p>
+<div class="tablewrap">
+<table>
+<thead>
+<tr><th>Phase</th><th>Problem</th><th>Solution</th><th>Key Learning</th></tr>
+</thead>
+<tbody>
+<tr><td>1. The Localhost MVP</td><td>Spending 30+ min/day manually checking career pages</td><td>Express + Puppeteer script that scrapes Greenhouse and emails me</td><td>Build the smallest thing that works first. I found that Greenhouse has a free public data feed, so I didn't need to fake-browse their website at all.</td></tr>
+<tr><td>2. Going Live</td><td>Tool only worked on my laptop</td><td>Deployed backend to Railway, frontend to Vercel, daily cron for automated scrapes</td><td>When your frontend and backend live on different domains, browsers block the connection by default. Also, don't let your CDN and your hosting provider both try to manage security certificates.</td></tr>
+<tr><td>3. Covering The Companies I Care About</td><td>Only covered Greenhouse companies</td><td>Built 7 scraper types with a 7-layer auto-detection engine</td><td>If a company's job board has a structured data feed, use that instead of loading the page in a browser. It is 100x faster and way more reliable. Every job board platform has its own weird edge cases.</td></tr>
+<tr><td>4. Turning It Into A Real Product</td><td>Only I could use it</td><td>Magic link auth, shared company catalog, per-user subscriptions, admin dashboard, rate limiting</td><td>My database had two keys: one for regular users, one for admin access. Using the wrong one made every query silently return nothing. Also, login links sent by email do not work if you open them on a different device than where you requested them.</td></tr>
+<tr><td>5. A Safe Way To Add A Company</td><td>Users could add a company and get garbage results</td><td>4-state preview flow: input, checking, preview, confirm/retry. Nothing saved until user confirms.</td><td>What happens when things go wrong matters more than what happens when things go right. Also, matching companies by URL is way more reliable than matching by name ("OpenAI" vs "Open ai").</td></tr>
+<tr><td>6. Showing What Roles Pay</td><td>Job listings never show salary</td><td>Three-tier cache (memory 0ms, DB 50ms, live 1-3s) for levels.fyi data, lazy-loaded on frontend</td><td>Fetch salary data in the background the moment a company is added. By the time the user wants it, it is already there. If a data source is down, remember that it is down for 5 minutes so you do not keep asking.</td></tr>
+<tr><td>7. The Landing Page</td><td>Strangers saw a login page with zero context</td><td>10-section marketing page rendered as a fixed overlay, zero changes to existing app shell</td><td>Instead of restructuring the whole app to handle logged-out visitors, I layered the landing page on top of the existing app. Zero risk of breaking what already worked.</td></tr>
+<tr><td>8. Making It Load Fast</td><td>Desktop Lighthouse was 49 after building the landing page</td><td>Code-split above/below fold, pre-computed brand colors, deferred analytics init</td><td>Page speed score went from 49 to 100 with three changes: only load what is visible first, do not recalculate things that never change and do not load analytics until the page is already showing. Always measure before guessing what is slow.</td></tr>
+<tr><td>9. Getting Safe For Real Users</td><td>App was not safe for real users</td><td>CSP headers, open redirect fix, XSS escaping, SSRF protection, PII scrubbed from logs, DNS security</td><td>Security problems exist from day one; you just do not notice them until other people use your app. The scariest one: someone could submit a fake "careers URL" that tricks your server into fetching private internal data.</td></tr>
+<tr><td>10. Getting Every Email Delivered</td><td>Alert emails hitting rate limits, some users missing alerts</td><td>Batch sending (100/call), admin failure notifications, custom email domain</td><td>Even with just a few users, sending emails one at a time hit the provider's speed limit. Sending them in batches of 100 fixed it. Also, login emails and alert emails share the same daily quota, which I did not realize at first.</td></tr>
+<tr><td>11. Knowing The Moment Something Breaks</td><td>Errors were invisible unless I manually checked logs</td><td>Error tracking on frontend + backend (18 catch blocks), product analytics with hashed user IDs</td><td>Never send real email addresses to analytics tools. Scramble them first. And error tracking only works if you add it to every single place something can fail, not just the obvious ones.</td></tr>
+<tr><td>12. Making The Daily Run Dependable</td><td>Daily scrape sometimes did not finish</td><td>Await-based cron endpoint, overlap guard, 120s Puppeteer timeout, single-source scheduling</td><td>My hosting provider puts the server to sleep when it is idle. If the daily job says "start scraping" and immediately hangs up, the server falls asleep mid-scrape. It has to stay on the line until the work is done.</td></tr>
+<tr><td>13. Keeping It Fast As The Data Grew</td><td>Queries slowing as data grew</td><td>Targeted indexes based on actual query patterns, parallel query execution, local JWT verification (0ms vs 150ms)</td><td>Database indexes are like a book's index: add them for the questions you actually ask, not every possible question. Also, verifying login tokens locally instead of calling an external service cut 150ms off every single request.</td></tr>
+<tr><td>14. Building With AI Tools</td><td>Building a full-stack SaaS as a PM, not an engineer</td><td>Used Claude Code for implementation, maintained a persistent context file, steered all product/architecture decisions</td><td>AI wrote the code, but I made every product decision. The key skill is keeping a detailed context file so the AI remembers your architecture across sessions. Without it, you re-explain everything constantly.</td></tr>
+<tr><td>15. Scrapers That Fix Themselves</td><td>Companies change job platforms without warning, breaking the scraper silently</td><td>Auto-remediation detects platform migrations and re-scrapes, two-tier admin email shows what was fixed vs what needs attention</td><td>The hardest bugs to find are the ones that look like "working correctly." Zero PM jobs from a company could mean "they are not hiring PMs" or "the scraper is broken." Distinguishing them requires knowing that scrapers pre-filter internally, so an empty result is ambiguous.</td></tr>
+<tr><td>16. Stopping Bad Data At The Source</td><td>Microsoft showed 157 jobs including India, daily email had no quality checks</td><td>Backend location filtering (US only), daily eval email with per-company scorecard</td><td>Filtering in the UI is not filtering. If the backend stores and emails unfiltered data, the "filter" is just hiding the problem from some users while showing it to others. Always apply data quality rules at the source.</td></tr>
+<tr><td>17. Dropping The Fragile Browser</td><td>10 companies broke overnight, catalog was only 55 companies</td><td>Researched ATS for every company, built 5 new scraper types, expanded catalog to 126 (118 API-based), ran full security audit</td><td>When a dependency breaks, the fix is not to patch the dependency. It is to ask whether you need it at all. Also: npm version ranges in Docker builds are a time bomb. Pin exact versions.</td></tr>
+<tr><td>18. A Recovery System, Not A One-Off Patch</td><td>A company quietly deleted their public job board; one company breaks per month and I have to investigate each time</td><td>Three-tier auto-recovery, auto-disable after 7 failures, Monday probe re-enables companies that come back online</td><td>The right fix for "this one company broke" is usually "build the recovery system that catches the next ten." Some sources cannot be saved, but the architecture that handles them gracefully also handles every silent migration that has not happened yet.</td></tr>
+<tr><td>19. Less Noise, Tighter Security</td><td>Self-healing system sent 3 admin emails a day, mostly success notices; docs had quietly drifted from the code</td><td>Consolidated 3 emails into 1 attention-only digest. Ran 3 parallel security audits, shipped 11 fixes including a cookie-security mismatch, a cross-user data exposure and a published rate-limiter CVE. Added a weekly npm-audit check.</td><td>A system that emails you about every success trains you to ignore the channel by the time something actually needs attention. Also, your own documentation drifts from the code during refactors, which is the whole reason audits exist.</td></tr>
+<tr><td>20. A Team Of Specialized AI Helpers</td><td>Every task started with no context, and one careless change could hit production</td><td>Built 13 reusable AI helpers that already know the project, and made every change go through a review step with a preview before it can go live</td><td>Specialized helpers are worth it because each gives a predictable result you can check in seconds; most off-the-shelf ones need heavy trimming to fit a one-person project.</td></tr>
+<tr><td>21. Catching The Silent Zeros</td><td>About 90 companies showed zero jobs, and I could not tell if they were not hiring or the scraper had quietly broken</td><td>Made the system flag every unexplained zero for me to confirm, and built or fixed scrapers for Apple, Shopify, eBay and others</td><td>The dangerous bug is the one that looks like success, so a silent zero had to become something I would actually see. And published references go stale, so I always re-check against the live site.</td></tr>
+<tr><td>22. Growing The Catalog The Right Way</td><td>The catalog had stalled around 216 mostly-tech companies and I wanted it to feel like a real database</td><td>Tried finding companies in bulk (turned up 1,352, but all names nobody recognizes), dropped it and hand-added 29 recognizable banks, biotechs and consultancies instead</td><td>Growing in the wrong direction is worse than not growing. And a scraper that runs is not the same as one that returns useful jobs, so I check each against real results before counting it.</td></tr>
+<tr><td>23. A Job-First Feed</td><td>The dashboard did not scale, the daily email was getting noisy, and then I stopped getting my own email</td><td>Built a feed that lists jobs across all companies with filters, cleaned up the email noise and traced the missing email to a default that quietly stopped processing users once we passed 50</td><td>Default settings are silent traps: everything worked until we crossed an invisible line. And when someone else sends your email for you, ask them what happened instead of guessing.</td></tr>
+<tr><td>24. Turning The Data Into Content</td><td>The interesting trends in my data were invisible to anyone outside the product</td><td>Turned the data into a ready-to-post weekly LinkedIn summary that sends itself every Friday</td><td>Your own data is an edge when you lead with angles nobody else can see. And getting AI to write in your voice takes real guardrails, not a polite request.</td></tr>
+<tr><td>25. The Auth Incident</td><td>A change to the login emails broke the sign-in links, and a batch of users were locked out for two days before I caught it</td><td>Fixed the email templates and a second bug that was dropping people's logins, got the stuck users back in and added automatic checks so it cannot break silently again</td><td>A tiny visual change broke something critical, so I made the system catch that on its own instead of relying on me to remember.</td></tr>
+<tr><td>26. Letting The System Decide For Itself</td><td>The system kept emailing me to confirm things it already had enough information to decide on its own</td><td>Replaced a flaky alert with a simple one, and replaced the daily "please confirm these companies" email with rules that decide automatically and undo themselves if they are wrong</td><td>I could be aggressive here because this setting only affects my own admin email, never whether users get jobs. Know what a change can reach before you trust it to run itself.</td></tr>
+<tr><td>27. A Planned Next Step</td><td>Finding a role is only half of what this audience needs</td><td>Looking ahead, an AI interview-practice feature is planned as a natural next step for the same audience</td><td>Plan the next bet around the people you already serve; the rest of this journey stays focused on the job-discovery product itself.</td></tr>
+<tr><td>28. The Weekly Post Writes Itself</td><td>The digest led with the same hardcoded headline every Friday, and it turned out not even to be true</td><td>Made the lead rotate across honest weekly angles, written by AI in my voice with a matching banner image, emailed to me to approve</td><td>My own data can look like insight when it is really an artifact of how I built the pipeline, so I check the headline is real before publishing.</td></tr>
+<tr><td>29. Auditing The Whole System Before A Major Expansion</td><td>About to expand the system significantly, I wanted the foundation sound, and the audit kept finding failures that stay silent</td><td>Audited scrapers, security, login, cross-user access and speed; swept out queries that quietly returned partial results, locked down two publicly-readable tables and rebuilt the daily email in layers so a drop cannot hide</td><td>The most dangerous failures are the quiet ones: a loud one gets fixed in an hour, a silent one runs for months looking fine. Put a different alarm at each layer.</td></tr>
+<tr><td>30. Doubling The Catalog</td><td>The catalog had stalled, adding a company showed nothing until the next day, and a few big employers showed nothing at all</td><td>Grew the catalog from 247 to 519 off a public company-ranking list, added an "add a whole category" flow, decoupled scraping from the daily email and shipped a licensed-data restore for the employers we cannot scrape</td><td>A catalog you can add to is worthless if adding does not show results. The real blocker was not a missing feature, it was an old assumption that scraping and emailing always happen together.</td></tr>
+<tr><td>31. The Night It Died Silently</td><td>The daily run died partway through because I shipped a change that restarted the server mid-run, no email went out, and nothing told me</td><td>Built a watchdog that runs outside the app and emails me if the run did not finish, plus a start-heartbeat, a deploy-kill alert, a resumable run, a no-deploys window and a monthly probe that proves the alarms still work</td><td>You have to monitor the monitors. The fix for a silent failure is a witness standing outside the thing that failed, not another check inside it.</td></tr>
+<tr><td>32. Seeing The Funnel</td><td>I was running the product on gut: no real view of where signups drop off, whether the daily email gets opened or which jobs get clicked</td><td>Built a funnel dashboard from data I was already collecting, and a signed click-redirect for every job link in the daily email since open-tracking is dead. Added the project's first test harness.</td><td>Measuring flips your assumptions. The leak was activation, not signups: about 40% of people who sign up never track a single company. Email opens are unmeasurable now, which makes clicks the only honest signal. And measuring my own "fixes" showed they recovered about 10 jobs, not the hundreds the tickets claimed.</td></tr>
+<tr><td>33. Three Models Review Every Change</td><td>The only check on the AI building the product was that same AI re-reading its own diff, which shares all its own blind spots</td><td>Every pull request now gets reviewed independently and in parallel by three different AI models from three companies, with a running log of what each one caught that the others missed</td><td>The cheapest way to catch your own blind spots is to ask something that does not share them: diversity of reviewer beats effort of reviewer. The first thing the panel reviewed was itself, and a second model caught two silent bugs that three earlier passes had walked right past.</td></tr>
+</tbody>
+</table>
+</div>
+
+<hr>
+
+<!-- ============ SUPER-PHASE 1 ============ -->
+<div class="superphase">
+  <div class="sp-bar" style="background:var(--sp1)"></div>
+  <h2>1. Concept</h2>
+  <p class="sp-desc">Where the whole thing started: one annoying daily chore and the smallest script that could kill it.</p>
+</div>
+
+
+<section class="phase sp-color-1">
+<h2 id="p1">Phase 1: The Localhost MVP</h2>
+<p><strong>Goal:</strong> Stop manually checking career pages every morning.</p>
+<p>I was spending 30+ minutes a day visiting individual company career sites, searching for PM roles and trying to remember which listings were new. The idea was simple: write a script that does the checking for me and emails me when something new shows up.</p>
+
+<h3>What I Built</h3>
+<p>An Express backend with a Puppeteer scraper that hit a handful of Greenhouse career pages, filtered jobs by PM-related keywords, stored results in a PostgreSQL database and ran on my local machine. No frontend. No authentication. Just a script I could trigger manually and an email that would land in my inbox.</p>
+<p><strong>Stack:</strong> Express, Puppeteer, PostgreSQL (Supabase), Resend for email.</p>
+
+<h3>What I Learned</h3>
+<p><strong>Start with the smallest version that solves your problem.</strong> The first version had no UI, no multi-user support and only knew about one type of career page. But it answered the only question that mattered: "Are there new PM roles today?" That was enough to validate that the tool was worth building further.</p>
+<p><strong>Greenhouse has a public data feed most people do not know about.</strong> Instead of loading the page in a browser, I could hit a structured public board endpoint and get clean JSON back. Faster, more reliable and no browser required. This insight shaped the entire scraper architecture going forward: always prefer structured feeds over reading rendered HTML.</p>
+
+<div class="deep">
+<h4>Drilling deeper on the "why"</h4>
+<p>The real reason to start at localhost was not laziness, it was that I did not yet know whether the problem was worth solving with software at all. Thirty minutes a day <em>felt</em> annoying, but feelings are a bad spec. A script I could run by hand for a week told me something a polished product never could: whether I would actually open the email every morning. Validating the habit was the point; the code was just the cheapest way to test it.</p>
+<div class="alt">
+<span class="label label-alt">Alternative considered</span>
+I could have started with a browser extension or a no-code scraper service and skipped writing a backend at all. I chose a real Express + database stack from day one because the thing I most wanted to learn was whether new-versus-seen tracking held up over days, and that needs persistent state. A no-code tool would have validated "can I see jobs" but not "can I trust this to remember what it already showed me," which was the actual product.
+</div>
+<div class="impact">
+<span class="label label-impact">What this unlocked</span>
+Discovering Greenhouse's structured feed on day one is the decision the next thirty phases inherit. Every "API-first, browser as a last resort" call later in this journey traces back to that first morning. Picking the reliable data path before I had any users meant the architecture never had to be unwound under load.
+</div>
+</div>
+</section>
+
+<hr>
+
+<!-- ============ SUPER-PHASE 2 ============ -->
+<div class="superphase">
+  <div class="sp-bar" style="background:var(--sp2)"></div>
+  <h2>2. Setting the Foundation</h2>
+  <p class="sp-desc">Getting the tool off my laptop, onto the open web and able to cover the companies real users care about.</p>
+</div>
+
+
+<section class="phase sp-color-2">
+<h2 id="p2">Phase 2: Going Live</h2>
+<p><strong>Goal:</strong> Access the tool from anywhere, not just my laptop.</p>
+<p>Running on localhost meant my computer had to be on. If I was traveling or on my phone, I could not check results. The tool needed to be a real website.</p>
+
+<h3>What I Built</h3>
+<p>Deployed the backend to Railway (auto-deploys from git push) and built a Next.js frontend on Vercel. Set up a custom domain on Cloudflare. Added a Railway Cron job to trigger the daily scrape automatically every morning, so I did not need to run anything manually.</p>
+<p><strong>Stack additions:</strong> Next.js 16 (Vercel), Railway Cron, Cloudflare DNS.</p>
+
+<h3>Key Decisions</h3>
+<p><strong>Railway + Vercel instead of a single platform.</strong> The backend needs Puppeteer (a headless browser), which is resource-heavy and does not run well on serverless. Railway gives me a persistent container. The frontend is static-ish Next.js, which Vercel handles perfectly. Splitting them added cross-origin complexity but let each layer use the best tool.</p>
+<p><strong>Cloudflare DNS-only mode (grey cloud).</strong> I initially tried Cloudflare's proxy for SSL, but both Vercel and Railway manage their own SSL certificates. The proxy caused certificate conflicts. Lesson: when your hosting provider handles SSL, keep the CDN in DNS-only mode.</p>
+
+<h3>What I Learned</h3>
+<p><strong>Deploy timing matters more than you would think.</strong> After pushing code, Railway takes about 60 seconds and Vercel about 30 seconds to deploy. I kept testing too early and seeing old behavior. Built in a habit of waiting 90+ seconds after every push before verifying.</p>
+<p><strong>Cross-origin requests with www redirects are a trap.</strong> Vercel redirects the root domain to the www subdomain. My backend only allowed the root origin, so authenticated requests from <code>www.</code> were getting blocked. The fix was to auto-detect and allow both origins from a single frontend-URL config value.</p>
+</section>
+
+<hr>
+
+<section class="phase sp-color-2">
+<h2 id="p3">Phase 3: Covering The Companies I Actually Care About</h2>
+<p class="phase-sub">expanding scraper coverage</p>
+<p><strong>Goal:</strong> Cover the companies I actually care about, not just the ones on Greenhouse.</p>
+<p>The MVP only worked for Greenhouse companies. But companies I wanted to track (Stripe, Google, OpenAI, Slack, Netflix) used different ATS platforms or entirely custom career pages.</p>
+
+<h3>What I Built</h3>
+<p>A multi-platform scraper that supports seven different approaches:</p>
+<ul>
+<li><strong>Greenhouse API</strong> for DoorDash, Discord, Reddit, Instacart, Figma, Airbnb, a16z, Twitch</li>
+<li><strong>Lever API</strong> for any company on Lever</li>
+<li><strong>Ashby GraphQL</strong> for OpenAI and others on Ashby</li>
+<li><strong>Workday JSON API</strong> for Slack, Salesforce and others on Workday</li>
+<li><strong>Eightfold API</strong> for PayPal</li>
+<li><strong>Custom API handlers</strong> for Uber, Netflix, Atlassian (each has a unique API format)</li>
+<li><strong>Browser-based fallback</strong> for Stripe, Google and unknown sites</li>
+</ul>
+<p>Built a 7-layer platform auto-detection engine so that when someone pastes a careers URL, the system automatically figures out which ATS is behind it: known hostnames, direct ATS URLs, embed detection, rendered-page detection, structured-feed probes and a generic fallback. Added post-scrape validation that quality-scores every run: catches zero results, vague locations, duplicates and invalid URLs.</p>
+
+<h3>Key Decisions</h3>
+<p><strong>API-first scraping with the browser as a last resort.</strong> Structured-feed scrapes finish in under 1 second. Browser-based scrapes take 2 to 3 minutes because they load real pages. For the daily cron, this difference matters enormously. Every new company I add, I first check if there is a structured feed available.</p>
+<p><strong>17 PM-specific keywords instead of broad scraping.</strong> I could return all jobs, but that would bury the signal. Filtering by keywords like "product manager," "product lead" and "product ops" keeps results relevant. The tradeoff: edge cases slip through. When a16z showed zero PM roles despite having many jobs, I discovered they use "Product Growth" as a title, which was not in my list. Added it.</p>
+
+<h3>What I Learned</h3>
+<p><strong>Every ATS has quirks.</strong> Salesforce's careers domain redirects to a marketing page with zero jobs; the real board is a Workday URL at a completely different domain. Reddit's Greenhouse board needs department-level fetching plus keyword filtering. Each new company taught me something about how career pages actually work in practice.</p>
+<p><strong>Stale data is a silent killer.</strong> When I added a proper API scraper for PayPal, the old browser-scraped jobs were still in the database with garbage data (title, location and date mashed into one field). I learned the hard way: after changing a scraper, delete the company and re-add it to flush the stale data.</p>
+
+<div class="deep">
+<h4>Drilling deeper on the "why"</h4>
+<p>The auto-detection engine is not really about convenience. It is about who pays the cost of a wrong guess. If I hand-classified every company's platform, then every misclassification became a silent zero that I would only notice days later. By making detection a layered probe that tries the cheap, structured paths first and degrades to the browser only when everything else fails, the system fails toward "slow but correct" instead of "fast but wrong." The seven layers are really seven progressively-less-confident guesses, and the architecture trusts the most confident one that actually returns jobs.</p>
+<div class="alt">
+<span class="label label-alt">Alternative considered</span>
+I could have written one general browser scraper that reads the rendered page for any company and skipped the per-platform integrations entirely. One code path, far less to maintain. I chose the multi-platform approach because the browser path is 100 to 180 times slower and breaks whenever a page changes its layout. A single generic scraper would have made the daily cron unfinishable as the catalog grew, and it would have turned every front-end redesign at every company into an outage. The integrations cost more upfront and paid it back every single day the cron ran.
+</div>
+<div class="edge">
+<span class="label label-edge">Edge cases that bit</span>
+The gnarly boundary cases were the companies that lie about what they are. Some host their careers page on a custom domain but actually run a standard ATS underneath, so the obvious detection misses them and they fall through to the slow path. The fix was a speculative probe: extract the company slug from the hostname and try it against the known structured feeds in parallel before giving up to the browser. The other trap was a company with many jobs and zero PM roles, which looks identical to a totally broken scraper. That ambiguity is small here, but it grows into its own multi-phase problem later (Phases 15 and 21).
+</div>
+<div class="impact">
+<span class="label label-impact">What this unlocked</span>
+Seven scraper types and a detection engine turned "add a company" from a code change into a paste-a-URL action. That is the precondition for everything downstream: the check-then-add UX, the multi-user catalog and eventually letting users add companies themselves. Coverage stopped being a bottleneck on growth.
+</div>
+</div>
+</section>
+
+<hr>
+
+<section class="phase sp-color-2">
+<h2 id="p4">Phase 4: Turning It Into A Real Product Other People Can Use</h2>
+<p class="phase-sub">authentication and multi-user architecture</p>
+<p><strong>Goal:</strong> Let other people use the tool, not just me.</p>
+<p>The original version had no login. Every company was mine, every job was mine. To share the tool, I needed authentication, data scoping and a way for each user to track their own set of companies.</p>
+
+<h3>What I Built</h3>
+<p><strong>Authentication via magic links.</strong> No passwords to store, no reset flow, no brute force to worry about. User enters email, gets a link, clicks it, done. Built on Supabase Auth with Resend as the SMTP provider.</p>
+<p><strong>Shared company catalog with per-user subscriptions.</strong> Instead of each user having their own copy of "Uber" (scraped separately), there is one shared entry. Users subscribe to the companies they want to track. One daily scrape serves all users, and scraping cost scales with the number of companies, not users.</p>
+<p><strong>New database tables</strong> for user subscriptions, per-user bookmarks, user preferences (email frequency: daily, weekly or off) and a rate-limited record of new-company submissions (10 per user).</p>
+<p><strong>Admin dashboard</strong> with stats, scrape issue reports, help submissions and user management, restricted to a single admin email. <strong>Rate limiting</strong> on all API routes: tighter on writes, looser on reads.</p>
+
+<h3>Key Decisions</h3>
+<p><strong>Shared catalog vs. per-user companies.</strong> This was the biggest architectural decision in the project. Per-user would be simpler, but it would mean scraping the same company once per user. With a shared catalog, scraping cost is proportional to companies, not companies times users. The tradeoff is that users cannot customize which roles they see per company, but PM roles are PM roles regardless of who is looking.</p>
+<p><strong>Magic links instead of passwords.</strong> The security surface is dramatically smaller: no credential storage, no resets, no brute force. The tradeoff is that login requires email access, which adds friction on mobile. For a tool where users log in once and then get daily emails, the reduced surface was worth it.</p>
+<p><strong>Job archival instead of hard deletion.</strong> When a job disappears from a careers page, I mark it "removed," and after 60 days it moves to "archived." This preserves favorited jobs. Slightly more storage, but losing someone's bookmarks is a bad experience.</p>
+
+<h3>What I Learned</h3>
+<p><strong>Server-stored login cookies create a frustrating browser limitation.</strong> Supabase Auth stores the login token in a cookie JavaScript cannot read, which is good for security. But my frontend needs the token to call the backend. The fix: a Next.js server route that reads the cookie server-side and returns the token; the client caches it in memory.</p>
+<p><strong>The PKCE magic link flow breaks across devices.</strong> My first auth used PKCE, which stores a verifier in the browser where you requested the link. Open the link in a different browser or your email app's built-in viewer, and the verifier does not exist, so login silently fails. Fixed by switching to a token-hash flow that works from any device.</p>
+<p><strong>Service key vs. anon key is a subtle, critical distinction.</strong> Supabase has two keys: one that respects per-row access rules and one that bypasses them. My backend used the wrong one, and the current-user function returned NULL for every query, making all user-scoped queries return empty. The error was invisible because the queries succeeded with zero results instead of throwing.</p>
+<p><strong>N+1 queries sneak in during multi-user rewrites.</strong> Subscribing a user to N companies first ran 2N sequential database queries. Batching them into parallel operations cut response time dramatically. I now audit every new feature for this pattern.</p>
+
+<div class="deep">
+<h4>Drilling deeper on the "why"</h4>
+<p>The shared catalog was not chosen for elegance. It was chosen because the unit economics of the wrong model break the product silently. With per-user companies, the daily scraping work multiplies by every new signup. The product would have felt fine at ten users and quietly become unaffordable, and slow, at a few hundred, exactly when growth is the goal. Decoupling cost from headcount up front is what let the catalog grow into the hundreds later without the daily cron getting more expensive each time someone joins.</p>
+<div class="alt">
+<span class="label label-alt">Alternative considered</span>
+The simpler build was a copy of each company per user, scraped independently. It needs no subscription table and no shared-state reasoning, and it lets each user filter roles however they like. I rejected it because it makes the most important cost in the system, daily scraping, scale with users times companies instead of just companies. The thing that makes per-user "simpler" to write is the same thing that makes it impossible to afford. I traded a more complex data model for a cost curve that does not punish success.
+</div>
+<div class="edge">
+<span class="label label-edge">Edge cases that bit</span>
+Three boundary failures defined this phase, and all three were silent. The wrong database key made every user-scoped query return an empty list with no error, so the app looked like it had no data rather than a misconfiguration. The PKCE flow failed only when the link was opened somewhere other than where it was requested, which is exactly what happens when an email app opens links in its own viewer, so it passed every test on my own machine and broke for real users. And the N+1 pattern only showed up under a real subscribe action, not a single-company test. The common thread: each one was invisible on the happy path and only appeared at a boundary I had not exercised.
+</div>
+<div class="impact">
+<span class="label label-impact">What this unlocked</span>
+This phase is the hinge of the whole project: it is the moment the tool stopped being mine and became a product other people could use. The shared-catalog decision specifically is what made the daily scrape a fixed cost the rest of the journey could build features on top of, instead of a tax that grew with every user.
+</div>
+</div>
+</section>
+
+<hr>
+
+<!-- ============ SUPER-PHASE 3 ============ -->
+<div class="superphase">
+  <div class="sp-bar" style="background:var(--sp3)"></div>
+  <h2>3. Building the MVP</h2>
+  <p class="sp-desc">The product taking shape: a safe add-flow, salary data, a real landing page, speed and a pre-launch security pass.</p>
+</div>
+
+
+<section class="phase sp-color-3">
+<h2 id="p5">Phase 5: A Safe Way To Add A Company</h2>
+<p class="phase-sub">the check-then-add flow</p>
+<p><strong>Goal:</strong> Do not let users add a company and get garbage results.</p>
+<p>The original "add company" flow was: paste URL, click Add and hope the scraper finds PM roles. If it did not work, the company was already in the database with zero jobs and the user had no idea why.</p>
+
+<h3>What I Built</h3>
+<p>A preview-before-commit flow with four states:</p>
+<ol>
+<li><strong>Input:</strong> User pastes a careers URL (company name auto-detected from the URL)</li>
+<li><strong>Checking:</strong> Animated progress (the scraper runs but saves nothing to the database)</li>
+<li><strong>Preview:</strong> Shows the detected name, sample job titles and locations and "Found X PM roles. Does this look right?"</li>
+<li><strong>Confirm or retry:</strong> "Yes, Add It" saves to the database. "No, Try Again" lets the user fix the URL and provide feedback. "Cancel" after feedback files it as a help submission for admin review.</li>
+</ol>
+<p>Also built a company name auto-detection system that recognizes 40+ known hostnames, falls back to ATS slug extraction, then to generic hostname parsing. If the URL matches an existing company, the system surfaces it and offers to subscribe instead of creating a duplicate.</p>
+
+<h3>Key Decisions</h3>
+<p><strong>Preview without saving.</strong> The check endpoint runs the full scrape pipeline but returns results without touching the database. Only when the user confirms does the save fire, passing the pre-checked jobs along so the scraper does not run twice.</p>
+<p><strong>URL-based dedup instead of name-based.</strong> Early versions matched duplicates by name, but "Open ai" vs. "OpenAI" vs. "openai" caused false negatives. Switching to URL domain extraction is much more reliable.</p>
+
+<h3>What I Learned</h3>
+<p><strong>Error recovery UX matters more than happy-path UX.</strong> Most users hit the happy path and never think about it. But when the scraper returns zero or wrong results, the user needs a clear way to understand and retry. The "retry with feedback" state turned a dead end into a recoverable flow, and the feedback gave me real data on which companies needed scraper improvements.</p>
+<p><strong>Auto-detecting company names is surprisingly hard.</strong> The same ATS uses different URL patterns. Each needs different parsing to extract a clean name. The 40+ hostname lookup table was built one company at a time as I hit new edge cases.</p>
+</section>
+
+<hr>
+
+<section class="phase sp-color-3">
+<h2 id="p6">Phase 6: Showing What These Roles Actually Pay</h2>
+<p class="phase-sub">compensation data integration</p>
+<p><strong>Goal:</strong> Show users what these PM roles actually pay.</p>
+<p>Job listings rarely include salary. But levels.fyi has crowdsourced compensation data for most tech companies. Showing salary ranges alongside listings makes the tool much more useful.</p>
+
+<h3>What I Built</h3>
+<div class="tablewrap">
+<table>
+<thead><tr><th>Tier</th><th>Latency</th><th>TTL</th></tr></thead>
+<tbody>
+<tr><td>In-memory Map</td><td>~0ms</td><td>1 hour</td></tr>
+<tr><td>Database cache</td><td>~50ms</td><td>24 hours</td></tr>
+<tr><td>Live fetch from levels.fyi</td><td>1 to 3 seconds</td><td>Fills both caches</td></tr>
+</tbody>
+</table>
+</div>
+<p>Compensation data is preloaded when a company is added (fire-and-forget after the API responds), refreshed by the daily cron in small batches with delays and served lazily on the company detail page so it never blocks page load. Added job level classification (early/mid/director) based on title keywords, so ranges can be shown per level.</p>
+
+<h3>Key Decisions</h3>
+<p><strong>Three-tier cache instead of fetching on demand.</strong> levels.fyi responses take 1 to 3 seconds. Fetching on every page load would feel sluggish. The memory cache serves most requests in ~0ms; the DB cache catches cold starts; live fetches only happen when data is truly stale.</p>
+<p><strong>Cache failures for 5 minutes.</strong> If levels.fyi is down or lacks data for a company, I cache the failure for 5 minutes to prevent hammering the same endpoint. Without this, a single missing company generates a live fetch on every page load.</p>
+<p><strong>Lazy loading on the frontend.</strong> The detail page renders immediately with job listings (~200ms). Compensation loads asynchronously and appears when ready.</p>
+
+<h3>What I Learned</h3>
+<p><strong>Fire-and-forget is the right pattern for preloading.</strong> When a user adds a company, they care about seeing jobs, not comp data at that moment. Kicking off the comp fetch after the response is sent means the user does not wait, but by the time they click in, the data is cached.</p>
+<p><strong>Batched cron refreshes prevent rate limiting.</strong> Refreshing every company at once would hit rate limits. Batching a few at a time with short delays keeps requests manageable and still completes within the cron window.</p>
+</section>
+
+<hr>
+
+<section class="phase sp-color-3">
+<h2 id="p7">Phase 7: The Landing Page</h2>
+<p><strong>Goal:</strong> Explain the product to strangers who land on the homepage.</p>
+<p>Up to this point, unauthenticated visitors saw a login page. No context about what the product does, who it is for, or why to sign up.</p>
+
+<h3>What I Built</h3>
+<p>A 10-section marketing landing page: fixed nav, hero with floating company cards, problem statement, how-it-works, product screens, latest jobs, salary callout, stats, final CTA, footer. Architecture: the landing page renders as a fixed overlay on top of the app shell. Authenticated users see the dashboard directly. Zero changes to the existing layout, navbar or help button.</p>
+
+<h3>What I Learned</h3>
+<p><strong>The overlay approach avoids the riskiest refactor.</strong> Instead of restructuring the app to conditionally render different shells for authenticated vs. unauthenticated users, the landing page simply covers everything with a fixed-position, high-layer overlay. The app renders behind it, invisible. When the user logs in, the overlay disappears and the app is already there. A deliberate "minimize blast radius" decision.</p>
+<p><strong>Scroll detection on overlays does not use the window.</strong> Because the landing page is a fixed overlay with its own scroll, a window scroll listener does not fire. The nav transition had to listen to the overlay container's scroll instead.</p>
+</section>
+
+<hr>
+
+<section class="phase sp-color-3">
+<h2 id="p8">Phase 8: Making It Load Fast</h2>
+<p class="phase-sub">performance optimization</p>
+<p><strong>Goal:</strong> Ship a landing page that loads fast, especially on first visit.</p>
+<p>After building the landing page, Lighthouse desktop score was 49. Too much JavaScript loaded upfront: 1,500+ lines of landing code, brand-color calculations on every render and analytics blocking the main thread before first paint.</p>
+
+<h3>What I Built</h3>
+<p><strong>Code-splitting.</strong> Split the 1,528-line landing page into above-fold hero (loads immediately) and below-fold sections (lazy-loaded). Users see the hero instantly while the rest loads in the background.</p>
+<p><strong>Pre-computed brand colors.</strong> The page blended brand colors toward white for card backgrounds, about 80 runtime calculations per render. Moved the computation to module-load time so it runs once.</p>
+<p><strong>Deferred analytics.</strong> The analytics init ran at top-level module scope, blocking the main thread before first paint. Moved it into an effect so it runs after the page is visible.</p>
+<p><strong>Result:</strong> Desktop Lighthouse went from 49 to 100 (Total Blocking Time dropped to 0ms). Mobile stayed at 72 to 77, bottlenecked by the React runtime's 225KB, which is beyond what I can optimize without a bigger architectural change.</p>
+
+<h3>What I Learned</h3>
+<p><strong>Measure before optimizing.</strong> The three fixes were guided by Lighthouse diagnostics. Without measuring, I might have guessed wrong. The analytics blocking, for example, was not obvious until I looked at the Total Blocking Time breakdown.</p>
+<p><strong>There is a ceiling set by your framework.</strong> On mobile the bottleneck is the React runtime itself. No amount of code-splitting fixes that; the next step would be a larger architectural change.</p>
+<p><strong>Pre-computation is underrated.</strong> Moving brand-color math from render-time to load-time eliminated ~80 calls per render with a one-line change. Always check: is this computation the same every time? If yes, compute it once.</p>
+</section>
+
+<hr>
+
+<section class="phase sp-color-3">
+<h2 id="p9">Phase 9: Getting Safe For Real Users</h2>
+<p class="phase-sub">security hardening</p>
+<p><strong>Goal:</strong> Get the app ready for real users who are not me.</p>
+<p>Before sharing the URL publicly, I ran a security audit. Single-user tools can get away with shortcuts. Multi-user tools cannot.</p>
+
+<h3>Security Headers</h3>
+<p>Added five security headers to all frontend responses: Content-Security-Policy (a whitelist of allowed sources, built dynamically from config), Strict-Transport-Security (forces HTTPS), X-Frame-Options: DENY (blocks clickjacking), X-Content-Type-Options: nosniff and Referrer-Policy.</p>
+
+<h3>Full Security Audit</h3>
+<p>A set of fixes deployed together:</p>
+<ol>
+<li><strong>Open redirect prevention.</strong> A post-login redirect parameter could be pointed at an external site. Fixed by validating it is a relative path only.</li>
+<li><strong>XSS in help emails.</strong> User-submitted feedback was embedded in admin emails without escaping, so a user could inject code that ran when I opened the email. Added escaping to all user input before it goes into templates.</li>
+<li><strong>Hardcoded admin email.</strong> Extracted to a shared constant read from config.</li>
+<li><strong>PII in server logs.</strong> User email addresses were logged during the daily cron. Replaced with truncated user IDs.</li>
+<li><strong>Scraper timeout.</strong> The generic browser scraper had no timeout, so a hanging page could block the entire daily cron. Added a 120-second timeout.</li>
+<li><strong>Cron overlap guard.</strong> Added a flag to prevent two scrapes running simultaneously.</li>
+</ol>
+
+<h3>Input Validation and SSRF Protection</h3>
+<ul>
+<li>UUID validation on all ID parameters</li>
+<li>HTTPS-only URLs when adding companies</li>
+<li>LinkedIn URLs blocked (their career pages never scrape correctly)</li>
+<li>Private IP ranges blocked to prevent SSRF, where someone could use the scraper to probe internal networks</li>
+</ul>
+
+<h3>DNS Security</h3>
+<p>Configured DMARC, DKIM and SPF records so alert emails are less likely to land in spam and harder to spoof.</p>
+
+<h3>What I Learned</h3>
+<p><strong>Security is not a feature you add at the end; it is a list of things that are always wrong.</strong> Every one of these existed from day one. None caused problems while I was the only user. All would have been exploitable the moment I shared the URL.</p>
+<p><strong>CSP is powerful but painful with this framework.</strong> The framework injects inline scripts and styles for hydration, which means a strict CSP needs nonce-based exceptions. For now an inline-script allowance is required; nonce-based CSP is a future upgrade.</p>
+
+<div class="deep">
+<h4>Drilling deeper on the "why"</h4>
+<p>The reason to audit <em>before</em> launch rather than after is that the cost of every one of these bugs is zero until the exact moment it is catastrophic. A single-user tool with an open redirect is harmless; the same code, the day a stranger visits, is a phishing vector pointed at my own domain. Security debt does not accrue interest gradually, it sits at zero and then steps straight to its full value the instant the audience changes. Doing the audit as the gate to going public is the only point where the work is cheap and the risk is still hypothetical.</p>
+<div class="alt">
+<span class="label label-alt">Alternative considered</span>
+I could have launched first and hardened reactively, fixing issues as they surfaced or as users reported them. That is the faster path to "live." I chose to gate the public URL behind the audit because the failure mode of reactive security is that you find out about the hole from the person exploiting it, not from a report. For a solo builder with no security team watching logs in real time, a clean pre-launch sweep is the only review the app was realistically going to get before strangers arrived.
+</div>
+<div class="edge">
+<span class="label label-edge">Edge cases that bit</span>
+The scariest boundary case was SSRF. My product is, by design, a thing that fetches arbitrary URLs a user hands it. That is the exact shape an attacker wants: submit an internal address instead of a careers page, and the server fetches it on their behalf, potentially reaching systems that are not supposed to be reachable from the outside at all. The defense is to treat every user-supplied URL as hostile and refuse private address ranges outright. The two other quiet ones: a browser scraper with no timeout can hang the entire daily run on one slow page, and the cron with no overlap guard can run two copies of itself and fight over the database.
+</div>
+<div class="impact">
+<span class="label label-impact">What this unlocked</span>
+This phase is what made "share the link" a safe action rather than a gamble. It also set the template every later audit follows: list the things that are silently wrong, fix them in one pass, and write down why. The SSRF and input-validation rules in particular became permanent invariants the rest of the product is built inside.
+</div>
+</div>
+</section>
+
+<hr>
+
+<!-- ============ SUPER-PHASE 4 ============ -->
+<div class="superphase">
+  <div class="sp-bar" style="background:var(--sp4)"></div>
+  <h2>4. Alpha and Beta: Hardening With Real Users</h2>
+  <p class="sp-desc">Real users meant real failures. Most of this stretch is about catching the ones that fail quietly.</p>
+</div>
+
+
+<section class="phase sp-color-4">
+<h2 id="p10">Phase 10: Getting Every Email Delivered</h2>
+<p class="phase-sub">email system and reliability</p>
+<p><strong>Goal:</strong> Deliver daily alerts reliably without hitting rate limits or losing emails.</p>
+
+<h3>What I Built</h3>
+<p><strong>Per-user personalized alerts.</strong> The daily cron fetches all users, checks each one's email preference, queries new jobs only for their subscribed companies and sends one personalized email per user.</p>
+<p><strong>Batch email sending.</strong> Replaced individual send calls with batch sends (up to 100 per API call, with a short delay between batches).</p>
+<p><strong>Admin failure notifications.</strong> If a batch fails, the system sends one summary email to me with error details and a dashboard link.</p>
+<p><strong>Custom email domain.</strong> Alerts and magic links come from a custom domain via Resend, with company logos included for visual recognition.</p>
+
+<h3>What I Learned</h3>
+<p><strong>Rate limits hit before you expect them.</strong> Even with a handful of users, individual email calls exceeded the per-second limit, and some users missed alerts. Batch sending was a day-one necessity, not a scale optimization.</p>
+<p><strong>SMTP and API share the same quota.</strong> Magic link emails go through Supabase's SMTP integration; daily alerts go through the API directly. Both count against the same quota. On high-signup days, there was less room for alert emails.</p>
+</section>
+
+<hr>
+
+<section class="phase sp-color-4">
+<h2 id="p11">Phase 11: Knowing The Moment Something Breaks</h2>
+<p class="phase-sub">monitoring and analytics</p>
+<p><strong>Goal:</strong> Know when things break before users tell me, and understand how people use the product.</p>
+
+<h3>What I Built</h3>
+<p><strong>Error tracking</strong> on both frontend and backend, with exception capture in all 18 backend route catch blocks. The frontend uses session replay (sampled low to control cost) to see what users experienced before an error.</p>
+<p><strong>Product analytics</strong> tracking pageviews, company additions, deletions, job starring and filter usage. User identity is hashed before being sent, so no raw email addresses leave the system. Init is deferred to avoid blocking the main thread.</p>
+<p><strong>Uptime monitoring</strong> via an external service pinging a health endpoint.</p>
+
+<h3>What I Learned</h3>
+<p><strong>Hash PII before sending it to analytics.</strong> The analytics tool does not need a user's actual email. A hash lets me track unique behavior without storing identifiable information in a third-party system.</p>
+<p><strong>Error capture requires discipline.</strong> Adding exception capture to 18 catch blocks was tedious but essential. Before this, errors logged silently to the console, which I had to check manually. Now any unhandled error triggers an alert.</p>
+</section>
+
+<hr>
+
+<section class="phase sp-color-4">
+<h2 id="p12">Phase 12: Making The Daily Run Dependable</h2>
+<p class="phase-sub">cron reliability and operations</p>
+<p><strong>Goal:</strong> Make sure the daily scrape actually completes, every day, without manual intervention.</p>
+
+<h3>What I Built</h3>
+<p><strong>Await-based cron endpoint.</strong> The cron trigger must wait for the daily check to finish before responding. My original version returned immediately, and Railway's auto-sleep would kill the process before scraping finished, causing missed alerts on quiet weekends.</p>
+<p><strong>Single-source scheduling.</strong> Removed an in-process scheduler that caused duplicate runs alongside Railway's cron. Only Railway Cron initiates the daily check.</p>
+<p><strong>Overlap guard.</strong> A flag prevents a new run starting if the previous one has not finished.</p>
+<p><strong>120-second timeout</strong> on generic scraper pages that hang, so one bad page does not block the whole run.</p>
+
+<h3>What I Learned</h3>
+<p><strong>Auto-sleep infrastructure changes the rules.</strong> Railway keeps the backend running while it receives requests but sleeps after inactivity. Fire-and-forget patterns that work on always-on servers fail silently here. The cron endpoint has to hold the connection open until the work is done.</p>
+<p><strong>Duplicate runs are worse than missed runs.</strong> A missed scrape means yesterday's data. A duplicate means two processes fighting over the database, potentially creating duplicates or double emails. The overlap guard was added after I saw double emails during testing.</p>
+</section>
+
+<hr>
+
+<section class="phase sp-color-4">
+<h2 id="p13">Phase 13: Keeping It Fast As The Data Grew</h2>
+<p class="phase-sub">database and query performance</p>
+<p><strong>Goal:</strong> Keep the app fast as the number of companies, jobs and users grows.</p>
+
+<h3>What I Built</h3>
+<p><strong>Targeted database indexes</strong> matched to the queries the app actually runs: deduplication, the "new jobs today" calculation, filtering active vs. removed jobs, the sorted all-jobs list and finding companies the scraper needs to check.</p>
+<p><strong>Parallel query execution.</strong> The company detail endpoint runs 3 queries in parallel; the dashboard runs 2.</p>
+<p><strong>Database-level filtering.</strong> The "new jobs today" calculation runs in PostgreSQL rather than in JavaScript.</p>
+<p><strong>Auth fast path.</strong> Login-token verification happens locally using a signing secret (~0ms) instead of calling Supabase's API (~100 to 150ms per request), with the API as a fallback.</p>
+
+<h3>What I Learned</h3>
+<p><strong>Indexes should be added based on actual query patterns, not guesses.</strong> I added the composite index for "new jobs today" after noticing a full table scan as the job count grew. The index made it instant.</p>
+<p><strong>Local token verification is a massive win.</strong> Every authenticated call was adding 100 to 150ms for a round-trip. Verifying locally eliminated it. This is one config value that, if removed, makes every API call noticeably slower.</p>
+</section>
+
+<hr>
+
+<section class="phase sp-color-4">
+<h2 id="p14">Phase 14: Building With AI Tools</h2>
+<p><strong>How I used AI throughout this project.</strong></p>
+<p>This entire product was built using AI coding tools, primarily Claude Code. Here is what that actually looked like in practice.</p>
+
+<h3>What AI did well</h3>
+<ul>
+<li>Scaffold new features end-to-end (routes, schema, components)</li>
+<li>Write scraper implementations once I described the platform's API format</li>
+<li>Debug production issues from error logs</li>
+<li>Perform repetitive refactors (exception capture across 18 catch blocks, switching to batch email sends)</li>
+<li>Generate boilerplate (security headers, cross-origin config, rate limiting)</li>
+</ul>
+
+<h3>Where I had to steer</h3>
+<ul>
+<li>Architecture decisions (shared catalog vs. per-user, magic links vs. passwords) required my product judgment</li>
+<li>The project context file was essential. Without a comprehensive description of the architecture, the AI made changes that conflicted with existing patterns. Maintaining it was an ongoing investment that paid off every day.</li>
+<li>Debugging subtle issues (the key mismatch, the cross-device failure, the auto-sleep interaction) required me to understand what was happening, even if AI wrote the fix</li>
+<li>UX decisions came from product thinking, not code generation</li>
+</ul>
+
+<h3>What I Learned</h3>
+<p><strong>AI coding tools do not replace product thinking. They accelerate it.</strong> The PM decisions were all mine; the AI handled implementation. This let me move at 5 to 10x the speed of writing every line myself, but only when I was clear about what I wanted. The times I moved slowest were when I was fuzzy on direction, not when the code was complex.</p>
+<p><strong>Context management is a skill.</strong> The difference between productive and frustrating AI coding is how well you maintain context. A well-written context file is the difference between "build the check-then-add flow" and spending 30 minutes re-explaining the project every session.</p>
+</section>
+
+<hr>
+
+<section class="phase sp-color-4">
+<h2 id="p15">Phase 15: Scrapers That Fix Themselves</h2>
+<p class="phase-sub">self-healing scrapers</p>
+<p><strong>Goal:</strong> Stop scraper failures from being invisible until a user complains.</p>
+
+<h3>What I Built</h3>
+<p>Companies change their job board platforms without warning. When that happens, the daily scrape silently returns zero results, and nobody knows until someone checks their dashboard days later.</p>
+<p>I built an auto-remediation system into the daily cron. When a scraper returns zero jobs for a non-custom company, the system automatically runs platform detection to check if the company switched providers. If it finds a new platform, it updates the database, re-scrapes with the correct scraper and tracks the fix. The daily admin email now has two sections: a green "auto-fixed" section and a red "still needs attention" section.</p>
+<p>I also fixed a subtle false-alarm problem. Most scrapers pre-filter jobs by PM keywords internally, which means zero results could mean "no PM roles right now" or "the scraper is completely broken." Now, actual failures throw exceptions (caught by error handling), while zero PM results are treated as valid outcomes. This eliminated phantom alerts for companies that simply had no PM openings.</p>
+
+<h3>Key Decisions</h3>
+<p><strong>Auto-remediate only for known ATS platforms, not custom scrapers.</strong> Companies with bespoke scraping logic cannot be auto-detected, so a human looks at those. But for the many companies on standard platforms, switches are detectable and fixable automatically.</p>
+<p><strong>Two-tier email instead of a failure dump.</strong> The old email was a wall of red. The new one separates auto-fixes (green, informational) from real problems (red, actionable), so I can glance at it and know whether I need to do anything today.</p>
+<p><strong>Removed the zero-results alert entirely.</strong> My first instinct was to alert on zero PM jobs. But after investigating four "failures," two were correct: those companies just were not hiring PMs. Alerting on ambiguous signals creates noise that trains the operator to ignore alerts.</p>
+
+<h3>What I Learned</h3>
+<p><strong>The hardest bugs look like correct behavior.</strong> A zero result looks exactly like "this company is not hiring PMs." The only way to tell that apart from "the scraper is pointed at the wrong platform" is to re-run platform detection. That is why the auto-remediation step exists.</p>
+<p><strong>Pre-filtering creates ambiguity that post-filtering does not.</strong> If every scraper returned ALL jobs and filtered afterward, I could distinguish "200 jobs, none PM" from "scraper returned nothing." Pre-filtering is faster but makes the output ambiguous. I kept it for performance and added the remediation layer to handle the ambiguity.</p>
+<p><strong>Alert fatigue is worse than missing alerts.</strong> Four alerts a day for non-issues would train me to stop reading the email within a week. Reducing to genuine, actionable failures keeps the signal-to-noise high.</p>
+
+<div class="deep">
+<h4>Drilling deeper on the "why"</h4>
+<p>The deeper realization here is that "zero results" is not one event, it is two completely different events wearing the same costume, and my monitoring could not see the costume. A scrape that succeeds and finds no PM roles and a scrape that is broken and finds nothing produce byte-identical output. No amount of better logging on the zero itself can separate them, because the information that distinguishes them does not live in the result, it lives in whether the platform still exists. So the fix was not a smarter alert, it was an active probe: re-run detection and let the answer to "did the platform move?" disambiguate the zero. The lesson generalizes to anything where absence of a signal is ambiguous, you have to go get the disambiguating fact, not stare harder at the absence.</p>
+<div class="alt">
+<span class="label label-alt">Alternative considered</span>
+The obvious move was to alert on every zero-PM company and let me investigate each one by hand. It guarantees I see every real break. I rejected it after the first day of using it, because two of the first four alerts were companies that were genuinely just not hiring PMs. An alert channel that cries wolf two times out of four is one I will have learned to ignore within a week, which means it fails me precisely on the fifth alert that is real. I chose to alert only on unambiguous failures (exceptions) and to make the system itself resolve the ambiguous ones, trading some coverage for an alert channel I will actually still be reading in a month.
+</div>
+<div class="edge">
+<span class="label label-edge">Edge cases that bit</span>
+The cleanest example was a company that migrated its entire ATS from one platform to another. The scraper kept hitting the old, now-dead endpoint and returning zero, which looked identical to "they stopped hiring PMs." Only re-running detection revealed they had moved, at which point the system could repoint itself and recover the listings on its own. The boundary that made this hard is that the broken state and the healthy-empty state are indistinguishable from the outside; the only tell is an action, not an observation.
+</div>
+<div class="impact">
+<span class="label label-impact">What this unlocked</span>
+This is the first time the system started healing itself instead of paging me, and it set the direction for everything operational that follows. The two-tier "fixed vs. needs-attention" email became the template, and the core insight, that a silent success is more dangerous than a loud failure, becomes the spine of Phases 21, 29 and 31.
+</div>
+</div>
+</section>
+
+<hr>
+
+<section class="phase sp-color-4">
+<h2 id="p16">Phase 16: Stopping Bad Data At The Source</h2>
+<p class="phase-sub">the data quality pipeline</p>
+<p><strong>Goal:</strong> Stop bad data from reaching users, and give me a daily health report so I catch issues before anyone else does.</p>
+
+<h3>What I Built</h3>
+<p>Microsoft was showing 157 PM jobs in the daily email, dozens from India, the UK and elsewhere. The root cause was embarrassing: location filtering only existed as a frontend toggle. The backend was storing every global PM job and including all of them in email alerts. The "US Only" button hid the problem in the UI, but the email had no such filter.</p>
+<p>I ported location detection to the backend and added a second filter pass in the validation pipeline. Every job now goes through two gates: does the title match PM keywords, and is the location in the US? I added explicit non-US patterns (60+ countries) instead of just checking for US matches. If a location matches nothing either way, it gets excluded by default. Safer to miss an unusual US location string than to email someone jobs from another continent.</p>
+<p>The second part was a daily quality evaluation. After every cron scrape, the system runs a quality check across every company and emails me a scorecard: US jobs, non-US filtered out, change from yesterday, quality score and any flags. Problem companies sort to the top.</p>
+
+<h3>Key Decisions</h3>
+<p><strong>Filter at the validation layer, not in each scraper.</strong> Every scraper flows through one validation step before anything is saved. Adding the location filter there applies it universally with zero changes to individual scrapers. The alternative (filtering in each of the 8+ scrapers) would have been fragile and easy to forget when adding new ones.</p>
+<p><strong>Default unknown locations to excluded.</strong> The frontend treated unknown locations as US. The backend does the opposite: unmatched strings get excluded. The tradeoff is that a small number of US jobs with unusual formatting might get filtered, but the alternative is the exact problem that caused the Microsoft incident.</p>
+<p><strong>Always-send eval email.</strong> The report sends even when everything is fine. If the email stops arriving, I know the cron itself is broken. A report that only sends on failure gives no signal when the monitoring fails silently.</p>
+
+<h3>What I Learned</h3>
+<p><strong>UI filtering is not data filtering.</strong> A filter that only exists in the presentation layer protects one view while leaving every other channel exposed. Data quality rules belong at the source, before storage.</p>
+<p><strong>Negative patterns are as important as positive ones.</strong> Checking only for US patterns would miss a location that contains no US keywords but also is not in any US list. Explicit non-US patterns catch these definitively.</p>
+<p><strong>A daily health report changes how you operate.</strong> The difference is between reactive firefighting and proactive quality management. Even "all checks passed" across the catalog is reassuring.</p>
+</section>
+
+<hr>
+
+<section class="phase sp-color-4">
+<h2 id="p17">Phase 17: Dropping The Fragile Browser</h2>
+<p class="phase-sub">Puppeteer elimination and catalog expansion</p>
+<p><strong>Goal:</strong> Recover 10 broken companies, eliminate the browser dependency where possible and expand the catalog from 55 to 126 companies.</p>
+
+<h3>What I Built</h3>
+<p>I woke up to an admin email showing 10 companies failing with identical browser crash errors. All used the headless-browser path. The root cause: the Docker base image that bundles the browser had silently updated to a broken version. Every browser-dependent company broke at once.</p>
+<p>Instead of just pinning the image, I treated this as a chance to eliminate the browser dependency where possible. For each of the 10, I researched what ATS they actually used by probing known API endpoints. Several turned out to be on platforms I already supported. I built four new scraper types (an iCIMS REST scraper, an HTML-fragment parser, an Amazon Jobs scraper and an Oracle HCM scraper). Seven of the original ten now use API-based scraping. For the remaining three that genuinely require a browser, I pinned the Docker image to a known-good version.</p>
+<p>With the infrastructure proven, I expanded the catalog from 55 to 126 companies, researching each one's ATS before adding it. 118 of 126 use pure API scrapers; only 8 need the browser. I also ran a full security and correctness audit that caught 16 issues including a critical blocklist gap.</p>
+
+<h3>Key Decisions</h3>
+<p><strong>Research each company's ATS instead of fixing the browser path.</strong> The easy fix was to pin the image and move on. But the browser path is inherently fragile: heavy, slow and breaks when the base image updates. Every company I moved to a direct API call became permanently more reliable. The tradeoff is development time now versus ongoing maintenance time forever.</p>
+<p><strong>Accept that some companies genuinely need the browser.</strong> A few run sites with no clean API path. For those, the browser remains necessary, but I pinned the image rather than tracking <code>:latest</code>.</p>
+<p><strong>Use keyword filtering at the API level where possible.</strong> One company's ATS instance has 26,000+ listings; the API's keyword parameter narrows it to a handful. But different instances handle parameters differently, so the scraper uses the filter where it works and falls back gracefully when it does not.</p>
+
+<h3>What I Learned</h3>
+<p><strong>The label "generic" was hiding opportunity.</strong> Ten companies were marked "generic," meaning "we do not know the ATS, so use the browser." When I investigated, seven had perfectly usable APIs. "Generic" was not a platform assessment, it was a lack of investigation.</p>
+<p><strong>Docker <code>:latest</code> is a landmine.</strong> The image updated silently, and because I pulled <code>:latest</code>, every deploy got the broken version. Pinning to a specific tag makes updates intentional. This applies to any base image.</p>
+<p><strong>Enterprise ATS platforms have hidden APIs.</strong> Documentation aimed at enterprise customers often hides a clean endpoint that returns structured job data. This pattern works across many sites on the same platform.</p>
+</section>
+
+<hr>
+
+<section class="phase sp-color-4">
+<h2 id="p18">Phase 18: A Recovery System, Not A One-Off Patch</h2>
+<p class="phase-sub">the self-healing scraper layer</p>
+<p><strong>Goal:</strong> Stop manually investigating every time a company silently breaks. Build a recovery system that handles platform migrations, dead APIs and lost access automatically.</p>
+
+<h3>What I Built</h3>
+<p>The session opened with one company failing. Their public board, which my scraper had hit for months, returned 404 on every endpoint. The board had been deleted, not renamed, and rebuilt as a custom single-page app behind an internal, access-controlled API, so there was no clean public path to their listings anymore. No clean fix.</p>
+<p>Instead of fighting that one company, I built a generalized recovery system. The cron loop now has three tiers when a company returns zero jobs. Tier one is the configured scraper. Tier two is the existing platform auto-detection. Tier three is new: a generic fallback that loads the careers page, watches the structured responses the page itself loads and extracts job listings from any response that looks like a list of jobs. This catches companies that move to custom data sources the system has never seen.</p>
+<p>If all three tiers fail seven days in a row, the system auto-disables the company and stops trying. Every Monday, the cron retries each auto-disabled company once; a successful probe re-enables it automatically. The admin email gets new sections for "re-enabled," "fallback recovered," and "auto-disabled."</p>
+
+<h3>Key Decisions</h3>
+<p><strong>Build the recovery system, not the one-off fix.</strong> The instinct was to keep digging at the single broken company. I caught myself an hour in and reframed: if I am fighting one company this hard, the next ten will eat the rest of my month. The right scope was a system that turns "manual investigation every two weeks" into "system handles it, emails me only when it cannot."</p>
+<p><strong>Auto-disable threshold of seven days, not three.</strong> Some companies legitimately have zero PM roles for a week. Three days would auto-disable real companies. Seven is conservative enough that real "no roles" states recover first, but short enough that broken scrapers do not pollute reports for weeks. The Monday probe means even a disabled company gets one retry per week.</p>
+<p><strong>Return empty arrays instead of throwing exceptions.</strong> Tier-1 scrapers that throw bypass tiers two and three because the catch block fires immediately. So custom scrapers now return an empty array for known failure cases and reserve exceptions for genuinely unexpected errors. The contract for "I tried and got nothing" has to differ from "something is so broken I cannot continue."</p>
+
+<h3>What I Learned</h3>
+<p><strong>Structured data sources are far more reliable than rendering a page in a browser.</strong> Some sites simply are not reliably accessible from a server, and the durable answer is to detect that and degrade gracefully rather than keep fighting it. A clean structured feed beats a browser every time it exists.</p>
+<p><strong>The "this one company" trap.</strong> Every break tempts a one-off fix. After about the third, you have a graveyard of bespoke scrapers and still get woken every other week. The right move is to recognize the pattern early and build the recovery system instead.</p>
+<p><strong>Tiered recovery is graceful degradation.</strong> Each tier knows less about the specific company but works for more companies. Failing forward through the tiers means the system can usually find at least some answer. Good engineering rarely produces one perfect answer; it produces a chain of progressively-less-confident answers and trusts the most confident one that succeeds.</p>
+</section>
+
+<hr>
+
+<section class="phase sp-color-4">
+<h2 id="p19">Phase 19: Less Noise, Tighter Security</h2>
+<p><strong>Goal:</strong> Trust the self-healing system to run quietly. Verify the security claims in our docs match what the code does. Surface new vulnerabilities every week instead of hoping someone remembers to audit.</p>
+
+<h3>What I Built</h3>
+<p>The self-healing layer was working but I was getting three admin emails a day: a scrape report, a quality evaluation and a batch-failure alert. Most of it told me about successes I did not need. I consolidated the three into one digest that fires only when something needs attention: a scrape that failed, a company trending toward auto-disable, a subscribed company that dropped to zero, a delivery batch failure. On Mondays it picks up a weekly digest section. Most days now produce zero admin emails.</p>
+<p>While simplifying, I noticed the "fallback recovered jobs" line was firing for thirteen companies a day. Investigation showed most had perfectly functional boards with fifty or two hundred jobs, none of which were PM roles. The primary scraper correctly returned zero, the system fell through to the fallback, the fallback returned the same jobs from a different URL, and the PM filter eliminated everything again. Wasteful duplicate work, not recovery. I added a pre-filter job count, so the fallback only triggers when the source actually returned nothing. Daily fallback runs dropped from thirteen to three.</p>
+<p>I also made the fallback useful when it does run: it now returns the URL it found jobs at, and a function maps known URL patterns back to a platform config. When the URL is recognized and differs from the database, the system auto-updates the company's config so the next run goes through the API directly.</p>
+<p>Then I ran a full security audit with three parallel review agents, each scoped to one surface: the authentication flow, data isolation between users and infrastructure. They surfaced eleven distinct issues. The most embarrassing was a cookie-security mismatch: a setting added during a refactor quietly contradicted both the docs and a server-side bridge route built specifically on the original assumption. The audit also found a read endpoint that returned company data to non-subscribers, a shared-secret comparison vulnerable to timing attacks and a dependency with a published CVE in its rate-limiting logic. I shipped fixes for all eleven in one commit. To prevent future drift, the Monday email now audits backend dependencies and shows new and resolved vulnerabilities week over week.</p>
+
+<h3>Key Decisions</h3>
+<p><strong>One email channel, not three.</strong> Splitting alerts by category feels organized but makes the reader triage which to open first. Folding everything into one channel that fires only when something needs attention is harder to ignore because you know it always means something.</p>
+<p><strong>Three specialized review agents instead of one general pass.</strong> Each agent read its target files line by line. A generalist pass covers more ground at less depth and would have missed the subtle issue where one read endpoint forgot a subscription check while every other route had one.</p>
+<p><strong>Ship the runtime-safe fixes in one commit, defer the runtime-risky one.</strong> Ten of eleven were code-only changes I could verify locally. One was a CSP tightening that needs runtime testing because monitoring uses inline scripts. I shipped the verified fixes and logged the deferred one.</p>
+
+<h3>What I Learned</h3>
+<p><strong>A self-healing system that emails you about every success trains you to ignore the channel.</strong> By the time something needs attention, you are habituated to skip it. Successful auto-recoveries belong in a database and a weekly review, not push notifications.</p>
+<p><strong>Documentation drifts from code during refactors, and audits exist because of that.</strong> Someone added a one-line override during a refactor; it was never reverted; the docs kept claiming the original behavior; from the outside everything looked right. Audits compare what you think is happening against what actually is, because no individual change ever sets out to lie.</p>
+<p><strong>Specialized matters more than thorough.</strong> Where you look is more valuable than how widely you look. Twenty surface checks miss what one deep check uncovers.</p>
+<p><strong>Build the monitoring before you need it.</strong> The weekly dependency audit runs in the same cron, costs nothing, and catches the next unknown CVE months earlier than the next manual audit.</p>
+</section>
+
+<hr>
+
+<!-- ============ SUPER-PHASE 5 ============ -->
+<div class="superphase">
+  <div class="sp-bar" style="background:var(--sp5)"></div>
+  <h2>5. Productionizing and Scale</h2>
+  <p class="sp-desc">Turning a working app into an operation: AI helpers, gated deploys, a bigger catalog and a job-first experience.</p>
+</div>
+
+
+<section class="phase sp-color-5">
+<h2 id="p20">Phase 20: A Team Of Specialized AI Helpers</h2>
+<p class="phase-sub">specialized AI agents and PR-gated deploys</p>
+<p><strong>Goal:</strong> Move from "ask Claude to do everything" to a roster of specialized agents, and put a deploy gate in place so a bad change cannot land on users without me seeing a preview first.</p>
+
+<h3>What I Built</h3>
+<p>For about a year, I opened a chat with Claude Code, described what I wanted, then pushed to main. That worked but had two problems. Every task started from zero context, and the same autonomy that made me fast made me nervous: one bad change going straight to production was one careless decision away.</p>
+<p>I built a portfolio of thirteen specialized subagents that live in the repo, each a markdown file with focused instructions for a recurring job. Five are custom and encode project-specific knowledge no public agent could have. The other eight were forked from public collections after evaluating around seven hundred agents across four open-source repos, then rewritten to keep only the load-bearing patterns and remove vendor name-drops, marketing taglines and roleplay headers.</p>
+<p>Then the deploy gate: branch protection so main only receives code through a pull request, plus preview environments so every PR gets its own working sandbox URL. The workflow now is that I describe a task, Claude routes it to the right specialist, the agent proposes a patch, I review it, Claude opens a PR, preview deploys spin up, I click around, and only then do I merge. The merge button is the only step I cannot delegate.</p>
+
+<h3>Key Decisions</h3>
+<p><strong>Build custom for project knowledge, borrow for generic roles.</strong> The reusable ones were generic roles any web app needs. The ones I built encode knowledge no public agent could have: the custom-host blocklist, the three-tier recovery model, the proven audit pattern. I split the portfolio eight borrowed and five custom.</p>
+<p><strong>PR-gated deploys instead of direct push to main.</strong> The tradeoff is one merge click per change. The benefit is that no change reaches users without me seeing a working preview, and a bad change closes with one click instead of a revert.</p>
+<p><strong>Agents propose, the main thread disposes.</strong> Every specialist is restricted from running git commands. They return diagnoses and patches as markdown; the main thread handles all git operations after I approve. This keeps risky autonomy where I have visibility.</p>
+
+<h3>What I Learned</h3>
+<p><strong>Generic public agents are surprisingly bloated.</strong> Even the highest-quality public agents averaged around fifty to seventy percent bloat for my use case: vendor name-drops, aspirational checklists and "you are a ten-year veteran" roleplay headers. Borrow the bones, throw out the marketing.</p>
+<p><strong>Predictable output contracts matter more than the underlying model.</strong> Once each agent has a predictable shape, reviewing its output is a thirty-second scan instead of reading prose.</p>
+<p><strong>The framework is only as good as the trigger.</strong> Owning thirteen agents is useless if I keep doing every task in the main thread out of habit. The win comes from internalizing the routing.</p>
+</section>
+
+<hr>
+
+<section class="phase sp-color-5">
+<h2 id="p21">Phase 21: Catching The Silent Zeros</h2>
+<p class="phase-sub">silent zero failures and three new ATS platforms in one night</p>
+<p><strong>Goal:</strong> Close the silent-zero failure class and recover the catalog companies that had been quietly returning nothing.</p>
+<p>A look at the catalog showed about ninety of two hundred and twenty companies sitting at zero PM jobs. Some genuinely were not hiring; some had been, but the scraper had silently failed. The structural problem was that a scrape returning zero looked identical in our logs to a correct scrape for a company with no open roles. Both showed status success. Both produced quality scores. Neither sent an alert. We had built a system that confidently reported nothing while losing real listings.</p>
+
+<h3>What I Built</h3>
+<p>I tackled this in four phased pull requests in one evening, each independently reviewable.</p>
+<p>The first added the safety net. Two new columns track verification state: one flips to true the moment a scraper returns more than zero PM jobs (proof of life from the source), the other flips to true only when I manually confirm a zero is legitimate. The daily email got a new section listing every company at zero without sign-off, sorted by subscriber count. The same PR fixed a long-running Ashby bug where the scraper filtered jobs by team name; modern companies put product managers inside teams named after products, not "Product Management," so the filter was silently dropping real PM roles at about seventeen companies. Switched to title-keyword filtering.</p>
+<p>The second built a real scraper for Apple, whose careers site is a single-page app with no useful HTML. The fix was Apple's own internal API: a token endpoint followed by a paginated search endpoint. The payload required a specific field that, if missing, made the API silently return zero records, exactly the failure mode my old monitoring would have missed. The same PR fixed an EA scraper dropping ten jobs per page from a wrong selector, and added hostname guards for two companies that block server-side requests at the edge, routing them to the fallback tier.</p>
+<p>The third expanded the keyword list to match the function name "product management" in addition to the role name "product manager." This sounds small but recovered American Express from one job to dozens; several companies put the function name in their titles, like "Senior Manager - Product Management."</p>
+<p>The fourth built scrapers for two companies I had deferred: Shopify (which embeds another vendor's board, returning null from the obvious API but server-rendering jobs into a streaming payload) and eBay (on an ATS I had not supported, where the data sits in an inline object on the page). I documented an honest limitation: that ATS only server-renders ten jobs per page, so we capture a first-page sample, and I set the scanned-count to the API's reported total so the self-healing tier knows the source is live.</p>
+<p>Between the four PRs, I deleted four companies, each at zero PMs for months with zero subscribers and no clear path back.</p>
+
+<h3>Key Decisions</h3>
+<p><strong>Phase the work into four pull requests, not one.</strong> Each had an independent verification path and risk profile. Smaller PRs let the change reviewer give focused feedback, and one revert button per phase is safer than one mega-revert.</p>
+<p><strong>Trust live tests over cited prior art when they conflict.</strong> Prior-art research pointed at a published Apple scraper using specific endpoints. The agent had reverse-engineered different ones. I tested both: the prior-art endpoints 404'd; the agent's returned valid data once I added a mandatory field the prior art omitted. Cite prior art as a hypothesis, always verify with a live test before committing.</p>
+<p><strong>Hard-delete the unrecoverables instead of suppressing them forever.</strong> None of the four were salvageable, none had subscribers. Marking them legit-zero forever lets them sit invisibly as a slow-growing pile of "things we gave up on." Deleting keeps the catalog honest, and re-adding is straightforward if circumstances change.</p>
+
+<h3>What I Learned</h3>
+<p><strong>The fix for a silent-failure class is not a smarter scraper, it is a different definition of success.</strong> Our monitoring defined success as "the scraper returned without throwing," which is structurally incapable of catching a scraper that returns the wrong answer cleanly. The fix was verification columns that force every zero through a decision.</p>
+<p><strong>One pre-filter step can be more wrong than the rest of the code combined.</strong> The Ashby team-name filter was a reasonable design that encoded an assumption about how companies structure teams, an assumption that stopped being true years ago. Look hard at the assumptions baked into filter logic; that is where silent bugs live.</p>
+<p><strong>The catalog hygiene step is part of recovery, not a separate cleanup.</strong> I deleted four companies because the audit forced a per-company decision. Expect the catalog to oscillate as scrapers break and the email forces "fix or remove" calls.</p>
+
+<div class="deep">
+<h4>Drilling deeper on the "why"</h4>
+<p>The pivotal move in this phase is conceptual, not technical: I stopped defining success as "the code did not crash" and started defining it as "the code produced evidence it works." Those sound similar and are worlds apart. The first definition can never catch a clean wrong answer, because a clean wrong answer does not crash. By adding a column that records "this source has, at least once, produced a real PM job," I gave the system a notion of proof-of-life that is independent of whether today's run happened to throw. Everything else, the daily zero-list, the manual sign-off, the auto-flip logic that comes one phase later, is built on that single shift in what counts as success.</p>
+<div class="alt">
+<span class="label label-alt">Alternative considered</span>
+I could have kept investigating the ninety zeros by hand, company by company, which is what the old workflow implied. With ninety companies that is days of spot-checking, and it scales linearly with every future zero. I chose to spend the evening building the verification machinery instead, accepting a noisy daily email during the triage backlog as the intended cost. The hand-investigation finds today's ninety; the machinery finds today's ninety and every silent zero from here forward, and turns each one into a forced "is this real?" decision rather than a thing I have to remember to go look for.
+</div>
+<div class="edge">
+<span class="label label-edge">Edge cases that bit</span>
+The sharpest boundary case was Apple's API silently returning zero records when one required field was missing from the request. The endpoint did not error, it just answered "no jobs," which is the single most dangerous shape of failure in this whole product because it is indistinguishable from a real empty result. The other live one was the function-versus-role naming gap: companies titling a job "Senior Manager, Product Management" rather than "Product Manager" fell entirely through a keyword list that only looked for the role name, so a company with dozens of PM roles read as having one. Both are cases where the data was right there and a single narrow assumption hid it.
+</div>
+<div class="impact">
+<span class="label label-impact">What this unlocked</span>
+This phase recovered a large slice of the catalog that had been quietly dead, and it converted "silent zero" from an invisible class of bug into a visible daily decision. The verification columns it introduced are the foundation the next phase builds on to remove me from the loop entirely, by teaching the system to make that "is this zero real?" decision on its own.
+</div>
+</div>
+</section>
+
+<hr>
+
+<section class="phase sp-color-5">
+<h2 id="p22">Phase 22: Growing The Catalog The Right Way</h2>
+<p class="phase-sub">targeted catalog growth after the Common Crawl detour</p>
+<p><strong>Goal:</strong> Scale the catalog from 216 toward 500-1000 companies, but only with companies the audience actually job-hunts for.</p>
+<p>After the zero-jobs audit closed, the catalog had hit a steady-state of about 216 companies, mostly tech. Two paths surfaced. The first was broad: a pipeline that discovers any company with a public board on the big platforms. The second was narrow: pick verticals the audience cares about and add recognizable companies by hand. I tried both, and the difference between them is the entire game.</p>
+
+<h3>What I Built</h3>
+<p>The broad path was a Common Crawl harvest. Common Crawl is a free public web index; it lets you query for every page matching a URL pattern. The script pulls candidate company slugs, validates each by calling the ATS's own public API to confirm the board exists and has jobs, then emits the survivors as ready-to-apply SQL. The run found 1,352 working companies; after de-duping against my catalog, 1,328 truly new candidates.</p>
+<p>I looked at the top fifty by job count and almost none were companies I recognized. Below that the list was home-health-care providers, autism therapy networks, apparel brands, regional architecture practices. The pipeline worked perfectly. The audience-fit was wrong.</p>
+<p>So I shelved the pipeline (kept the code) and switched to targeted vertical batches: four days, four batches of recognizable banks, biotechs and consultancies. Net: twenty-nine high-recognition companies added, five entirely new ATS platforms supported and a real strategic shift from "discover broadly" to "curate carefully."</p>
+
+<h3>Key Decisions</h3>
+<p><strong>Take Common Crawl seriously enough to build the pipeline, then ship nothing from it.</strong> When you have spent time building infrastructure, the temptation is to use it. I almost shipped the top fifty just to validate the build. Then I read the names. The cost of polluting the catalog with hundreds of unknown companies was higher than the cost of admitting the pipeline was the wrong shape. I kept the code and walked away from the output.</p>
+<p><strong>Build the new ATS scraper as a generic platform scraper, not a one-off.</strong> The first company was the trigger but the design target was "every large enterprise on this platform." That paid off two days later when another company needed it and the same code worked with a one-line change.</p>
+<p><strong>Trust the consulting industry's choice to be hard to scrape.</strong> The big consultancies are on a login-gated, bot-resistant platform with no public path. Each would need an architectural change for roles that are mostly consulting titles anyway. The right call was to stop trying and remove them from consideration permanently.</p>
+<p><strong>Verify scraper yield with a simulation before declaring a win.</strong> After shipping five custom scrapers, I ran a verification agent that fetched live data, applied my real filters and reported the actual PM count. Two of five returned zero US PMs despite working perfectly: one hires consulting titles, the other is concentrated in Europe. If I had skipped verification, both would have sat in the admin email forever as silent zeros.</p>
+
+<h3>What I Learned</h3>
+<p><strong>Breadth and depth are different problems, and scaling along the wrong dimension is worse than not scaling.</strong> Every growth lever has an implied audience. If the lever does not match who you are growing for, more of it makes the product worse.</p>
+<p><strong>Industry-wide ATS patterns are real and worth pattern-matching.</strong> Whole industries cluster on one platform. Once I recognized these patterns I could pre-predict the scraper outcome, cutting per-company research time roughly in half.</p>
+<p><strong>Honest verification of yield matters more than "endpoint returns 200."</strong> I shipped five scrapers, all returned 200, all parsed correctly. Verification found two delivered zero user value. The fifteen extra minutes saves weeks of email noise.</p>
+<p><strong>Parallel agents collapse multi-day work into hours when the work is independent.</strong> Twelve parallel investigations across this period ran in about 25 to 30 minutes per batch; done sequentially it would have been a full week.</p>
+
+<div class="deep">
+<h4>Drilling deeper on the "why"</h4>
+<p>The real lesson of this phase is that "more companies" was never the goal, it was a proxy for "a catalog that feels like a real database to the person using it," and the proxy and the goal pointed in opposite directions. A thousand companies nobody recognizes makes the catalog <em>look</em> bigger and <em>feel</em> emptier, because a job-hunter scrolling past names they have never heard of concludes the tool does not cover the companies they care about. Twenty-nine recognizable names do more for that feeling than 1,328 unknown ones. Growth measured by row count was optimizing the proxy; growth measured by recognizability was optimizing the goal.</p>
+<div class="alt">
+<span class="label label-alt">Alternative considered</span>
+The path the sunk cost was begging me to take was to ship the Common Crawl output, at least the top fifty by job count, since the pipeline already worked and the SQL was already generated. I rejected it because a catalog is judged by its worst visible entries as much as its best, and a feed full of regional staffing firms and therapy networks signals "this tool is not for me" to exactly the senior-PM audience I built it for. I chose to keep the pipeline as dormant tooling for some future use case and hand-curate instead, trading a big number for a catalog whose every entry earns its place.
+</div>
+<div class="edge">
+<span class="label label-edge">Edge cases that bit</span>
+The instructive boundary case was the pair of scrapers that passed every technical check and still delivered nothing. Both returned a 200, both parsed cleanly, both looked like wins, and both produced zero US PM roles once my actual filters ran, one because the company hires consulting rather than product titles, the other because its openings are almost entirely in another region. "The endpoint works" and "this is useful to my user" are different claims, and only a full simulation against live data and real filters tells them apart. Skipping that step would have planted two new silent zeros in the exact catalog I had just spent a phase cleaning of them.
+</div>
+<div class="impact">
+<span class="label label-impact">What this unlocked</span>
+Beyond the twenty-nine names, this phase produced a repeatable growth motion: recognize the industry's platform, spin up parallel agents to research, build generic scrapers that unlock many tenants at once, and verify real yield before counting any of them. That motion is what makes the catalog-doubling in Phase 30 tractable instead of a slog.
+</div>
+</div>
+</section>
+
+<hr>
+
+<section class="phase sp-color-5">
+<h2 id="p23">Phase 23: A Job-First Feed</h2>
+<p class="phase-sub">comp-filterable, and the email-disappearance bug</p>
+<p><strong>Goal:</strong> Turn the catalog into something a real job-hunter would actually browse, fix the slow accumulation of email-quality issues and find out why I stopped getting my own daily email.</p>
+<p>The catalog had grown to 244 companies. Browsing it as a list of cards felt right at 50 and wrong at 250. A real job-hunter wants to see jobs across all companies sorted by what matters to them. In parallel, the daily email was getting noisier. Then on the last day of the sprint, I noticed I had not received my own daily alert. The provider showed zero record of trying to send to me. That kicked off the most consequential bug of the sprint.</p>
+
+<h3>What I Built</h3>
+<p><strong>A parallel job-first feed route.</strong> A flat table with one row per job: Company, Title, Location, Level, Comp, Posted, Track. Filters across the top: search, sort, level, industry, company, region+city, minimum comp, include-closed. Logos use a three-step fallback chain. The Track button is auth-aware. I built it as a parallel route rather than swapping the existing home: the marketing landing has a known conversion rate, so I can compare live for a week, then swap if it is better. Cheap reversibility.</p>
+<p><strong>Email quality overhaul,</strong> several small compounding fixes: a zombie-return fix (jobs that flicker off and back were being flagged "new"), a fourteen-day return rule, recommendation rotation via a history table (replacing a broken day-of-month scheme the user caught immediately), a firehose sort (companies with ten-plus new jobs go to the bottom) and a per-company seniority threshold so junior FAANG titles do not spam senior PMs.</p>
+<p><strong>An admin email-status diagnostic</strong> that proxies the provider's search API, so I can answer "did user X get email Y" without writing per-recipient send metadata to my own database. I deliberately wanted those emails to live in the provider, not my database.</p>
+<p><strong>The pagination bug.</strong> The cron loop was not iterating over my user record. Root cause: the function that lists all users defaults to a page size of fifty. We had crossed fifty total users the day before, so the oldest users, including me, were silently paginated out of the daily run. A one-line unblock went out within minutes; a proper paginated helper followed, and nobody calls the raw function directly again.</p>
+
+<h3>Key Decisions</h3>
+<p><strong>Build the feed as a parallel route, not a swap.</strong> Swapping a converting landing page for an unproven surface is a one-way door with a measurable cost. Building in parallel makes the eventual swap a one-line change with a clean rollback.</p>
+<p><strong>Manually seed FAANG seniority thresholds instead of waiting for automation.</strong> The long-term answer reads each company's early-tier pay automatically, but that is a backlogged build. Manual seeding for the six FAANG companies took five minutes and filtered the noise now.</p>
+<p><strong>Query the provider for ground truth instead of building our own send log.</strong> A send-log table would have put user emails in our database forever. Proxying the provider's API is zero new tables, zero new PII surface and a strictly more powerful debugging interface.</p>
+<p><strong>Patch the pagination bug at every call-site immediately, then refactor to a helper.</strong> Patching got the email back within an hour; the refactor an hour later guards against the next call-site repeating it.</p>
+
+<h3>What I Learned</h3>
+<p><strong>Default values in SDKs are landmines when the default looks reasonable until you cross an invisible boundary.</strong> A page size of fifty worked for the first fifty days. The fifty-first user was the cliff. Any paginated call now gets explicit handling, never the default.</p>
+<p><strong>When an external service handles delivery, query that service for ground truth.</strong> Their log is more accurate than ours will ever be. A thin proxy endpoint surfaces it through our auth surface with no PII written down.</p>
+<p><strong>Cheap reversibility beats perfect-on-first-try.</strong> I shipped seventeen changes in two days because most were cheap to roll back. The version that ships is not required to be the version that lasts. It is just required to be safe to throw away.</p>
+<p><strong>Our query layer has silent failure modes that look like working features.</strong> Sorting by a related table quietly does nothing; a filter breaks if the value contains a comma; a case-insensitive match turned a state abbreviation into a substring match on another state. Each was a one or two line fix once I knew about it; the cost was the half-day spent finding the failure mode.</p>
+</section>
+
+<hr>
+
+<section class="phase sp-color-5">
+<h2 id="p24">Phase 24: Turning The Data Into Content</h2>
+<p class="phase-sub">the weekly LinkedIn digest</p>
+<p><strong>Goal:</strong> Use the catalog data to drive a weekly LinkedIn post, both for the awareness flywheel and to give my audience a reason to come back every Friday.</p>
+<p>The catalog had matured: 244 companies producing 500+ new PM roles every week, with industry concentration and AI-hiring cross-cuts that genuinely surprised me. None of that signal was visible outside the product. There is a person on LinkedIn I follow who does a weekly "PM roles by level" post; it works. I did not want to copy the format because my data has cross-cuts theirs does not. The differentiation was already in the data; the job was packaging it.</p>
+
+<h3>What I Built</h3>
+<p><strong>A weekly digest email that lands every Friday with a copy-paste-ready LinkedIn post.</strong> The structure is now editorially locked: an intro line, the week's total, an industry-concentration lead, a top-ten-by-volume list, a spotlight company, an AI-PM section and a reader-question close. The close serves double duty: it is the standard engagement driver, and it crowdsources future content angles.</p>
+<p><strong>Auto-trigger inside the existing daily cron,</strong> gated to Fridays only. No new schedule. This is now the canonical way to add any weekly task: hang it inside the daily job, gate by day of week, never stand up a new scheduler entry.</p>
+<p><strong>A voice style guide and calibration samples</strong> that future AI sessions must read before drafting anything in my voice. The AI violated my anti-slop list within ten seconds of saving the memory pointing at the file. Saving the pointer did not change behavior; only reading the actual file content does.</p>
+
+<h3>Key Decisions</h3>
+<p><strong>Single weekly post with multiple sections vs. rotating one card per week.</strong> The initial proposal was a five-week rotation. I rejected it: a single richer post is a better artifact, lets me audible to the strongest lead each week, and reads like a trend dashboard rather than a recurring listicle.</p>
+<p><strong>Comp as supporting data, not lead.</strong> Comp data exists for about a third of roles. Leading with it risks implying we have comp for everyone and putting specific companies in a public "low comp" position. It moved into the email body as a verification table, not into the post.</p>
+<p><strong>Embed in the daily job vs. a new Friday schedule.</strong> Every extra scheduler entry is one more surface to manage. One entry point with day-of-week gates is cleaner.</p>
+<p><strong>Voice as reference-pointer, not inline memory.</strong> The files are large and edited over time; a small memory entry says "READ these first" and lets the source of truth stay in the voice docs.</p>
+
+<h3>What I Learned</h3>
+<p><strong>Proprietary data should be packaged in cuts that are not obvious to outsiders.</strong> Anyone can post "highest-paying PM roles" from a public salary database. Almost nobody can post the industry-concentration cross-cut without the underlying watchlist. The data is the moat; the content is the visible artifact of it.</p>
+<p><strong>AI-assisted content in someone else's voice needs structural guardrails, not stylistic hints.</strong> Telling the assistant "match my voice" does not work, and neither does a memory that says "see the voice doc." The fix is making the voice files required reading at draft time. The honor system does not work for content tone any more than for security.</p>
+<p><strong>The cron-day-of-week pattern is reusable infrastructure.</strong> Once it was clearly a pattern, I wrote it down: hang it inside the daily job with a day-of-week gate. Never add a new scheduler entry.</p>
+</section>
+
+<hr>
+
+<section class="phase sp-color-5">
+<h2 id="p25">Phase 25: The Auth Incident</h2>
+<p><strong>Goal (in retrospect):</strong> Brand the auth emails to match the rest of the product.</p>
+<p>What it actually became: an incident, a deep cookie-bug discovery, a feedback-workflow migration and a three-layer defense-in-depth infrastructure that did not exist a week earlier.</p>
+
+<h3>What Happened</h3>
+<p>I had just shipped a brand-styled redesign of the bug/feedback admin emails. The same visual language was the right move for the user-facing auth emails too: Confirm Signup and Magic Link. Those templates live outside the repo, in the auth provider's dashboard. I re-deployed both via a one-shot script. Verified the deploy looked right in a browser preview. Done.</p>
+<p>Two days later, two users emailed me: "I am not getting the login email." I queried the user table. <strong>A batch of users were locked out.</strong> One user's record showed she had clicked the link (account marked confirmed) but never been logged in (no session). Classic "confirmed but no session": she got past the click, but no session cookie ever reached her browser.</p>
+<p>I put the incident-triage agent on the broken templates. It found the smoking gun within minutes. My deployed templates used the provider's default link variable. That variable builds links pointing at the provider's own hosted verify page, not at our app's confirm route. The hosted page validates the token (so the account gets marked confirmed) and then bounces back to our site, but the session cookie is never set, because our own confirm route never runs. The documented format, sitting in the auth sidecar I should have read before deploying, was the opposite: send people to our own app's confirm route carrying a one-time token. The sidecar's enforcement hook is folder-based; my deploy script lived in a different folder, so the hook never fired. I trusted a guardrail to catch me in the one spot it could not reach.</p>
+
+<h3>The Deeper Bug</h3>
+<p>Even after re-deploying with the correct format, some users still hit "confirmed but no session." I put a debugger agent on the confirm route. The finding: our redirect was building a fresh response that did not carry the session cookie the verification step had just written. The browser got the redirect with an empty cookie header, so the session was gone before the next page loaded. This bug had been there since the confirm route was first built. The Linear issue tracking it was titled "Magic link fix, non-Gmail, Safari mobile." That title was a misdiagnosis. The bug is universal; Safari Mobile just hits it more reliably because its session restoration is slower and loses the race more often.</p>
+
+<h3>What I Built</h3>
+<p><strong>Layer one, fix everything broken:</strong> repointed the templates at our own confirm route; fixed the cookie-drop in both login routes (copy the session cookie onto every redirect); built an admin endpoint to send a fresh magic link to a specific existing user, recovering the stuck batch.</p>
+<p><strong>Layer two, three independent defenses:</strong> a CI auth-template check on every auth PR plus nightly that fails the build if the wrong link variable appears; a daily code audit that scans the last day's changes for four known risk patterns and emails me only on a find; and auth-funnel analytics (email sent, link clicked, signed in, failed) so a drop-off between "clicked" and "signed in" would have paged me about six hours after the deploy.</p>
+<p><strong>Layer three, workflow shift:</strong> migrated user feedback off our database tables onto a dedicated Linear team, so triage is conversational and the admin email carries the issue URL inline.</p>
+
+<h3>Key Decisions</h3>
+<p><strong>Three layers of defense, not one.</strong> A single "remember to do X" rule has a 100% failure mode. Three independent layers, PR-time CI, a 6-hour analytics alert and a 24-hour daily audit, each catch this class independently. The time-to-detection math: 48 hours became about 10 minutes worst case.</p>
+<p><strong>Observability in observability tools, not the application database.</strong> Errors to the error tracker, funnels to the analytics tool. The application database is for application data.</p>
+<p><strong>Incident response and prevention in parallel.</strong> The temptation is to firefight, then breathe. The right move is to firefight and build the prevention layer simultaneously, while the failure mode is fresh.</p>
+
+<h3>What I Learned</h3>
+<p><strong>Cosmetic tasks are not cosmetic when they touch load-bearing config.</strong> Framing the template change as "design polish" was the original sin. The fix is not "read sidecars next time," that is an honor system; it is a CI check that fails the build if the deployed template does not match the documented format.</p>
+<p><strong>A preview that does not simulate the actual user action is not a preview.</strong> I generated standalone HTML previews that looked great but could not simulate the link click. A real preview goes through the actual send-and-click loop.</p>
+<p><strong>Mislabeled issues hide root causes for months.</strong> The ticket title encoded the symptom, not the broken artifact. Title issues by the architectural thing that is broken, not the user-visible failure.</p>
+<p><strong>SDK defaults are landmines, again.</strong> Combined with Phase 23's pagination default, this is a pattern: every SDK has invisible cliffs behind reasonable-looking defaults. Never use an SDK default for anything load-bearing.</p>
+
+<div class="deep">
+<h4>Drilling deeper on the "why"</h4>
+<p>The thing worth sitting with is why a two-character difference, the default link variable versus the documented one, could lock out a batch of users while every check I ran said green. The deploy looked right because the preview tested the only thing a static preview can test, layout, and was structurally blind to the one thing that mattered, what the link actually does when clicked. The deeper bug compounded it: even with the correct link, our own redirect threw away the session cookie. So there were two independent failures stacked, and the reason neither surfaced is that nothing in my workflow exercised the full send-click-session loop end to end. The fix could not be "be more careful," because I was being as careful as the tools allowed. It had to be a new check that performs the user's actual action, which is exactly what the CI template check and the funnel alert do.</p>
+<div class="alt">
+<span class="label label-alt">Alternative considered</span>
+The cheap response was to fix the template, recover the users and add a note-to-self to read the auth docs before touching templates next time. That is a one-hour fix and it closes the immediate incident. I rejected it because a "remember to do X" rule for a task I perform regularly has, over enough repetitions, a 100% failure rate, and this incident was itself the proof: the folder-based guardrail that was supposed to catch exactly this could not reach the folder my deploy script lived in. So I built three automated layers that catch the class without depending on my memory, and I accepted the extra build time as the cost of converting a 48-hour blind spot into a roughly 10-minute one.
+</div>
+<div class="edge">
+<span class="label label-edge">Edge cases that bit</span>
+The defining boundary case is "confirmed but no session," a user who is, from the database's point of view, a successfully verified account, and from her own point of view, completely locked out. Two contradictory truths about the same person, produced by a token that got validated on someone else's hosted page while the cookie that proves it never reached her browser. Safari Mobile made it worse and noisier precisely because its slower session restoration loses a race more often, which is why the issue got mislabeled as a Safari bug when it was universal. And the guardrail edge case is the cruelest: a folder-scoped hook that protects the auth folder is silent the moment the dangerous action is performed from a script in a different folder.
+</div>
+<div class="impact">
+<span class="label label-impact">What this unlocked</span>
+The incident is what turned my auth flow from "tested by hand and hoped" into "watched by three independent alarms." It also produced the admin recover-a-user endpoint, the move to a real feedback workflow, and the principle, repeated in later phases, that prevention is cheapest to build in the hour you are recovering from the failure, not a month later when the urgency is gone.
+</div>
+</div>
+</section>
+
+<hr>
+
+<section class="phase sp-color-5">
+<h2 id="p26">Phase 26: Letting The System Decide For Itself</h2>
+<p class="phase-sub">removing the admin from the operational loop</p>
+<p><strong>Goal:</strong> Stop the system from asking me to confirm things it could decide for itself.</p>
+<p>Two streams of operational noise hit the same morning, and the shape was the same in both. The analytics tool sent me six emails about an auth-conversion drop that was a phantom; the alert math was just unstable. And my daily digest asked me to manually mark twenty-eight companies as legitimate zeros before it would stop bothering me. Both systems were doing exactly what I asked. Both were asking the human to do work the system already had enough information to do itself.</p>
+
+<h3>What I Built</h3>
+<p><strong>Replaced the unstable ratio alert with a flat volume alert.</strong> The old alert computed successful signins divided by emails-sent over a rolling 6-hour window. On low traffic that is statistical noise: a user who requests a link at 9am and clicks at 4pm lands in the success count with no matching email-sent in the same lookback, so the ratio swung wildly on event timing, not on whether auth worked. I replaced it with a chart that counts successful signins over 24 hours and alerts only if that drops below 1. That catches catastrophic auth failure without misfiring on timing.</p>
+<p><strong>Added missing instrumentation to the same-browser auth path,</strong> which had been firing zero analytics events, so any signin through it was invisible and the funnel undercounted.</p>
+<p><strong>Ripped out the manual unverified-zeros triage entirely,</strong> replaced with three automatic rules: auto-verify a zero after seven days from a scraper that has proven itself; auto-disable a never-proven scraper after fourteen days; and auto-flip back the moment any scrape returns even one PM. There is no permanently-silenced state; every scrape re-evaluates from scratch. I bootstrapped all 28 currently-zero companies to silenced and deleted the whole email section and its dead code.</p>
+
+<h3>Key Decisions</h3>
+<p><strong>Volume alert vs. anomaly detection on the ratio.</strong> Anomaly detection adapts its baseline to recent noise, which means it adapts to zero traffic as baseline. A flat volume floor catches a complete outage even when traffic is low. Coarser measurement, more reliable signal.</p>
+<p><strong>Aggressive bootstrap vs. conservative scope.</strong> The first cut only silenced proven scrapers, but that matched zero of the 28 actual noise items. The pragmatic version silences all currently-zero rows and trusts the auto-un-silence logic to restore accuracy. Safe because the flag has zero user-facing blast radius.</p>
+<p><strong>Three rules in cron vs. a separate background job.</strong> The signals these rules act on are all updated by the daily scrape itself, so putting the logic inline evaluates on the freshest state with one scheduled job.</p>
+
+<h3>What I Learned</h3>
+<p><strong>The flag's blast radius determines whether bold defaults are safe.</strong> I searched the whole codebase for the flag before going aggressive: read in four backend files, nothing user-facing. That bounded downside is what made the aggressive bootstrap safe. The semantics are only safe to relax if you know what is reading the flag.</p>
+<p><strong>Cross-window ratio alerts misfire on low traffic in ways volume alerts do not.</strong> Any rate-of-X alert that divides events-in-window-A by events-in-window-B drifts when matching events land in different windows. For low-traffic metrics, a flat volume floor beats a conversion ratio every time.</p>
+<p><strong>When the data evolves, the workflow has to evolve with it.</strong> The "unverified zeros" email was right when it shipped, then outlived its information environment by months once the system could tell a proven scraper from an unproven one. Every workflow that asks a human to do something the system could do is unpaid tech debt.</p>
+</section>
+
+<hr>
+
+<!-- ============ SUPER-PHASE 6 ============ -->
+<div class="superphase">
+  <div class="sp-bar" style="background:var(--sp6)"></div>
+  <h2>6. Growth and New Features</h2>
+  <p class="sp-desc">Compounding the product: content off the data, a deeper audit, double the catalog and measuring everything honestly.</p>
+</div>
+
+
+<section class="phase sp-color-6">
+<h2 id="p27">Phase 27: A Planned Next Step</h2>
+<p class="phase-sub">for the same audience</p>
+<p>Looking ahead, an AI interview-practice feature is planned as a natural next step for the same audience: the people who use the product to find a role will also need to prepare for the conversations that follow. The rest of this journey stays focused on the job-discovery product itself.</p>
+</section>
+
+<hr>
+
+<section class="phase sp-color-6">
+<h2 id="p28">Phase 28: The Weekly Post Writes Itself, In My Voice</h2>
+<p><strong>Goal:</strong> Stop opening every week with the same headline, and stop hand-writing the lead.</p>
+<p>The weekly digest from Phase 24 had a quiet problem: the headline was hardcoded. Every Friday it announced the same lead, no matter what the week actually looked like, because the lead was a fixed line in the code and only the percentage moved. When I finally looked closely, it was not even true. The "surge" it claimed was an artifact of my bulk-adding a batch of companies that week, whose existing openings landed as "new." I was one paste away from publishing my own data-pipeline quirk to my whole network as a market take.</p>
+
+<h3>What I Built</h3>
+<p>A lead that rotates and writes itself. Each week the system works out a handful of honest, this-week angles (how much of the hiring is AI, who posted the most, how concentrated big tech is, who pays the most, where the jobs are), picks one it has not used recently and has an AI write it as a blunt one-line take in my voice, with the rest offered as alternates. It also makes a branded banner whose art style rotates weekly, so the series looks fresh but unmistakably mine, and emails me the whole kit every Friday to approve before I post.</p>
+<p>The voice was the hard part, and it humbled me. I have a written style guide and a file of my real posts, and the drafts still came back as generic AI mush, several times over. The fix was not a better description of how I write. It was feeding the AI the actual files, word for word, on every run, and keeping myself as the last reader. A summary of your voice is not your voice.</p>
+
+<h3>What I Learned</h3>
+<p>Your own data can lie to you in a shape that looks exactly like insight. The headline I had repeated for weeks was a fact about how I grow the catalog, not about the market, and I only caught it because the repetition annoyed me. Lead with the cut nobody else can see, but prove it is real before you publish it.</p>
+</section>
+
+<hr>
+
+<section class="phase sp-color-6">
+<h2 id="p29">Phase 29: Auditing The Whole System Before A Major Expansion</h2>
+<p><strong>Goal:</strong> before a major expansion, make sure the foundation is sound, and fix the one thing that genuinely scared me.</p>
+<p>I was about to expand the system significantly, which opens new ways for things to go wrong. So before building anything new, I stopped and audited the whole system end to end: the scrapers, the security headers, the login flow, whether one user can see another's data and where the app is slow. I asked for a plain report first, not fixes on the fly, so I could read it and decide what mattered.</p>
+
+<h3>What I Built</h3>
+<p>Most of it was healthy. But the audit kept finding the same shape of problem, the same one that had bitten me twice already that week: things that fail silently. A query that quietly returns only the first thousand rows. A safety check that is switched off by a missing setting. A scrape that finds nothing and still reports "success." None of these throw an error. They just quietly do less than they should, and silence looks exactly like health.</p>
+<p>Two findings actually scared me. The first: a single capped query had silently dropped a large share of my subscribers from a daily email earlier that week, and nothing caught it but a user. The second: two database tables were technically readable by the public browser key, one of them holding feedback people had submitted.</p>
+<p>So I fixed the foundation, each change reviewed independently before it shipped: swept out every remaining query that could silently truncate and added an automated check that blocks new ones; locked down the two tables and added a rule that a new table cannot ship without that lock; and stopped a pointless, legally risky arms race I had been running against a few employers' access controls.</p>
+<p>The email fix is the one I cared about most. I did not want one safeguard, I wanted a backup and a backup for the backup. So I built it in layers, each catching a different way the same disaster could happen: the recipient list can no longer be cut short at the source; if a day somehow produces zero emails when there are people to email, it screams before sending anything; after sending, it checks what it meant to send against what it actually sent; and every day it records how many people were eligible and compares that to the recent normal, so a slow erosion gets caught within a day even if every other check passes.</p>
+<p>The last piece was about honesty. A handful of big employers block us from reading their careers pages. We had been showing "0 roles" for them, which makes it look like they are not hiring and the product looks broken. Now they show a plain "Scraping blocked" badge that tells the user what is happening and to apply on the company's own site, and you cannot add them to your tracker since we cannot actually track them. Rather than keep fighting their access controls, I decided to license that data from a jobs-data provider instead, so those companies will come back with real listings soon.</p>
+
+<h3>What I Learned</h3>
+<p>Audit before you expand the surface, because every new feature widens the surface you can get hurt on. And the throughline of the whole phase, the same lesson the weekly headline taught me, is that the most dangerous failures are the quiet ones. A loud failure gets fixed in an hour. A silent one runs for months looking like everything is fine. Defense-in-depth is not paranoia, it is putting a different alarm at each altitude so silence cannot pass for health.</p>
+
+<div class="deep">
+<h4>Drilling deeper on the "why"</h4>
+<p>The reason I built the email protection as four layers instead of one is that the original failure was not caused by the absence of a check, it was caused by a single check being the only thing standing between a silent truncation and every subscriber's inbox. One safeguard has one failure mode, and when it fails it fails completely and quietly. Four safeguards at four different altitudes, at the source, before send, after send and against the historical baseline, fail independently. For the same disaster to slip through, all four have to miss it in the same run, which is enormously less likely than one missing it. The insight is that for a silent failure, redundancy is not over-engineering, it is the only thing that converts "nobody noticed for a week" into "caught within a day."</p>
+<div class="alt">
+<span class="label label-alt">Alternative considered</span>
+The natural reaction to the truncation incident was to fix that one query, cap-proof it and move on. It is the proportionate response to a single bug. I chose instead to treat the truncation as one instance of a class, silent partial failure, and to build both a codebase-wide sweep for every other query that could do the same thing and an automated check that blocks new ones from being written. The single fix protects against the bug I already found; the class-level response protects against the next one I have not. Given that this exact failure shape had already bitten me twice in a week, betting on "I will catch the next one by hand" was the option the evidence had already disproven.
+</div>
+<div class="edge">
+<span class="label label-edge">Edge cases that bit</span>
+The defining silent-failure trio of this phase: a query that returns only its first thousand rows with no error, so a daily email quietly skips a large slice of subscribers; a safety check disabled not by code but by a missing configuration value, which no code review can see because the code is correct and the setting is simply absent; and a scrape that finds nothing yet reports success. Plus the honesty edge case, the blocked employers showing "0 roles," which is technically not a crash but is a lie of omission that erodes trust more than an outage would, because it makes a working product look broken and a hiring company look idle.
+</div>
+<div class="impact">
+<span class="label label-impact">What this unlocked</span>
+This audit is what made the big catalog expansion in Phase 30 safe to attempt: I widened the surface only after hardening the foundation under it. The layered-email pattern and the "new table cannot ship without its access lock" rule became standing invariants, and the honest "Scraping blocked" badge replaced a quiet lie with a clear explanation, which is the same honesty principle the measurement phases push even harder.
+</div>
+</div>
+</section>
+
+<hr>
+
+<section class="phase sp-color-6">
+<h2 id="p30">Phase 30: Doubling The Catalog And Making "Add" Actually Work</h2>
+<p><strong>Goal:</strong> make the catalog feel like a real database, and make adding a company actually show its jobs.</p>
+<p>Two problems had been nagging. The catalog had stalled around 247 companies, mostly the tech names everyone already knows. And worse, adding a company barely worked: when I added one, nothing showed up until the next day's scrape. The reason was a design knot I had tied early without noticing. Scraping a company and emailing everyone about new jobs were the same job, welded together in the daily run. So there was no way to scrape a newly-added company on its own without also firing a daily email to every user.</p>
+
+<h3>What I Built</h3>
+<p><strong>Growth.</strong> A popular salary-comparison site publishes a public ranked list of tens of thousands of companies; I used that as a discovery source, then verified each candidate's board actually returned real PM roles before counting it. The catalog roughly doubled, from 247 to 519. To make a bigger catalog usable, I built an "add by category" flow: browse by industry and add a whole group at once, with the tech bucket split into sub-categories like AI, developer tools and security.</p>
+<p><strong>Cutting the knot.</strong> I split scraping apart from emailing, so the system can scrape any set of companies on demand without sending a single email. Then I wired that into the moment it matters: when you subscribe to a company that has no jobs yet, the system quietly scrapes it in the background and its roles appear within a couple of minutes instead of the next day. The daily run is still the safety net.</p>
+<p><strong>The employers we cannot scrape.</strong> A handful of big names block us outright, so I built the licensed-data restore this session. It pulls those companies' real openings from the provider and quietly switches them back on, written to turn itself on automatically once the provider's free quota resets, so there is no manual step; until then it sits dormant. An independent review of my own code caught a real bug before it shipped.</p>
+
+<h3>What I Learned</h3>
+<p>A catalog you can add to is worthless if adding does not show results. The thing blocking that was not a missing feature, it was an assumption baked into the architecture a long time ago, that scraping and emailing always happen together. The fix was to question the coupling, not add another button. And growth only counts if it is names people recognize and boards that actually return jobs, not a bigger number for its own sake.</p>
+</section>
+
+<hr>
+
+<section class="phase sp-color-6">
+<h2 id="p31">Phase 31: The Night The Daily Job Died Silently</h2>
+<p><strong>Goal:</strong> make it impossible for the daily job to fail without me knowing.</p>
+<p>The day after I doubled the catalog, the daily run that scrapes every company and emails everyone their new jobs simply did not happen, and nothing told me. I found out hours later by checking the database by hand. What happened: the bigger catalog made the run take far longer, and while it was still running I shipped an unrelated change, which restarted the server and killed the run partway through. No email went out. No alarm fired.</p>
+<p>Why no alarm fired is the part worth sitting with. Every safeguard I had built lived inside the same job and ran at the very end of it: the email-volume check, the status email to myself, all of it sat after the long scrape that died. And a server being killed is not an error the code can catch, it just stops. So a job that never finished looked exactly like a quiet, healthy day. Broken, still running and never started were all indistinguishable from the outside, and the health check stayed green the whole time because a fresh server had taken over fine.</p>
+
+<h3>What I Built</h3>
+<p>I treated "the run finished" as something that has to be proven from outside the run. A watchdog now runs on a different system entirely, on its own schedule, and asks the app one question: did today's run actually complete? If the answer is no, or the app does not even answer, it emails me. The job also writes a heartbeat the moment it starts, so a run that dies halfway leaves a visible "started but never finished" mark instead of nothing. If a deploy kills the run, the shutdown now fires a real alert naming the exact company it died on. I made the run resumable, so a restart picks up where it left off. And I made it an enforced rule that nobody can ship a change during the daily run's window.</p>
+<p>While fixing this I found the same disease elsewhere: an email alert I thought was protecting me had been quietly dead for who knows how long, because a setting it needed was never configured, and a code review cannot see a missing setting. So I added a monthly probe that actually sends a test alert and confirms it arrives, a dead-man's-switch for the alarms themselves.</p>
+
+<h3>What I Learned</h3>
+<p>You have to monitor the monitors. Every guardrail I had checked some specific thing, but nothing checked whether the work even ran, or whether the alarms could still go off. The fix for a silent failure is never another check inside the thing that failed. It is a witness standing outside it. The most dangerous outage is the one that looks identical to everything being fine.</p>
+</section>
+
+<hr>
+
+<section class="phase sp-color-6">
+<h2 id="p32">Phase 32: Seeing The Funnel, And Catching Myself Guessing</h2>
+<p class="phase-sub">the funnel dashboard</p>
+<p><strong>Goal:</strong> stop running the product on gut and actually see where people fall off.</p>
+<p>For months I had the basic analytics: pageviews, clicks, the usual. But I could not answer the one question that actually matters. Of the people who sign up, how many do the thing the product is for? I was guessing. And when you guess, you build the wrong stuff.</p>
+
+<h3>What I Built</h3>
+<p>So I built a real funnel dashboard. Acquisition, activation, retention, the whole path, a couple dozen views, all from data I was already collecting. And the moment I could see it, the picture flipped on me. I had assumed my problem was getting people in the door. Wrong. Acquisition was fine. The leak was activation: roughly 40% of the people who sign up never track a single company, and almost nobody stars a job. The product works once you use it. The hard part is getting someone to that first real action.</p>
+<p>Then I went to measure the daily email, which is the core loop of the whole product. Turns out you basically cannot measure email opens anymore. Across 100 sent emails, including the ones to my own inbox that I know I opened, the tracker recorded zero. Modern mail apps block the tracking pixel by default. Clicks I had deliberately turned off, because the same email system sends my login links and I did not want to rewrite those. So I built my own click tracking: every job link in the email now runs through a signed redirect on my server that records the click and then sends you straight to the job. Signed, so nobody can turn it into a tool for pointing my domain at a malicious site.</p>
+<p>Here is the part that stung. I had two tickets I was excited about, both promising big job-count recoveries from scraper fixes. One I had written up myself as recovering jobs "across the whole catalog." I built the fix, then actually measured it. Ten jobs. Another ticket claimed 41 jobs for one company. The real number after filtering was eight. The whole point of the dashboard was to stop guessing, and the first thing it proved was that I had been guessing about my own work too, and guessing high. So while I was in there, I built the project's first test harness, so the filter that quietly dropped real jobs twice before cannot do it a third time without a red light.</p>
+
+<h3>What I Learned</h3>
+<p>Measuring changes what you build, and it humbles what you claim. Seeing the funnel told me to fix activation, not chase signups. Seeing the real email numbers told me opens are a fantasy and clicks are the only honest signal. And measuring my own "wins" told me the number is almost always smaller than the ticket says. Build the instrument first. Then believe the instrument, not the ticket and not yourself.</p>
+
+<div class="deep">
+<h4>Drilling deeper on the "why"</h4>
+<p>The uncomfortable insight underneath this phase is that running on gut does not feel like guessing, it feels like knowing. I was confident the problem was acquisition, confident my scraper fixes had recovered large numbers and confident enough to write one of those numbers into a ticket myself. The dashboard did not just give me data, it gave me a way to be proven wrong by my own product, three times in one session. That is the actual value of an instrument: not the chart, but the friction it puts between a confident belief and a shipped decision. Without it I would have spent the next stretch optimizing signups, the one part of the funnel that was already fine.</p>
+<div class="alt">
+<span class="label label-alt">Alternative considered</span>
+For email engagement, the conventional choice is to lean on open tracking, which every email provider offers out of the box, and call it the engagement metric. I could not, because the measurement is dead: across 100 sends, including my own opens, the pixel reported zero, since mail apps now block it by default. So rather than report a number I knew was fiction, I built a signed click redirect of my own, which measures a real action instead of a blocked pixel. The cost is that I had to build and secure the redirect myself; the benefit is the only honest engagement signal I have. Reporting opens would have been easier and would have been a lie.
+</div>
+<div class="edge">
+<span class="label label-edge">Edge cases that bit</span>
+The signed part of the redirect is the edge case that mattered. A plain server endpoint that takes a destination URL and forwards the browser to it is an open redirect, the exact vulnerability class I had fixed back in Phase 9, now reintroduced in the name of analytics. If unsigned, anyone could craft a link on my own trusted domain that forwards to a malicious site. Signing every link closes that. The other boundary case was the test harness: the job filter had silently dropped real listings twice across the project's history, a failure with no exception and no symptom until someone noticed missing jobs, which is exactly the kind of quiet regression a test exists to turn loud.
+</div>
+<div class="impact">
+<span class="label label-impact">What this unlocked</span>
+This phase pointed the next stretch of product work at activation, the real leak, instead of acquisition, the imagined one. It established clicks as the product's honest engagement metric for everything that follows, and it added the first automated test to a codebase that had been relying on manual checking, which is the seed of the "trust the instrument, not yourself" discipline that culminates in the next phase.
+</div>
+</div>
+</section>
+
+<hr>
+
+<section class="phase sp-color-6">
+<h2 id="p33">Phase 33: Three Models Review Every Change</h2>
+<p class="phase-sub">the cross-model eval reviewer</p>
+<p><strong>Goal:</strong> stop the AI that builds this product from being the only thing that checks the AI's work.</p>
+<p>Almost everything in this product is built by an AI assistant, and for months the only review was that same assistant reading back its own diff. That is not a check, it is the same mind, in the same conversation, re-reading its own assumptions and nodding along. It misses whatever it was already blind to. And a different model is blind to different things: the systematic gaps in one are not the gaps in another.</p>
+
+<h3>What I Built</h3>
+<p>So I built a panel. Every pull request now gets reviewed, independently and in parallel, by three different AI models from three different companies. They never see each other's answers. When two or three flag the same thing, that agreement raises my confidence it is real; when only one catches something, that lone flag is the interesting signal, almost always one model's blind spot and increasingly often something the model that wrote the code simply did not see.</p>
+<p>The part I care about most is not the review comment, it is the ledger behind it. Every review quietly appends a line to a running log: what it cost (real money, three paid APIs, pennies a time), what each model found and specifically what the OTHER models caught that the author model missed. Over months that log becomes a measured record of my AI's blind spots, instead of a vague sense that it "probably misses things."</p>
+<p>Then the panel did the one thing that made me trust it: I pointed it at itself. Before the merge I had already had the author model review this code twice over, a multi-agent deep pass and a separate fresh-context reviewer, both the same model, both said ship. Then a different model looked once and found a real security hole all three earlier passes had walked right past: the piece that records the log trusted any comment carrying its marker, so anyone who could comment on a pull request could feed it a fake record and poison the very ledger I had built. It also caught that the tool was quietly shipping my whole code diff to two outside vendors with nothing redacted. Neither was hypothetical.</p>
+
+<h3>What I Learned</h3>
+<p>The uncomfortable part is why I missed them, because it is the same three reasons any author misses things in their own work. First, I trusted my own design: I wrote the code that posts that comment, so I read everything else assuming the comment was always mine and never once pictured someone faking one. Second, I framed my own review, so it could only check the risks I had already thought of; the other model arrived with no frame and asked the questions I had not, like "who else can write this?" and "where does this data actually go?". Third, every review pass was the same model, with the same instincts and the same blind spots. You cannot out-review your own blind spots by running more of the same reviewer.</p>
+<p>The cheapest way to catch your own blind spots is to ask something that does not share them. Self-review, human or AI, is structurally weak because the reviewer and the author carry the same assumptions: diversity of reviewer beats effort of reviewer. And the highest-value output was not the pass-or-fail verdict, it was the log: turning "it probably misses things" into a growing, measured record of exactly what gets missed.</p>
+
+<div class="deep">
+<h4>Drilling deeper on the "why"</h4>
+<p>The deepest point of this phase, and arguably the whole journey, is that effort and diversity are different axes, and I had been spending everything on the wrong one. Three review passes by the same model is three times the effort and zero additional diversity: it is the same mind reaching the same conclusions three times, each pass blind to exactly what the previous pass was blind to. A single pass by a genuinely different model added almost no effort and a whole new set of assumptions, and that is what found the two holes. A reviewer that fails loudly is merely annoying; a reviewer that fails silently is worse than none, because you trust it. The reason the panel earned my trust is that the first thing it reviewed was itself and it caught its own silent failures before they reached me.</p>
+<div class="alt">
+<span class="label label-alt">Alternative considered</span>
+The path I had actually been on was to keep increasing effort with the same reviewer: a deeper multi-agent pass, then a second fresh-context pass, both the same model. It feels like diligence, and it is genuinely more work. I replaced it with parallel review by three models from three companies because the failure I needed to catch was a blind spot, and a blind spot is, by definition, something more of the same eye cannot see. The cost is real, three paid APIs running on every pull request, pennies at a time, and I log that cost line by line so it stays honest. The benefit is the only thing that has ever actually found my author model's silent misses: a reviewer that does not share its assumptions.
+</div>
+<div class="edge">
+<span class="label label-edge">Edge cases that bit</span>
+The two holes the outside model found are textbook trust boundaries the author model could not see because it had drawn them itself. The first: the ledger trusted any comment bearing its marker, so it implicitly assumed the only writer was its own bot, when in fact anyone who can comment on a pull request can post a lookalike and poison the log, the exact record I built to measure trustworthiness. The second: the tool shipped the entire code diff to two third-party vendors with nothing redacted, a data-egress boundary I never consciously crossed because I never pictured the diff leaving. Both are "who else can act here, and where does this data go" questions, the questions an author with a frame does not ask about their own design.
+</div>
+<div class="impact">
+<span class="label label-impact">What this unlocked</span>
+This closed the loop the entire journey had been circling: for months the thing doing most of the building was the one thing I could not independently measure or check. The panel makes every future change reviewed by minds that do not share the author's blind spots, and the ledger turns "it probably misses things" into a measured, improving record of what actually gets missed. The proof it was worth building is that the very first thing it reviewed was itself, and it caught two silent bugs that would have quietly defeated its own purpose.</p>
+</div>
+</div>
+</section>
+
+<hr>
+
+<hr>
+
+<!-- ============ CONCEPTS (rewritten for a PM reader) ============ -->
+<h2 id="concepts">Summary of Concepts Learned</h2>
+<p>The technical concepts this project taught me, and where each one came up.</p>
+<div class="tablewrap">
+<table>
+<thead><tr><th>Concept</th><th>Where I learned it</th></tr></thead>
+<tbody>
+<tr><td>Scraping: API-first (structured data feeds) instead of browser HTML parsing</td><td>Phase 3: Covering The Companies I Care About</td></tr>
+<tr><td>Scraping: layered platform auto-detection across multiple ATS systems (Greenhouse, Lever, Ashby, Workday), degrading to a headless browser only as a last resort</td><td>Phase 3: Covering The Companies I Care About</td></tr>
+<tr><td>Architecture: shared catalog with per-user subscriptions, so cost scales with companies not users</td><td>Phase 4: Turning It Into A Real Product</td></tr>
+<tr><td>Auth: passwordless magic-link login, and the cross-device link problem</td><td>Phase 4: Turning It Into A Real Product</td></tr>
+<tr><td>Database: service-role vs. anon key, and how Row Level Security silently returns empty results</td><td>Phase 4: Turning It Into A Real Product</td></tr>
+<tr><td>UX: preview-before-commit state machine, with URL-based deduplication instead of name matching</td><td>Phase 5: A Safe Way To Add A Company</td></tr>
+<tr><td>Caching: in-memory, database and live-source tiers with background prefetch and negative caching</td><td>Phase 6: Showing What Roles Pay</td></tr>
+<tr><td>Frontend: overlay rendering to add a logged-out landing page with zero refactor of the app shell</td><td>Phase 7: The Landing Page</td></tr>
+<tr><td>Performance: code-splitting above/below the fold, precomputation and deferring analytics off first paint (Lighthouse 49 to 100)</td><td>Phase 8: Making It Load Fast</td></tr>
+<tr><td>Security: protecting against cross-site scripting (XSS), SSRF and open redirects, plus CSP and HSTS headers</td><td>Phase 9: Getting Safe For Real Users</td></tr>
+<tr><td>Email: batch sending to stay under provider rate limits, plus DMARC, DKIM and SPF deliverability records</td><td>Phase 10: Getting Every Email Delivered</td></tr>
+<tr><td>Observability: error tracking and session replay across frontend and backend catch blocks</td><td>Phase 11: Knowing The Moment Something Breaks</td></tr>
+<tr><td>Privacy: hashing personal data before it reaches analytics</td><td>Phase 11: Knowing The Moment Something Breaks</td></tr>
+<tr><td>Reliability: await-based cron with an overlap guard and timeouts, surviving idle-sleep hosting</td><td>Phase 12: Making The Daily Run Dependable</td></tr>
+<tr><td>Database: indexing on real query patterns, plus running independent queries in parallel</td><td>Phase 13: Keeping It Fast As The Data Grew</td></tr>
+<tr><td>AI-assisted development: directing the build while maintaining a persistent project context file</td><td>Phase 14: Building With AI Tools</td></tr>
+<tr><td>Reliability: self-healing scrapers that re-run platform detection to disambiguate a silent zero, with attention-only alerting to avoid alert fatigue</td><td>Phase 15: Scrapers That Fix Themselves</td></tr>
+<tr><td>Data quality: filtering at the validation layer at ingestion, not in the UI</td><td>Phase 16: Stopping Bad Data At The Source</td></tr>
+<tr><td>Dependencies: pinning exact versions (no Docker :latest) to stop silent breaking upgrades</td><td>Phase 17: Dropping The Fragile Browser</td></tr>
+<tr><td>Reliability: tiered auto-recovery with auto-disable after repeated failures and a weekly re-enable probe</td><td>Phase 18: A Recovery System, Not A Patch</td></tr>
+<tr><td>Security: parallel specialized audits (auth, data isolation, infrastructure) plus weekly dependency scanning</td><td>Phase 19: Less Noise, Tighter Security</td></tr>
+<tr><td>Tooling: specialized AI subagents with predictable output contracts, and PR-gated deploys with preview environments</td><td>Phase 20: A Team Of AI Helpers</td></tr>
+<tr><td>Reliability: verification columns that redefine success as proof-of-life, not just a non-crash</td><td>Phase 21: Catching The Silent Zeros</td></tr>
+<tr><td>Data sourcing: Common Crawl harvesting, then curating for audience fit over raw row count</td><td>Phase 22: Growing The Catalog The Right Way</td></tr>
+<tr><td>SDK gotchas: explicit pagination instead of a default page size that silently caps results</td><td>Phase 23: A Job-First Feed</td></tr>
+<tr><td>Content automation: LLM-generated weekly post in-voice, gated inside the daily cron by day of week</td><td>Phase 24: The Data Becomes Content</td></tr>
+<tr><td>Auth: token-hash magic-link templates, and fixing a session cookie dropped across a redirect</td><td>Phase 25: The Auth Incident</td></tr>
+<tr><td>Defense-in-depth: independent CI checks, funnel analytics and a daily code audit as overlapping layers</td><td>Phase 25: The Auth Incident</td></tr>
+<tr><td>Alerting: a flat volume floor instead of a cross-window ratio that misfires on low traffic</td><td>Phase 26: Letting The System Decide</td></tr>
+<tr><td>Email reliability: layered safeguards at source, pre-send, post-send and against a historical baseline</td><td>Phase 29: Audit Before Expansion</td></tr>
+<tr><td>Security: revoking default public grants so a new database table is not anon-readable</td><td>Phase 29: Audit Before Expansion</td></tr>
+<tr><td>Architecture: decoupling scraping from emailing, with an on-demand background scrape on subscribe</td><td>Phase 30: Doubling The Catalog</td></tr>
+<tr><td>Reliability: out-of-band watchdogs (start heartbeat, resumable run) that verify the daily job actually ran</td><td>Phase 31: The Night It Died Silently</td></tr>
+<tr><td>Analytics: an AARRR funnel dashboard, and an HMAC-signed click redirect since email open-tracking is dead</td><td>Phase 32: Seeing The Funnel</td></tr>
+<tr><td>Quality: a cross-model eval reviewer running three LLMs in parallel on every pull request, with author validation and diff redaction</td><td>Phase 33: Three Models Review Everything</td></tr>
+</tbody>
+</table>
+</div>
+
+</main>
+</body>
+</html>
