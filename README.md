@@ -1,18 +1,16 @@
 # NewPMJobs Product Journey
 
-I spent years on the job hunt. Thousands of applications, a long run of bombed interviews, the whole grind. And the part that wore me down most? Never knowing when the right role actually opened. The good ones go fast, and checking thirty career pages by hand every morning is its own special misery.
+I mentor a lot of product managers, and the same wish kept coming up: a simple way to know the moment a role opened at a company they actually cared about. The tools out there were noisy, slow, full of stale listings. So I built the one I wished existed for them.
 
-So I built the thing I wished I'd had.
+NewPMJobs is simple where it counts. You pick the companies you want to work for, and every morning you get one email with the new PM roles. Straight from each company's own careers page. Filtered down to what fits. No noise, no stale listings.
 
-NewPMJobs is simple where it counts. You pick the companies you'd actually want to work for, and every morning you get one email with the new PM roles. Straight from each company's own careers page. Filtered down to what fits. No noise, no stale listings.
-
-The simple email is the easy part. Under it is a real production system, and that's the part I'm proud of.
+The simple email is the easy part. Under it is a real production system, and I made every call.
 
 - **A full product, not a toy.** Scraping, a self-healing data pipeline, a web app, a daily email and full monitoring. All live, all serving real users.
-- **A PM built it, AI wrote the code.** I made every product, design and architecture call. The AI did the typing. The interesting thing isn't that AI can write code. It's that one PM can take a real, monitored, multi-user product from idea to production by making the calls an engineer usually makes.
-- **Reliability is the actual feature.** A job alert that quietly drops a role is worse than no alert. So most of the work went into catching the silent failures, a broken scraper, a quiet zero, a missed send, before a user feels them.
+- **A PM built it, AI wrote the code.** I made every product, design and architecture decision. The AI did the typing. One PM, a real multi-user product, idea to production.
+- **Reliability is the actual feature.** A job alert that quietly drops a role is worse than no alert. So most of the work went into catching the silent failures before a user feels them.
 
-A few numbers, because numbers beat adjectives. Page speed went from 49 to 100. Sub-second data calls replaced multi-minute browser scrapes. The catalog grew to 519 companies across 7 hiring platforms.
+The numbers: more than 5,000 PM roles tracked across 519 companies on 7 hiring platforms, and 150+ users and counting.
 
 ## The full story
 
