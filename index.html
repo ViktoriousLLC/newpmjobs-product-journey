@@ -345,6 +345,9 @@ body.chapters-on .chapter:not(.active) { display: none; }
       <li><a href="#p31" data-ch="ch6">31. The Night The Daily Job Died</a></li>
       <li><a href="#p32" data-ch="ch6">32. Seeing The Funnel</a></li>
       <li><a href="#p33" data-ch="ch6">33. Three Models Review Every Change</a></li>
+      <li><a href="#p34" data-ch="ch6">34. When The System Watches Itself</a></li>
+      <li><a href="#p35" data-ch="ch6">35. The Interview Practice Ships</a></li>
+      <li><a href="#p36" data-ch="ch6">36. A Face Across The Table</a></li>
     </ul>
   </div>
 </nav>
@@ -404,13 +407,13 @@ body.chapters-on .chapter:not(.active) { display: none; }
 <p class="screens-note" style="text-align:center;font-size:.9rem;color:#5b5f73;">The home page</p>
 <a href="images/product-dashboard.png" target="_blank" rel="noopener" title="Click to enlarge"><img src="images/product-dashboard.png" alt="The tracked-companies dashboard (click to enlarge)" style="max-width:100%;width:100%;height:auto;display:block;margin:1.4em auto;border:1px solid #e7e9f2;border-radius:12px;cursor:zoom-in;"></a>
 <p class="screens-note" style="text-align:center;font-size:.9rem;color:#5b5f73;">The dashboard</p>
-<div style="margin:1.4em auto;padding:16px 22px;border:1px dashed #f59e0b;border-radius:12px;background:#fffbeb;text-align:center;font-size:1rem;">
-<strong style="color:#b45309;">Coming soon:</strong> live interview practice, a voice mock you can run anytime.
+<div style="margin:1.4em auto;padding:16px 22px;border:1px dashed #059669;border-radius:12px;background:#f0fdf4;text-align:center;font-size:1rem;">
+<strong style="color:#047a4e;">Now live:</strong> AI mock interview practice with voice and avatar sessions, three-model scoring, and on-camera feedback. Phases 35 and 36 tell the story.
 </div>
 
 <!-- ============ JOURNEY AT A GLANCE: grouped by stage ============ -->
 <h2 id="index">The journey at a glance</h2>
-<p class="skim-note">All 33 phases, grouped into the same 6 stages as above. Tap any stage to fold it. Tap a phase to jump to the full story.</p>
+<p class="skim-note">All 36 phases, grouped into the same 6 stages as above. Tap any stage to fold it. Tap a phase to jump to the full story.</p>
 <div class="sum">
 
 <details class="sum-stage sum-c1" open>
@@ -475,7 +478,7 @@ body.chapters-on .chapter:not(.active) { display: none; }
 </details>
 
 <details class="sum-stage sum-c6" open>
-<summary><span class="sum-kicker">Stage 6</span><span class="sum-name">Growth and New Features</span><span class="sum-count">7 phases</span><span class="sum-chev">&#8250;</span></summary>
+<summary><span class="sum-kicker">Stage 6</span><span class="sum-name">Growth and New Features</span><span class="sum-count">10 phases</span><span class="sum-chev">&#8250;</span></summary>
 <p class="sum-desc">Now the product starts compounding. The data becomes content, the catalog doubles, and I finally measure everything honestly. Including my own wins, which turned out smaller than I claimed.</p>
 <div class="sum-grid">
   <div class="sum-row"><div class="sum-num">27</div><div><div class="pn"><a href="#p27">A Planned Next Step</a></div><div class="pg">Interview practice, the natural next thing for the same people.</div></div></div>
@@ -485,6 +488,9 @@ body.chapters-on .chapter:not(.active) { display: none; }
   <div class="sum-row"><div class="sum-num">31</div><div><div class="pn"><a href="#p31">The Night The Daily Job Died</a></div><div class="pg">Make a silent failure impossible.</div></div></div>
   <div class="sum-row"><div class="sum-num">32</div><div><div class="pn"><a href="#p32">Seeing The Funnel</a></div><div class="pg">Stop guessing and watch where people drop off.</div></div></div>
   <div class="sum-row"><div class="sum-num">33</div><div><div class="pn"><a href="#p33">Three Models Review Every Change</a></div><div class="pg">The AI is no longer the only thing checking the AI.</div></div></div>
+  <div class="sum-row"><div class="sum-num">34</div><div><div class="pn"><a href="#p34">When The System Watches Itself</a></div><div class="pg">A scale cliff hit a power user 4 times before a CI guard caught the whole class.</div></div></div>
+  <div class="sum-row"><div class="sum-num">35</div><div><div class="pn"><a href="#p35">The Interview Practice Ships</a></div><div class="pg">Three models score every session; Opus writes the verdict.</div></div></div>
+  <div class="sum-row"><div class="sum-num">36</div><div><div class="pn"><a href="#p36">A Face Across The Table</a></div><div class="pg">The avatar interviewer, on-camera grading, and prep that survives the session.</div></div></div>
 </div>
 </details>
 
@@ -534,6 +540,9 @@ body.chapters-on .chapter:not(.active) { display: none; }
 <tr><td>33</td><td>Out-of-band watchdogs</td><td>A start heartbeat and a resumable run that verify the daily job actually ran.</td><td>Phase 31</td></tr>
 <tr><td>34</td><td>Funnel analytics</td><td>An AARRR funnel dashboard, and an HMAC-signed click redirect since open-tracking is dead.</td><td>Phase 32</td></tr>
 <tr><td>35</td><td>Cross-model review</td><td>Three LLMs reviewing every pull request in parallel, with author validation and diff redaction.</td><td>Phase 33</td></tr>
+<tr><td>36</td><td>Chunked queries</td><td>Batching .in() calls into parallel sets of 200 with a CI guard that blocks raw dynamic-array .in() at build time.</td><td>Phase 34</td></tr>
+<tr><td>37</td><td>Multi-model scoring</td><td>Three independent raters with median reconciliation per dimension, and a headline computed from sub-scores to prevent compression.</td><td>Phase 35</td></tr>
+<tr><td>38</td><td>Durable prep workspace</td><td>Materials scoped by user, company and round, with a permanent score log that outlives session expiry.</td><td>Phase 36</td></tr>
 </tbody>
 </table>
 </div>
@@ -1540,6 +1549,77 @@ The two holes the outside model found are textbook trust boundaries the author m
 This closed the loop the entire journey had been circling: for months the thing doing most of the building was the one thing I could not independently measure or check. The panel makes every future change get reviewed by minds that do not share the author's blind spots, and the ledger turns "it probably misses things" into a measured, improving record of what actually gets missed. The proof it was worth building: the very first thing it reviewed was itself, and it caught two silent bugs that would have quietly defeated its own purpose.</p>
 </div>
 </div>
+</section>
+
+<hr>
+
+<section class="phase sp-color-6">
+<h2 id="p34">Phase 34: When The System Watches Itself</h2>
+<p class="phase-sub">the .in() scale cliff, security audits in CI, and the Sentry that went dark</p>
+<p><strong>Goal:</strong> Turn "probably working" and "probably secure" into things the system proves for itself.</p>
+<p>Three failures in one week had the same shape. Sentry had been misconfigured for three and a half months; the error tracker was not tracking errors, so crashes that should have paged me were disappearing. A power user tracking 423 companies hit a 500 on the dashboard, which I patched and marked resolved. The same root cause surfaced again on jobs. Then compensation. Then starred jobs. Four separate endpoints, four separate incidents. And a security alarm I relied on had a missing environment variable, so the alarm could not fire. The through-line: the thing supposed to catch the failure had its own silent failure mode.</p>
+
+<h3>What I Built</h3>
+<p><strong>The .in() fix and the CI guard.</strong> supabase-js serializes .in("id", ids) as a GET query parameter. For 423 IDs that is a 15KB+ URL the request layer rejects silently with "TypeError: fetch failed." The route returns a 500; nothing explains why. A shared inChunks helper now runs parallel batches of 200: the user's 423 companies returned in about 860ms. But the same bug had surfaced four times before I fixed the whole class at once. The durable fix is a CI guard (part of the required test check) that fails the build on any raw .in() with a dynamic array. A scale-test harness confirms the cliff: raw fails somewhere between 200 and 500 IDs, chunked runs to 5,000 in 450ms.</p>
+<p><strong>JWT hardening.</strong> Moved from HS256 symmetric verification to local JWKS/ES256: fetch the public key set once, verify signatures locally at near-zero latency. No shared secret in the codebase. Fails closed at boot in prod if the auth provider URL is missing.</p>
+<p><strong>Scheduled security audits in CI.</strong> Three parallel agents, one each for auth, data isolation and infrastructure, run as a weekly job every Friday. Clean weeks are silent; only a finding sends a report. A deeper adversarial audit of the whole codebase ran 81 agents total: seven mapper agents, eight dimension specialists, and a dedicated refuter agent for every finding to challenge it against the real code. 60 raw findings, 59 survived. Grade: B. The two High-severity items were the PM-title filter and the seen-jobs reconcile state machine, the logic every job and every alert flows through, each covered only by the live daily scrape with no automated test.</p>
+<p><strong>Staging-first workflow.</strong> A long-lived staging branch promotes to main in deliberate batches via a /promote command. The command runs the full review gate before merge. Feature work accumulates on staging; prod only gets a documented, deliberate batch. Before this, every change went straight to prod.</p>
+<p><strong>Overnight adversarial diff-audit.</strong> Four finder agents, three independent refuter agents per finding, majority kills. 11 candidates, 0 exploitable. It caught one real data-corruption bug: a bulk-subscribe count lookup fell back to an empty array on failure, and the update loop then reset subscriber_count to 1 for every company in the request. One transient error on a 400-company "Add all" would have silently reset global subscriber counts.</p>
+
+<h3>Key Decisions</h3>
+<p><strong>A CI guard over another manual sweep.</strong> The .in() bug surfaced four times because each fix addressed the reported endpoint, not the pattern. The right move in round one was a grep across the whole codebase. A CI guard that permanently blocks the pattern is better than a fourth sweep, because a sweep ends.</p>
+<p><strong>Weekly audits over monthly.</strong> With multiple parallel sessions shipping every day, a monthly cadence left too much surface between passes. Clean weeks stay silent. The only real cost of weekly is API quota.</p>
+
+<h3>What I Learned</h3>
+<p><strong>A safeguard needs its own safeguard.</strong> Sentry was dark for three and a half months before I noticed by looking for data I expected to see and could not find. A liveness probe that sends a real test signal and confirms receipt is how you find out the alarm is broken before you need it.</p>
+<p><strong>Fix the class, not the instance.</strong> The .in() lesson in one sentence: grep the pattern on the first report, not after the fourth. A CI guard that catches the next one at PR time is the only fix that holds.</p>
+</section>
+
+<hr>
+
+<section class="phase sp-color-6">
+<h2 id="p35">Phase 35: The Interview Practice Ships</h2>
+<p class="phase-sub">three-model scoring, delivery analysis, and a rubric that actually moves</p>
+<p><strong>Goal:</strong> Give the same people who find jobs a way to practice for the interviews that follow.</p>
+<p>Phase 27 flagged this as planned. It took about three weeks and five scoring iterations to get from "the session runs" to "the score earns trust." The gap between those two states is the whole story.</p>
+
+<h3>What I Built</h3>
+<p><strong>The session engine.</strong> ElevenLabs Conversational AI over a WebSocket direct in the browser. Audio never passes through my server; the browser connects with a signed URL that expires after use. A pool of 40 voices organized so each interviewer persona uses the same voice consistently across sessions.</p>
+<p><strong>The scoring panel.</strong> Three models (Claude, Gemini, GPT-5) each score the full rubric independently, never seeing each other's answers. A fourth model (Opus) reads all three verdicts and writes the candidate-facing report; it does not score. Reconciliation is mechanical: the median of the three raters per dimension, then the headline computed from those dimension sub-scores. When I tried asking a model to produce an overall headline number directly, it compressed to around 62 for almost everyone and stopped moving. Computing it from the sub-scores gave a number that actually discriminates.</p>
+<p><strong>Delivery analysis.</strong> Two instruments measuring different things. ElevenLabs Scribe gives deterministic counts: words per minute, pause frequency, filler words. Gemini reads the same audio file for tone: hesitation, conviction, nervousness. Neither substitutes for the other.</p>
+<p><strong>Regression harness.</strong> Nine scripted transcripts at known quality levels: strong answers, mediocre, weak, a rambling candidate who never lands the question, one who argues with the premise. The first baseline run immediately found grade inflation: a weak-answer archetype scored 48 against an expected ceiling of 42. That is the kind of calibration miss that only shows up when you test against a known case before a real user sees a number.</p>
+<p><strong>Practice and Improve.</strong> Per-question practice cards: replay the original answer, regrade a new attempt, compare the two. The marginal cost is one scoring pass per retry.</p>
+
+<h3>Key Decisions</h3>
+<p><strong>Opus writes, does not score.</strong> It sees all three verdicts and writes clearer feedback than any panel member alone. Adding it as a fourth rater would skew the median toward its preferences. Writing only keeps the independent signal clean.</p>
+<p><strong>Median over mean, half-steps over integers.</strong> A single high rater can pull the mean; the median resists that. Half-step increments (1, 1.5, 2, 2.5...) give the panel more granularity without re-anchoring the rubric.</p>
+
+<h3>What I Learned</h3>
+<p><strong>A score only earns trust if you prove it is calibrated.</strong> The regression harness found real grade inflation before any user saw a number. Without it, I would have been telling weak candidates they were fine. An instrument that tells you what you want to hear is worse than no instrument.</p>
+<p><strong>Voice matters more than it sounds.</strong> The 40-voice pool solved an unexpected problem: gender was matched, character was not. A polished senior face with a young, squeaky voice broke the session every time. Matching persona across face and voice is invisible when right and jarring when wrong.</p>
+</section>
+
+<hr>
+
+<section class="phase sp-color-6">
+<h2 id="p36">Phase 36: A Face Across The Table</h2>
+<p class="phase-sub">the avatar interviewer, on-camera grading, and prep that survives the session</p>
+<p><strong>Goal:</strong> Add a visible interviewer and a prep workspace that does not disappear when the tab closes.</p>
+<p>Voice sessions worked. The question was whether a visible face changed anything worth the complexity. It did: candidates who see an interviewer speak differently than those talking into a headset. On-camera presence, framing, eye contact, composure, shows up in a real interview and should show up in practice. The workspace problem surfaced at the same time: every session started from scratch, files were pasted and lost on close, and nothing was accessible from a second machine.</p>
+
+<h3>What I Built</h3>
+<p><strong>Avatar engine.</strong> Anam's real-time lip-sync video stream paired with ElevenLabs audio, both live in the browser. Ten face-and-voice pairs, hand-matched: I listened through all 40 available voices and picked one age-and-tone-matched voice per face. Each interviewer is a fixed pairing, not a random draw, so the session sounds and looks consistent.</p>
+<p><strong>On-camera grading.</strong> Two instruments. Gemini Vision reads ten evenly-spaced frames sampled during the session and scores framing, eye contact and composure on a 1-to-5 rubric per dimension. MediaPipe runs on-device in the browser, tracking gaze direction and framing across every captured frame. Both scores sit side by side in the report. One firm rule: no score if the camera is off. A number built from a black screen is worse than no number.</p>
+<p><strong>Adversarial calibration.</strong> Early versions were off in two directions at once: flooring to a 1 for minor headroom issues, because the prompt described only the failure end of the scale; and inventing "leaning back" for candidates whose posture simply was not visible. The fix rewrote the prompt to score the typical frame rather than the most flattering one, refuse credit for cues that are not clearly visible, and not assert posture the model cannot see.</p>
+<p><strong>Durable prep workspace.</strong> Tracks (one per target company), rounds within each track, and materials at the right scope: resume at the user level so it is always there, job description at the company level, extras per round. Raw files are never stored, only the extracted text. Per-round history: a score trend built from the permanent per-question score log, which survives the 7-day session wipe long after full reports expire.</p>
+
+<h3>Key Decisions</h3>
+<p><strong>Fixed face-voice pairs over random.</strong> Random gender-matching was not enough. A polished senior face with a young voice broke the experience consistently. Ten deliberate pairings, tested by ear, solved it permanently.</p>
+<p><strong>No score from a black screen.</strong> The camera-off rule: a candidate without on-camera data gets an audio verdict and a note, never a fabricated on-camera number. The overall score requires both channels. If one is missing, the dimension it covers is not scored.</p>
+
+<h3>What I Learned</h3>
+<p><strong>Calibration needs adversarial testing.</strong> The on-camera rubric was systematically wrong in two directions because the prompt described only the failure end and the model was free to fill in the rest. Finding that required deliberately testing edge cases before real users saw the score, not after.</p>
+<p><strong>The workspace assumption I had not examined.</strong> I assumed candidates could rebuild context in minutes. They cannot. The paste-and-lose cycle, the cross-device gap, the "what did I prepare last time" problem: these are real frictions that a persistent store eliminates. The technical work is straightforward; deciding to build it at all is the product call.</p>
 </section>
 
 <div class="chapter-nav">
