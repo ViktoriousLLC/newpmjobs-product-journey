@@ -20,13 +20,15 @@
   --border: #e7e9f2;
   --maxw: 820px;
 
-  /* super-phase accent colors (one per group) */
-  --sp1: #0ea5e9; /* sky    - Concept */
-  --sp2: #6366f1; /* indigo - Foundation */
-  --sp3: #a21caf; /* magenta - MVP (distinct from the indigo of stage 2) */
-  --sp4: #d97706; /* amber  - Alpha and Beta */
-  --sp5: #059669; /* emerald- Productionizing */
-  --sp6: #e11d48; /* rose   - Growth */
+  /* super-phase accent colors (one per stage of the 8-stage ladder) */
+  --sp1: #0ea5e9; /* sky     - Concept */
+  --sp2: #6366f1; /* indigo  - Prototype */
+  --sp3: #a21caf; /* magenta - MVP */
+  --sp4: #d97706; /* amber   - Alpha */
+  --sp5: #059669; /* emerald - Hardening (current) */
+  --sp6: #e11d48; /* rose    - Pre-production (in progress) */
+  --sp7: #64748b; /* slate     - Launch (upcoming, muted on purpose) */
+  --sp8: #475569; /* slate-deep - Post-launch (upcoming) */
 }
 * { box-sizing: border-box; }
 html { scroll-behavior: smooth; }
@@ -150,12 +152,16 @@ code { background: var(--soft); padding: .12em .4em; border-radius: 5px; font-si
 .sp-color-4 h2 { color: var(--sp4); }
 .sp-color-5 h2 { color: var(--sp5); }
 .sp-color-6 h2 { color: var(--sp6); }
+.sp-color-7 h2 { color: var(--sp7); }
+.sp-color-8 h2 { color: var(--sp8); }
 .sp-color-1 { border-left: 4px solid var(--sp1); }
 .sp-color-2 { border-left: 4px solid var(--sp2); }
 .sp-color-3 { border-left: 4px solid var(--sp3); }
 .sp-color-4 { border-left: 4px solid var(--sp4); }
 .sp-color-5 { border-left: 4px solid var(--sp5); }
 .sp-color-6 { border-left: 4px solid var(--sp6); }
+.sp-color-7 { border-left: 4px solid var(--sp7); }
+.sp-color-8 { border-left: 4px solid var(--sp8); }
 
 /* the horizontal funnel / stepper */
 .funnel { margin: 1.6em 0 2em; padding: 4px 2px; }
@@ -196,6 +202,8 @@ code { background: var(--soft); padding: .12em .4em; border-radius: 5px; font-si
 .idx-c4 { border-color: var(--sp4); }
 .idx-c5 { border-color: var(--sp5); }
 .idx-c6 { border-color: var(--sp6); }
+.idx-c7 { border-color: var(--sp7); }
+.idx-c8 { border-color: var(--sp8); }
 
 .skim-note { font-size: .95rem; color: var(--muted); margin: 2em 0 .4em; font-weight: 600; }
 .screens-note { font-size: .9rem; color: var(--muted); font-style: italic; margin: .6em 0 1.4em; }
@@ -225,6 +233,7 @@ code { background: var(--soft); padding: .12em .4em; border-radius: 5px; font-si
 .sum-row .pg { color: var(--muted); font-size: .84rem; }
 .sum-c1 { --c: var(--sp1); } .sum-c2 { --c: var(--sp2); } .sum-c3 { --c: var(--sp3); }
 .sum-c4 { --c: var(--sp4); } .sum-c5 { --c: var(--sp5); } .sum-c6 { --c: var(--sp6); }
+.sum-c7 { --c: var(--sp7); } .sum-c8 { --c: var(--sp8); }
 @media (max-width: 680px) {
   .sum-grid { grid-template-columns: 1fr; }
   .sum-row:nth-child(2n+1) { border-right: 0; }
@@ -287,64 +296,74 @@ body.chapters-on .chapter:not(.active) { display: none; }
   </div>
 
   <div class="toc-ch" data-ch="ch2">
-    <a class="toc-chapter has-phases" data-ch="ch2" href="#ch2">2. Setting the Foundation</a>
+    <a class="toc-chapter has-phases" data-ch="ch2" href="#ch2">2. Prototype</a>
     <ul class="toc-sub">
       <li><a href="#p2" data-ch="ch2">2. Going Live</a></li>
-      <li><a href="#p3" data-ch="ch2">3. Covering The Companies I Care About</a></li>
-      <li><a href="#p4" data-ch="ch2">4. Turning It Into A Real Product</a></li>
     </ul>
   </div>
 
   <div class="toc-ch" data-ch="ch3">
-    <a class="toc-chapter has-phases" data-ch="ch3" href="#ch3">3. Building the MVP</a>
+    <a class="toc-chapter has-phases" data-ch="ch3" href="#ch3">3. MVP</a>
     <ul class="toc-sub">
+      <li><a href="#p3" data-ch="ch3">3. Covering The Companies I Actually Care About</a></li>
+      <li><a href="#p4" data-ch="ch3">4. Turning It Into A Real Product Other People Can Use</a></li>
       <li><a href="#p5" data-ch="ch3">5. A Safe Way To Add A Company</a></li>
-      <li><a href="#p6" data-ch="ch3">6. Showing What Roles Pay</a></li>
-      <li><a href="#p7" data-ch="ch3">7. The Landing Page</a></li>
+      <li><a href="#p6" data-ch="ch3">6. Showing What These Roles Actually Pay</a></li>
       <li><a href="#p8" data-ch="ch3">8. Making It Load Fast</a></li>
-      <li><a href="#p9" data-ch="ch3">9. Getting Safe For Real Users</a></li>
     </ul>
   </div>
 
   <div class="toc-ch" data-ch="ch4">
-    <a class="toc-chapter has-phases" data-ch="ch4" href="#ch4">4. Alpha and Beta</a>
+    <a class="toc-chapter has-phases" data-ch="ch4" href="#ch4">4. Alpha</a>
     <ul class="toc-sub">
+      <li><a href="#p7" data-ch="ch4">7. The Landing Page</a></li>
+      <li><a href="#p9" data-ch="ch4">9. Getting Safe For Real Users</a></li>
       <li><a href="#p10" data-ch="ch4">10. Getting Every Email Delivered</a></li>
       <li><a href="#p11" data-ch="ch4">11. Knowing The Moment Something Breaks</a></li>
-      <li><a href="#p12" data-ch="ch4">12. Making The Daily Run Dependable</a></li>
-      <li><a href="#p13" data-ch="ch4">13. Keeping It Fast As Data Grew</a></li>
       <li><a href="#p14" data-ch="ch4">14. Building With AI Tools</a></li>
-      <li><a href="#p15" data-ch="ch4">15. Scrapers That Fix Themselves</a></li>
-      <li><a href="#p16" data-ch="ch4">16. Stopping Bad Data At The Source</a></li>
-      <li><a href="#p17" data-ch="ch4">17. Dropping The Fragile Browser</a></li>
-      <li><a href="#p18" data-ch="ch4">18. A Recovery System, Not A Patch</a></li>
-      <li><a href="#p19" data-ch="ch4">19. Less Noise, Tighter Security</a></li>
     </ul>
   </div>
 
   <div class="toc-ch" data-ch="ch5">
-    <a class="toc-chapter has-phases" data-ch="ch5" href="#ch5">5. Productionizing and Scale</a>
+    <a class="toc-chapter has-phases" data-ch="ch5" href="#ch5">5. Hardening</a>
     <ul class="toc-sub">
+      <li><a href="#p12" data-ch="ch5">12. Making The Daily Run Dependable</a></li>
+      <li><a href="#p13" data-ch="ch5">13. Keeping It Fast As The Data Grew</a></li>
+      <li><a href="#p15" data-ch="ch5">15. Scrapers That Fix Themselves</a></li>
+      <li><a href="#p16" data-ch="ch5">16. Stopping Bad Data At The Source</a></li>
+      <li><a href="#p17" data-ch="ch5">17. Dropping The Fragile Browser</a></li>
+      <li><a href="#p18" data-ch="ch5">18. A Recovery System, Not A One-Off Patch</a></li>
+      <li><a href="#p19" data-ch="ch5">19. Less Noise, Tighter Security</a></li>
       <li><a href="#p20" data-ch="ch5">20. A Team Of Specialized AI Helpers</a></li>
       <li><a href="#p21" data-ch="ch5">21. Catching The Silent Zeros</a></li>
       <li><a href="#p22" data-ch="ch5">22. Growing The Catalog The Right Way</a></li>
       <li><a href="#p23" data-ch="ch5">23. A Job-First Feed</a></li>
-      <li><a href="#p24" data-ch="ch5">24. Turning Data Into Content</a></li>
+      <li><a href="#p24" data-ch="ch5">24. Turning The Data Into Content</a></li>
       <li><a href="#p25" data-ch="ch5">25. The Auth Incident</a></li>
-      <li><a href="#p26" data-ch="ch5">26. Letting The System Decide</a></li>
+      <li><a href="#p26" data-ch="ch5">26. Letting The System Decide For Itself</a></li>
+      <li><a href="#p28" data-ch="ch5">28. The Weekly Post Writes Itself, In My Voice</a></li>
+      <li><a href="#p29" data-ch="ch5">29. Auditing The Whole System Before A Major Expansion</a></li>
+      <li><a href="#p30" data-ch="ch5">30. Doubling The Catalog And Making "Add" Actually Work</a></li>
+      <li><a href="#p31" data-ch="ch5">31. The Night The Daily Job Died Silently</a></li>
+      <li><a href="#p33" data-ch="ch5">33. Three Models Review Every Change</a></li>
     </ul>
   </div>
 
   <div class="toc-ch" data-ch="ch6">
-    <a class="toc-chapter has-phases" data-ch="ch6" href="#ch6">6. Growth and New Features</a>
+    <a class="toc-chapter has-phases" data-ch="ch6" href="#ch6">6. Pre-production</a>
     <ul class="toc-sub">
-      <li><a href="#p27" data-ch="ch6">27. A Planned Next Step</a></li>
-      <li><a href="#p28" data-ch="ch6">28. The Weekly Post Writes Itself</a></li>
-      <li><a href="#p29" data-ch="ch6">29. Auditing The Whole System</a></li>
-      <li><a href="#p30" data-ch="ch6">30. Doubling The Catalog</a></li>
-      <li><a href="#p31" data-ch="ch6">31. The Night The Daily Job Died</a></li>
-      <li><a href="#p32" data-ch="ch6">32. Seeing The Funnel</a></li>
-      <li><a href="#p33" data-ch="ch6">33. Three Models Review Every Change</a></li>
+      <li><a href="#p32" data-ch="ch6">32. Seeing The Funnel, And Catching Myself Guessing</a></li>
+    </ul>
+  </div>
+
+  <div class="toc-ch" data-ch="ch7">
+    <a class="toc-chapter" data-ch="ch7" href="#ch7">7. Launch</a>
+  </div>
+
+  <div class="toc-ch" data-ch="ch8">
+    <a class="toc-chapter has-phases" data-ch="ch8" href="#ch8">8. Post-launch</a>
+    <ul class="toc-sub">
+      <li><a href="#p27" data-ch="ch8">27. A Planned Next Step</a></li>
     </ul>
   </div>
 </nav>
@@ -354,11 +373,13 @@ body.chapters-on .chapter:not(.active) { display: none; }
   <div class="chapter-tabs-track">
     <button type="button" data-ch="ch0">Overview</button>
     <button type="button" data-ch="ch1">1. Concept</button>
-    <button type="button" data-ch="ch2">2. Setting the Foundation</button>
-    <button type="button" data-ch="ch3">3. Building the MVP</button>
-    <button type="button" data-ch="ch4">4. Alpha and Beta</button>
-    <button type="button" data-ch="ch5">5. Productionizing and Scale</button>
-    <button type="button" data-ch="ch6">6. Growth and New Features</button>
+    <button type="button" data-ch="ch2">2. Prototype</button>
+    <button type="button" data-ch="ch3">3. MVP</button>
+    <button type="button" data-ch="ch4">4. Alpha</button>
+    <button type="button" data-ch="ch5">5. Hardening</button>
+    <button type="button" data-ch="ch6">6. Pre-production</button>
+    <button type="button" data-ch="ch7">7. Launch</button>
+    <button type="button" data-ch="ch8">8. Post-launch</button>
   </div>
 </div>
 
@@ -382,14 +403,16 @@ body.chapters-on .chapter:not(.active) { display: none; }
 </div>
 
 <!-- ============ FUNNEL / STEPPER ============ -->
-<div class="funnel" role="img" aria-label="The six stages of the journey in order">
+<div class="funnel" role="img" aria-label="The eight stages of the journey in order">
 <div class="funnel-track">
   <div class="funnel-step"><div class="funnel-circle" style="background:var(--sp1)">1</div><div class="funnel-label">Concept</div></div>
-  <div class="funnel-step"><div class="funnel-circle" style="background:var(--sp2)">2</div><div class="funnel-label">Setting the Foundation</div></div>
-  <div class="funnel-step"><div class="funnel-circle" style="background:var(--sp3)">3</div><div class="funnel-label">Building the MVP</div></div>
-  <div class="funnel-step"><div class="funnel-circle" style="background:var(--sp4)">4</div><div class="funnel-label">Alpha and Beta</div></div>
-  <div class="funnel-step"><div class="funnel-circle" style="background:var(--sp5)">5</div><div class="funnel-label">Productionizing and Scale</div></div>
-  <div class="funnel-step"><div class="funnel-circle" style="background:var(--sp6)">6</div><div class="funnel-label">Growth and New Features</div></div>
+  <div class="funnel-step"><div class="funnel-circle" style="background:var(--sp2)">2</div><div class="funnel-label">Prototype</div></div>
+  <div class="funnel-step"><div class="funnel-circle" style="background:var(--sp3)">3</div><div class="funnel-label">MVP</div></div>
+  <div class="funnel-step"><div class="funnel-circle" style="background:var(--sp4)">4</div><div class="funnel-label">Alpha</div></div>
+  <div class="funnel-step"><div class="funnel-circle" style="background:var(--sp5)">5</div><div class="funnel-label">Hardening</div></div>
+  <div class="funnel-step"><div class="funnel-circle" style="background:var(--sp6)">6</div><div class="funnel-label">Pre-production</div></div>
+  <div class="funnel-step"><div class="funnel-circle" style="background:var(--sp7)">7</div><div class="funnel-label">Launch</div></div>
+  <div class="funnel-step"><div class="funnel-circle" style="background:var(--sp8)">8</div><div class="funnel-label">Post-launch</div></div>
 </div>
 </div>
 
@@ -410,81 +433,96 @@ body.chapters-on .chapter:not(.active) { display: none; }
 
 <!-- ============ JOURNEY AT A GLANCE: grouped by stage ============ -->
 <h2 id="index">The journey at a glance</h2>
-<p class="skim-note">All 33 phases, grouped into the same 6 stages as above. Tap any stage to fold it. Tap a phase to jump to the full story.</p>
+<p class="skim-note">All 33 phases, grouped into the new 8 stages above. Stages 1 to 5 are done, 6 just started, 7 and 8 are not built yet. Tap any stage to fold it. Tap a phase to jump to the full story.</p>
 <div class="sum">
 
 <details class="sum-stage sum-c1" open>
 <summary><span class="sum-kicker">Stage 1</span><span class="sum-name">Concept</span><span class="sum-count">1 phase</span><span class="sum-chev">&#8250;</span></summary>
-<p class="sum-desc">One annoying chore: 30 minutes every morning checking career pages by hand. So I wrote the smallest script that could solve it.</p>
+<p class="sum-desc">You do not know the tool yet, so you poke at it. I wrote the smallest script that could answer one question: are there new PM roles today? It ran on my laptop, and it worked.</p>
 <div class="sum-grid">
   <div class="sum-row"><div class="sum-num">1</div><div><div class="pn"><a href="#p1">The Localhost MVP</a></div><div class="pg">Stop checking career pages by hand every morning.</div></div></div>
 </div>
 </details>
 
 <details class="sum-stage sum-c2" open>
-<summary><span class="sum-kicker">Stage 2</span><span class="sum-name">Setting the Foundation</span><span class="sum-count">3 phases</span><span class="sum-chev">&#8250;</span></summary>
-<p class="sum-desc">Get the tool off my laptop, onto the open web and covering the companies people actually job-hunt for.</p>
+<summary><span class="sum-kicker">Stage 2</span><span class="sum-name">Prototype</span><span class="sum-count">1 phase</span><span class="sum-chev">&#8250;</span></summary>
+<p class="sum-desc">Stitch the stack together and get off localhost. Railway for the backend, Vercel for the frontend, a real domain, a cron that runs every morning. Thin, but something I could actually push to and pull from anywhere.</p>
 <div class="sum-grid">
   <div class="sum-row"><div class="sum-num">2</div><div><div class="pn"><a href="#p2">Going Live</a></div><div class="pg">Get it off my laptop and onto the open web.</div></div></div>
-  <div class="sum-row"><div class="sum-num">3</div><div><div class="pn"><a href="#p3">Covering The Companies I Care About</a></div><div class="pg">Go past Greenhouse to the companies people actually want.</div></div></div>
-  <div class="sum-row"><div class="sum-num">4</div><div><div class="pn"><a href="#p4">Turning It Into A Real Product</a></div><div class="pg">Let other people use it, not just me.</div></div></div>
 </div>
 </details>
 
 <details class="sum-stage sum-c3" open>
-<summary><span class="sum-kicker">Stage 3</span><span class="sum-name">Building the MVP</span><span class="sum-count">5 phases</span><span class="sum-chev">&#8250;</span></summary>
-<p class="sum-desc">The product takes shape. A safe way to add a company, salary data, a real landing page, a page that loads fast and a security pass before any stranger could touch it.</p>
+<summary><span class="sum-kicker">Stage 3</span><span class="sum-name">MVP</span><span class="sum-count">5 phases</span><span class="sum-chev">&#8250;</span></summary>
+<p class="sum-desc">The real features land: scrapers across seven platforms, login, salary data, more companies, a page that loads fast. The first gut-check too, a couple of friends looking at it and asking the only question that matters, does this even make sense?</p>
 <div class="sum-grid">
+  <div class="sum-row"><div class="sum-num">3</div><div><div class="pn"><a href="#p3">Covering The Companies I Actually Care About</a></div><div class="pg">Go past Greenhouse to the companies people actually want.</div></div></div>
+  <div class="sum-row"><div class="sum-num">4</div><div><div class="pn"><a href="#p4">Turning It Into A Real Product Other People Can Use</a></div><div class="pg">Let other people use it, not just me.</div></div></div>
   <div class="sum-row"><div class="sum-num">5</div><div><div class="pn"><a href="#p5">A Safe Way To Add A Company</a></div><div class="pg">No garbage results when a user adds a company.</div></div></div>
-  <div class="sum-row"><div class="sum-num">6</div><div><div class="pn"><a href="#p6">Showing What Roles Pay</a></div><div class="pg">Put real salary data next to every role.</div></div></div>
-  <div class="sum-row"><div class="sum-num">7</div><div><div class="pn"><a href="#p7">The Landing Page</a></div><div class="pg">Explain the product to a stranger in one screen.</div></div></div>
+  <div class="sum-row"><div class="sum-num">6</div><div><div class="pn"><a href="#p6">Showing What These Roles Actually Pay</a></div><div class="pg">Put real salary data next to every role.</div></div></div>
   <div class="sum-row"><div class="sum-num">8</div><div><div class="pn"><a href="#p8">Making It Load Fast</a></div><div class="pg">A first visit that loads fast, not in five seconds.</div></div></div>
-  <div class="sum-row"><div class="sum-num">9</div><div><div class="pn"><a href="#p9">Getting Safe For Real Users</a></div><div class="pg">Lock it down before anyone but me touches it.</div></div></div>
 </div>
 </details>
 
 <details class="sum-stage sum-c4" open>
-<summary><span class="sum-kicker">Stage 4</span><span class="sum-name">Alpha and Beta</span><span class="sum-count">10 phases</span><span class="sum-chev">&#8250;</span></summary>
-<p class="sum-desc">Real users meant real failures. The loud ones I fixed in an hour. Most of this stretch is about the quiet ones, the failures that look exactly like everything working.</p>
+<summary><span class="sum-kicker">Stage 4</span><span class="sum-name">Alpha</span><span class="sum-count">5 phases</span><span class="sum-chev">&#8250;</span></summary>
+<p class="sum-desc">The first small open rollout to strangers, 10 to 20 people I did not know. A LinkedIn post, a landing page, a security pass before I shared the link, the first daily emails and the monitoring to know the moment something broke. They told me how it breaks.</p>
 <div class="sum-grid">
+  <div class="sum-row"><div class="sum-num">7</div><div><div class="pn"><a href="#p7">The Landing Page</a></div><div class="pg">Explain the product to a stranger in one screen.</div></div></div>
+  <div class="sum-row"><div class="sum-num">9</div><div><div class="pn"><a href="#p9">Getting Safe For Real Users</a></div><div class="pg">Lock it down before anyone but me touches it.</div></div></div>
   <div class="sum-row"><div class="sum-num">10</div><div><div class="pn"><a href="#p10">Getting Every Email Delivered</a></div><div class="pg">Send the daily alert without dropping a single one.</div></div></div>
   <div class="sum-row"><div class="sum-num">11</div><div><div class="pn"><a href="#p11">Knowing The Moment Something Breaks</a></div><div class="pg">Find out before a user tells me.</div></div></div>
-  <div class="sum-row"><div class="sum-num">12</div><div><div class="pn"><a href="#p12">Making The Daily Run Dependable</a></div><div class="pg">The scrape finishes every day with no babysitting.</div></div></div>
-  <div class="sum-row"><div class="sum-num">13</div><div><div class="pn"><a href="#p13">Keeping It Fast As Data Grew</a></div><div class="pg">Stay fast as companies, jobs and users pile up.</div></div></div>
   <div class="sum-row"><div class="sum-num">14</div><div><div class="pn"><a href="#p14">Building With AI Tools</a></div><div class="pg">What the AI did well, and where I had to steer.</div></div></div>
-  <div class="sum-row"><div class="sum-num">15</div><div><div class="pn"><a href="#p15">Scrapers That Fix Themselves</a></div><div class="pg">A broken scraper should not stay invisible.</div></div></div>
-  <div class="sum-row"><div class="sum-num">16</div><div><div class="pn"><a href="#p16">Stopping Bad Data At The Source</a></div><div class="pg">Catch bad data before it reaches a user.</div></div></div>
-  <div class="sum-row"><div class="sum-num">17</div><div><div class="pn"><a href="#p17">Dropping The Fragile Browser</a></div><div class="pg">Trade the headless browser for clean data feeds.</div></div></div>
-  <div class="sum-row"><div class="sum-num">18</div><div><div class="pn"><a href="#p18">A Recovery System, Not A Patch</a></div><div class="pg">Handle dead APIs and platform moves on its own.</div></div></div>
-  <div class="sum-row"><div class="sum-num">19</div><div><div class="pn"><a href="#p19">Less Noise, Tighter Security</a></div><div class="pg">Trust the self-healing, and audit security weekly.</div></div></div>
 </div>
 </details>
 
 <details class="sum-stage sum-c5" open>
-<summary><span class="sum-kicker">Stage 5</span><span class="sum-name">Productionizing and Scale</span><span class="sum-count">7 phases</span><span class="sum-chev">&#8250;</span></summary>
-<p class="sum-desc">A working app is not an operation yet. This is where it grew up: a team of AI helpers, a deploy gate so no bad change reaches users, a bigger catalog and a feed built for someone actually hunting.</p>
+<summary><span class="sum-kicker">Stage 5 &middot; You are here</span><span class="sum-name">Hardening</span><span class="sum-count">19 phases</span><span class="sum-chev">&#8250;</span></summary>
+<p class="sum-desc">This is where I am now. Security audits, scaling, the silent failures, the self-healing scrapers, the deploy gate, the night the daily job died. The thin vertical slice from the MVP gets sturdy and deep, so I can trust it with real users.</p>
 <div class="sum-grid">
+  <div class="sum-row"><div class="sum-num">12</div><div><div class="pn"><a href="#p12">Making The Daily Run Dependable</a></div><div class="pg">The scrape finishes every day with no babysitting.</div></div></div>
+  <div class="sum-row"><div class="sum-num">13</div><div><div class="pn"><a href="#p13">Keeping It Fast As The Data Grew</a></div><div class="pg">Stay fast as companies, jobs and users pile up.</div></div></div>
+  <div class="sum-row"><div class="sum-num">15</div><div><div class="pn"><a href="#p15">Scrapers That Fix Themselves</a></div><div class="pg">A broken scraper should not stay invisible.</div></div></div>
+  <div class="sum-row"><div class="sum-num">16</div><div><div class="pn"><a href="#p16">Stopping Bad Data At The Source</a></div><div class="pg">Catch bad data before it reaches a user.</div></div></div>
+  <div class="sum-row"><div class="sum-num">17</div><div><div class="pn"><a href="#p17">Dropping The Fragile Browser</a></div><div class="pg">Trade the headless browser for clean data feeds.</div></div></div>
+  <div class="sum-row"><div class="sum-num">18</div><div><div class="pn"><a href="#p18">A Recovery System, Not A One-Off Patch</a></div><div class="pg">Handle dead APIs and platform moves on its own.</div></div></div>
+  <div class="sum-row"><div class="sum-num">19</div><div><div class="pn"><a href="#p19">Less Noise, Tighter Security</a></div><div class="pg">Trust the self-healing, and audit security weekly.</div></div></div>
   <div class="sum-row"><div class="sum-num">20</div><div><div class="pn"><a href="#p20">A Team Of Specialized AI Helpers</a></div><div class="pg">One AI becomes a roster of focused agents.</div></div></div>
   <div class="sum-row"><div class="sum-num">21</div><div><div class="pn"><a href="#p21">Catching The Silent Zeros</a></div><div class="pg">Kill the failure that looks exactly like success.</div></div></div>
   <div class="sum-row"><div class="sum-num">22</div><div><div class="pn"><a href="#p22">Growing The Catalog The Right Way</a></div><div class="pg">Scale toward 1000 companies people actually chase.</div></div></div>
   <div class="sum-row"><div class="sum-num">23</div><div><div class="pn"><a href="#p23">A Job-First Feed</a></div><div class="pg">A feed a real job-hunter would actually browse.</div></div></div>
-  <div class="sum-row"><div class="sum-num">24</div><div><div class="pn"><a href="#p24">Turning Data Into Content</a></div><div class="pg">Let the data write a weekly post.</div></div></div>
+  <div class="sum-row"><div class="sum-num">24</div><div><div class="pn"><a href="#p24">Turning The Data Into Content</a></div><div class="pg">Let the data write a weekly post.</div></div></div>
   <div class="sum-row"><div class="sum-num">25</div><div><div class="pn"><a href="#p25">The Auth Incident</a></div><div class="pg">A login outage, a deep cookie bug, the fix.</div></div></div>
-  <div class="sum-row"><div class="sum-num">26</div><div><div class="pn"><a href="#p26">Letting The System Decide</a></div><div class="pg">Stop confirming what it could decide itself.</div></div></div>
+  <div class="sum-row"><div class="sum-num">26</div><div><div class="pn"><a href="#p26">Letting The System Decide For Itself</a></div><div class="pg">Stop confirming what it could decide itself.</div></div></div>
+  <div class="sum-row"><div class="sum-num">28</div><div><div class="pn"><a href="#p28">The Weekly Post Writes Itself, In My Voice</a></div><div class="pg">In my voice, no more hand-writing the lead.</div></div></div>
+  <div class="sum-row"><div class="sum-num">29</div><div><div class="pn"><a href="#p29">Auditing The Whole System Before A Major Expansion</a></div><div class="pg">Make the foundation sound before a big expansion.</div></div></div>
+  <div class="sum-row"><div class="sum-num">30</div><div><div class="pn"><a href="#p30">Doubling The Catalog And Making "Add" Actually Work</a></div><div class="pg">A real database, and Add that actually shows jobs.</div></div></div>
+  <div class="sum-row"><div class="sum-num">31</div><div><div class="pn"><a href="#p31">The Night The Daily Job Died Silently</a></div><div class="pg">Make a silent failure impossible.</div></div></div>
+  <div class="sum-row"><div class="sum-num">33</div><div><div class="pn"><a href="#p33">Three Models Review Every Change</a></div><div class="pg">The AI is no longer the only thing checking the AI.</div></div></div>
 </div>
 </details>
 
 <details class="sum-stage sum-c6" open>
-<summary><span class="sum-kicker">Stage 6</span><span class="sum-name">Growth and New Features</span><span class="sum-count">7 phases</span><span class="sum-chev">&#8250;</span></summary>
-<p class="sum-desc">Now the product starts compounding. The data becomes content, the catalog doubles, and I finally measure everything honestly. Including my own wins, which turned out smaller than I claimed.</p>
+<summary><span class="sum-kicker">Stage 6 &middot; In progress</span><span class="sum-name">Pre-production</span><span class="sum-count">1 phase</span><span class="sum-chev">&#8250;</span></summary>
+<p class="sum-desc">Just started. Mobile, UI polish, login polish, and analytics that work end to end, the technical dashboards and the user-facing side both. The product should make sense start to finish, not just function. The funnel dashboard below is the first piece already shipped.</p>
+<div class="sum-grid">
+  <div class="sum-row"><div class="sum-num">32</div><div><div class="pn"><a href="#p32">Seeing The Funnel, And Catching Myself Guessing</a></div><div class="pg">Stop guessing and watch where people drop off.</div></div></div>
+</div>
+</details>
+
+<details class="sum-stage sum-c7">
+<summary><span class="sum-kicker">Stage 7 &middot; Not built yet</span><span class="sum-name">Launch</span><span class="sum-count">Upcoming</span><span class="sum-chev">&#8250;</span></summary>
+<p class="sum-desc">Not built yet. The point where it goes out the door for real, past the small circle of early users.</p>
+<div class="sum-grid">
+  <div class="sum-row"><div>&nbsp;</div><div><div class="pg">Nothing here yet. Kept on the page so the roadmap stays honest.</div></div></div>
+</div>
+</details>
+
+<details class="sum-stage sum-c8" open>
+<summary><span class="sum-kicker">Stage 8 &middot; Not built yet</span><span class="sum-name">Post-launch</span><span class="sum-count">1 phase</span><span class="sum-chev">&#8250;</span></summary>
+<p class="sum-desc">Not built yet either. Keep it live, grow it, and watch real data flow in. One piece is already on the roadmap: interview practice for the same people who use the product to find a role.</p>
 <div class="sum-grid">
   <div class="sum-row"><div class="sum-num">27</div><div><div class="pn"><a href="#p27">A Planned Next Step</a></div><div class="pg">Interview practice, the natural next thing for the same people.</div></div></div>
-  <div class="sum-row"><div class="sum-num">28</div><div><div class="pn"><a href="#p28">The Weekly Post Writes Itself</a></div><div class="pg">In my voice, no more hand-writing the lead.</div></div></div>
-  <div class="sum-row"><div class="sum-num">29</div><div><div class="pn"><a href="#p29">Auditing The Whole System</a></div><div class="pg">Make the foundation sound before a big expansion.</div></div></div>
-  <div class="sum-row"><div class="sum-num">30</div><div><div class="pn"><a href="#p30">Doubling The Catalog</a></div><div class="pg">A real database, and Add that actually shows jobs.</div></div></div>
-  <div class="sum-row"><div class="sum-num">31</div><div><div class="pn"><a href="#p31">The Night The Daily Job Died</a></div><div class="pg">Make a silent failure impossible.</div></div></div>
-  <div class="sum-row"><div class="sum-num">32</div><div><div class="pn"><a href="#p32">Seeing The Funnel</a></div><div class="pg">Stop guessing and watch where people drop off.</div></div></div>
-  <div class="sum-row"><div class="sum-num">33</div><div><div class="pn"><a href="#p33">Three Models Review Every Change</a></div><div class="pg">The AI is no longer the only thing checking the AI.</div></div></div>
 </div>
 </details>
 
@@ -546,12 +584,12 @@ body.chapters-on .chapter:not(.active) { display: none; }
 </section>
 <!-- /chapter ch0 -->
 
-<!-- ============ SUPER-PHASE 1 ============ -->
+<!-- ============ STAGE 1: Concept ============ -->
 <section class="chapter" id="ch1">
 <div class="superphase">
   <div class="sp-bar" style="background:var(--sp1)"></div>
   <h2>1. Concept</h2>
-  <p class="sp-desc">It started with one annoying chore: 30 minutes every morning checking career pages by hand. So I wrote the smallest script that could solve it.</p>
+  <p class="sp-desc">You do not know the tool yet, so you poke at it. I wrote the smallest script that could answer one question: are there new PM roles today? It ran on my laptop, and it worked.</p>
 </div>
 
 
@@ -584,18 +622,18 @@ Finding Greenhouse's structured feed on day one is the decision the next thirty 
 
 <div class="chapter-nav">
   <button type="button" class="cn-prev" data-go="ch0"><span class="cn-dir">Previous</span>Overview</button>
-  <button type="button" class="cn-next" data-go="ch2"><span class="cn-dir">Next chapter</span>2. Setting the Foundation</button>
+  <button type="button" class="cn-next" data-go="ch2"><span class="cn-dir">Next chapter</span>2. Prototype</button>
 </div>
 
 </section>
 <!-- /chapter ch1 -->
 
-<!-- ============ SUPER-PHASE 2 ============ -->
+<!-- ============ STAGE 2: Prototype ============ -->
 <section class="chapter" id="ch2">
 <div class="superphase">
   <div class="sp-bar" style="background:var(--sp2)"></div>
-  <h2>2. Setting the Foundation</h2>
-  <p class="sp-desc">Get the tool off my laptop, onto the open web and covering the companies people actually job-hunt for, not just the ones on Greenhouse.</p>
+  <h2>2. Prototype</h2>
+  <p class="sp-desc">Stitch the stack together and get off localhost. Railway for the backend, Vercel for the frontend, a real domain, a cron that runs every morning. Thin, but something I could actually push to and pull from anywhere.</p>
 </div>
 
 
@@ -617,7 +655,22 @@ Finding Greenhouse's structured feed on day one is the decision the next thirty 
 <p><strong>Cross-origin requests with www redirects are a trap.</strong> Vercel redirects the root domain to the www subdomain. My backend only allowed the root origin, so authenticated requests from <code>www.</code> were getting blocked. The fix was to auto-detect and allow both origins from a single frontend-URL config value.</p>
 </section>
 
-<hr>
+<div class="chapter-nav">
+  <button type="button" class="cn-prev" data-go="ch1"><span class="cn-dir">Previous</span>1. Concept</button>
+  <button type="button" class="cn-next" data-go="ch3"><span class="cn-dir">Next chapter</span>3. MVP</button>
+</div>
+
+</section>
+<!-- /chapter ch2 -->
+
+<!-- ============ STAGE 3: MVP ============ -->
+<section class="chapter" id="ch3">
+<div class="superphase">
+  <div class="sp-bar" style="background:var(--sp3)"></div>
+  <h2>3. MVP</h2>
+  <p class="sp-desc">The real features land: scrapers across seven platforms, login, salary data, more companies, a page that loads fast. The first gut-check too, a couple of friends looking at it and asking the only question that matters, does this even make sense?</p>
+</div>
+
 
 <section class="phase sp-color-2">
 <h2 id="p3">Phase 3: Covering The Companies I Actually Care About</h2>
@@ -707,22 +760,7 @@ This is the hinge of the whole project. It is the moment the tool stopped being 
 </div>
 </section>
 
-<div class="chapter-nav">
-  <button type="button" class="cn-prev" data-go="ch1"><span class="cn-dir">Previous</span>1. Concept</button>
-  <button type="button" class="cn-next" data-go="ch3"><span class="cn-dir">Next chapter</span>3. Building the MVP</button>
-</div>
-
-</section>
-<!-- /chapter ch2 -->
-
-<!-- ============ SUPER-PHASE 3 ============ -->
-<section class="chapter" id="ch3">
-<div class="superphase">
-  <div class="sp-bar" style="background:var(--sp3)"></div>
-  <h2>3. Building the MVP</h2>
-  <p class="sp-desc">The product takes shape. A safe way to add a company, salary data, a real landing page, a page that loads fast and a security pass before any stranger could touch it.</p>
-</div>
-
+<hr>
 
 <section class="phase sp-color-3">
 <h2 id="p5">Phase 5: A Safe Way To Add A Company</h2>
@@ -783,21 +821,6 @@ This is the hinge of the whole project. It is the moment the tool stopped being 
 <hr>
 
 <section class="phase sp-color-3">
-<h2 id="p7">Phase 7: The Landing Page</h2>
-<p><strong>Goal:</strong> Explain the product to strangers who land on the homepage.</p>
-<p>Up to this point, unauthenticated visitors saw a login page. No context about what the product does, who it is for, or why to sign up.</p>
-
-<h3>What I Built</h3>
-<p>A 10-section marketing landing page: fixed nav, hero with floating company cards, problem statement, how-it-works, product screens, latest jobs, salary callout, stats, final CTA, footer. Architecture: the landing page renders as a fixed overlay on top of the app shell. Authenticated users see the dashboard directly. Zero changes to the existing layout, navbar or help button.</p>
-
-<h3>What I Learned</h3>
-<p><strong>The overlay approach avoids the riskiest refactor.</strong> Instead of restructuring the app to conditionally render different shells for authenticated vs. unauthenticated users, the landing page simply covers everything with a fixed-position, high-layer overlay. The app renders behind it, invisible. When the user logs in, the overlay disappears and the app is already there. A deliberate "minimize blast radius" decision.</p>
-<p><strong>Scroll detection on overlays does not use the window.</strong> Because the landing page is a fixed overlay with its own scroll, a window scroll listener does not fire. The nav transition had to listen to the overlay container's scroll instead.</p>
-</section>
-
-<hr>
-
-<section class="phase sp-color-3">
 <h2 id="p8">Phase 8: Making It Load Fast</h2>
 <p class="phase-sub">performance optimization</p>
 <p><strong>Goal:</strong> Ship a landing page that loads fast, especially on first visit.</p>
@@ -813,6 +836,36 @@ This is the hinge of the whole project. It is the moment the tool stopped being 
 <p><strong>Measure before optimizing.</strong> The three fixes were guided by Lighthouse diagnostics. Without measuring, I might have guessed wrong. The analytics blocking, for example, was not obvious until I looked at the Total Blocking Time breakdown.</p>
 <p><strong>There is a ceiling set by your framework.</strong> On mobile the bottleneck is the React runtime itself. No amount of code-splitting fixes that; the next step would be a larger architectural change.</p>
 <p><strong>Pre-computation is underrated.</strong> Moving brand-color math from render-time to load-time eliminated ~80 calls per render with a one-line change. Always check: is this computation the same every time? If yes, compute it once.</p>
+</section>
+
+<div class="chapter-nav">
+  <button type="button" class="cn-prev" data-go="ch2"><span class="cn-dir">Previous</span>2. Prototype</button>
+  <button type="button" class="cn-next" data-go="ch4"><span class="cn-dir">Next chapter</span>4. Alpha</button>
+</div>
+
+</section>
+<!-- /chapter ch3 -->
+
+<!-- ============ STAGE 4: Alpha ============ -->
+<section class="chapter" id="ch4">
+<div class="superphase">
+  <div class="sp-bar" style="background:var(--sp4)"></div>
+  <h2>4. Alpha</h2>
+  <p class="sp-desc">The first small open rollout to strangers, 10 to 20 people I did not know. A LinkedIn post, a landing page, a security pass before I shared the link, the first daily emails and the monitoring to know the moment something broke. They told me how it breaks.</p>
+</div>
+
+
+<section class="phase sp-color-3">
+<h2 id="p7">Phase 7: The Landing Page</h2>
+<p><strong>Goal:</strong> Explain the product to strangers who land on the homepage.</p>
+<p>Up to this point, unauthenticated visitors saw a login page. No context about what the product does, who it is for, or why to sign up.</p>
+
+<h3>What I Built</h3>
+<p>A 10-section marketing landing page: fixed nav, hero with floating company cards, problem statement, how-it-works, product screens, latest jobs, salary callout, stats, final CTA, footer. Architecture: the landing page renders as a fixed overlay on top of the app shell. Authenticated users see the dashboard directly. Zero changes to the existing layout, navbar or help button.</p>
+
+<h3>What I Learned</h3>
+<p><strong>The overlay approach avoids the riskiest refactor.</strong> Instead of restructuring the app to conditionally render different shells for authenticated vs. unauthenticated users, the landing page simply covers everything with a fixed-position, high-layer overlay. The app renders behind it, invisible. When the user logs in, the overlay disappears and the app is already there. A deliberate "minimize blast radius" decision.</p>
+<p><strong>Scroll detection on overlays does not use the window.</strong> Because the landing page is a fixed overlay with its own scroll, a window scroll listener does not fire. The nav transition had to listen to the overlay container's scroll instead.</p>
 </section>
 
 <hr>
@@ -870,22 +923,7 @@ This is what made "share the link" a safe move instead of a gamble. It also set 
 </div>
 </section>
 
-<div class="chapter-nav">
-  <button type="button" class="cn-prev" data-go="ch2"><span class="cn-dir">Previous</span>2. Setting the Foundation</button>
-  <button type="button" class="cn-next" data-go="ch4"><span class="cn-dir">Next chapter</span>4. Alpha and Beta</button>
-</div>
-
-</section>
-<!-- /chapter ch3 -->
-
-<!-- ============ SUPER-PHASE 4 ============ -->
-<section class="chapter" id="ch4">
-<div class="superphase">
-  <div class="sp-bar" style="background:var(--sp4)"></div>
-  <h2>4. Alpha and Beta: Hardening With Real Users</h2>
-  <p class="sp-desc">Real users meant real failures. The loud ones I fixed in an hour. Most of this stretch is about the quiet ones, the failures that look exactly like everything working.</p>
-</div>
-
+<hr>
 
 <section class="phase sp-color-4">
 <h2 id="p10">Phase 10: Getting Every Email Delivered</h2>
@@ -923,6 +961,50 @@ This is what made "share the link" a safe move instead of a gamble. It also set 
 <hr>
 
 <section class="phase sp-color-4">
+<h2 id="p14">Phase 14: Building With AI Tools</h2>
+<p><strong>How I used AI throughout this project.</strong></p>
+<p>This entire product was built using AI coding tools, primarily Claude Code. Here is what that actually looked like in practice.</p>
+
+<h3>What AI did well</h3>
+<ul>
+<li>Scaffold new features end-to-end (routes, schema, components)</li>
+<li>Write scraper implementations once I described the platform's API format</li>
+<li>Debug production issues from error logs</li>
+<li>Perform repetitive refactors (exception capture across 18 catch blocks, switching to batch email sends)</li>
+<li>Generate boilerplate (security headers, cross-origin config, rate limiting)</li>
+</ul>
+
+<h3>Where I had to steer</h3>
+<ul>
+<li>Architecture decisions (shared catalog vs. per-user, magic links vs. passwords) required my product judgment</li>
+<li>The project context file was essential. Without a comprehensive description of the architecture, the AI made changes that conflicted with existing patterns. Maintaining it was an ongoing investment that paid off every day.</li>
+<li>Debugging subtle issues (the key mismatch, the cross-device failure, the auto-sleep interaction) required me to understand what was happening, even if AI wrote the fix</li>
+<li>UX decisions came from product thinking, not code generation</li>
+</ul>
+
+<h3>What I Learned</h3>
+<p><strong>AI coding tools do not replace product thinking. They accelerate it.</strong> The PM decisions were all mine; the AI handled implementation. This let me move at 5 to 10x the speed of writing every line myself, but only when I was clear about what I wanted. The times I moved slowest were when I was fuzzy on direction, not when the code was complex.</p>
+<p><strong>Context management is a skill.</strong> The difference between productive and frustrating AI coding is how well you maintain context. A well-written context file is the difference between "build the check-then-add flow" and spending 30 minutes re-explaining the project every session.</p>
+</section>
+
+<div class="chapter-nav">
+  <button type="button" class="cn-prev" data-go="ch3"><span class="cn-dir">Previous</span>3. MVP</button>
+  <button type="button" class="cn-next" data-go="ch5"><span class="cn-dir">Next chapter</span>5. Hardening</button>
+</div>
+
+</section>
+<!-- /chapter ch4 -->
+
+<!-- ============ STAGE 5: Hardening ============ -->
+<section class="chapter" id="ch5">
+<div class="superphase">
+  <div class="sp-bar" style="background:var(--sp5)"></div>
+  <h2>5. Hardening<span style="display:inline-block;font-size:.62rem;font-weight:800;letter-spacing:.06em;text-transform:uppercase;background:#dcfce7;color:#047a4e;border-radius:999px;padding:2px 9px;margin-left:10px;vertical-align:middle;">You are here</span></h2>
+  <p class="sp-desc">This is where I am now. Security audits, scaling, the silent failures, the self-healing scrapers, the deploy gate, the night the daily job died. The thin vertical slice from the MVP gets sturdy and deep, so I can trust it with real users.</p>
+</div>
+
+
+<section class="phase sp-color-4">
 <h2 id="p12">Phase 12: Making The Daily Run Dependable</h2>
 <p class="phase-sub">cron reliability and operations</p>
 <p><strong>Goal:</strong> Make sure the daily scrape actually completes, every day, without manual intervention.</p>
@@ -954,35 +1036,6 @@ This is what made "share the link" a safe move instead of a gamble. It also set 
 <h3>What I Learned</h3>
 <p><strong>Indexes should be added based on actual query patterns, not guesses.</strong> I added the composite index for "new jobs today" after noticing a full table scan as the job count grew. The index made it instant.</p>
 <p><strong>Local token verification is a massive win.</strong> Every authenticated call was adding 100 to 150ms for a round-trip. Verifying locally eliminated it. This is one config value that, if removed, makes every API call noticeably slower.</p>
-</section>
-
-<hr>
-
-<section class="phase sp-color-4">
-<h2 id="p14">Phase 14: Building With AI Tools</h2>
-<p><strong>How I used AI throughout this project.</strong></p>
-<p>This entire product was built using AI coding tools, primarily Claude Code. Here is what that actually looked like in practice.</p>
-
-<h3>What AI did well</h3>
-<ul>
-<li>Scaffold new features end-to-end (routes, schema, components)</li>
-<li>Write scraper implementations once I described the platform's API format</li>
-<li>Debug production issues from error logs</li>
-<li>Perform repetitive refactors (exception capture across 18 catch blocks, switching to batch email sends)</li>
-<li>Generate boilerplate (security headers, cross-origin config, rate limiting)</li>
-</ul>
-
-<h3>Where I had to steer</h3>
-<ul>
-<li>Architecture decisions (shared catalog vs. per-user, magic links vs. passwords) required my product judgment</li>
-<li>The project context file was essential. Without a comprehensive description of the architecture, the AI made changes that conflicted with existing patterns. Maintaining it was an ongoing investment that paid off every day.</li>
-<li>Debugging subtle issues (the key mismatch, the cross-device failure, the auto-sleep interaction) required me to understand what was happening, even if AI wrote the fix</li>
-<li>UX decisions came from product thinking, not code generation</li>
-</ul>
-
-<h3>What I Learned</h3>
-<p><strong>AI coding tools do not replace product thinking. They accelerate it.</strong> The PM decisions were all mine; the AI handled implementation. This let me move at 5 to 10x the speed of writing every line myself, but only when I was clear about what I wanted. The times I moved slowest were when I was fuzzy on direction, not when the code was complex.</p>
-<p><strong>Context management is a skill.</strong> The difference between productive and frustrating AI coding is how well you maintain context. A well-written context file is the difference between "build the check-then-add flow" and spending 30 minutes re-explaining the project every session.</p>
 </section>
 
 <hr>
@@ -1118,22 +1171,7 @@ This is the first time the system started healing itself instead of paging me, a
 <p><strong>Build the monitoring before you need it.</strong> The weekly dependency audit runs in the same cron, costs nothing, and catches the next unknown CVE months earlier than the next manual audit.</p>
 </section>
 
-<div class="chapter-nav">
-  <button type="button" class="cn-prev" data-go="ch3"><span class="cn-dir">Previous</span>3. Building the MVP</button>
-  <button type="button" class="cn-next" data-go="ch5"><span class="cn-dir">Next chapter</span>5. Productionizing and Scale</button>
-</div>
-
-</section>
-<!-- /chapter ch4 -->
-
-<!-- ============ SUPER-PHASE 5 ============ -->
-<section class="chapter" id="ch5">
-<div class="superphase">
-  <div class="sp-bar" style="background:var(--sp5)"></div>
-  <h2>5. Productionizing and Scale</h2>
-  <p class="sp-desc">A working app is not an operation yet. This is where it grew up: a team of AI helpers, a deploy gate so no bad change reaches users, a bigger catalog and a feed built for someone actually hunting.</p>
-</div>
-
+<hr>
 
 <section class="phase sp-color-5">
 <h2 id="p20">Phase 20: A Team Of Specialized AI Helpers</h2>
@@ -1368,29 +1406,6 @@ This incident is what turned my auth flow from "tested by hand and hoped" into "
 <p><strong>When the data evolves, the workflow has to evolve with it.</strong> The "unverified zeros" email was right when it shipped, then outlived its information environment by months once the system could tell a proven scraper from an unproven one. Every workflow that asks a human to do something the system could do is unpaid tech debt.</p>
 </section>
 
-<div class="chapter-nav">
-  <button type="button" class="cn-prev" data-go="ch4"><span class="cn-dir">Previous</span>4. Alpha and Beta</button>
-  <button type="button" class="cn-next" data-go="ch6"><span class="cn-dir">Next chapter</span>6. Growth and New Features</button>
-</div>
-
-</section>
-<!-- /chapter ch5 -->
-
-<!-- ============ SUPER-PHASE 6 ============ -->
-<section class="chapter" id="ch6">
-<div class="superphase">
-  <div class="sp-bar" style="background:var(--sp6)"></div>
-  <h2>6. Growth and New Features</h2>
-  <p class="sp-desc">Now the product starts compounding. The data becomes content, the catalog doubles, and I finally measure everything honestly. Including my own "wins," which turned out smaller than I claimed.</p>
-</div>
-
-
-<section class="phase sp-color-6">
-<h2 id="p27">Phase 27: A Planned Next Step</h2>
-<p class="phase-sub">for the same audience</p>
-<p>Looking ahead, an AI interview-practice feature is planned as a natural next step for the same audience: the people who use the product to find a role will also need to prepare for the conversations that follow. The rest of this journey stays focused on the job-discovery product itself.</p>
-</section>
-
 <hr>
 
 <section class="phase sp-color-6">
@@ -1476,6 +1491,56 @@ This audit is what made the big catalog expansion in Phase 30 safe to attempt. I
 <hr>
 
 <section class="phase sp-color-6">
+<h2 id="p33">Phase 33: Three Models Review Every Change</h2>
+<p class="phase-sub">the cross-model eval reviewer</p>
+<p><strong>Goal:</strong> stop the AI that builds this product from being the only thing that checks the AI's work.</p>
+<p>Almost everything in this product is built by an AI assistant, and for months the only review was that same assistant reading back its own diff. That is not a check, it is the same mind, in the same conversation, re-reading its own assumptions and nodding along. It misses whatever it was already blind to. And a different model is blind to different things: the systematic gaps in one are not the gaps in another.</p>
+
+<h3>What I Built</h3>
+<p>So I built a panel. Every pull request now gets reviewed, independently and in parallel, by three different AI models from three different companies. They never see each other's answers. When two or three flag the same thing, that agreement raises my confidence it is real; when only one catches something, that lone flag is the interesting signal, almost always one model's blind spot and increasingly often something the model that wrote the code simply did not see.</p>
+<p>The part I care about most is not the review comment, it is the ledger behind it. Every review quietly appends a line to a running log: what it cost (real money, three paid APIs, pennies a time), what each model found and specifically what the OTHER models caught that the author model missed. Over months that log becomes a measured record of my AI's blind spots, instead of a vague sense that it "probably misses things."</p>
+<p>Then the panel did the one thing that made me trust it: I pointed it at itself. Before the merge I had already had the author model review this code twice over, a multi-agent deep pass and a separate fresh-context reviewer, both the same model, both said ship. Then a different model looked once and found a real security hole all three earlier passes had walked right past: the piece that records the log trusted any comment carrying its marker, so anyone who could comment on a pull request could feed it a fake record and poison the very ledger I had built. It also caught that the tool was quietly shipping my whole code diff to two outside vendors with nothing redacted. Neither was hypothetical.</p>
+
+<h3>What I Learned</h3>
+<p>The uncomfortable part is why I missed them, because it is the same three reasons any author misses things in their own work. First, I trusted my own design: I wrote the code that posts that comment, so I read everything else assuming the comment was always mine and never once pictured someone faking one. Second, I framed my own review, so it could only check the risks I had already thought of; the other model arrived with no frame and asked the questions I had not, like "who else can write this?" and "where does this data actually go?". Third, every review pass was the same model, with the same instincts and the same blind spots. You cannot out-review your own blind spots by running more of the same reviewer.</p>
+<p>The cheapest way to catch your own blind spots is to ask something that does not share them. Self-review, human or AI, is structurally weak because the reviewer and the author carry the same assumptions: diversity of reviewer beats effort of reviewer. And the highest-value output was not the pass-or-fail verdict, it was the log: turning "it probably misses things" into a growing, measured record of exactly what gets missed.</p>
+
+<div class="deep">
+<h4>Drilling deeper on the "why"</h4>
+<p>The deepest point of this phase, and maybe the whole journey: effort and diversity are different axes, and I had been spending everything on the wrong one. Three review passes by the same model is three times the effort and zero extra diversity. It is the same mind reaching the same conclusions three times, each pass blind to exactly what the last pass was blind to. One pass by a genuinely different model added almost no effort and a whole new set of assumptions, and that is what found the two holes. A reviewer that fails loudly is just annoying. A reviewer that fails silently is worse than none, because you trust it. The panel earned my trust because the first thing it reviewed was itself, and it caught its own silent failures before they reached me.</p>
+<div class="alt">
+<span class="label label-alt">Alternative considered</span>
+The path I had actually been on was to keep piling on effort with the same reviewer: a deeper multi-agent pass, then a second fresh-context pass, both the same model. It feels like diligence, and it is genuinely more work. I swapped it for parallel review by three models from three companies, because the failure I needed to catch was a blind spot, and a blind spot is, by definition, something more of the same eye cannot see. The cost is real, three paid APIs on every pull request, pennies at a time, and I log that cost line by line so it stays honest. The benefit is the only thing that has ever actually found my author model's silent misses: a reviewer that does not share its assumptions.
+</div>
+<div class="edge">
+<span class="label label-edge">Edge cases that bit</span>
+The two holes the outside model found are textbook trust boundaries the author model could not see, because it had drawn them itself. The first: the ledger trusted any comment carrying its marker, so it quietly assumed the only writer was its own bot, when in fact anyone who can comment on a pull request can post a lookalike and poison the log, the exact record I built to measure trustworthiness. The second: the tool shipped the entire code diff to two third-party vendors with nothing redacted, a data-egress line I never consciously crossed because I never pictured the diff leaving. Both are "who else can act here, and where does this data go" questions, the ones an author with a frame does not think to ask about their own design.
+</div>
+<div class="impact">
+<span class="label label-impact">What this made possible</span>
+<p>This closed the loop the entire journey had been circling: for months the thing doing most of the building was the one thing I could not independently measure or check. The panel makes every future change get reviewed by minds that do not share the author's blind spots, and the ledger turns "it probably misses things" into a measured, improving record of what actually gets missed. The proof it was worth building: the very first thing it reviewed was itself, and it caught two silent bugs that would have quietly defeated its own purpose.</p>
+</div>
+</div>
+</section>
+
+<div class="chapter-nav">
+  <button type="button" class="cn-prev" data-go="ch4"><span class="cn-dir">Previous</span>4. Alpha</button>
+  <button type="button" class="cn-next" data-go="ch6"><span class="cn-dir">Next chapter</span>6. Pre-production</button>
+</div>
+
+</section>
+<!-- /chapter ch5 -->
+
+<!-- ============ STAGE 6: Pre-production ============ -->
+<section class="chapter" id="ch6">
+<div class="superphase">
+  <div class="sp-bar" style="background:var(--sp6)"></div>
+  <h2>6. Pre-production<span style="display:inline-block;font-size:.62rem;font-weight:800;letter-spacing:.06em;text-transform:uppercase;background:#fee2e2;color:#b42318;border-radius:999px;padding:2px 9px;margin-left:10px;vertical-align:middle;">In progress</span></h2>
+  <p class="sp-desc">Just started. Mobile, UI polish, login polish, and analytics that work end to end, the technical dashboards and the user-facing side both. The product should make sense start to finish, not just function. The funnel dashboard below is the first piece already shipped.</p>
+</div>
+
+
+<section class="phase sp-color-6">
 <h2 id="p32">Phase 32: Seeing The Funnel, And Catching Myself Guessing</h2>
 <p class="phase-sub">the funnel dashboard</p>
 <p><strong>Goal:</strong> stop running the product on gut and actually see where people fall off.</p>
@@ -1507,48 +1572,59 @@ This phase pointed the next stretch of product work at activation, the real leak
 </div>
 </section>
 
-<hr>
-
-<section class="phase sp-color-6">
-<h2 id="p33">Phase 33: Three Models Review Every Change</h2>
-<p class="phase-sub">the cross-model eval reviewer</p>
-<p><strong>Goal:</strong> stop the AI that builds this product from being the only thing that checks the AI's work.</p>
-<p>Almost everything in this product is built by an AI assistant, and for months the only review was that same assistant reading back its own diff. That is not a check, it is the same mind, in the same conversation, re-reading its own assumptions and nodding along. It misses whatever it was already blind to. And a different model is blind to different things: the systematic gaps in one are not the gaps in another.</p>
-
-<h3>What I Built</h3>
-<p>So I built a panel. Every pull request now gets reviewed, independently and in parallel, by three different AI models from three different companies. They never see each other's answers. When two or three flag the same thing, that agreement raises my confidence it is real; when only one catches something, that lone flag is the interesting signal, almost always one model's blind spot and increasingly often something the model that wrote the code simply did not see.</p>
-<p>The part I care about most is not the review comment, it is the ledger behind it. Every review quietly appends a line to a running log: what it cost (real money, three paid APIs, pennies a time), what each model found and specifically what the OTHER models caught that the author model missed. Over months that log becomes a measured record of my AI's blind spots, instead of a vague sense that it "probably misses things."</p>
-<p>Then the panel did the one thing that made me trust it: I pointed it at itself. Before the merge I had already had the author model review this code twice over, a multi-agent deep pass and a separate fresh-context reviewer, both the same model, both said ship. Then a different model looked once and found a real security hole all three earlier passes had walked right past: the piece that records the log trusted any comment carrying its marker, so anyone who could comment on a pull request could feed it a fake record and poison the very ledger I had built. It also caught that the tool was quietly shipping my whole code diff to two outside vendors with nothing redacted. Neither was hypothetical.</p>
-
-<h3>What I Learned</h3>
-<p>The uncomfortable part is why I missed them, because it is the same three reasons any author misses things in their own work. First, I trusted my own design: I wrote the code that posts that comment, so I read everything else assuming the comment was always mine and never once pictured someone faking one. Second, I framed my own review, so it could only check the risks I had already thought of; the other model arrived with no frame and asked the questions I had not, like "who else can write this?" and "where does this data actually go?". Third, every review pass was the same model, with the same instincts and the same blind spots. You cannot out-review your own blind spots by running more of the same reviewer.</p>
-<p>The cheapest way to catch your own blind spots is to ask something that does not share them. Self-review, human or AI, is structurally weak because the reviewer and the author carry the same assumptions: diversity of reviewer beats effort of reviewer. And the highest-value output was not the pass-or-fail verdict, it was the log: turning "it probably misses things" into a growing, measured record of exactly what gets missed.</p>
-
-<div class="deep">
-<h4>Drilling deeper on the "why"</h4>
-<p>The deepest point of this phase, and maybe the whole journey: effort and diversity are different axes, and I had been spending everything on the wrong one. Three review passes by the same model is three times the effort and zero extra diversity. It is the same mind reaching the same conclusions three times, each pass blind to exactly what the last pass was blind to. One pass by a genuinely different model added almost no effort and a whole new set of assumptions, and that is what found the two holes. A reviewer that fails loudly is just annoying. A reviewer that fails silently is worse than none, because you trust it. The panel earned my trust because the first thing it reviewed was itself, and it caught its own silent failures before they reached me.</p>
-<div class="alt">
-<span class="label label-alt">Alternative considered</span>
-The path I had actually been on was to keep piling on effort with the same reviewer: a deeper multi-agent pass, then a second fresh-context pass, both the same model. It feels like diligence, and it is genuinely more work. I swapped it for parallel review by three models from three companies, because the failure I needed to catch was a blind spot, and a blind spot is, by definition, something more of the same eye cannot see. The cost is real, three paid APIs on every pull request, pennies at a time, and I log that cost line by line so it stays honest. The benefit is the only thing that has ever actually found my author model's silent misses: a reviewer that does not share its assumptions.
-</div>
-<div class="edge">
-<span class="label label-edge">Edge cases that bit</span>
-The two holes the outside model found are textbook trust boundaries the author model could not see, because it had drawn them itself. The first: the ledger trusted any comment carrying its marker, so it quietly assumed the only writer was its own bot, when in fact anyone who can comment on a pull request can post a lookalike and poison the log, the exact record I built to measure trustworthiness. The second: the tool shipped the entire code diff to two third-party vendors with nothing redacted, a data-egress line I never consciously crossed because I never pictured the diff leaving. Both are "who else can act here, and where does this data go" questions, the ones an author with a frame does not think to ask about their own design.
-</div>
-<div class="impact">
-<span class="label label-impact">What this made possible</span>
-This closed the loop the entire journey had been circling: for months the thing doing most of the building was the one thing I could not independently measure or check. The panel makes every future change get reviewed by minds that do not share the author's blind spots, and the ledger turns "it probably misses things" into a measured, improving record of what actually gets missed. The proof it was worth building: the very first thing it reviewed was itself, and it caught two silent bugs that would have quietly defeated its own purpose.</p>
-</div>
-</div>
-</section>
-
 <div class="chapter-nav">
-  <button type="button" class="cn-prev" data-go="ch5"><span class="cn-dir">Previous</span>5. Productionizing and Scale</button>
-  <button type="button" class="cn-next" disabled></button>
+  <button type="button" class="cn-prev" data-go="ch5"><span class="cn-dir">Previous</span>5. Hardening</button>
+  <button type="button" class="cn-next" data-go="ch7"><span class="cn-dir">Next chapter</span>7. Launch</button>
 </div>
 
 </section>
 <!-- /chapter ch6 -->
+
+<!-- ============ STAGE 7: Launch ============ -->
+<section class="chapter" id="ch7">
+<div class="superphase">
+  <div class="sp-bar" style="background:var(--sp7)"></div>
+  <h2>7. Launch<span style="display:inline-block;font-size:.62rem;font-weight:800;letter-spacing:.06em;text-transform:uppercase;background:#f1f5f9;color:#475569;border-radius:999px;padding:2px 9px;margin-left:10px;vertical-align:middle;">Upcoming, not built yet</span></h2>
+  <p class="sp-desc">Not built yet. The point where it goes out the door for real, past the small circle of early users.</p>
+</div>
+
+
+<div class="phase sp-color-7">
+<p class="phase-sub">upcoming, not built yet</p>
+<p><strong>What is coming:</strong> the real launch. Today the product serves a small circle of early users I rolled out to by hand. Launch is the step where it goes out the door past that circle, with the hardening and pre-production work behind it.</p>
+<p>Nothing here has shipped. I am keeping this stage on the page on purpose: a hiring manager seeing where the work actually stops beats a tidy eight-of-eight that pretends otherwise.</p>
+</div>
+
+<div class="chapter-nav">
+  <button type="button" class="cn-prev" data-go="ch6"><span class="cn-dir">Previous</span>6. Pre-production</button>
+  <button type="button" class="cn-next" data-go="ch8"><span class="cn-dir">Next chapter</span>8. Post-launch</button>
+</div>
+
+</section>
+<!-- /chapter ch7 -->
+
+<!-- ============ STAGE 8: Post-launch ============ -->
+<section class="chapter" id="ch8">
+<div class="superphase">
+  <div class="sp-bar" style="background:var(--sp8)"></div>
+  <h2>8. Post-launch<span style="display:inline-block;font-size:.62rem;font-weight:800;letter-spacing:.06em;text-transform:uppercase;background:#f1f5f9;color:#475569;border-radius:999px;padding:2px 9px;margin-left:10px;vertical-align:middle;">Upcoming, not built yet</span></h2>
+  <p class="sp-desc">Not built yet either. Keep it live, grow it, and watch real data flow in. One piece is already on the roadmap: interview practice for the same people who use the product to find a role.</p>
+</div>
+
+
+<section class="phase sp-color-6">
+<h2 id="p27">Phase 27: A Planned Next Step</h2>
+<p class="phase-sub">for the same audience</p>
+<p>Looking ahead, an AI interview-practice feature is planned as a natural next step for the same audience: the people who use the product to find a role will also need to prepare for the conversations that follow. The rest of this journey stays focused on the job-discovery product itself.</p>
+</section>
+
+<div class="chapter-nav">
+  <button type="button" class="cn-prev" data-go="ch7"><span class="cn-dir">Previous</span>7. Launch</button>
+  <button type="button" class="cn-next" disabled></button>
+</div>
+
+</section>
+<!-- /chapter ch8 -->
 
 </main>
 <script>
@@ -1556,11 +1632,13 @@ This closed the loop the entire journey had been circling: for months the thing 
   var CHAPTERS = [
     { id: "ch0", label: "Overview" },
     { id: "ch1", label: "1. Concept" },
-    { id: "ch2", label: "2. Setting the Foundation" },
-    { id: "ch3", label: "3. Building the MVP" },
-    { id: "ch4", label: "4. Alpha and Beta" },
-    { id: "ch5", label: "5. Productionizing and Scale" },
-    { id: "ch6", label: "6. Growth and New Features" }
+    { id: "ch2", label: "2. Prototype" },
+    { id: "ch3", label: "3. MVP" },
+    { id: "ch4", label: "4. Alpha" },
+    { id: "ch5", label: "5. Hardening" },
+    { id: "ch6", label: "6. Pre-production" },
+    { id: "ch7", label: "7. Launch" },
+    { id: "ch8", label: "8. Post-launch" }
   ];
   var ids = CHAPTERS.map(function (c) { return c.id; });
 
