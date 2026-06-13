@@ -174,7 +174,7 @@ code { background: var(--soft); padding: .12em .4em; border-radius: 5px; font-si
 }
 .funnel-step {
   display: flex; flex-direction: column; align-items: center; text-align: center;
-  flex: 1 1 120px; min-width: 110px; max-width: 180px; position: relative;
+  flex: 0 0 20%; max-width: 20%; position: relative;
 }
 .funnel-circle {
   width: 46px; height: 46px; border-radius: 999px; color: #fff;
@@ -188,6 +188,8 @@ code { background: var(--soft); padding: .12em .4em; border-radius: 5px; font-si
   background: var(--border); z-index: 0;
 }
 .funnel-step:first-child::before { display: none; }
+/* 5-over-4 layout: step 6 starts the second row, so drop its leading connector line */
+.funnel-step:nth-child(6)::before { display: none; }
 @media (max-width: 560px) {
   .funnel-step { flex-basis: 33%; }
   .funnel-step::before { display: none; }
