@@ -347,6 +347,7 @@ body.chapters-on .chapter:not(.active) { display: none; }
       <li><a href="#p29" data-ch="ch5">29. Auditing The Whole System Before A Major Expansion</a></li>
       <li><a href="#p31" data-ch="ch5">31. The Night The Daily Job Died Silently</a></li>
       <li><a href="#p33" data-ch="ch5">33. Three Models Review Every Change</a></li>
+      <li><a href="#p34" data-ch="ch5">34. When The System Watches Itself</a></li>
     </ul>
   </div>
 
@@ -445,7 +446,7 @@ body.chapters-on .chapter:not(.active) { display: none; }
 
 <!-- ============ JOURNEY AT A GLANCE: grouped by stage ============ -->
 <h2 id="index">The journey at a glance</h2>
-<p class="skim-note">All 33 phases, grouped into 9 stages. Stages 1 to 5 are done, Pre-production is in progress, and Beta, Launch and Post-launch are next, not built yet. Tap any stage to fold it. Tap a phase to jump to the full story.</p>
+<p class="skim-note">All 34 phases, grouped into 9 stages. Stages 1 to 5 are done, Pre-production is in progress, and Beta, Launch and Post-launch are next, not built yet. Tap any stage to fold it. Tap a phase to jump to the full story.</p>
 <div class="sum">
 
 <details class="sum-stage sum-c1" open>
@@ -489,7 +490,7 @@ body.chapters-on .chapter:not(.active) { display: none; }
 </details>
 
 <details class="sum-stage sum-c5" open>
-<summary><span class="sum-kicker">Stage 5 &middot; You are here</span><span class="sum-name">Hardening</span><span class="sum-count">14 phases</span><span class="sum-chev">&#8250;</span></summary>
+<summary><span class="sum-kicker">Stage 5 &middot; You are here</span><span class="sum-name">Hardening</span><span class="sum-count">15 phases</span><span class="sum-chev">&#8250;</span></summary>
 <p class="sum-desc">This is where I am now. Security audits, scaling, the silent failures, the self-healing scrapers, the deploy gate, the night the daily job died. The thin vertical slice from the MVP gets sturdy and deep, so I can trust it with real users.</p>
 <div class="sum-grid">
   <div class="sum-row"><div class="sum-num">12</div><div><div class="pn"><a href="#p12">Making The Daily Run Dependable</a></div><div class="pg">The scrape finishes every day with no babysitting.</div></div></div>
@@ -506,6 +507,7 @@ body.chapters-on .chapter:not(.active) { display: none; }
   <div class="sum-row"><div class="sum-num">29</div><div><div class="pn"><a href="#p29">Auditing The Whole System Before A Major Expansion</a></div><div class="pg">Make the foundation sound before a big expansion.</div></div></div>
   <div class="sum-row"><div class="sum-num">31</div><div><div class="pn"><a href="#p31">The Night The Daily Job Died Silently</a></div><div class="pg">Make a silent failure impossible.</div></div></div>
   <div class="sum-row"><div class="sum-num">33</div><div><div class="pn"><a href="#p33">Three Models Review Every Change</a></div><div class="pg">The AI is no longer the only thing checking the AI.</div></div></div>
+  <div class="sum-row"><div class="sum-num">34</div><div><div class="pn"><a href="#p34">When The System Watches Itself</a></div><div class="pg">Make "probably working" something the system proves.</div></div></div>
 </div>
 </details>
 
@@ -1415,6 +1417,30 @@ The two holes the outside model found are textbook trust boundaries the author m
 <p>This closed the loop the entire journey had been circling: for months the thing doing most of the building was the one thing I could not independently measure or check. The panel makes every future change get reviewed by minds that do not share the author's blind spots, and the ledger turns "it probably misses things" into a measured, improving record of what actually gets missed. The proof it was worth building: the very first thing it reviewed was itself, and it caught two silent bugs that would have quietly defeated its own purpose.</p>
 </div>
 </div>
+</section>
+
+<hr>
+
+<section class="phase sp-color-6">
+<h2 id="p34">Phase 34: When The System Watches Itself</h2>
+<p class="phase-sub">the .in() scale cliff, security audits in CI, and the Sentry that went dark</p>
+<p><strong>Goal:</strong> Turn "probably working" and "probably secure" into things the system proves for itself.</p>
+<p>Three failures in one week had the same shape. Sentry had been misconfigured for three and a half months; the error tracker was not tracking errors, so crashes that should have paged me were disappearing. A power user tracking 423 companies hit a 500 on the dashboard, which I patched and marked resolved. The same root cause surfaced again on jobs. Then compensation. Then starred jobs. Four separate endpoints, four separate incidents. And a security alarm I relied on had a missing environment variable, so the alarm could not fire. The through-line: the thing supposed to catch the failure had its own silent failure mode.</p>
+
+<h3>What I Built</h3>
+<p><strong>The .in() fix and the CI guard.</strong> supabase-js serializes .in("id", ids) as a GET query parameter. For 423 IDs that is a 15KB+ URL the request layer rejects silently with "TypeError: fetch failed." The route returns a 500; nothing explains why. A shared inChunks helper now runs parallel batches of 200: the user's 423 companies returned in about 860ms. But the same bug had surfaced four times before I fixed the whole class at once. The durable fix is a CI guard (part of the required test check) that fails the build on any raw .in() with a dynamic array. A scale-test harness confirms the cliff: raw fails somewhere between 200 and 500 IDs, chunked runs to 5,000 in 450ms.</p>
+<p><strong>JWT hardening.</strong> Moved from HS256 symmetric verification to local JWKS/ES256: fetch the public key set once, verify signatures locally at near-zero latency. No shared secret in the codebase. Fails closed at boot in prod if the auth provider URL is missing.</p>
+<p><strong>Scheduled security audits in CI.</strong> Three parallel agents, one each for auth, data isolation and infrastructure, run as a weekly job every Friday. Clean weeks are silent; only a finding sends a report. A deeper adversarial audit of the whole codebase ran 81 agents total: seven mapper agents, eight dimension specialists, and a dedicated refuter agent for every finding to challenge it against the real code. 60 raw findings, 59 survived. Grade: B. The two High-severity items were the PM-title filter and the seen-jobs reconcile state machine, the logic every job and every alert flows through, each covered only by the live daily scrape with no automated test.</p>
+<p><strong>Staging-first workflow.</strong> A long-lived staging branch promotes to main in deliberate batches via a /promote command. The command runs the full review gate before merge. Feature work accumulates on staging; prod only gets a documented, deliberate batch. Before this, every change went straight to prod.</p>
+<p><strong>Overnight adversarial diff-audit.</strong> Four finder agents, three independent refuter agents per finding, majority kills. 11 candidates, 0 exploitable. It caught one real data-corruption bug: a bulk-subscribe count lookup fell back to an empty array on failure, and the update loop then reset subscriber_count to 1 for every company in the request. One transient error on a 400-company "Add all" would have silently reset global subscriber counts.</p>
+
+<h3>Key Decisions</h3>
+<p><strong>A CI guard over another manual sweep.</strong> The .in() bug surfaced four times because each fix addressed the reported endpoint, not the pattern. The right move in round one was a grep across the whole codebase. A CI guard that permanently blocks the pattern is better than a fourth sweep, because a sweep ends.</p>
+<p><strong>Weekly audits over monthly.</strong> With multiple parallel sessions shipping every day, a monthly cadence left too much surface between passes. Clean weeks stay silent. The only real cost of weekly is API quota.</p>
+
+<h3>What I Learned</h3>
+<p><strong>A safeguard needs its own safeguard.</strong> Sentry was dark for three and a half months before I noticed by looking for data I expected to see and could not find. A liveness probe that sends a real test signal and confirms receipt is how you find out the alarm is broken before you need it.</p>
+<p><strong>Fix the class, not the instance.</strong> The .in() lesson in one sentence: grep the pattern on the first report, not after the fourth. A CI guard that catches the next one at PR time is the only fix that holds.</p>
 </section>
 
 <div class="chapter-nav">
