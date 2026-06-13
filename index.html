@@ -20,12 +20,13 @@
   --border: #e7e9f2;
   --maxw: 820px;
 
-  /* super-phase accent colors (one per stage of the 8-stage ladder) */
+  /* super-phase accent colors (one per stage of the 9-stage ladder) */
   --sp1: #0ea5e9; /* sky     - Concept */
   --sp2: #6366f1; /* indigo  - Prototype */
   --sp3: #a21caf; /* magenta - MVP */
   --sp4: #d97706; /* amber   - Alpha */
   --sp5: #059669; /* emerald - Hardening (current) */
+  --sp9: #7c3aed; /* violet  - Beta (upcoming, not built yet) */
   --sp6: #e11d48; /* rose    - Pre-production (in progress) */
   --sp7: #64748b; /* slate     - Launch (upcoming, muted on purpose) */
   --sp8: #475569; /* slate-deep - Post-launch (upcoming) */
@@ -154,6 +155,7 @@ code { background: var(--soft); padding: .12em .4em; border-radius: 5px; font-si
 .sp-color-6 h2 { color: var(--sp6); }
 .sp-color-7 h2 { color: var(--sp7); }
 .sp-color-8 h2 { color: var(--sp8); }
+.sp-color-9 h2 { color: var(--sp9); }
 .sp-color-1 { border-left: 4px solid var(--sp1); }
 .sp-color-2 { border-left: 4px solid var(--sp2); }
 .sp-color-3 { border-left: 4px solid var(--sp3); }
@@ -162,6 +164,7 @@ code { background: var(--soft); padding: .12em .4em; border-radius: 5px; font-si
 .sp-color-6 { border-left: 4px solid var(--sp6); }
 .sp-color-7 { border-left: 4px solid var(--sp7); }
 .sp-color-8 { border-left: 4px solid var(--sp8); }
+.sp-color-9 { border-left: 4px solid var(--sp9); }
 
 /* the horizontal funnel / stepper */
 .funnel { margin: 1.6em 0 2em; padding: 4px 2px; }
@@ -204,6 +207,7 @@ code { background: var(--soft); padding: .12em .4em; border-radius: 5px; font-si
 .idx-c6 { border-color: var(--sp6); }
 .idx-c7 { border-color: var(--sp7); }
 .idx-c8 { border-color: var(--sp8); }
+.idx-c9 { border-color: var(--sp9); }
 
 .skim-note { font-size: .95rem; color: var(--muted); margin: 2em 0 .4em; font-weight: 600; }
 .screens-note { font-size: .9rem; color: var(--muted); font-style: italic; margin: .6em 0 1.4em; }
@@ -233,7 +237,7 @@ code { background: var(--soft); padding: .12em .4em; border-radius: 5px; font-si
 .sum-row .pg { color: var(--muted); font-size: .84rem; }
 .sum-c1 { --c: var(--sp1); } .sum-c2 { --c: var(--sp2); } .sum-c3 { --c: var(--sp3); }
 .sum-c4 { --c: var(--sp4); } .sum-c5 { --c: var(--sp5); } .sum-c6 { --c: var(--sp6); }
-.sum-c7 { --c: var(--sp7); } .sum-c8 { --c: var(--sp8); }
+.sum-c7 { --c: var(--sp7); } .sum-c8 { --c: var(--sp8); } .sum-c9 { --c: var(--sp9); }
 @media (max-width: 680px) {
   .sum-grid { grid-template-columns: 1fr; }
   .sum-row:nth-child(2n+1) { border-right: 0; }
@@ -336,34 +340,38 @@ body.chapters-on .chapter:not(.active) { display: none; }
       <li><a href="#p19" data-ch="ch5">19. Less Noise, Tighter Security</a></li>
       <li><a href="#p20" data-ch="ch5">20. A Team Of Specialized AI Helpers</a></li>
       <li><a href="#p21" data-ch="ch5">21. Catching The Silent Zeros</a></li>
-      <li><a href="#p22" data-ch="ch5">22. Growing The Catalog The Right Way</a></li>
-      <li><a href="#p23" data-ch="ch5">23. A Job-First Feed</a></li>
-      <li><a href="#p24" data-ch="ch5">24. Turning The Data Into Content</a></li>
       <li><a href="#p25" data-ch="ch5">25. The Auth Incident</a></li>
       <li><a href="#p26" data-ch="ch5">26. Letting The System Decide For Itself</a></li>
-      <li><a href="#p28" data-ch="ch5">28. The Weekly Post Writes Itself, In My Voice</a></li>
       <li><a href="#p29" data-ch="ch5">29. Auditing The Whole System Before A Major Expansion</a></li>
-      <li><a href="#p30" data-ch="ch5">30. Doubling The Catalog And Making "Add" Actually Work</a></li>
       <li><a href="#p31" data-ch="ch5">31. The Night The Daily Job Died Silently</a></li>
       <li><a href="#p33" data-ch="ch5">33. Three Models Review Every Change</a></li>
     </ul>
   </div>
 
   <div class="toc-ch" data-ch="ch6">
-    <a class="toc-chapter has-phases" data-ch="ch6" href="#ch6">6. Pre-production</a>
-    <ul class="toc-sub">
-      <li><a href="#p32" data-ch="ch6">32. Seeing The Funnel, And Catching Myself Guessing</a></li>
-    </ul>
+    <a class="toc-chapter" data-ch="ch6" href="#ch6">6. Beta</a>
   </div>
 
   <div class="toc-ch" data-ch="ch7">
-    <a class="toc-chapter" data-ch="ch7" href="#ch7">7. Launch</a>
+    <a class="toc-chapter has-phases" data-ch="ch7" href="#ch7">7. Pre-production</a>
+    <ul class="toc-sub">
+      <li><a href="#p22" data-ch="ch7">22. Growing The Catalog The Right Way</a></li>
+      <li><a href="#p23" data-ch="ch7">23. A Job-First Feed</a></li>
+      <li><a href="#p24" data-ch="ch7">24. Turning The Data Into Content</a></li>
+      <li><a href="#p28" data-ch="ch7">28. The Weekly Post Writes Itself, In My Voice</a></li>
+      <li><a href="#p30" data-ch="ch7">30. Doubling The Catalog And Making "Add" Actually Work</a></li>
+      <li><a href="#p32" data-ch="ch7">32. Seeing The Funnel, And Catching Myself Guessing</a></li>
+    </ul>
   </div>
 
   <div class="toc-ch" data-ch="ch8">
-    <a class="toc-chapter has-phases" data-ch="ch8" href="#ch8">8. Post-launch</a>
+    <a class="toc-chapter" data-ch="ch8" href="#ch8">8. Launch</a>
+  </div>
+
+  <div class="toc-ch" data-ch="ch9">
+    <a class="toc-chapter has-phases" data-ch="ch9" href="#ch9">9. Post-launch</a>
     <ul class="toc-sub">
-      <li><a href="#p27" data-ch="ch8">27. A Planned Next Step</a></li>
+      <li><a href="#p27" data-ch="ch9">27. A Planned Next Step</a></li>
     </ul>
   </div>
 </nav>
@@ -377,9 +385,10 @@ body.chapters-on .chapter:not(.active) { display: none; }
     <button type="button" data-ch="ch3">3. MVP</button>
     <button type="button" data-ch="ch4">4. Alpha</button>
     <button type="button" data-ch="ch5">5. Hardening</button>
-    <button type="button" data-ch="ch6">6. Pre-production</button>
-    <button type="button" data-ch="ch7">7. Launch</button>
-    <button type="button" data-ch="ch8">8. Post-launch</button>
+    <button type="button" data-ch="ch6">6. Beta</button>
+    <button type="button" data-ch="ch7">7. Pre-production</button>
+    <button type="button" data-ch="ch8">8. Launch</button>
+    <button type="button" data-ch="ch9">9. Post-launch</button>
   </div>
 </div>
 
@@ -403,16 +412,17 @@ body.chapters-on .chapter:not(.active) { display: none; }
 </div>
 
 <!-- ============ FUNNEL / STEPPER ============ -->
-<div class="funnel" role="img" aria-label="The eight stages of the journey in order">
+<div class="funnel" role="img" aria-label="The nine stages of the journey in order">
 <div class="funnel-track">
   <div class="funnel-step"><div class="funnel-circle" style="background:var(--sp1)">1</div><div class="funnel-label">Concept</div></div>
   <div class="funnel-step"><div class="funnel-circle" style="background:var(--sp2)">2</div><div class="funnel-label">Prototype</div></div>
   <div class="funnel-step"><div class="funnel-circle" style="background:var(--sp3)">3</div><div class="funnel-label">MVP</div></div>
   <div class="funnel-step"><div class="funnel-circle" style="background:var(--sp4)">4</div><div class="funnel-label">Alpha</div></div>
   <div class="funnel-step"><div class="funnel-circle" style="background:var(--sp5)">5</div><div class="funnel-label">Hardening</div></div>
-  <div class="funnel-step"><div class="funnel-circle" style="background:var(--sp6)">6</div><div class="funnel-label">Pre-production</div></div>
-  <div class="funnel-step"><div class="funnel-circle" style="background:var(--sp7)">7</div><div class="funnel-label">Launch</div></div>
-  <div class="funnel-step"><div class="funnel-circle" style="background:var(--sp8)">8</div><div class="funnel-label">Post-launch</div></div>
+  <div class="funnel-step"><div class="funnel-circle" style="background:var(--sp9)">6</div><div class="funnel-label">Beta</div></div>
+  <div class="funnel-step"><div class="funnel-circle" style="background:var(--sp6)">7</div><div class="funnel-label">Pre-production</div></div>
+  <div class="funnel-step"><div class="funnel-circle" style="background:var(--sp7)">8</div><div class="funnel-label">Launch</div></div>
+  <div class="funnel-step"><div class="funnel-circle" style="background:var(--sp8)">9</div><div class="funnel-label">Post-launch</div></div>
 </div>
 </div>
 
@@ -433,7 +443,7 @@ body.chapters-on .chapter:not(.active) { display: none; }
 
 <!-- ============ JOURNEY AT A GLANCE: grouped by stage ============ -->
 <h2 id="index">The journey at a glance</h2>
-<p class="skim-note">All 33 phases, grouped into the new 8 stages above. Stages 1 to 5 are done, 6 just started, 7 and 8 are not built yet. Tap any stage to fold it. Tap a phase to jump to the full story.</p>
+<p class="skim-note">All 33 phases, grouped into 9 stages. Stages 1 to 5 are done, Pre-production is in progress, and Beta, Launch and Post-launch are next, not built yet. Tap any stage to fold it. Tap a phase to jump to the full story.</p>
 <div class="sum">
 
 <details class="sum-stage sum-c1" open>
@@ -477,7 +487,7 @@ body.chapters-on .chapter:not(.active) { display: none; }
 </details>
 
 <details class="sum-stage sum-c5" open>
-<summary><span class="sum-kicker">Stage 5 &middot; You are here</span><span class="sum-name">Hardening</span><span class="sum-count">19 phases</span><span class="sum-chev">&#8250;</span></summary>
+<summary><span class="sum-kicker">Stage 5 &middot; You are here</span><span class="sum-name">Hardening</span><span class="sum-count">14 phases</span><span class="sum-chev">&#8250;</span></summary>
 <p class="sum-desc">This is where I am now. Security audits, scaling, the silent failures, the self-healing scrapers, the deploy gate, the night the daily job died. The thin vertical slice from the MVP gets sturdy and deep, so I can trust it with real users.</p>
 <div class="sum-grid">
   <div class="sum-row"><div class="sum-num">12</div><div><div class="pn"><a href="#p12">Making The Daily Run Dependable</a></div><div class="pg">The scrape finishes every day with no babysitting.</div></div></div>
@@ -489,29 +499,37 @@ body.chapters-on .chapter:not(.active) { display: none; }
   <div class="sum-row"><div class="sum-num">19</div><div><div class="pn"><a href="#p19">Less Noise, Tighter Security</a></div><div class="pg">Trust the self-healing, and audit security weekly.</div></div></div>
   <div class="sum-row"><div class="sum-num">20</div><div><div class="pn"><a href="#p20">A Team Of Specialized AI Helpers</a></div><div class="pg">One AI becomes a roster of focused agents.</div></div></div>
   <div class="sum-row"><div class="sum-num">21</div><div><div class="pn"><a href="#p21">Catching The Silent Zeros</a></div><div class="pg">Kill the failure that looks exactly like success.</div></div></div>
-  <div class="sum-row"><div class="sum-num">22</div><div><div class="pn"><a href="#p22">Growing The Catalog The Right Way</a></div><div class="pg">Scale toward 1000 companies people actually chase.</div></div></div>
-  <div class="sum-row"><div class="sum-num">23</div><div><div class="pn"><a href="#p23">A Job-First Feed</a></div><div class="pg">A feed a real job-hunter would actually browse.</div></div></div>
-  <div class="sum-row"><div class="sum-num">24</div><div><div class="pn"><a href="#p24">Turning The Data Into Content</a></div><div class="pg">Let the data write a weekly post.</div></div></div>
   <div class="sum-row"><div class="sum-num">25</div><div><div class="pn"><a href="#p25">The Auth Incident</a></div><div class="pg">A login outage, a deep cookie bug, the fix.</div></div></div>
   <div class="sum-row"><div class="sum-num">26</div><div><div class="pn"><a href="#p26">Letting The System Decide For Itself</a></div><div class="pg">Stop confirming what it could decide itself.</div></div></div>
-  <div class="sum-row"><div class="sum-num">28</div><div><div class="pn"><a href="#p28">The Weekly Post Writes Itself, In My Voice</a></div><div class="pg">In my voice, no more hand-writing the lead.</div></div></div>
   <div class="sum-row"><div class="sum-num">29</div><div><div class="pn"><a href="#p29">Auditing The Whole System Before A Major Expansion</a></div><div class="pg">Make the foundation sound before a big expansion.</div></div></div>
-  <div class="sum-row"><div class="sum-num">30</div><div><div class="pn"><a href="#p30">Doubling The Catalog And Making "Add" Actually Work</a></div><div class="pg">A real database, and Add that actually shows jobs.</div></div></div>
   <div class="sum-row"><div class="sum-num">31</div><div><div class="pn"><a href="#p31">The Night The Daily Job Died Silently</a></div><div class="pg">Make a silent failure impossible.</div></div></div>
   <div class="sum-row"><div class="sum-num">33</div><div><div class="pn"><a href="#p33">Three Models Review Every Change</a></div><div class="pg">The AI is no longer the only thing checking the AI.</div></div></div>
 </div>
 </details>
 
-<details class="sum-stage sum-c6" open>
-<summary><span class="sum-kicker">Stage 6 &middot; In progress</span><span class="sum-name">Pre-production</span><span class="sum-count">1 phase</span><span class="sum-chev">&#8250;</span></summary>
-<p class="sum-desc">Just started. Mobile, UI polish, login polish, and analytics that work end to end, the technical dashboards and the user-facing side both. The product should make sense start to finish, not just function. The funnel dashboard below is the first piece already shipped.</p>
+<details class="sum-stage sum-c9">
+<summary><span class="sum-kicker">Stage 6 &middot; Not built yet</span><span class="sum-name">Beta</span><span class="sum-count">Upcoming</span><span class="sum-chev">&#8250;</span></summary>
+<p class="sum-desc">Not built yet. Once the product is sturdy, open it wider to a limited group, bigger than the 10 to 20 people in Alpha but not the whole world. You do not scale a beta on shaky ground, so this waits on the hardening and pre-production work landing first.</p>
 <div class="sum-grid">
+  <div class="sum-row"><div>&nbsp;</div><div><div class="pg">Nothing here yet. Kept on the page so the roadmap stays honest.</div></div></div>
+</div>
+</details>
+
+<details class="sum-stage sum-c6" open>
+<summary><span class="sum-kicker">Stage 7 &middot; In progress</span><span class="sum-name">Pre-production</span><span class="sum-count">6 phases</span><span class="sum-chev">&#8250;</span></summary>
+<p class="sum-desc">In progress. Catalog breadth, the job-first feed, the content engine and analytics that work end to end, the technical dashboards and the user-facing side both. The product should make sense start to finish, not just function. Still plenty left: mobile and UI polish are ahead.</p>
+<div class="sum-grid">
+  <div class="sum-row"><div class="sum-num">22</div><div><div class="pn"><a href="#p22">Growing The Catalog The Right Way</a></div><div class="pg">Scale toward 1000 companies people actually chase.</div></div></div>
+  <div class="sum-row"><div class="sum-num">23</div><div><div class="pn"><a href="#p23">A Job-First Feed</a></div><div class="pg">A feed a real job-hunter would actually browse.</div></div></div>
+  <div class="sum-row"><div class="sum-num">24</div><div><div class="pn"><a href="#p24">Turning The Data Into Content</a></div><div class="pg">Let the data write a weekly post.</div></div></div>
+  <div class="sum-row"><div class="sum-num">28</div><div><div class="pn"><a href="#p28">The Weekly Post Writes Itself, In My Voice</a></div><div class="pg">In my voice, no more hand-writing the lead.</div></div></div>
+  <div class="sum-row"><div class="sum-num">30</div><div><div class="pn"><a href="#p30">Doubling The Catalog And Making "Add" Actually Work</a></div><div class="pg">A real database, and Add that actually shows jobs.</div></div></div>
   <div class="sum-row"><div class="sum-num">32</div><div><div class="pn"><a href="#p32">Seeing The Funnel, And Catching Myself Guessing</a></div><div class="pg">Stop guessing and watch where people drop off.</div></div></div>
 </div>
 </details>
 
 <details class="sum-stage sum-c7">
-<summary><span class="sum-kicker">Stage 7 &middot; Not built yet</span><span class="sum-name">Launch</span><span class="sum-count">Upcoming</span><span class="sum-chev">&#8250;</span></summary>
+<summary><span class="sum-kicker">Stage 8 &middot; Not built yet</span><span class="sum-name">Launch</span><span class="sum-count">Upcoming</span><span class="sum-chev">&#8250;</span></summary>
 <p class="sum-desc">Not built yet. The point where it goes out the door for real, past the small circle of early users.</p>
 <div class="sum-grid">
   <div class="sum-row"><div>&nbsp;</div><div><div class="pg">Nothing here yet. Kept on the page so the roadmap stays honest.</div></div></div>
@@ -519,7 +537,7 @@ body.chapters-on .chapter:not(.active) { display: none; }
 </details>
 
 <details class="sum-stage sum-c8" open>
-<summary><span class="sum-kicker">Stage 8 &middot; Not built yet</span><span class="sum-name">Post-launch</span><span class="sum-count">1 phase</span><span class="sum-chev">&#8250;</span></summary>
+<summary><span class="sum-kicker">Stage 9 &middot; Not built yet</span><span class="sum-name">Post-launch</span><span class="sum-count">1 phase</span><span class="sum-chev">&#8250;</span></summary>
 <p class="sum-desc">Not built yet either. Keep it live, grow it, and watch real data flow in. One piece is already on the roadmap: interview practice for the same people who use the product to find a role.</p>
 <div class="sum-grid">
   <div class="sum-row"><div class="sum-num">27</div><div><div class="pn"><a href="#p27">A Planned Next Step</a></div><div class="pg">Interview practice, the natural next thing for the same people.</div></div></div>
@@ -1241,101 +1259,6 @@ This phase recovered a large slice of the catalog that had been quietly dead, an
 <hr>
 
 <section class="phase sp-color-5">
-<h2 id="p22">Phase 22: Growing The Catalog The Right Way</h2>
-<p class="phase-sub">targeted catalog growth after the Common Crawl detour</p>
-<p><strong>Goal:</strong> Scale the catalog from 216 toward 500-1000 companies, but only with companies the audience actually job-hunts for.</p>
-<p>After the zero-jobs audit closed, the catalog had hit a steady-state of about 216 companies, mostly tech. Two paths surfaced. The first was broad: a pipeline that discovers any company with a public board on the big platforms. The second was narrow: pick verticals the audience cares about and add recognizable companies by hand. I tried both, and the difference between them is the entire game.</p>
-
-<h3>What I Built</h3>
-<p>The broad path was a Common Crawl harvest. Common Crawl is a free public web index; it lets you query for every page matching a URL pattern. The script pulls candidate company slugs, validates each by calling the ATS's own public API to confirm the board exists and has jobs, then emits the survivors as ready-to-apply SQL. The run found 1,352 working companies; after de-duping against my catalog, 1,328 truly new candidates.</p>
-<p>I looked at the top fifty by job count and almost none were companies I recognized. Below that the list was home-health-care providers, autism therapy networks, apparel brands, regional architecture practices. The pipeline worked perfectly. The audience-fit was wrong.</p>
-<p>So I shelved the pipeline (kept the code) and switched to targeted vertical batches: four days, four batches of recognizable banks, biotechs and consultancies. Net: twenty-nine high-recognition companies added, five entirely new ATS platforms supported and a real strategic shift from "discover broadly" to "hand-pick the names people know."</p>
-
-<h3>Key Decisions</h3>
-<p><strong>Take Common Crawl seriously enough to build the pipeline, then ship nothing from it.</strong> When you have spent time building infrastructure, the temptation is to use it. I almost shipped the top fifty just to validate the build. Then I read the names. The cost of polluting the catalog with hundreds of unknown companies was higher than the cost of admitting the pipeline was the wrong shape. I kept the code and walked away from the output.</p>
-<p><strong>Build the new ATS scraper as a generic platform scraper, not a one-off.</strong> The first company was the trigger but the design target was "every large enterprise on this platform." That paid off two days later when another company needed it and the same code worked with a one-line change.</p>
-<p><strong>Trust the consulting industry's choice to be hard to scrape.</strong> The big consultancies are on a login-gated, bot-resistant platform with no public path. Each would need an architectural change for roles that are mostly consulting titles anyway. The right call was to stop trying and remove them from consideration permanently.</p>
-<p><strong>Verify scraper yield with a simulation before declaring a win.</strong> After shipping five custom scrapers, I ran a verification agent that fetched live data, applied my real filters and reported the actual PM count. Two of five returned zero US PMs despite working perfectly: one hires consulting titles, the other is concentrated in Europe. If I had skipped verification, both would have sat in the admin email forever as silent zeros.</p>
-
-<h3>What I Learned</h3>
-<p><strong>Breadth and depth are different problems, and scaling along the wrong dimension is worse than not scaling.</strong> Every growth lever has an implied audience. If the lever does not match who you are growing for, more of it makes the product worse.</p>
-<p><strong>Industry-wide ATS patterns are real and worth pattern-matching.</strong> Whole industries cluster on one platform. Once I recognized these patterns I could pre-predict the scraper outcome, cutting per-company research time roughly in half.</p>
-<p><strong>Honest verification of yield matters more than "endpoint returns 200."</strong> I shipped five scrapers, all returned 200, all parsed correctly. Verification found two delivered zero user value. The fifteen extra minutes saves weeks of email noise.</p>
-<p><strong>Parallel agents collapse multi-day work into hours when the work is independent.</strong> Twelve parallel investigations across this period ran in about 25 to 30 minutes per batch; done sequentially it would have been a full week.</p>
-
-<div class="deep">
-<h4>Drilling deeper on the "why"</h4>
-<p>The real lesson of this phase: "more companies" was never the goal. It was a stand-in for "a catalog that feels like a real database to the person using it," and the stand-in and the goal pointed in opposite directions. A thousand companies nobody recognizes makes the catalog <em>look</em> bigger and <em>feel</em> emptier, because a job-hunter scrolling past names they have never heard of decides the tool does not cover the companies they care about. Twenty-nine recognizable names do more for that feeling than 1,328 unknown ones. Counting rows was chasing the stand-in. Counting recognizable names was chasing the goal.</p>
-<div class="alt">
-<span class="label label-alt">Alternative considered</span>
-The sunk cost was begging me to ship the Common Crawl output, at least the top fifty by job count, since the pipeline already worked and the SQL was already written. I said no, because a catalog is judged by its worst visible entries as much as its best, and a feed full of regional staffing firms and therapy networks tells exactly the senior-PM audience I built this for "this tool is not for me." I kept the pipeline as dormant tooling for some future use case and hand-picked the additions instead, trading a big number for a catalog where every entry earns its place.
-</div>
-<div class="edge">
-<span class="label label-edge">Edge cases that bit</span>
-The instructive one was the pair of scrapers that passed every technical check and still delivered nothing. Both returned a 200, both parsed cleanly, both looked like wins, and both produced zero US PM roles once my real filters ran, one because the company hires consulting rather than product titles, the other because its openings are almost all in another region. "The endpoint works" and "this is useful to my user" are different claims, and only a full simulation against live data and real filters tells them apart. Skip that step and you plant two new silent zeros in the exact catalog you just spent a phase cleaning out.
-</div>
-<div class="impact">
-<span class="label label-impact">What this made possible</span>
-Beyond the twenty-nine names, this phase produced a repeatable growth motion: recognize the industry's platform, spin up parallel agents to research, build generic scrapers that cover many tenants at once, and verify real yield before counting any of them. That motion is what makes the catalog-doubling in Phase 30 tractable instead of a slog.
-</div>
-</div>
-</section>
-
-<hr>
-
-<section class="phase sp-color-5">
-<h2 id="p23">Phase 23: A Job-First Feed</h2>
-<p class="phase-sub">comp-filterable, and the email-disappearance bug</p>
-<p><strong>Goal:</strong> Turn the catalog into something a real job-hunter would actually browse, fix the slow accumulation of email-quality issues and find out why I stopped getting my own daily email.</p>
-<p>The catalog had grown to 244 companies. Browsing it as a list of cards felt right at 50 and wrong at 250. A real job-hunter wants to see jobs across all companies sorted by what matters to them. In parallel, the daily email was getting noisier. Then on the last day of the sprint, I noticed I had not received my own daily alert. The provider showed zero record of trying to send to me. That kicked off the most consequential bug of the sprint.</p>
-
-<h3>What I Built</h3>
-<p><strong>A parallel job-first feed route.</strong> A flat table with one row per job: Company, Title, Location, Level, Comp, Posted, Track. Filters across the top: search, sort, level, industry, company, region+city, minimum comp, include-closed. Logos use a three-step fallback chain. The Track button is auth-aware. I built it as a parallel route rather than swapping the existing home: the marketing landing has a known conversion rate, so I can compare live for a week, then swap if it is better. Cheap reversibility.</p>
-<p><strong>Email quality overhaul,</strong> several small compounding fixes: a zombie-return fix (jobs that flicker off and back were being flagged "new"), a fourteen-day return rule, recommendation rotation via a history table (replacing a broken day-of-month scheme the user caught immediately), a firehose sort (companies with ten-plus new jobs go to the bottom) and a per-company seniority threshold so junior FAANG titles do not spam senior PMs.</p>
-<p><strong>An admin email-status diagnostic</strong> that proxies the provider's search API, so I can answer "did user X get email Y" without writing per-recipient send metadata to my own database. I deliberately wanted those emails to live in the provider, not my database.</p>
-<p><strong>The pagination bug.</strong> The cron loop was not iterating over my user record. Root cause: the function that lists all users defaults to a page size of fifty. We had crossed fifty total users the day before, so the oldest users, including me, were silently paginated out of the daily run. A one-line unblock went out within minutes; a proper paginated helper followed, and nobody calls the raw function directly again.</p>
-
-<h3>Key Decisions</h3>
-<p><strong>Build the feed as a parallel route, not a swap.</strong> Swapping a converting landing page for an unproven surface is a one-way door with a measurable cost. Building in parallel makes the eventual swap a one-line change with a clean rollback.</p>
-<p><strong>Manually seed FAANG seniority thresholds instead of waiting for automation.</strong> The long-term answer reads each company's early-tier pay automatically, but that is a backlogged build. Manual seeding for the six FAANG companies took five minutes and filtered the noise now.</p>
-<p><strong>Query the provider for ground truth instead of building our own send log.</strong> A send-log table would have put user emails in our database forever. Proxying the provider's API is zero new tables, zero new PII surface and a strictly more powerful debugging interface.</p>
-<p><strong>Patch the pagination bug at every call-site immediately, then refactor to a helper.</strong> Patching got the email back within an hour; the refactor an hour later guards against the next call-site repeating it.</p>
-
-<h3>What I Learned</h3>
-<p><strong>Default values in SDKs are landmines when the default looks reasonable until you cross an invisible boundary.</strong> A page size of fifty worked for the first fifty days. The fifty-first user was the cliff. Any paginated call now gets explicit handling, never the default.</p>
-<p><strong>When an external service handles delivery, query that service for ground truth.</strong> Their log is more accurate than ours will ever be. A thin proxy endpoint surfaces it through our auth surface with no PII written down.</p>
-<p><strong>Cheap reversibility beats perfect-on-first-try.</strong> I shipped seventeen changes in two days because most were cheap to roll back. The version that ships is not required to be the version that lasts. It is just required to be safe to throw away.</p>
-<p><strong>Our query layer has silent failure modes that look like working features.</strong> Sorting by a related table quietly does nothing; a filter breaks if the value contains a comma; a case-insensitive match turned a state abbreviation into a substring match on another state. Each was a one or two line fix once I knew about it; the cost was the half-day spent finding the failure mode.</p>
-</section>
-
-<hr>
-
-<section class="phase sp-color-5">
-<h2 id="p24">Phase 24: Turning The Data Into Content</h2>
-<p class="phase-sub">the weekly LinkedIn digest</p>
-<p><strong>Goal:</strong> Use the catalog data to drive a weekly LinkedIn post, both for the awareness flywheel and to give my audience a reason to come back every Friday.</p>
-<p>The catalog had matured: 244 companies producing 500+ new PM roles every week, with industry concentration and AI-hiring cross-cuts that genuinely surprised me. None of that signal was visible outside the product. There is a person on LinkedIn I follow who does a weekly "PM roles by level" post; it works. I did not want to copy the format because my data has cross-cuts theirs does not. The differentiation was already in the data; the job was packaging it.</p>
-
-<h3>What I Built</h3>
-<p><strong>A weekly digest email that lands every Friday with a copy-paste-ready LinkedIn post.</strong> The structure is now editorially locked: an intro line, the week's total, an industry-concentration lead, a top-ten-by-volume list, a spotlight company, an AI-PM section and a reader-question close. The close serves double duty: it is the standard engagement driver, and it crowdsources future content angles.</p>
-<p><strong>Auto-trigger inside the existing daily cron,</strong> gated to Fridays only. No new schedule. This is now the canonical way to add any weekly task: hang it inside the daily job, gate by day of week, never stand up a new scheduler entry.</p>
-<p><strong>A voice style guide and calibration samples</strong> that future AI sessions must read before drafting anything in my voice. The AI violated my anti-slop list within ten seconds of saving the memory pointing at the file. Saving the pointer did not change behavior; only reading the actual file content does.</p>
-
-<h3>Key Decisions</h3>
-<p><strong>Single weekly post with multiple sections vs. rotating one card per week.</strong> The initial proposal was a five-week rotation. I rejected it: a single richer post is a better artifact, lets me audible to the strongest lead each week, and reads like a trend dashboard rather than a recurring listicle.</p>
-<p><strong>Comp as supporting data, not lead.</strong> Comp data exists for about a third of roles. Leading with it risks implying we have comp for everyone and putting specific companies in a public "low comp" position. It moved into the email body as a verification table, not into the post.</p>
-<p><strong>Embed in the daily job vs. a new Friday schedule.</strong> Every extra scheduler entry is one more surface to manage. One entry point with day-of-week gates is cleaner.</p>
-<p><strong>Voice as reference-pointer, not inline memory.</strong> The files are large and edited over time; a small memory entry says "READ these first" and lets the source of truth stay in the voice docs.</p>
-
-<h3>What I Learned</h3>
-<p><strong>Proprietary data should be packaged in cuts that are not obvious to outsiders.</strong> Anyone can post "highest-paying PM roles" from a public salary database. Almost nobody can post the industry-concentration cross-cut without the underlying watchlist. The data is the moat; the content is the visible artifact of it.</p>
-<p><strong>AI-assisted content in someone else's voice needs structural guardrails, not stylistic hints.</strong> Telling the assistant "match my voice" does not work, and neither does a memory that says "see the voice doc." The fix is making the voice files required reading at draft time. The honor system does not work for content tone any more than for security.</p>
-<p><strong>The cron-day-of-week pattern is reusable infrastructure.</strong> Once it was clearly a pattern, I wrote it down: hang it inside the daily job with a day-of-week gate. Never add a new scheduler entry.</p>
-</section>
-
-<hr>
-
-<section class="phase sp-color-5">
 <h2 id="p25">Phase 25: The Auth Incident</h2>
 <p><strong>Goal (in retrospect):</strong> Brand the auth emails to match the rest of the product.</p>
 <p>What it actually became: an incident, a deep cookie-bug discovery, a feedback-workflow migration and a three-layer defense-in-depth infrastructure that did not exist a week earlier.</p>
@@ -1409,21 +1332,6 @@ This incident is what turned my auth flow from "tested by hand and hoped" into "
 <hr>
 
 <section class="phase sp-color-6">
-<h2 id="p28">Phase 28: The Weekly Post Writes Itself, In My Voice</h2>
-<p><strong>Goal:</strong> Stop opening every week with the same headline, and stop hand-writing the lead.</p>
-<p>The weekly digest from Phase 24 had a quiet problem: the headline was hardcoded. Every Friday it announced the same lead, no matter what the week actually looked like, because the lead was a fixed line in the code and only the percentage moved. When I finally looked closely, it was not even true. The "surge" it claimed was an artifact of my bulk-adding a batch of companies that week, whose existing openings landed as "new." I was one paste away from publishing my own data-pipeline quirk to my whole network as a market take.</p>
-
-<h3>What I Built</h3>
-<p>A lead that rotates and writes itself. Each week the system works out a handful of honest, this-week angles (how much of the hiring is AI, who posted the most, how concentrated big tech is, who pays the most, where the jobs are), picks one it has not used recently and has an AI write it as a blunt one-line take in my voice, with the rest offered as alternates. It also makes a branded banner whose art style rotates weekly, so the series looks fresh but unmistakably mine, and emails me the whole kit every Friday to approve before I post.</p>
-<p>The voice was the hard part, and it humbled me. I have a written style guide and a file of my real posts, and the drafts still came back as generic AI mush, several times over. The fix was not a better description of how I write. It was feeding the AI the actual files, word for word, on every run, and keeping myself as the last reader. A summary of your voice is not your voice.</p>
-
-<h3>What I Learned</h3>
-<p>Your own data can lie to you in a shape that looks exactly like insight. The headline I had repeated for weeks was a fact about how I grow the catalog, not about the market, and I only caught it because the repetition annoyed me. Lead with the cut nobody else can see, but prove it is real before you publish it.</p>
-</section>
-
-<hr>
-
-<section class="phase sp-color-6">
 <h2 id="p29">Phase 29: Auditing The Whole System Before A Major Expansion</h2>
 <p><strong>Goal:</strong> before a major expansion, make sure the foundation is sound, and fix the one thing that genuinely scared me.</p>
 <p>I was about to expand the system significantly, which opens new ways for things to go wrong. So before building anything new, I stopped and audited the whole system end to end: the scrapers, the security headers, the login flow, whether one user can see another's data and where the app is slow. I asked for a plain report first, not fixes on the fly, so I could read it and decide what mattered.</p>
@@ -1454,22 +1362,6 @@ The silent-failure trio that defined this phase: a query that returns only its f
 This audit is what made the big catalog expansion in Phase 30 safe to attempt. I widened the surface only after hardening the foundation under it. The layered-email pattern and the "new table cannot ship without its access lock" rule became standing rules, and the honest "Scraping blocked" badge replaced a quiet lie with a clear explanation, which is the same honesty principle the measurement phases push even harder.
 </div>
 </div>
-</section>
-
-<hr>
-
-<section class="phase sp-color-6">
-<h2 id="p30">Phase 30: Doubling The Catalog And Making "Add" Actually Work</h2>
-<p><strong>Goal:</strong> make the catalog feel like a real database, and make adding a company actually show its jobs.</p>
-<p>Two problems had been nagging. The catalog had stalled around 247 companies, mostly the tech names everyone already knows. And worse, adding a company barely worked: when I added one, nothing showed up until the next day's scrape. The reason was a design knot I had tied early without noticing. Scraping a company and emailing everyone about new jobs were the same job, welded together in the daily run. So there was no way to scrape a newly-added company on its own without also firing a daily email to every user.</p>
-
-<h3>What I Built</h3>
-<p><strong>Growth.</strong> A popular salary-comparison site publishes a public ranked list of tens of thousands of companies; I used that as a discovery source, then verified each candidate's board actually returned real PM roles before counting it. The catalog roughly doubled, from 247 to 519. To make a bigger catalog usable, I built an "add by category" flow: browse by industry and add a whole group at once, with the tech bucket split into sub-categories like AI, developer tools and security.</p>
-<p><strong>Cutting the knot.</strong> I split scraping apart from emailing, so the system can scrape any set of companies on demand without sending a single email. Then I wired that into the moment it matters: when you subscribe to a company that has no jobs yet, the system quietly scrapes it in the background and its roles appear within a couple of minutes instead of the next day. The daily run is still the safety net.</p>
-<p><strong>The employers we cannot scrape.</strong> A handful of big names block us outright, so I built the licensed-data restore this session. It pulls those companies' real openings from the provider and quietly switches them back on, written to turn itself on automatically once the provider's free quota resets, so there is no manual step; until then it sits dormant. An independent review of my own code caught a real bug before it shipped.</p>
-
-<h3>What I Learned</h3>
-<p>A catalog you can add to is worthless if adding does not show results. The thing blocking that was not a missing feature, it was an assumption baked into the architecture a long time ago, that scraping and emailing always happen together. The fix was to question the coupling, not add another button. And growth only counts if it is names people recognize and boards that actually return jobs, not a bigger number for its own sake.</p>
 </section>
 
 <hr>
@@ -1525,20 +1417,169 @@ The two holes the outside model found are textbook trust boundaries the author m
 
 <div class="chapter-nav">
   <button type="button" class="cn-prev" data-go="ch4"><span class="cn-dir">Previous</span>4. Alpha</button>
-  <button type="button" class="cn-next" data-go="ch6"><span class="cn-dir">Next chapter</span>6. Pre-production</button>
+  <button type="button" class="cn-next" data-go="ch6"><span class="cn-dir">Next chapter</span>6. Beta</button>
 </div>
 
 </section>
 <!-- /chapter ch5 -->
 
-<!-- ============ STAGE 6: Pre-production ============ -->
+<!-- ============ STAGE 6: Beta ============ -->
 <section class="chapter" id="ch6">
 <div class="superphase">
-  <div class="sp-bar" style="background:var(--sp6)"></div>
-  <h2>6. Pre-production<span style="display:inline-block;font-size:.62rem;font-weight:800;letter-spacing:.06em;text-transform:uppercase;background:#fee2e2;color:#b42318;border-radius:999px;padding:2px 9px;margin-left:10px;vertical-align:middle;">In progress</span></h2>
-  <p class="sp-desc">Just started. Mobile, UI polish, login polish, and analytics that work end to end, the technical dashboards and the user-facing side both. The product should make sense start to finish, not just function. The funnel dashboard below is the first piece already shipped.</p>
+  <div class="sp-bar" style="background:var(--sp9)"></div>
+  <h2>6. Beta<span style="display:inline-block;font-size:.62rem;font-weight:800;letter-spacing:.06em;text-transform:uppercase;background:#ede9fe;color:#6d28d9;border-radius:999px;padding:2px 9px;margin-left:10px;vertical-align:middle;">Upcoming, not built yet</span></h2>
+  <p class="sp-desc">Not built yet. Once the product is sturdy, open it wider to a limited group, bigger than Alpha but not the whole world.</p>
 </div>
 
+
+<div class="phase sp-color-9">
+<p class="phase-sub">upcoming, not built yet</p>
+<p><strong>What is coming:</strong> a wider rollout to a limited group. Right now I am at 10 to 20 users in Alpha, people I let in one at a time. Beta is the step where I open the door wider, still gated, but past that handful, to pressure-test the product with more real traffic.</p>
+<p>This waits on purpose. You do not scale a beta on shaky ground, so the hardening and pre-production work has to land first. Nothing here has shipped. I am keeping the stage on the page so the roadmap shows where the work actually is, not a tidier version of it.</p>
+</div>
+
+<div class="chapter-nav">
+  <button type="button" class="cn-prev" data-go="ch5"><span class="cn-dir">Previous</span>5. Hardening</button>
+  <button type="button" class="cn-next" data-go="ch7"><span class="cn-dir">Next chapter</span>7. Pre-production</button>
+</div>
+
+</section>
+<!-- /chapter ch6 -->
+
+<!-- ============ STAGE 7: Pre-production ============ -->
+<section class="chapter" id="ch7">
+<div class="superphase">
+  <div class="sp-bar" style="background:var(--sp6)"></div>
+  <h2>7. Pre-production<span style="display:inline-block;font-size:.62rem;font-weight:800;letter-spacing:.06em;text-transform:uppercase;background:#fee2e2;color:#b42318;border-radius:999px;padding:2px 9px;margin-left:10px;vertical-align:middle;">In progress</span></h2>
+  <p class="sp-desc">In progress. This is where the catalog grew broad, the job-first feed landed, the data started writing its own weekly content, and analytics began working end to end, the technical dashboards and the user-facing side both. The product should make sense start to finish, not just function. Still in progress: mobile and UI polish are the work ahead.</p>
+</div>
+
+
+<section class="phase sp-color-6">
+<h2 id="p22">Phase 22: Growing The Catalog The Right Way</h2>
+<p class="phase-sub">targeted catalog growth after the Common Crawl detour</p>
+<p><strong>Goal:</strong> Scale the catalog from 216 toward 500-1000 companies, but only with companies the audience actually job-hunts for.</p>
+<p>After the zero-jobs audit closed, the catalog had hit a steady-state of about 216 companies, mostly tech. Two paths surfaced. The first was broad: a pipeline that discovers any company with a public board on the big platforms. The second was narrow: pick verticals the audience cares about and add recognizable companies by hand. I tried both, and the difference between them is the entire game.</p>
+
+<h3>What I Built</h3>
+<p>The broad path was a Common Crawl harvest. Common Crawl is a free public web index; it lets you query for every page matching a URL pattern. The script pulls candidate company slugs, validates each by calling the ATS's own public API to confirm the board exists and has jobs, then emits the survivors as ready-to-apply SQL. The run found 1,352 working companies; after de-duping against my catalog, 1,328 truly new candidates.</p>
+<p>I looked at the top fifty by job count and almost none were companies I recognized. Below that the list was home-health-care providers, autism therapy networks, apparel brands, regional architecture practices. The pipeline worked perfectly. The audience-fit was wrong.</p>
+<p>So I shelved the pipeline (kept the code) and switched to targeted vertical batches: four days, four batches of recognizable banks, biotechs and consultancies. Net: twenty-nine high-recognition companies added, five entirely new ATS platforms supported and a real strategic shift from "discover broadly" to "hand-pick the names people know."</p>
+
+<h3>Key Decisions</h3>
+<p><strong>Take Common Crawl seriously enough to build the pipeline, then ship nothing from it.</strong> When you have spent time building infrastructure, the temptation is to use it. I almost shipped the top fifty just to validate the build. Then I read the names. The cost of polluting the catalog with hundreds of unknown companies was higher than the cost of admitting the pipeline was the wrong shape. I kept the code and walked away from the output.</p>
+<p><strong>Build the new ATS scraper as a generic platform scraper, not a one-off.</strong> The first company was the trigger but the design target was "every large enterprise on this platform." That paid off two days later when another company needed it and the same code worked with a one-line change.</p>
+<p><strong>Trust the consulting industry's choice to be hard to scrape.</strong> The big consultancies are on a login-gated, bot-resistant platform with no public path. Each would need an architectural change for roles that are mostly consulting titles anyway. The right call was to stop trying and remove them from consideration permanently.</p>
+<p><strong>Verify scraper yield with a simulation before declaring a win.</strong> After shipping five custom scrapers, I ran a verification agent that fetched live data, applied my real filters and reported the actual PM count. Two of five returned zero US PMs despite working perfectly: one hires consulting titles, the other is concentrated in Europe. If I had skipped verification, both would have sat in the admin email forever as silent zeros.</p>
+
+<h3>What I Learned</h3>
+<p><strong>Breadth and depth are different problems, and scaling along the wrong dimension is worse than not scaling.</strong> Every growth lever has an implied audience. If the lever does not match who you are growing for, more of it makes the product worse.</p>
+<p><strong>Industry-wide ATS patterns are real and worth pattern-matching.</strong> Whole industries cluster on one platform. Once I recognized these patterns I could pre-predict the scraper outcome, cutting per-company research time roughly in half.</p>
+<p><strong>Honest verification of yield matters more than "endpoint returns 200."</strong> I shipped five scrapers, all returned 200, all parsed correctly. Verification found two delivered zero user value. The fifteen extra minutes saves weeks of email noise.</p>
+<p><strong>Parallel agents collapse multi-day work into hours when the work is independent.</strong> Twelve parallel investigations across this period ran in about 25 to 30 minutes per batch; done sequentially it would have been a full week.</p>
+
+<div class="deep">
+<h4>Drilling deeper on the "why"</h4>
+<p>The real lesson of this phase: "more companies" was never the goal. It was a stand-in for "a catalog that feels like a real database to the person using it," and the stand-in and the goal pointed in opposite directions. A thousand companies nobody recognizes makes the catalog <em>look</em> bigger and <em>feel</em> emptier, because a job-hunter scrolling past names they have never heard of decides the tool does not cover the companies they care about. Twenty-nine recognizable names do more for that feeling than 1,328 unknown ones. Counting rows was chasing the stand-in. Counting recognizable names was chasing the goal.</p>
+<div class="alt">
+<span class="label label-alt">Alternative considered</span>
+The sunk cost was begging me to ship the Common Crawl output, at least the top fifty by job count, since the pipeline already worked and the SQL was already written. I said no, because a catalog is judged by its worst visible entries as much as its best, and a feed full of regional staffing firms and therapy networks tells exactly the senior-PM audience I built this for "this tool is not for me." I kept the pipeline as dormant tooling for some future use case and hand-picked the additions instead, trading a big number for a catalog where every entry earns its place.
+</div>
+<div class="edge">
+<span class="label label-edge">Edge cases that bit</span>
+The instructive one was the pair of scrapers that passed every technical check and still delivered nothing. Both returned a 200, both parsed cleanly, both looked like wins, and both produced zero US PM roles once my real filters ran, one because the company hires consulting rather than product titles, the other because its openings are almost all in another region. "The endpoint works" and "this is useful to my user" are different claims, and only a full simulation against live data and real filters tells them apart. Skip that step and you plant two new silent zeros in the exact catalog you just spent a phase cleaning out.
+</div>
+<div class="impact">
+<span class="label label-impact">What this made possible</span>
+Beyond the twenty-nine names, this phase produced a repeatable growth motion: recognize the industry's platform, spin up parallel agents to research, build generic scrapers that cover many tenants at once, and verify real yield before counting any of them. That motion is what makes the catalog-doubling in Phase 30 tractable instead of a slog.
+</div>
+</div>
+</section>
+
+<hr>
+
+<section class="phase sp-color-6">
+<h2 id="p23">Phase 23: A Job-First Feed</h2>
+<p class="phase-sub">comp-filterable, and the email-disappearance bug</p>
+<p><strong>Goal:</strong> Turn the catalog into something a real job-hunter would actually browse, fix the slow accumulation of email-quality issues and find out why I stopped getting my own daily email.</p>
+<p>The catalog had grown to 244 companies. Browsing it as a list of cards felt right at 50 and wrong at 250. A real job-hunter wants to see jobs across all companies sorted by what matters to them. In parallel, the daily email was getting noisier. Then on the last day of the sprint, I noticed I had not received my own daily alert. The provider showed zero record of trying to send to me. That kicked off the most consequential bug of the sprint.</p>
+
+<h3>What I Built</h3>
+<p><strong>A parallel job-first feed route.</strong> A flat table with one row per job: Company, Title, Location, Level, Comp, Posted, Track. Filters across the top: search, sort, level, industry, company, region+city, minimum comp, include-closed. Logos use a three-step fallback chain. The Track button is auth-aware. I built it as a parallel route rather than swapping the existing home: the marketing landing has a known conversion rate, so I can compare live for a week, then swap if it is better. Cheap reversibility.</p>
+<p><strong>Email quality overhaul,</strong> several small compounding fixes: a zombie-return fix (jobs that flicker off and back were being flagged "new"), a fourteen-day return rule, recommendation rotation via a history table (replacing a broken day-of-month scheme the user caught immediately), a firehose sort (companies with ten-plus new jobs go to the bottom) and a per-company seniority threshold so junior FAANG titles do not spam senior PMs.</p>
+<p><strong>An admin email-status diagnostic</strong> that proxies the provider's search API, so I can answer "did user X get email Y" without writing per-recipient send metadata to my own database. I deliberately wanted those emails to live in the provider, not my database.</p>
+<p><strong>The pagination bug.</strong> The cron loop was not iterating over my user record. Root cause: the function that lists all users defaults to a page size of fifty. We had crossed fifty total users the day before, so the oldest users, including me, were silently paginated out of the daily run. A one-line unblock went out within minutes; a proper paginated helper followed, and nobody calls the raw function directly again.</p>
+
+<h3>Key Decisions</h3>
+<p><strong>Build the feed as a parallel route, not a swap.</strong> Swapping a converting landing page for an unproven surface is a one-way door with a measurable cost. Building in parallel makes the eventual swap a one-line change with a clean rollback.</p>
+<p><strong>Manually seed FAANG seniority thresholds instead of waiting for automation.</strong> The long-term answer reads each company's early-tier pay automatically, but that is a backlogged build. Manual seeding for the six FAANG companies took five minutes and filtered the noise now.</p>
+<p><strong>Query the provider for ground truth instead of building our own send log.</strong> A send-log table would have put user emails in our database forever. Proxying the provider's API is zero new tables, zero new PII surface and a strictly more powerful debugging interface.</p>
+<p><strong>Patch the pagination bug at every call-site immediately, then refactor to a helper.</strong> Patching got the email back within an hour; the refactor an hour later guards against the next call-site repeating it.</p>
+
+<h3>What I Learned</h3>
+<p><strong>Default values in SDKs are landmines when the default looks reasonable until you cross an invisible boundary.</strong> A page size of fifty worked for the first fifty days. The fifty-first user was the cliff. Any paginated call now gets explicit handling, never the default.</p>
+<p><strong>When an external service handles delivery, query that service for ground truth.</strong> Their log is more accurate than ours will ever be. A thin proxy endpoint surfaces it through our auth surface with no PII written down.</p>
+<p><strong>Cheap reversibility beats perfect-on-first-try.</strong> I shipped seventeen changes in two days because most were cheap to roll back. The version that ships is not required to be the version that lasts. It is just required to be safe to throw away.</p>
+<p><strong>Our query layer has silent failure modes that look like working features.</strong> Sorting by a related table quietly does nothing; a filter breaks if the value contains a comma; a case-insensitive match turned a state abbreviation into a substring match on another state. Each was a one or two line fix once I knew about it; the cost was the half-day spent finding the failure mode.</p>
+</section>
+
+<hr>
+
+<section class="phase sp-color-6">
+<h2 id="p24">Phase 24: Turning The Data Into Content</h2>
+<p class="phase-sub">the weekly LinkedIn digest</p>
+<p><strong>Goal:</strong> Use the catalog data to drive a weekly LinkedIn post, both for the awareness flywheel and to give my audience a reason to come back every Friday.</p>
+<p>The catalog had matured: 244 companies producing 500+ new PM roles every week, with industry concentration and AI-hiring cross-cuts that genuinely surprised me. None of that signal was visible outside the product. There is a person on LinkedIn I follow who does a weekly "PM roles by level" post; it works. I did not want to copy the format because my data has cross-cuts theirs does not. The differentiation was already in the data; the job was packaging it.</p>
+
+<h3>What I Built</h3>
+<p><strong>A weekly digest email that lands every Friday with a copy-paste-ready LinkedIn post.</strong> The structure is now editorially locked: an intro line, the week's total, an industry-concentration lead, a top-ten-by-volume list, a spotlight company, an AI-PM section and a reader-question close. The close serves double duty: it is the standard engagement driver, and it crowdsources future content angles.</p>
+<p><strong>Auto-trigger inside the existing daily cron,</strong> gated to Fridays only. No new schedule. This is now the canonical way to add any weekly task: hang it inside the daily job, gate by day of week, never stand up a new scheduler entry.</p>
+<p><strong>A voice style guide and calibration samples</strong> that future AI sessions must read before drafting anything in my voice. The AI violated my anti-slop list within ten seconds of saving the memory pointing at the file. Saving the pointer did not change behavior; only reading the actual file content does.</p>
+
+<h3>Key Decisions</h3>
+<p><strong>Single weekly post with multiple sections vs. rotating one card per week.</strong> The initial proposal was a five-week rotation. I rejected it: a single richer post is a better artifact, lets me audible to the strongest lead each week, and reads like a trend dashboard rather than a recurring listicle.</p>
+<p><strong>Comp as supporting data, not lead.</strong> Comp data exists for about a third of roles. Leading with it risks implying we have comp for everyone and putting specific companies in a public "low comp" position. It moved into the email body as a verification table, not into the post.</p>
+<p><strong>Embed in the daily job vs. a new Friday schedule.</strong> Every extra scheduler entry is one more surface to manage. One entry point with day-of-week gates is cleaner.</p>
+<p><strong>Voice as reference-pointer, not inline memory.</strong> The files are large and edited over time; a small memory entry says "READ these first" and lets the source of truth stay in the voice docs.</p>
+
+<h3>What I Learned</h3>
+<p><strong>Proprietary data should be packaged in cuts that are not obvious to outsiders.</strong> Anyone can post "highest-paying PM roles" from a public salary database. Almost nobody can post the industry-concentration cross-cut without the underlying watchlist. The data is the moat; the content is the visible artifact of it.</p>
+<p><strong>AI-assisted content in someone else's voice needs structural guardrails, not stylistic hints.</strong> Telling the assistant "match my voice" does not work, and neither does a memory that says "see the voice doc." The fix is making the voice files required reading at draft time. The honor system does not work for content tone any more than for security.</p>
+<p><strong>The cron-day-of-week pattern is reusable infrastructure.</strong> Once it was clearly a pattern, I wrote it down: hang it inside the daily job with a day-of-week gate. Never add a new scheduler entry.</p>
+</section>
+
+<hr>
+
+<section class="phase sp-color-6">
+<h2 id="p28">Phase 28: The Weekly Post Writes Itself, In My Voice</h2>
+<p><strong>Goal:</strong> Stop opening every week with the same headline, and stop hand-writing the lead.</p>
+<p>The weekly digest from Phase 24 had a quiet problem: the headline was hardcoded. Every Friday it announced the same lead, no matter what the week actually looked like, because the lead was a fixed line in the code and only the percentage moved. When I finally looked closely, it was not even true. The "surge" it claimed was an artifact of my bulk-adding a batch of companies that week, whose existing openings landed as "new." I was one paste away from publishing my own data-pipeline quirk to my whole network as a market take.</p>
+
+<h3>What I Built</h3>
+<p>A lead that rotates and writes itself. Each week the system works out a handful of honest, this-week angles (how much of the hiring is AI, who posted the most, how concentrated big tech is, who pays the most, where the jobs are), picks one it has not used recently and has an AI write it as a blunt one-line take in my voice, with the rest offered as alternates. It also makes a branded banner whose art style rotates weekly, so the series looks fresh but unmistakably mine, and emails me the whole kit every Friday to approve before I post.</p>
+<p>The voice was the hard part, and it humbled me. I have a written style guide and a file of my real posts, and the drafts still came back as generic AI mush, several times over. The fix was not a better description of how I write. It was feeding the AI the actual files, word for word, on every run, and keeping myself as the last reader. A summary of your voice is not your voice.</p>
+
+<h3>What I Learned</h3>
+<p>Your own data can lie to you in a shape that looks exactly like insight. The headline I had repeated for weeks was a fact about how I grow the catalog, not about the market, and I only caught it because the repetition annoyed me. Lead with the cut nobody else can see, but prove it is real before you publish it.</p>
+</section>
+
+<hr>
+
+<section class="phase sp-color-6">
+<h2 id="p30">Phase 30: Doubling The Catalog And Making "Add" Actually Work</h2>
+<p><strong>Goal:</strong> make the catalog feel like a real database, and make adding a company actually show its jobs.</p>
+<p>Two problems had been nagging. The catalog had stalled around 247 companies, mostly the tech names everyone already knows. And worse, adding a company barely worked: when I added one, nothing showed up until the next day's scrape. The reason was a design knot I had tied early without noticing. Scraping a company and emailing everyone about new jobs were the same job, welded together in the daily run. So there was no way to scrape a newly-added company on its own without also firing a daily email to every user.</p>
+
+<h3>What I Built</h3>
+<p><strong>Growth.</strong> A popular salary-comparison site publishes a public ranked list of tens of thousands of companies; I used that as a discovery source, then verified each candidate's board actually returned real PM roles before counting it. The catalog roughly doubled, from 247 to 519. To make a bigger catalog usable, I built an "add by category" flow: browse by industry and add a whole group at once, with the tech bucket split into sub-categories like AI, developer tools and security.</p>
+<p><strong>Cutting the knot.</strong> I split scraping apart from emailing, so the system can scrape any set of companies on demand without sending a single email. Then I wired that into the moment it matters: when you subscribe to a company that has no jobs yet, the system quietly scrapes it in the background and its roles appear within a couple of minutes instead of the next day. The daily run is still the safety net.</p>
+<p><strong>The employers we cannot scrape.</strong> A handful of big names block us outright, so I built the licensed-data restore this session. It pulls those companies' real openings from the provider and quietly switches them back on, written to turn itself on automatically once the provider's free quota resets, so there is no manual step; until then it sits dormant. An independent review of my own code caught a real bug before it shipped.</p>
+
+<h3>What I Learned</h3>
+<p>A catalog you can add to is worthless if adding does not show results. The thing blocking that was not a missing feature, it was an assumption baked into the architecture a long time ago, that scraping and emailing always happen together. The fix was to question the coupling, not add another button. And growth only counts if it is names people recognize and boards that actually return jobs, not a bigger number for its own sake.</p>
+</section>
+
+<hr>
 
 <section class="phase sp-color-6">
 <h2 id="p32">Phase 32: Seeing The Funnel, And Catching Myself Guessing</h2>
@@ -1573,41 +1614,41 @@ This phase pointed the next stretch of product work at activation, the real leak
 </section>
 
 <div class="chapter-nav">
-  <button type="button" class="cn-prev" data-go="ch5"><span class="cn-dir">Previous</span>5. Hardening</button>
-  <button type="button" class="cn-next" data-go="ch7"><span class="cn-dir">Next chapter</span>7. Launch</button>
+  <button type="button" class="cn-prev" data-go="ch6"><span class="cn-dir">Previous</span>6. Beta</button>
+  <button type="button" class="cn-next" data-go="ch8"><span class="cn-dir">Next chapter</span>8. Launch</button>
 </div>
 
 </section>
-<!-- /chapter ch6 -->
+<!-- /chapter ch7 -->
 
-<!-- ============ STAGE 7: Launch ============ -->
-<section class="chapter" id="ch7">
+<!-- ============ STAGE 8: Launch ============ -->
+<section class="chapter" id="ch8">
 <div class="superphase">
   <div class="sp-bar" style="background:var(--sp7)"></div>
-  <h2>7. Launch<span style="display:inline-block;font-size:.62rem;font-weight:800;letter-spacing:.06em;text-transform:uppercase;background:#f1f5f9;color:#475569;border-radius:999px;padding:2px 9px;margin-left:10px;vertical-align:middle;">Upcoming, not built yet</span></h2>
+  <h2>8. Launch<span style="display:inline-block;font-size:.62rem;font-weight:800;letter-spacing:.06em;text-transform:uppercase;background:#f1f5f9;color:#475569;border-radius:999px;padding:2px 9px;margin-left:10px;vertical-align:middle;">Upcoming, not built yet</span></h2>
   <p class="sp-desc">Not built yet. The point where it goes out the door for real, past the small circle of early users.</p>
 </div>
 
 
 <div class="phase sp-color-7">
 <p class="phase-sub">upcoming, not built yet</p>
-<p><strong>What is coming:</strong> the real launch. Today the product serves a small circle of early users I rolled out to by hand. Launch is the step where it goes out the door past that circle, with the hardening and pre-production work behind it.</p>
-<p>Nothing here has shipped. I am keeping this stage on the page on purpose: a hiring manager seeing where the work actually stops beats a tidy eight-of-eight that pretends otherwise.</p>
+<p><strong>What is coming:</strong> the real launch. Today the product serves a small circle of early users I rolled out to by hand. Launch is the step where it goes out the door past that circle, with the hardening, beta and pre-production work behind it.</p>
+<p>Nothing here has shipped. I am keeping this stage on the page on purpose: a hiring manager seeing where the work actually stops beats a tidy nine-of-nine that pretends otherwise.</p>
 </div>
 
 <div class="chapter-nav">
-  <button type="button" class="cn-prev" data-go="ch6"><span class="cn-dir">Previous</span>6. Pre-production</button>
-  <button type="button" class="cn-next" data-go="ch8"><span class="cn-dir">Next chapter</span>8. Post-launch</button>
+  <button type="button" class="cn-prev" data-go="ch7"><span class="cn-dir">Previous</span>7. Pre-production</button>
+  <button type="button" class="cn-next" data-go="ch9"><span class="cn-dir">Next chapter</span>9. Post-launch</button>
 </div>
 
 </section>
-<!-- /chapter ch7 -->
+<!-- /chapter ch8 -->
 
-<!-- ============ STAGE 8: Post-launch ============ -->
-<section class="chapter" id="ch8">
+<!-- ============ STAGE 9: Post-launch ============ -->
+<section class="chapter" id="ch9">
 <div class="superphase">
   <div class="sp-bar" style="background:var(--sp8)"></div>
-  <h2>8. Post-launch<span style="display:inline-block;font-size:.62rem;font-weight:800;letter-spacing:.06em;text-transform:uppercase;background:#f1f5f9;color:#475569;border-radius:999px;padding:2px 9px;margin-left:10px;vertical-align:middle;">Upcoming, not built yet</span></h2>
+  <h2>9. Post-launch<span style="display:inline-block;font-size:.62rem;font-weight:800;letter-spacing:.06em;text-transform:uppercase;background:#f1f5f9;color:#475569;border-radius:999px;padding:2px 9px;margin-left:10px;vertical-align:middle;">Upcoming, not built yet</span></h2>
   <p class="sp-desc">Not built yet either. Keep it live, grow it, and watch real data flow in. One piece is already on the roadmap: interview practice for the same people who use the product to find a role.</p>
 </div>
 
@@ -1619,12 +1660,12 @@ This phase pointed the next stretch of product work at activation, the real leak
 </section>
 
 <div class="chapter-nav">
-  <button type="button" class="cn-prev" data-go="ch7"><span class="cn-dir">Previous</span>7. Launch</button>
+  <button type="button" class="cn-prev" data-go="ch8"><span class="cn-dir">Previous</span>8. Launch</button>
   <button type="button" class="cn-next" disabled></button>
 </div>
 
 </section>
-<!-- /chapter ch8 -->
+<!-- /chapter ch9 -->
 
 </main>
 <script>
@@ -1636,9 +1677,10 @@ This phase pointed the next stretch of product work at activation, the real leak
     { id: "ch3", label: "3. MVP" },
     { id: "ch4", label: "4. Alpha" },
     { id: "ch5", label: "5. Hardening" },
-    { id: "ch6", label: "6. Pre-production" },
-    { id: "ch7", label: "7. Launch" },
-    { id: "ch8", label: "8. Post-launch" }
+    { id: "ch6", label: "6. Beta" },
+    { id: "ch7", label: "7. Pre-production" },
+    { id: "ch8", label: "8. Launch" },
+    { id: "ch9", label: "9. Post-launch" }
   ];
   var ids = CHAPTERS.map(function (c) { return c.id; });
 
