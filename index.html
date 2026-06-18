@@ -283,6 +283,36 @@ body.chapters-on .chapter:not(.active) { display: none; }
   }
   .chapter-tabs button.tab-active { color: #fff; background: var(--accent); border-color: var(--accent); }
 }
+
+/* ===== mobile readability (phones) ===== */
+@media (max-width: 680px) {
+  /* reclaim side width on small screens */
+  .wrap { padding: 36px 18px 80px; }
+
+  /* The 4-column "concepts" table overflows a phone (the Phase column gets sliced off
+     and every cell crams into a narrow tower of words). Below 680px, stack each row as
+     a card: "N. Concept" as the title, the details below, and the phase as a pill. */
+  .concepts-table thead { display: none; }
+  .concepts-table,
+  .concepts-table tbody,
+  .concepts-table tr,
+  .concepts-table td { display: block; width: auto; }
+  .concepts-table tr { padding: 13px 14px; border-bottom: 1px solid var(--border); }
+  .concepts-table tr:last-child { border-bottom: 0; }
+  .concepts-table tbody tr:nth-child(even) { background: transparent; }
+  .concepts-table td { border: 0; padding: 0; text-align: left; color: var(--ink); }
+  .concepts-table td:first-child { display: inline; width: auto; color: var(--muted); font-weight: 700; font-variant-numeric: tabular-nums; }
+  .concepts-table td:first-child::after { content: ".\00a0\00a0"; }
+  .concepts-table td:nth-child(2) { display: inline; font-weight: 700; font-size: 1.05rem; }
+  .concepts-table td:nth-child(3) { display: block; margin-top: 3px; color: var(--muted); }
+  .concepts-table td:last-child { display: inline-block; width: auto; margin-top: 9px; white-space: nowrap;
+    font-size: .72rem; font-weight: 700; letter-spacing: .03em; color: var(--accent);
+    background: #eef0fe; border: 1px solid #d9ddfb; border-radius: 999px; padding: 3px 11px; }
+
+  /* small data tables (e.g. the cache-tier table) breathe a bit on a phone */
+  table { font-size: .9rem; }
+  th, td { padding: 10px 11px; }
+}
 </style>
 </head>
 <body class="has-toc">
