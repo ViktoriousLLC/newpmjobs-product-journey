@@ -378,6 +378,7 @@ body.chapters-on .chapter:not(.active) { display: none; }
       <li><a href="#p31" data-ch="ch5">31. The Night The Daily Job Died Silently</a></li>
       <li><a href="#p33" data-ch="ch5">33. Three Models Review Every Change</a></li>
       <li><a href="#p34" data-ch="ch5">34. When The System Watches Itself</a></li>
+      <li><a href="#p35" data-ch="ch5">35. The Jobs The Filter Was Hiding</a></li>
     </ul>
   </div>
 
@@ -394,6 +395,7 @@ body.chapters-on .chapter:not(.active) { display: none; }
       <li><a href="#p28" data-ch="ch7">28. The Weekly Post Writes Itself, In My Voice</a></li>
       <li><a href="#p30" data-ch="ch7">30. Doubling The Catalog And Making "Add" Actually Work</a></li>
       <li><a href="#p32" data-ch="ch7">32. Seeing The Funnel, And Catching Myself Guessing</a></li>
+      <li><a href="#p36" data-ch="ch7">36. Making The Catalog Findable</a></li>
     </ul>
   </div>
 
@@ -476,7 +478,7 @@ body.chapters-on .chapter:not(.active) { display: none; }
 
 <!-- ============ JOURNEY AT A GLANCE: grouped by stage ============ -->
 <h2 id="index">The journey at a glance</h2>
-<p class="skim-note">All 34 phases, grouped into 9 stages. Stages 1 to 5 are done, Pre-production is in progress, and Beta, Launch and Post-launch are next, not built yet. Tap any stage to fold it. Tap a phase to jump to the full story.</p>
+<p class="skim-note">All 36 phases, grouped into 9 stages. Stages 1 to 5 are done, Pre-production is in progress, and Beta, Launch and Post-launch are next, not built yet. Tap any stage to fold it. Tap a phase to jump to the full story.</p>
 <div class="sum">
 
 <details class="sum-stage sum-c1" open>
@@ -520,7 +522,7 @@ body.chapters-on .chapter:not(.active) { display: none; }
 </details>
 
 <details class="sum-stage sum-c5" open>
-<summary><span class="sum-kicker">Stage 5 &middot; You are here</span><span class="sum-name">Hardening</span><span class="sum-count">15 phases</span><span class="sum-chev">&#8250;</span></summary>
+<summary><span class="sum-kicker">Stage 5 &middot; You are here</span><span class="sum-name">Hardening</span><span class="sum-count">16 phases</span><span class="sum-chev">&#8250;</span></summary>
 <p class="sum-desc">This is where I am now. Security audits, scaling, the silent failures, the self-healing scrapers, the deploy gate, the night the daily job died. The thin vertical slice from the MVP gets sturdy and deep, so I can trust it with real users.</p>
 <div class="sum-grid">
   <div class="sum-row"><div class="sum-num">12</div><div><div class="pn"><a href="#p12">Making The Daily Run Dependable</a></div><div class="pg">The scrape finishes every day with no babysitting.</div></div></div>
@@ -538,6 +540,7 @@ body.chapters-on .chapter:not(.active) { display: none; }
   <div class="sum-row"><div class="sum-num">31</div><div><div class="pn"><a href="#p31">The Night The Daily Job Died Silently</a></div><div class="pg">Make a silent failure impossible.</div></div></div>
   <div class="sum-row"><div class="sum-num">33</div><div><div class="pn"><a href="#p33">Three Models Review Every Change</a></div><div class="pg">The AI is no longer the only thing checking the AI.</div></div></div>
   <div class="sum-row"><div class="sum-num">34</div><div><div class="pn"><a href="#p34">When The System Watches Itself</a></div><div class="pg">Make "probably working" something the system proves.</div></div></div>
+  <div class="sum-row"><div class="sum-num">35</div><div><div class="pn"><a href="#p35">The Jobs The Filter Was Hiding</a></div><div class="pg">Recover the real PM roles the filter was silently dropping.</div></div></div>
 </div>
 </details>
 
@@ -550,7 +553,7 @@ body.chapters-on .chapter:not(.active) { display: none; }
 </details>
 
 <details class="sum-stage sum-c6" open>
-<summary><span class="sum-kicker">Stage 7 &middot; In progress</span><span class="sum-name">Pre-production</span><span class="sum-count">6 phases</span><span class="sum-chev">&#8250;</span></summary>
+<summary><span class="sum-kicker">Stage 7 &middot; In progress</span><span class="sum-name">Pre-production</span><span class="sum-count">7 phases</span><span class="sum-chev">&#8250;</span></summary>
 <p class="sum-desc">In progress. Catalog breadth, the job-first feed, the content engine and analytics that work end to end, the technical dashboards and the user-facing side both. The product should make sense start to finish, not just function. Still plenty left: mobile and UI polish are ahead.</p>
 <div class="sum-grid">
   <div class="sum-row"><div class="sum-num">22</div><div><div class="pn"><a href="#p22">Growing The Catalog The Right Way</a></div><div class="pg">Scale toward 1000 companies people actually chase.</div></div></div>
@@ -559,6 +562,7 @@ body.chapters-on .chapter:not(.active) { display: none; }
   <div class="sum-row"><div class="sum-num">28</div><div><div class="pn"><a href="#p28">The Weekly Post Writes Itself, In My Voice</a></div><div class="pg">In my voice, no more hand-writing the lead.</div></div></div>
   <div class="sum-row"><div class="sum-num">30</div><div><div class="pn"><a href="#p30">Doubling The Catalog And Making "Add" Actually Work</a></div><div class="pg">A real database, and Add that actually shows jobs.</div></div></div>
   <div class="sum-row"><div class="sum-num">32</div><div><div class="pn"><a href="#p32">Seeing The Funnel, And Catching Myself Guessing</a></div><div class="pg">Stop guessing and watch where people drop off.</div></div></div>
+  <div class="sum-row"><div class="sum-num">36</div><div><div class="pn"><a href="#p36">Making The Catalog Findable</a></div><div class="pg">Turn 519 companies into pages search engines and AI can read.</div></div></div>
 </div>
 </details>
 
@@ -624,6 +628,8 @@ body.chapters-on .chapter:not(.active) { display: none; }
 <tr><td>33</td><td>Out-of-band watchdogs</td><td>A start heartbeat and a resumable run that verify the daily job actually ran.</td><td>Phase 31</td></tr>
 <tr><td>34</td><td>Funnel analytics</td><td>An AARRR funnel dashboard, and an HMAC-signed click redirect since open-tracking is dead.</td><td>Phase 32</td></tr>
 <tr><td>35</td><td>Cross-model review</td><td>Three LLMs reviewing every pull request in parallel, with author validation and diff redaction.</td><td>Phase 33</td></tr>
+<tr><td>36</td><td>Anchor-aware filtering</td><td>Split exclusion lists into unconditional and anchor-dependent tiers, so a domain word only rejects a title that lacks an explicit role anchor.</td><td>Phase 35</td></tr>
+<tr><td>37</td><td>Programmatic SEO</td><td>Server-rendered company pages with structured job markup, a sitemap, and llms.txt so AI crawlers can index the catalog.</td><td>Phase 36</td></tr>
 </tbody>
 </table>
 </div>
@@ -1473,6 +1479,26 @@ The two holes the outside model found are textbook trust boundaries the author m
 <p><strong>Fix the class, not the instance.</strong> The .in() lesson in one sentence: grep the pattern on the first report, not after the fourth. A CI guard that catches the next one at PR time is the only fix that holds.</p>
 </section>
 
+<hr>
+
+<section class="phase sp-color-6">
+<h2 id="p35">Phase 35: The Jobs The Filter Was Hiding</h2>
+<p class="phase-sub">title-filter precision and scraper canary</p>
+<p><strong>Goal:</strong> Recover the real PM roles that the title and location filters were silently dropping.</p>
+<p>When I compared the product's job counts against the live boards, the numbers did not match at the big companies. Amazon showed 296 US PM roles in the database. The live board had 319. Apple, 43 versus 58. Capital One, 173 versus 191. The missing roles were not scraping errors. They were being scraped correctly, then dropped by the filter before they ever reached the database.</p>
+<p>Two filters were wrong. The title filter excluded any title containing domain words like "data," "marketing," and "engineering," to block roles like "Product Designer." The rule also blocked "Product Manager, Data Platform" and "Senior Manager, Product Management - Card Core Customer Data Management" (a real Capital One title). Both were legitimate PM roles dropped because they contained a disqualifying word that the filter applied unconditionally, with no regard for whether the title also said "Product Manager" right at the front. The location filter had a matching problem: "Vancouver, WA" was classified as Vancouver, Canada. "Manchester, NH" as Manchester, UK. The filter tested foreign city names before US state abbreviations, so the state never got checked.</p>
+<p>Both filters had tests. The tests passed. They verified that the rules were implemented correctly. They could not check whether the rules themselves were right.</p>
+
+<h3>What I Built</h3>
+<p><strong>Anchor-aware title filter.</strong> The exclusion list is now split into two tiers. Role-type words (analyst, counsel, technical program) reject any title unconditionally. Domain qualifier words (data, marketing, engineering, design, operations) only reject a title that has no explicit "Product Manager" or "Product Management" anchor. A title that says "Product Manager, Data Platform" is kept. A title that says "Product Designer" is still dropped.</p>
+<p><strong>Ranked location signals.</strong> Signals now rank instead of first-matching. An unambiguous US state abbreviation (WA, NH, but not CA or IN, which are also country codes) wins over a colliding foreign city name. An explicit non-US country name beats a US city substring. The filter is mirrored byte-for-byte between the scrape-time gate and the client-side toggle, with a CI check that fails if the two copies drift.</p>
+<p><strong>A scraper canary.</strong> After the daily scrape runs, the system compares each high-volume company's today count to its own 28-day weekday median (broken-source days excluded from the baseline). A drop below half the median triggers platform re-detection and an alert. No hardcoded watch list: any company with enough history self-selects. The canary deliberately does not auto-fix; a drop to near-zero is exactly when an auto-repoint is riskiest, so it surfaces the signal for a human or the self-healing tier to act on.</p>
+
+<h3>What I Learned</h3>
+<p>The only check that catches a filter rule that is wrong is a comparison against the real world, not tests of the rule itself. Tests verify that the implementation matches the spec. They cannot verify that the spec is correct. Running the real filter against the real live board and counting the difference is the only thing that catches a correctly-implemented but wrong rule.</p>
+<p>The canary extends this principle. The scraper ran correctly every day, threw no errors, and produced fewer roles than the board had. The daily health check counted it as success, because the health check only asked whether the code ran. The right definition of success for a data pipeline is not "did it run" but "does the output match the source."</p>
+</section>
+
 <div class="chapter-nav">
   <button type="button" class="cn-prev" data-go="ch4"><span class="cn-dir">Previous</span>4. Alpha</button>
   <button type="button" class="cn-next" data-go="ch6"><span class="cn-dir">Next chapter</span>6. Beta</button>
@@ -1669,6 +1695,29 @@ The signed part of the redirect is the case that mattered. A plain server endpoi
 This phase pointed the next stretch of product work at activation, the real leak, instead of acquisition, the imagined one. It set clicks as the product's honest engagement metric for everything that follows, and it added the first automated test to a codebase that had been getting by on manual checking, which is the seed of the "trust the instrument, not yourself" discipline that culminates in the next phase.
 </div>
 </div>
+</section>
+
+<hr>
+
+<section class="phase sp-color-6">
+<h2 id="p36">Phase 36: Making The Catalog Findable</h2>
+<p class="phase-sub">programmatic SEO and company interview guides</p>
+<p><strong>Goal:</strong> Turn 519 companies and 5,000 PM roles into pages that search engines and AI answer engines can read and cite.</p>
+<p>Every page in the product was a React shell. An unauthenticated visitor saw blank HTML that then fetched data in the browser. Google, Bing, and every AI answer engine saw the blank HTML, nothing else. The entire catalog was invisible to anyone who did not already know the product existed.</p>
+
+<h3>What I Built</h3>
+<p><strong>131 public, server-rendered company pages.</strong> Each company with at least 5 live US PM roles gets a dedicated page: a plain-language summary of the company's PM hiring, the current open roles, a FAQ, links to similar companies, and three types of structured data that search engines can index directly (JobPosting per role, FAQPage, BreadcrumbList). A 134-URL sitemap. A robots.txt that explicitly welcomes the AI crawlers alongside Google. An llms.txt with a concise brief for AI answer engines that read a site's purpose before querying it.</p>
+<p>The pages reuse the existing daily-cron feed cache, so when the scrape updates jobs, the public pages update automatically on the next render. No separate pipeline.</p>
+<p><strong>Per-company interview-process guides.</strong> For a starting set of six companies (Stripe, Roblox, OpenAI, Anthropic, Visa, Epic Games), Claude researches the real PM interview process using web search: how many stages, what each stage tests, and a question bank of likely prompts. The summary and the first three questions are visible to any visitor. The full question bank unlocks for signed-in users. The same content appears on the in-app company page so logged-in users do not have to leave the product to read it. Guides refresh monthly.</p>
+
+<h3>Key Decisions</h3>
+<p><strong>Server rendering, not a crawl pipeline.</strong> The public pages are Next.js server components that share the app's existing data layer. The daily scrape is the pipeline. There is nothing new to operate.</p>
+<p><strong>No salary data in structured job markup.</strong> The levels.fyi comp figures are third-party estimates, not employer-stated ranges. Putting them in structured <code>baseSalary</code> markup would be inaccurate. They appear as visible text, labeled as estimates.</p>
+<p><strong>Free interview content to start.</strong> Gating the guides before the pages have traffic would mean nobody sees them. Build the signal first; the entitlement can tighten once organic reach proves out.</p>
+
+<h3>What I Learned</h3>
+<p>The catalog was not hard to find. It was not findable. Those are different things. A page that does not exist cannot rank, cannot be cited, cannot be linked. The right time to build the public layer is before the organic compounding matters, because compounding takes months and it starts from zero.</p>
+<p>The llms.txt reflects something real: the catalog is reaching people through more channels than a browser now. A search engine, an AI assistant, a developer building a tool may all encounter it before a human ever visits the site. Each of those surfaces has its own expectations for how content should be structured. The public pages need to work for all of them.</p>
 </section>
 
 <div class="chapter-nav">
