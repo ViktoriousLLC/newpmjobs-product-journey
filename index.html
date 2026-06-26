@@ -378,6 +378,7 @@ body.chapters-on .chapter:not(.active) { display: none; }
       <li><a href="#p31" data-ch="ch5">31. The Night The Daily Job Died Silently</a></li>
       <li><a href="#p33" data-ch="ch5">33. Three Models Review Every Change</a></li>
       <li><a href="#p34" data-ch="ch5">34. When The System Watches Itself</a></li>
+      <li><a href="#p35" data-ch="ch5">35. When A Quarter Of Sign-Ins Were Quietly Failing</a></li>
     </ul>
   </div>
 
@@ -476,7 +477,7 @@ body.chapters-on .chapter:not(.active) { display: none; }
 
 <!-- ============ JOURNEY AT A GLANCE: grouped by stage ============ -->
 <h2 id="index">The journey at a glance</h2>
-<p class="skim-note">All 34 phases, grouped into 9 stages. Stages 1 to 5 are done, Pre-production is in progress, and Beta, Launch and Post-launch are next, not built yet. Tap any stage to fold it. Tap a phase to jump to the full story.</p>
+<p class="skim-note">All 35 phases, grouped into 9 stages. Stages 1 to 5 are done, Pre-production is in progress, and Beta, Launch and Post-launch are next, not built yet. Tap any stage to fold it. Tap a phase to jump to the full story.</p>
 <div class="sum">
 
 <details class="sum-stage sum-c1" open>
@@ -520,7 +521,7 @@ body.chapters-on .chapter:not(.active) { display: none; }
 </details>
 
 <details class="sum-stage sum-c5" open>
-<summary><span class="sum-kicker">Stage 5 &middot; You are here</span><span class="sum-name">Hardening</span><span class="sum-count">15 phases</span><span class="sum-chev">&#8250;</span></summary>
+<summary><span class="sum-kicker">Stage 5 &middot; You are here</span><span class="sum-name">Hardening</span><span class="sum-count">16 phases</span><span class="sum-chev">&#8250;</span></summary>
 <p class="sum-desc">This is where I am now. Security audits, scaling, the silent failures, the self-healing scrapers, the deploy gate, the night the daily job died. The thin vertical slice from the MVP gets sturdy and deep, so I can trust it with real users.</p>
 <div class="sum-grid">
   <div class="sum-row"><div class="sum-num">12</div><div><div class="pn"><a href="#p12">Making The Daily Run Dependable</a></div><div class="pg">The scrape finishes every day with no babysitting.</div></div></div>
@@ -538,6 +539,7 @@ body.chapters-on .chapter:not(.active) { display: none; }
   <div class="sum-row"><div class="sum-num">31</div><div><div class="pn"><a href="#p31">The Night The Daily Job Died Silently</a></div><div class="pg">Make a silent failure impossible.</div></div></div>
   <div class="sum-row"><div class="sum-num">33</div><div><div class="pn"><a href="#p33">Three Models Review Every Change</a></div><div class="pg">The AI is no longer the only thing checking the AI.</div></div></div>
   <div class="sum-row"><div class="sum-num">34</div><div><div class="pn"><a href="#p34">When The System Watches Itself</a></div><div class="pg">Make "probably working" something the system proves.</div></div></div>
+  <div class="sum-row"><div class="sum-num">35</div><div><div class="pn"><a href="#p35">When A Quarter Of Sign-Ins Were Quietly Failing</a></div><div class="pg">A 37% failure rate, sitting in PostHog, with no alarm on it.</div></div></div>
 </div>
 </details>
 
@@ -624,6 +626,7 @@ body.chapters-on .chapter:not(.active) { display: none; }
 <tr><td>33</td><td>Out-of-band watchdogs</td><td>A start heartbeat and a resumable run that verify the daily job actually ran.</td><td>Phase 31</td></tr>
 <tr><td>34</td><td>Funnel analytics</td><td>An AARRR funnel dashboard, and an HMAC-signed click redirect since open-tracking is dead.</td><td>Phase 32</td></tr>
 <tr><td>35</td><td>Cross-model review</td><td>Three LLMs reviewing every pull request in parallel, with author validation and diff redaction.</td><td>Phase 33</td></tr>
+<tr><td>36</td><td>Confirm-on-click</td><td>A click-gated page so email security scanners cannot burn a one-time sign-in token by pre-fetching the link before the human clicks.</td><td>Phase 35</td></tr>
 </tbody>
 </table>
 </div>
@@ -1471,6 +1474,48 @@ The two holes the outside model found are textbook trust boundaries the author m
 <h3>What I Learned</h3>
 <p><strong>A safeguard needs its own safeguard.</strong> Sentry was dark for three and a half months before I noticed by looking for data I expected to see and could not find. A liveness probe that sends a real test signal and confirms receipt is how you find out the alarm is broken before you need it.</p>
 <p><strong>Fix the class, not the instance.</strong> The .in() lesson in one sentence: grep the pattern on the first report, not after the fourth. A CI guard that catches the next one at PR time is the only fix that holds.</p>
+</section>
+
+<hr>
+
+<section class="phase sp-color-6">
+<h2 id="p35">Phase 35: When A Quarter Of Sign-Ins Were Quietly Failing</h2>
+<p class="phase-sub">the login reliability session</p>
+<p><strong>Goal:</strong> One user said they couldn't get in. Three words that turned into a week.</p>
+<p>The ticket was terse: couldn't sign in. Easy to file as an edge case and move on. Instead I pulled PostHog.</p>
+<p>Magic-link sign-ins: 37% failure rate over 21 days. LinkedIn OAuth on iOS: 43% failure rate since it launched. Together, roughly a quarter of all sign-in attempts across both methods were failing. The data had been sitting there the whole time. I just had no alarm pointing at it.</p>
+
+<h3>What I Built</h3>
+<p><strong>Redesigned the login page to LinkedIn-first.</strong> The old layout showed LinkedIn, a magic-link email form, and a help link as three co-equal choices. They are not. Email delivery fails on maybe 1 in 7 addresses; LinkedIn either works or it doesn't and you know immediately. So I flipped the hierarchy: LinkedIn is the only visible primary. The magic-link form now collapses behind "Having issues with LinkedIn?" as an explicit fallback. The hero email input on the home page was removed too. It collected an email and sent users to /login, where the typed email disappeared into a collapsed form nobody could see. The signup flow has to match the login flow or the whole thing reads as broken.</p>
+<p><strong>Login precheck before the magic-link send.</strong> Before sending a one-time sign-in link, the backend now checks whether that address is deliverable. If it is on the suppression list from a prior bounce or complaint, there is no point sending a doomed email. The system skips the send and nudges the user toward LinkedIn instead. A "Can't sign in?" help form is also always visible on the login page so a locked-out user always has a way to reach me.</p>
+<p><strong>Fixed iOS LinkedIn sign-ins.</strong> The OAuth callback was a server route that ran the PKCE code exchange on the server. That required a browser cookie to survive the cross-site redirect chain, and iOS WebKit does not reliably attach first-party cookies to cross-site server requests. The exchange failed about 40% of the time on iOS with no error the user could see. The fix: do the exchange in the browser, where the PKCE verifier was written in the first place. Confirmed working on a real iPhone after the deploy.</p>
+<p><strong>Confirm-on-click for magic links.</strong> Email security scanners pre-fetch every link in every email to check for malicious content before the recipient sees it. A single-use sign-in link is a URL. The scanner fetched it, consumed the token, and the real click arrived to find the link expired. The fix: the magic link no longer runs token verification on the GET request. It renders a "Confirm sign-in" button. Only a real browser click runs the verification. A scanner cannot simulate a click. One extra tap traded for dropping from 37% failures to near-zero.</p>
+<p><strong>A daily login health line in the admin email.</strong> The failure data was in PostHog the whole time. I just had no tripwire on it. The daily admin email now shows a "Logins (7d)" line: total successes, total failures, and the rate broken out by method and by device. Any method above 30% failure rate highlights red. If iOS breaks again, I see it within 24 hours.</p>
+
+<h3>Key Decisions</h3>
+<p><strong>Lead with the path that actually works.</strong> Keeping magic link as a visible co-equal option tells users it is the normal path. For 1 in 7 addresses it is a dead end they cannot diagnose. LinkedIn's failure mode is immediate and visible: something went wrong, try again. Promoting it to primary and collapsing magic link behind a fallback was a product call: put the reliable path first, keep the fallback one tap away for anyone who needs it.</p>
+<p><strong>Run the cheap test before committing to a theory.</strong> During the investigation, a pattern showed up in the data: every LinkedIn success attributable to a specific host came from the apex domain, none from the www subdomain. Strong pattern. Plausible theory: LinkedIn was broken on www. Before filing a bug I signed in on www myself. Worked on the first try. The pattern was sample bias, not a bug. One minute of testing saved a week of chasing the wrong root cause.</p>
+
+<h3>What I Learned</h3>
+<p><strong>A story that fits the data is not the same as a story that is true.</strong> The www theory was textbook: a real pattern, a plausible explanation, and a completely wrong conclusion. Every hypothesis deserves the one-minute test before it becomes a ticket.</p>
+<p><strong>The most dangerous failures look exactly like health.</strong> A 37% failure rate on magic-link sign-ins, sitting in PostHog for 21 days. The system accepted every attempt, returned a response, logged nothing alarming. The response was just wrong for more than a third of users. The fix was not a smarter check inside the login flow. It was a separate observer watching the outcome, not the attempt. I had the data. I did not have the alarm.</p>
+
+<div class="deep">
+<h4>Drilling deeper on the "why"</h4>
+<p>The email scanner problem is worth sitting with, because the failure mode is genuinely strange: a link that is live when the email lands, dead by the time the human clicks it. The scanner is doing exactly what it was built to do, checking links for malicious content before the recipient sees them. That check consumes the single-use token. The recipient sees "link expired" and assumes the product is broken. One-time tokens and pre-fetch scanners are structurally incompatible unless you put a gate between the GET and the verification step. The confirm-on-click page is that gate. The tradeoff is one extra tap on the fallback path, and magic link is already the fallback behind LinkedIn now, so the friction lands on the failure case rather than the normal one.</p>
+<div class="alt">
+<span class="label label-alt">Alternative considered</span>
+The simpler version of the login redesign kept magic link visible as a co-equal option and just fixed the iOS and scanner bugs. The argument for it: familiar to users, no UX change, and the bugs would have been fixed anyway. I promoted LinkedIn to primary instead because fixing the bugs is not the same as fixing the default. Even with a working magic link, email delivery fails for roughly 1 in 7 addresses, and those users have no way to know that. Hiding that failure behind a co-equal option means a chunk of new users hit a dead end that looks like a product problem. Leading with LinkedIn is not a preference; it is putting the reliable path where the user looks first.
+</div>
+<div class="edge">
+<span class="label label-edge">Edge cases that bit</span>
+The iOS PKCE case is the one that humbled me most. I had a working OAuth callback route. It had been tested and shipped. It worked on desktop browsers, worked on Android, worked on iOS with magic links. It failed on iOS with LinkedIn at roughly 40%, because iOS WebKit is stricter about which cookies it attaches to cross-origin server requests on the return leg of an OAuth flow. The fact that it worked 60% of the time made it hard to pin down. The symptom was "code challenge does not match previously saved code verifier," which sounds like a configuration bug, not a platform quirk. The root cause only became clear once I filtered the failure data by device, not just by flow.
+</div>
+<div class="impact">
+<span class="label label-impact">What this made possible</span>
+The daily login health line in the admin email is the change that compounds. The iOS fix and the confirm-on-click page fix the known failures. The alarm catches the next failure I have not imagined yet. The auth incident in Phase 25 had the same shape: I found out from a user, days after the break. This time the data stream is in place before the next break, so it shows up in my daily email before anyone files a ticket.
+</div>
+</div>
 </section>
 
 <div class="chapter-nav">
