@@ -378,6 +378,7 @@ body.chapters-on .chapter:not(.active) { display: none; }
       <li><a href="#p31" data-ch="ch5">31. The Night The Daily Job Died Silently</a></li>
       <li><a href="#p33" data-ch="ch5">33. Three Models Review Every Change</a></li>
       <li><a href="#p34" data-ch="ch5">34. When The System Watches Itself</a></li>
+      <li><a href="#p35" data-ch="ch5">35. The Ghost Recipients</a></li>
     </ul>
   </div>
 
@@ -394,6 +395,7 @@ body.chapters-on .chapter:not(.active) { display: none; }
       <li><a href="#p28" data-ch="ch7">28. The Weekly Post Writes Itself, In My Voice</a></li>
       <li><a href="#p30" data-ch="ch7">30. Doubling The Catalog And Making "Add" Actually Work</a></li>
       <li><a href="#p32" data-ch="ch7">32. Seeing The Funnel, And Catching Myself Guessing</a></li>
+      <li><a href="#p36" data-ch="ch7">36. The Exit Door</a></li>
     </ul>
   </div>
 
@@ -476,7 +478,7 @@ body.chapters-on .chapter:not(.active) { display: none; }
 
 <!-- ============ JOURNEY AT A GLANCE: grouped by stage ============ -->
 <h2 id="index">The journey at a glance</h2>
-<p class="skim-note">All 34 phases, grouped into 9 stages. Stages 1 to 5 are done, Pre-production is in progress, and Beta, Launch and Post-launch are next, not built yet. Tap any stage to fold it. Tap a phase to jump to the full story.</p>
+<p class="skim-note">All 36 phases, grouped into 9 stages. Stages 1 to 5 are done, Pre-production is in progress, and Beta, Launch and Post-launch are next, not built yet. Tap any stage to fold it. Tap a phase to jump to the full story.</p>
 <div class="sum">
 
 <details class="sum-stage sum-c1" open>
@@ -520,7 +522,7 @@ body.chapters-on .chapter:not(.active) { display: none; }
 </details>
 
 <details class="sum-stage sum-c5" open>
-<summary><span class="sum-kicker">Stage 5 &middot; You are here</span><span class="sum-name">Hardening</span><span class="sum-count">15 phases</span><span class="sum-chev">&#8250;</span></summary>
+<summary><span class="sum-kicker">Stage 5 &middot; You are here</span><span class="sum-name">Hardening</span><span class="sum-count">16 phases</span><span class="sum-chev">&#8250;</span></summary>
 <p class="sum-desc">This is where I am now. Security audits, scaling, the silent failures, the self-healing scrapers, the deploy gate, the night the daily job died. The thin vertical slice from the MVP gets sturdy and deep, so I can trust it with real users.</p>
 <div class="sum-grid">
   <div class="sum-row"><div class="sum-num">12</div><div><div class="pn"><a href="#p12">Making The Daily Run Dependable</a></div><div class="pg">The scrape finishes every day with no babysitting.</div></div></div>
@@ -538,6 +540,7 @@ body.chapters-on .chapter:not(.active) { display: none; }
   <div class="sum-row"><div class="sum-num">31</div><div><div class="pn"><a href="#p31">The Night The Daily Job Died Silently</a></div><div class="pg">Make a silent failure impossible.</div></div></div>
   <div class="sum-row"><div class="sum-num">33</div><div><div class="pn"><a href="#p33">Three Models Review Every Change</a></div><div class="pg">The AI is no longer the only thing checking the AI.</div></div></div>
   <div class="sum-row"><div class="sum-num">34</div><div><div class="pn"><a href="#p34">When The System Watches Itself</a></div><div class="pg">Make "probably working" something the system proves.</div></div></div>
+  <div class="sum-row"><div class="sum-num">35</div><div><div class="pn"><a href="#p35">The Ghost Recipients</a></div><div class="pg">Find the emails your vendor silently stopped delivering years ago.</div></div></div>
 </div>
 </details>
 
@@ -550,7 +553,7 @@ body.chapters-on .chapter:not(.active) { display: none; }
 </details>
 
 <details class="sum-stage sum-c6" open>
-<summary><span class="sum-kicker">Stage 7 &middot; In progress</span><span class="sum-name">Pre-production</span><span class="sum-count">6 phases</span><span class="sum-chev">&#8250;</span></summary>
+<summary><span class="sum-kicker">Stage 7 &middot; In progress</span><span class="sum-name">Pre-production</span><span class="sum-count">7 phases</span><span class="sum-chev">&#8250;</span></summary>
 <p class="sum-desc">In progress. Catalog breadth, the job-first feed, the content engine and analytics that work end to end, the technical dashboards and the user-facing side both. The product should make sense start to finish, not just function. Still plenty left: mobile and UI polish are ahead.</p>
 <div class="sum-grid">
   <div class="sum-row"><div class="sum-num">22</div><div><div class="pn"><a href="#p22">Growing The Catalog The Right Way</a></div><div class="pg">Scale toward 1000 companies people actually chase.</div></div></div>
@@ -559,6 +562,7 @@ body.chapters-on .chapter:not(.active) { display: none; }
   <div class="sum-row"><div class="sum-num">28</div><div><div class="pn"><a href="#p28">The Weekly Post Writes Itself, In My Voice</a></div><div class="pg">In my voice, no more hand-writing the lead.</div></div></div>
   <div class="sum-row"><div class="sum-num">30</div><div><div class="pn"><a href="#p30">Doubling The Catalog And Making "Add" Actually Work</a></div><div class="pg">A real database, and Add that actually shows jobs.</div></div></div>
   <div class="sum-row"><div class="sum-num">32</div><div><div class="pn"><a href="#p32">Seeing The Funnel, And Catching Myself Guessing</a></div><div class="pg">Stop guessing and watch where people drop off.</div></div></div>
+  <div class="sum-row"><div class="sum-num">36</div><div><div class="pn"><a href="#p36">The Exit Door</a></div><div class="pg">Fix the worst screen in the product and learn why people leave.</div></div></div>
 </div>
 </details>
 
@@ -624,6 +628,8 @@ body.chapters-on .chapter:not(.active) { display: none; }
 <tr><td>33</td><td>Out-of-band watchdogs</td><td>A start heartbeat and a resumable run that verify the daily job actually ran.</td><td>Phase 31</td></tr>
 <tr><td>34</td><td>Funnel analytics</td><td>An AARRR funnel dashboard, and an HMAC-signed click redirect since open-tracking is dead.</td><td>Phase 32</td></tr>
 <tr><td>35</td><td>Cross-model review</td><td>Three LLMs reviewing every pull request in parallel, with author validation and diff redaction.</td><td>Phase 33</td></tr>
+<tr><td>36</td><td>Vendor suppression blind spot</td><td>Once an email address is suppressed by the vendor, future sends are dropped with no bounce event, no webhook, and no analytics entry. The only way to detect it is reading the vendor's own send log directly.</td><td>Phase 35</td></tr>
+<tr><td>37</td><td>Unsubscribe as a product surface</td><td>CAN-SPAM and bulk-sender rules bar login friction on unsubscribe, so compliance and good UX align: confirm on the interactive path, keep the one-click instant, survey after the opt-out rather than as a gate.</td><td>Phase 36</td></tr>
 </tbody>
 </table>
 </div>
@@ -1473,6 +1479,32 @@ The two holes the outside model found are textbook trust boundaries the author m
 <p><strong>Fix the class, not the instance.</strong> The .in() lesson in one sentence: grep the pattern on the first report, not after the fourth. A CI guard that catches the next one at PR time is the only fix that holds.</p>
 </section>
 
+<section class="phase sp-color-5">
+<h2 id="p35">Phase 35: The Ghost Recipients</h2>
+<p class="phase-sub">when your email vendor goes silent</p>
+<p><strong>Goal:</strong> Find out why about ten accounts had been getting daily emails delivered to nowhere, and close the class of failure that hid it.</p>
+
+<h3>What Happened</h3>
+<p>I pulled the admin send log from Resend and found roughly ten addresses being mailed every day whose last recorded event was "suppressed." Suppressed means the vendor drops the send before attempting delivery, with no bounce event, no failed-delivery webhook, no analytics entry. Nothing.</p>
+<p>That is the structural problem. Both defenses I had built were event-driven: the suppression webhook fires when an address first gets suppressed, and the daily skip set gets populated from bounce webhooks. When an address was already suppressed before those hooks existed, future sends got dropped silently and neither defense ever learned about it. Four of the ten had been suppressed on their very first email, the signup confirmation, meaning they created an account and never once got a chance to log in.</p>
+
+<h3>What I Built</h3>
+<p>The fix reads the one place the drop is visible: the vendor's own send log. The full-access admin API key that was already on the hosting environment can pull yesterday's sends and filter for last-event-is-suppressed-or-bounced. Each dropped recipient gets hashed into the daily skip set the moment it is detected, so the ghost loop ends on the day it is found.</p>
+<p>The same pass added a proper deliverability gate to the entire send loop. A single batched query now pulls every address PostHog has recorded as bounced or complained in the last 365 days and loads them into a set before the loop starts, so the check is a hash lookup per user rather than a round-trip per user. A "never accessed" rule also skips an account that has no confirmed login and no sign-in timestamp after a seven-day grace window, rather than mailing a typo address every day indefinitely. If the vendor log read fails, the skip set falls back to empty rather than blocking sends entirely: re-mailing a bad address once is a smaller harm than silently skipping everyone.</p>
+
+<h3>Key Decisions</h3>
+<p><strong>Read the vendor log, don't wait for events.</strong> Event-based defenses have a blind spot when the event does not fire. Suppression only fires once, at the moment of first suppression. Every subsequent send to that address is dropped with no event, so the log is the only record with no gaps.</p>
+<p><strong>Fail soft.</strong> An unreachable log means the skip set is empty for that run, not that everyone gets blocked. Re-mailing a suppressed address is annoying; silently skipping every subscriber is a product failure.</p>
+<p><strong>Batch the lookup.</strong> At 218-plus users, one PostHog query per user on every daily run would be a 218-request fan-out. One query for all bounced addresses in the last year, loaded into a Set before the loop, is one network round-trip and then a hash lookup per user from there.</p>
+
+<h3>What I Learned</h3>
+<p><strong>Event-driven defenses have a blind spot you cannot see from inside them.</strong> The suppression webhook and the bounce-based skip set were both correctly implemented. They both missed the same class of failure: addresses suppressed before those hooks existed. The defenses were right for addresses going forward, and structurally blind to everything that had already happened.</p>
+<p><strong>The vendor's log is the ground truth, not your database.</strong> My database knew what my webhooks told it. The vendor's log knew what actually happened. For email delivery, the vendor saw every attempt and every drop; my system only knew what it was told about.</p>
+<p><strong>When a failure class is invisible, the fix is a different observation point.</strong> You cannot catch ghost recipients from inside your own event handlers, because by definition no event fired. The only fix is stepping outside to a vantage point the events could not reach: the vendor's own log of what it actually tried to send.</p>
+</section>
+
+<hr>
+
 <div class="chapter-nav">
   <button type="button" class="cn-prev" data-go="ch4"><span class="cn-dir">Previous</span>4. Alpha</button>
   <button type="button" class="cn-next" data-go="ch6"><span class="cn-dir">Next chapter</span>6. Beta</button>
@@ -1670,6 +1702,35 @@ This phase pointed the next stretch of product work at activation, the real leak
 </div>
 </div>
 </section>
+
+<section class="phase sp-color-6">
+<h2 id="p36">Phase 36: The Exit Door</h2>
+<p class="phase-sub">unsubscribe as a product surface</p>
+<p><strong>Goal:</strong> Fix the worst-designed screen in the product and use the exit moment to learn why someone is leaving.</p>
+
+<h3>What Happened</h3>
+<p>I unsubscribed from my own emails to test the flow and hit three rough edges at once. The page never said which email address it was managing, which matters because I have two accounts and could not tell which one I was turning off. Clicking "unsubscribe from everything" opted me out the instant I clicked, with no confirmation and no way back. And once it was done, the page said "done" with nothing to undo a mis-click.</p>
+<p>A separate issue: the suggestions email, which goes to users who track zero companies, named companies to track but had no real way to add one. The "Add companies" button existed but sat below the suggestion list. The email's whole purpose was to drive one action, and that action was the last thing on the page.</p>
+
+<h3>What I Built</h3>
+<p><strong>The page now names the inbox.</strong> Every unsubscribe page resolves the email address from the signed link on the server side and names it at the top. Nothing comes from the browser, so the address cannot be altered.</p>
+<p><strong>Confirm before, survey after.</strong> Clicking "unsubscribe from everything" now opens a confirmation step that also asks, optionally, why you are leaving: found a job, hit a problem, wrong product, or something else. The opt-out only happens when you click "yes, unsubscribe" on that confirmation page. Every done page carries a "changed your mind? resubscribe" link, so a mis-click costs one more click to undo.</p>
+<p><strong>Exit survey and tailored reply.</strong> Each answer on the survey shows a specific reply. The "found a job" path congratulates the user and offers a conversation. The answer and any note post to an endpoint that files a feedback ticket and emails me the reason, so I learn why each person leaves rather than watching subscriber counts drop with no context.</p>
+<p><strong>The one-click path stays instant.</strong> The RFC-8058 one-click unsubscribe, the button email apps show at the top of a message, must complete with no additional steps under CAN-SPAM and Gmail and Yahoo's bulk-sender rules. That path is untouched: one click, instant opt-out, done page with a resubscribe option and a separate optional "mind telling me why" link.</p>
+<p><strong>Button first in the suggestions email.</strong> The "Add companies" button moved from below the company list to above it. A user who tracks zero companies now sees: intro, then the action, then the suggestions.</p>
+
+<h3>Key Decisions</h3>
+<p><strong>No login friction on unsubscribe.</strong> The temptation was to require login before opting out, which would cut accidental unsubscribes. CAN-SPAM and the Gmail and Yahoo bulk-sender rules bar it. The confirm step on the interactive path gets the same protection without crossing the compliance line.</p>
+<p><strong>Survey after, not as a gate.</strong> The survey comes after the opt-out, optional, so the exit reason is something people choose to share rather than something they fill out to escape.</p>
+<p><strong>Resolve the address from the signed token, never from the browser.</strong> A page that reads the email address from a URL query string is a phishing surface. The signed link carries it; the server resolves it; the browser supplies nothing.</p>
+
+<h3>What I Learned</h3>
+<p><strong>The exit door is a product surface.</strong> A bad unsubscribe flow cannot recover a subscription, but it is often the last thing someone experiences before they stop thinking about the product. Three changes to name the inbox, confirm before opt-out and add a resubscribe link changed the screen from one that annoyed me on my own test to one that treats the decision with respect.</p>
+<p><strong>Compliance and good UX point in the same direction here.</strong> The rule that the one-click path must be instant is also the right UX for that case. The friction belongs only on the interactive path where a person deliberately navigates to a web page. Following the rule makes both better.</p>
+<p><strong>Button placement in email is a product decision.</strong> Moving "Add companies" from below the suggestions to above them was a one-line template change. The users seeing that email had already chosen to track nothing; showing them the action before the suggestions acknowledged that context. Copy and placement are often the same decision.</p>
+</section>
+
+<hr>
 
 <div class="chapter-nav">
   <button type="button" class="cn-prev" data-go="ch6"><span class="cn-dir">Previous</span>6. Beta</button>
