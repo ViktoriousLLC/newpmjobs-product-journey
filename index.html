@@ -20,15 +20,14 @@ img { max-width:100%; display:block; }
 
 /* top bar: white, chip buttons, spectrum strip below */
 .topbar { position:sticky; top:0; z-index:50; background:rgba(255,255,255,.96); backdrop-filter:blur(8px); border-bottom:1px solid var(--border); }
-.topbar .in { max-width:1500px; margin:0 auto; display:flex; align-items:center; gap:8px; padding:11px 48px; }
-.topbar .brand { font-weight:800; font-size:1rem; margin-right:auto; color:var(--ink); white-space:nowrap; }
-.topbar .brand span { color:var(--muted); font-weight:600; }
+.topbar .in { max-width:1500px; margin:0 auto; display:flex; align-items:center; justify-content:flex-start; gap:8px; padding:11px 48px; }
+.topbar .brand { font-weight:800; font-size:1rem; margin-right:14px; color:var(--ink); white-space:nowrap; }
 .topbar a { font-size:.86rem; font-weight:650; color:#2a2f40; text-decoration:none; padding:7px 13px; border-radius:999px; border:1px solid var(--border); background:#fff; white-space:nowrap; }
 .topbar a:hover { border-color:var(--accent); color:var(--accent); text-decoration:none; }
 .topbar a.cta { background:var(--accent); border-color:var(--accent); color:#fff; }
 .spectrum { display:flex; height:5px; }
 .spectrum span { flex:1; }
-@media (max-width:900px){ .topbar .in{padding:10px 18px; overflow-x:auto;} .topbar .brand span{display:none;} }
+@media (max-width:900px){ .topbar .in{padding:10px 18px; overflow-x:auto;} }
 
 .band { padding:48px 48px; }
 .band-soft { background:var(--soft); border-top:1px solid var(--border); border-bottom:1px solid var(--border); }
@@ -38,15 +37,16 @@ h2.sec { font-size:1.45rem; margin:0 0 .2em; letter-spacing:-.015em; }
 
 /* hero: muted tinted band, text left + stack card right */
 .hero-band { background:var(--hero); border-bottom:1px solid var(--border); padding:44px 48px 40px; }
-.hero-grid { display:grid; grid-template-columns:minmax(0,1fr) 490px; gap:44px; align-items:start; max-width:1400px; }
-.hero-band h1 { font-size:2.7rem; line-height:1.08; letter-spacing:-.025em; margin:0 0 .5em; }
+.hero-grid { display:grid; grid-template-columns:minmax(0,1fr) 580px; gap:40px; align-items:center; max-width:1400px; }
+.hero-band h1 { font-size:2.7rem; line-height:1.08; letter-spacing:-.025em; margin:0 0 .1em; }
+.hsub { font-size:1.15rem; color:var(--muted); font-weight:600; margin:0 0 1.1em; }
 /* hero art: the tools swirl, real logos orbiting the product mark (pure CSS, animated) */
-.swirl { position:relative; height:100%; min-height:560px; }
+.swirl { position:relative; min-height:620px; }
 .ring, .rot, .core { position:absolute; top:50%; left:50%; }
 .ring { border:1.5px solid #c7d1ee; border-radius:50%; transform:translate(-50%,-50%); }
-.r1 { width:176px; height:176px; }
-.r2 { width:316px; height:316px; }
-.r3 { width:432px; height:432px; }
+.r1 { width:200px; height:200px; }
+.r2 { width:356px; height:356px; }
+.r3 { width:488px; height:488px; }
 .rot { width:0; height:0; transform:translate(-50%,-50%); }
 .rot1 { animation:spinf 90s linear infinite; }
 .rot2 { animation:spinr 140s linear infinite; }
@@ -57,9 +57,9 @@ h2.sec { font-size:1.45rem; margin:0 0 .2em; letter-spacing:-.015em; }
    itself on that point and counter-spins about its own center, so it stays
    upright and exactly on the orbit at every rotation angle. */
 .tl { position:absolute; top:0; left:0; width:0; height:0; transform:rotate(var(--a)) translateY(var(--r)); }
-.rot1 .tl { --r:-88px; }
-.rot2 .tl { --r:-158px; }
-.rot3 .tl { --r:-216px; }
+.rot1 .tl { --r:-100px; }
+.rot2 .tl { --r:-178px; }
+.rot3 .tl { --r:-244px; }
 .tilein { position:absolute; top:0; left:0; display:flex; flex-direction:column; align-items:center; gap:4px; transform:translate(-50%,-50%) rotate(calc(-1 * var(--a))); }
 .rot1 .tilein { animation:uprR 90s linear infinite; }
 .rot2 .tilein { animation:uprF 140s linear infinite; }
@@ -67,15 +67,15 @@ h2.sec { font-size:1.45rem; margin:0 0 .2em; letter-spacing:-.015em; }
 @keyframes uprR { from { transform:translate(-50%,-50%) rotate(calc(-1 * var(--a))); } to { transform:translate(-50%,-50%) rotate(calc(-1 * var(--a) - 360deg)); } }
 @keyframes uprF { from { transform:translate(-50%,-50%) rotate(calc(-1 * var(--a))); } to { transform:translate(-50%,-50%) rotate(calc(-1 * var(--a) + 360deg)); } }
 .box { background:#fff; border:1px solid var(--border); border-radius:12px; display:flex; align-items:center; justify-content:center; box-shadow:0 3px 10px rgba(24,32,60,.10); }
-.rot1 .box { width:48px; height:48px; }
-.rot1 .box img { width:29px; height:29px; object-fit:contain; }
-.rot1 .lbl { font-size:10px; }
-.rot2 .box { width:38px; height:38px; border-radius:10px; }
-.rot2 .box img { width:23px; height:23px; object-fit:contain; }
-.rot2 .lbl { font-size:9px; }
-.rot3 .box { width:31px; height:31px; border-radius:9px; }
-.rot3 .box img { width:19px; height:19px; object-fit:contain; }
-.rot3 .lbl { font-size:8.5px; color:var(--muted); }
+.rot1 .box { width:54px; height:54px; }
+.rot1 .box img { width:32px; height:32px; object-fit:contain; }
+.rot1 .lbl { font-size:10.5px; }
+.rot2 .box { width:42px; height:42px; border-radius:10px; }
+.rot2 .box img { width:25px; height:25px; object-fit:contain; }
+.rot2 .lbl { font-size:9.5px; }
+.rot3 .box { width:34px; height:34px; border-radius:9px; }
+.rot3 .box img { width:20px; height:20px; object-fit:contain; }
+.rot3 .lbl { font-size:9px; color:var(--muted); }
 .lbl { line-height:1.1; white-space:nowrap; color:var(--ink); font-weight:500; }
 .core { transform:translate(-50%,-50%); display:flex; flex-direction:column; align-items:center; gap:5px; }
 .core .pm { width:62px; height:62px; border-radius:16px; background:linear-gradient(135deg,#2d8eec,#4b78ef); color:#fff; font-weight:800; font-size:1.35rem; display:flex; align-items:center; justify-content:center; box-shadow:0 6px 18px rgba(45,110,236,.35); }
@@ -87,13 +87,13 @@ h2.sec { font-size:1.45rem; margin:0 0 .2em; letter-spacing:-.015em; }
 .intro p { margin:0 0 .85em; font-size:1.04rem; }
 .intro ul { margin:0 0 .9em; padding-left:1.25em; }
 .intro li { margin:.5em 0; font-size:1.04rem; }
-.numbers { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:12px; max-width:1150px; margin-top:1.5em; }
+.numbers { display:grid; grid-template-columns:1fr 1fr; gap:12px; max-width:640px; margin-top:1.4em; }
 .tile { border:1px solid var(--border); border-radius:14px; padding:14px 18px; background:#fff; box-shadow:0 1px 4px rgba(24,32,60,.05); }
 .tile .n { font-size:1.5rem; font-weight:800; color:var(--ink); }
 .tile .l { font-size:.78rem; color:var(--muted); line-height:1.4; margin-top:2px; }
 
 /* funnel ribbon (from the live page) */
-.funnel { margin:2em 0 .2em; padding:4px 2px; max-width:1150px; }
+.funnel { margin:.4em 0 2em; padding:4px 2px; max-width:1150px; }
 .funnel-track { display:flex; flex-wrap:wrap; align-items:flex-start; justify-content:center; gap:0; row-gap:18px; }
 .funnel-step { display:flex; flex-direction:column; align-items:center; text-align:center; flex:0 0 20%; max-width:20%; position:relative; }
 .funnel-circle { width:46px; height:46px; border-radius:999px; color:#fff; display:flex; align-items:center; justify-content:center; font-weight:700; font-size:1.15rem; z-index:1; box-shadow:0 2px 8px rgba(20,20,60,.18); }
@@ -110,7 +110,7 @@ h2.sec { font-size:1.45rem; margin:0 0 .2em; letter-spacing:-.015em; }
 .shot img { width:100%; aspect-ratio:16/10; object-fit:cover; object-position:top; cursor:zoom-in; }
 .shot .cap { font-size:.78rem; color:var(--muted); padding:7px 12px; border-top:1px solid var(--border); }
 .shot.pending .ph { aspect-ratio:16/10; display:flex; align-items:center; justify-content:center; background:var(--soft); color:var(--muted); font-size:.88rem; text-align:center; padding:18px; }
-.arch-row { display:grid; grid-template-columns:minmax(0,460px) minmax(0,1fr); gap:32px; align-items:start; max-width:1250px; }
+.arch-row { display:grid; grid-template-columns:minmax(0,1fr) minmax(0,560px); gap:36px; align-items:center; max-width:1300px; }
 .stacklist { max-width:680px; }
 .stacklist .srow { display:flex; gap:16px; padding:8px 0; border-bottom:1px solid var(--border); font-size:.95rem; }
 .stacklist .srow:last-child { border-bottom:none; }
@@ -174,7 +174,7 @@ h2.sec { font-size:1.45rem; margin:0 0 .2em; letter-spacing:-.015em; }
 
 <nav class="topbar">
 <div class="in">
-  <span class="brand">NewPMJobs.com <span>&middot; The Product Journey</span></span>
+  <span class="brand">NewPMJobs.com</span>
   <a href="#top">Home</a>
   <a href="#product">Screenshots</a>
   <a href="#architecture">Architecture</a>
@@ -190,6 +190,7 @@ h2.sec { font-size:1.45rem; margin:0 0 .2em; letter-spacing:-.015em; }
     <div class="hero-grid">
     <div>
     <h1>NewPMJobs.com</h1>
+    <p class="hsub">The Product Journey</p>
     <div class="intro">
       <p>I've mentored hundreds of PMs, and the same two problems kept coming up.</p>
       <ul>
@@ -201,6 +202,12 @@ h2.sec { font-size:1.45rem; margin:0 0 .2em; letter-spacing:-.015em; }
         <li><strong>The solution today:</strong> NewPMJobs checks 1,281 companies' job boards every morning and emails 200+ PMs (as of July 2026) the new roles, only for the companies they picked. An AI interview coach for the practice half is in beta.</li>
         <li><strong>How it's built:</strong> Every product decision is mine. I worked with AI to write every line of code, and implemented an AI Tribunal reviewer system where ChatGPT, Gemini, and Claude Fable review my code, with Claude Opus as the judge.</li>
       </ul>
+    </div>
+    <div class="numbers">
+      <div class="tile"><div class="n">1,281</div><div class="l">companies tracked, straight from their own job boards</div></div>
+      <div class="tile"><div class="n">200+</div><div class="l">PMs getting the morning email, as of July 2026</div></div>
+      <div class="tile"><div class="n">99.9%</div><div class="l">measured accuracy on the PM-role filter</div></div>
+      <div class="tile"><div class="n">3,600+</div><div class="l">active PM roles on the feed, as of July 2026</div></div>
     </div>
     </div>
     <aside class="swirl" aria-label="The tools NewPMJobs is built with, orbiting the product mark">
@@ -240,23 +247,7 @@ h2.sec { font-size:1.45rem; margin:0 0 .2em; letter-spacing:-.015em; }
       <div class="core"><span class="pm">PM</span><span class="lbl">NewPMJobs</span></div>
     </aside>
     </div>
-    <div class="numbers">
-      <div class="tile"><div class="n">1,281</div><div class="l">companies tracked, straight from their own job boards</div></div>
-      <div class="tile"><div class="n">200+</div><div class="l">PMs getting the morning email, as of July 2026</div></div>
-      <div class="tile"><div class="n">99.9%</div><div class="l">measured accuracy on the PM-role filter</div></div>
-      <div class="tile"><div class="n">3,600+</div><div class="l">active PM roles on the feed, as of July 2026</div></div>
-    </div>
-    <div class="funnel" role="img" aria-label="The nine stages of the journey in order">
-    <div class="funnel-track">
-      <div class="funnel-step"><div class="funnel-circle" style="background:var(--sp1)">1</div><div class="funnel-label">Concept</div></div>
-      <div class="funnel-step"><div class="funnel-circle" style="background:var(--sp2)">2</div><div class="funnel-label">Prototype</div></div>
-      <div class="funnel-step"><div class="funnel-circle" style="background:var(--sp3)">3</div><div class="funnel-label">MVP</div></div>
-      <div class="funnel-step"><div class="funnel-circle" style="background:var(--sp4)">4</div><div class="funnel-label">Alpha</div></div>
-      <div class="funnel-step"><div class="funnel-circle" style="background:var(--sp5)">5</div><div class="funnel-label">Hardening</div></div>
-      <div class="funnel-step"><div class="funnel-circle" style="background:var(--sp6)">6</div><div class="funnel-label">Beta</div></div>
-      <div class="funnel-step"><div class="funnel-circle" style="background:var(--sp7)">7</div><div class="funnel-label">Pre-production</div></div>
-      <div class="funnel-step"><div class="funnel-circle" style="background:var(--sp8)">8</div><div class="funnel-label">Launch</div></div>
-      <div class="funnel-step"><div class="funnel-circle" style="background:var(--sp9)">9</div><div class="funnel-label">Post-launch</div></div>
+    
     </div>
     </div>
   </div>
@@ -279,7 +270,6 @@ h2.sec { font-size:1.45rem; margin:0 0 .2em; letter-spacing:-.015em; }
     <h2 class="sec">Technical Architecture</h2>
     <p class="sec-sub">The full system map, and what every tool in the stack does. Click the map to see it full size.</p>
     <div class="arch-row">
-      <div class="shot"><img class="zoom" src="images/architecture-reactflow.png" alt="NewPMJobs technical architecture" style="object-position:left top; background:#fff;"><div class="cap">The system map: scrape, store, deliver, monitor (click to enlarge)</div></div>
       <div class="stacklist">
         <div class="srow"><span class="cat">Frontend</span><span class="val">Next.js, React, TypeScript, Tailwind CSS, hosted on Vercel</span></div>
         <div class="srow"><span class="cat">Backend</span><span class="val">Node.js, Express, hosted on Railway</span></div>
@@ -292,6 +282,7 @@ h2.sec { font-size:1.45rem; margin:0 0 .2em; letter-spacing:-.015em; }
         <div class="srow"><span class="cat">AI evaluation</span><span class="val">Langfuse for prompt versioning and scored test sets</span></div>
         <div class="srow"><span class="cat">Workflow and DNS</span><span class="val">GitHub with CI gates, Linear for tickets, Cloudflare DNS</span></div>
       </div>
+      <div class="shot"><img class="zoom" src="images/architecture-reactflow.png" alt="NewPMJobs technical architecture" style="object-position:left top; background:#fff;"><div class="cap">The system map: scrape, store, deliver, monitor (click to enlarge)</div></div>
     </div>
   </div>
 </section>
@@ -299,7 +290,18 @@ h2.sec { font-size:1.45rem; margin:0 0 .2em; letter-spacing:-.015em; }
 <section id="journey" class="band">
   <div class="inner">
     <h2 class="sec">The Product Journey</h2>
-    <p class="sec-sub">Each product stage I went through, what I did there, and what it taught me. Every "More detail" link opens that stage's chapter in the full build log.</p>
+    <p class="sec-sub">I've found there is a significant difference between prototyping a product, coding a single-user tool for yourself, and making a product at scale that thousands of users can use. These are the phases I went through, and the key learning from each.</p>
+    <div class="funnel" role="img" aria-label="The nine stages of the journey in order">
+    <div class="funnel-track">
+      <div class="funnel-step"><div class="funnel-circle" style="background:var(--sp1)">1</div><div class="funnel-label">Concept</div></div>
+      <div class="funnel-step"><div class="funnel-circle" style="background:var(--sp2)">2</div><div class="funnel-label">Prototype</div></div>
+      <div class="funnel-step"><div class="funnel-circle" style="background:var(--sp3)">3</div><div class="funnel-label">MVP</div></div>
+      <div class="funnel-step"><div class="funnel-circle" style="background:var(--sp4)">4</div><div class="funnel-label">Alpha</div></div>
+      <div class="funnel-step"><div class="funnel-circle" style="background:var(--sp5)">5</div><div class="funnel-label">Hardening</div></div>
+      <div class="funnel-step"><div class="funnel-circle" style="background:var(--sp6)">6</div><div class="funnel-label">Beta</div></div>
+      <div class="funnel-step"><div class="funnel-circle" style="background:var(--sp7)">7</div><div class="funnel-label">Pre-production</div></div>
+      <div class="funnel-step"><div class="funnel-circle" style="background:var(--sp8)">8</div><div class="funnel-label">Launch</div></div>
+      <div class="funnel-step"><div class="funnel-circle" style="background:var(--sp9)">9</div><div class="funnel-label">Post-launch</div></div>
     <table class="jtable">
       <thead><tr><th>Stage</th><th>Status</th><th>What I did</th><th>Key takeaway</th></tr></thead>
       <tbody>
