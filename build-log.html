@@ -328,7 +328,7 @@ body.chapters-on .chapter:not(.active) { display: none; }
 .spectrum span { flex: 1; }
 @media (max-width: 900px) { .topbar .in { padding: 10px 18px; overflow-x: auto; } .topbar .brand span { display: none; } }
 .chapter-nav { display: none !important; }
-[id] { scroll-margin-top: 118px; }
+[id] { scroll-margin-top: 66px; }
 
 /* ===== stage cards + responsive nav (restructure) ===== */
 .layout { max-width: 1190px; margin: 0 auto; display: grid; grid-template-columns: 280px minmax(0, 830px); gap: 22px; align-items: start; padding: 0 14px; }
@@ -340,7 +340,7 @@ body.chapters-on .chapter:not(.active) { display: none; }
 .side-st .dot { width: 9px; height: 9px; border-radius: 99px; background: var(--c); flex: 0 0 9px; }
 .side-ph { display: block; padding: 2px 8px 2px 25px; font-size: .74rem; color: var(--muted); text-decoration: none; border: 0; line-height: 1.35; }
 .side-ph:hover { color: var(--accent); }
-.pills { position: sticky; top: 58px; z-index: 40; display: flex; gap: 8px; padding: 9px 16px; background: rgba(255,255,255,.97); border-bottom: 1px solid var(--border); overflow-x: auto; }
+.pills { display: flex; flex-wrap: wrap; gap: 8px; padding: 13px 15px; background: #fff; border: 1px solid var(--border); border-radius: 14px; margin: 1.1em 0 .4em; }
 .pill { display: flex; align-items: center; gap: 6px; font-size: .78rem; font-weight: 700; border: 1px solid var(--border); border-radius: 999px; padding: 4px 11px 4px 5px; background: #fff; white-space: nowrap; color: #2a2f40; text-decoration: none; }
 .pill .n { width: 19px; height: 19px; border-radius: 99px; background: var(--c); color: #fff; font-size: .66rem; font-weight: 800; display: flex; align-items: center; justify-content: center; }
 details.stage { border: 1px solid var(--border); border-left: 6px solid var(--c); border-radius: 14px; background: #fff; margin: 1.4em 0; overflow: hidden; }
@@ -363,13 +363,17 @@ details.stage[open] > .sg-chev, details.stage[open] > summary .sg-chev { transfo
   .pills { display: flex; }
 }
 
-.pfold > summary { list-style: none; cursor: pointer; display: flex; align-items: center; gap: 10px; }
+.pfold > summary { list-style: none; cursor: pointer; display: flex; align-items: center; gap: 10px; background: var(--soft); border: 1px solid var(--border); border-radius: 10px; padding: 7px 14px; margin: 6px 0; }
+.pfold > summary:hover { border-color: var(--accent); }
+.pfold[open] > summary { background: #eef2fb; }
 .pfold > summary::-webkit-details-marker { display: none; }
-.pfold > summary h2 { margin: .4em 0; padding-top: 0; border-top: 0; font-size: 1.25rem; flex: 1; }
-.pf-chev { color: var(--muted); font-weight: 800; font-size: 1.2rem; transition: transform .15s; }
+.pfold > summary h2 { margin: 0; padding-top: 0; border-top: 0; font-size: 1.02rem; flex: 1; line-height: 1.35; }
+.pf-chev { color: var(--muted); font-weight: 800; font-size: 1.05rem; transition: transform .15s; }
 .pfold[open] > summary .pf-chev { transform: rotate(90deg); }
-.pfold-bd { padding-bottom: .5em; }
-section.phase { padding: 2px 16px; }
+.pfold-bd { padding: 4px 6px 10px; }
+section.phase { padding: 0 8px; margin: 0; }
+.stage-body { padding: 8px 16px 14px; }
+.stage-body > hr { display: none; }
 </style>
 </head>
 <body>
@@ -384,18 +388,6 @@ section.phase { padding: 2px 16px; }
 </nav>
 
 
-<div class="pills" aria-label="Stage navigation">
-<a class="pill" style="--c:var(--sp1)" href="#ch1"><span class="n">1</span>Concept</a>
-<a class="pill" style="--c:var(--sp2)" href="#ch2"><span class="n">2</span>Prototype</a>
-<a class="pill" style="--c:var(--sp3)" href="#ch3"><span class="n">3</span>MVP</a>
-<a class="pill" style="--c:var(--sp4)" href="#ch4"><span class="n">4</span>Alpha</a>
-<a class="pill" style="--c:var(--sp5)" href="#ch5"><span class="n">5</span>Hardening</a>
-<a class="pill" style="--c:var(--sp9)" href="#ch6"><span class="n">6</span>Beta</a>
-<a class="pill" style="--c:var(--sp6)" href="#ch7"><span class="n">7</span>Pre-production</a>
-<a class="pill" style="--c:var(--sp7)" href="#ch8"><span class="n">8</span>Launch</a>
-<a class="pill" style="--c:var(--sp8)" href="#ch9"><span class="n">9</span>Post-launch</a>
-<a class="pill" style="--c:#64748b" href="#concepts"><span class="n">&#9733;</span>Concepts</a>
-</div>
 <div class="layout">
 <aside class="side" aria-label="Stage navigation">
 <div class="side-t">The Stages</div>
@@ -465,6 +457,18 @@ section.phase { padding: 2px 16px; }
 <section class="chapter active" id="ch0">
 <h1>The Full Build Log</h1>
 <p class="subtitle">All 48 phases of NewPMJobs.com, in detail: every decision, every bug, every fix. The short version lives on <a href="index.html">the journey page</a>, and the <a href="#concepts">Summary of Concepts Learned</a> is at the end of this page.</p>
+<div class="pills" aria-label="Stage navigation">
+<a class="pill" style="--c:var(--sp1)" href="#ch1"><span class="n">1</span>Concept</a>
+<a class="pill" style="--c:var(--sp2)" href="#ch2"><span class="n">2</span>Prototype</a>
+<a class="pill" style="--c:var(--sp3)" href="#ch3"><span class="n">3</span>MVP</a>
+<a class="pill" style="--c:var(--sp4)" href="#ch4"><span class="n">4</span>Alpha</a>
+<a class="pill" style="--c:var(--sp5)" href="#ch5"><span class="n">5</span>Hardening</a>
+<a class="pill" style="--c:var(--sp9)" href="#ch6"><span class="n">6</span>Beta</a>
+<a class="pill" style="--c:var(--sp6)" href="#ch7"><span class="n">7</span>Pre-production</a>
+<a class="pill" style="--c:var(--sp7)" href="#ch8"><span class="n">8</span>Launch</a>
+<a class="pill" style="--c:var(--sp8)" href="#ch9"><span class="n">9</span>Post-launch</a>
+<a class="pill" style="--c:#64748b" href="#concepts"><span class="n">&#9733;</span>Concepts</a>
+</div>
 <p class="xall"><a href="#" id="xall">Expand all stages</a></p>
 </section>
 <!-- /chapter ch0 -->
@@ -1885,7 +1889,7 @@ This phase pointed the next stretch of product work at activation, the real leak
     if (!el) return;
     var d = el.closest('details') || el.querySelector('details');
     while (d) { d.open = true; d = d.parentElement ? d.parentElement.closest('details') : null; }
-    setTimeout(function () { el.scrollIntoView(); }, 0);
+    setTimeout(function () { el.scrollIntoView(); }, 60);
   }
   window.addEventListener('hashchange', function () { openFor(location.hash); });
   if (location.hash) openFor(location.hash);
