@@ -326,6 +326,7 @@ body.chapters-on .chapter:not(.active) { display: none; }
 .spectrum span { flex: 1; }
 @media (max-width: 900px) { .topbar .in { padding: 10px 18px; overflow-x: auto; } .topbar .brand span { display: none; } }
 .chapter-nav { display: none !important; }
+[id] { scroll-margin-top: 72px; }
 </style>
 </head>
 <body>
@@ -333,7 +334,7 @@ body.chapters-on .chapter:not(.active) { display: none; }
 <div class="in">
   <span class="brand">NewPMJobs.com <span>&middot; The Full Build Log</span></span>
   <a href="index.html">Journey page</a>
-  <a href="#ch1">The Phases</a>
+  <a href="#ch1">The Stages</a>
   <a class="cta" href="#concepts">Concepts Learned</a>
 </div>
 <div class="spectrum"><span style="background:var(--sp1)"></span><span style="background:var(--sp2)"></span><span style="background:var(--sp3)"></span><span style="background:var(--sp4)"></span><span style="background:var(--sp5)"></span><span style="background:var(--sp9)"></span><span style="background:var(--sp6)"></span><span style="background:var(--sp7)"></span><span style="background:var(--sp8)"></span></div>
@@ -352,7 +353,7 @@ body.chapters-on .chapter:not(.active) { display: none; }
 <section class="chapter" id="ch1">
 <div class="superphase">
   <div class="sp-bar" style="background:var(--sp1)"></div>
-  <h2>1. Concept</h2>
+  <h2>Stage 1: Concept</h2>
   <p class="sp-desc">You do not know the tool yet, so you poke at it. I wrote the smallest script that could answer one question: are there new PM roles today? It ran on my laptop, and it worked.</p>
 </div>
 
@@ -396,7 +397,7 @@ Finding Greenhouse's structured feed on day one is the decision the next thirty 
 <section class="chapter" id="ch2">
 <div class="superphase">
   <div class="sp-bar" style="background:var(--sp2)"></div>
-  <h2>2. Prototype</h2>
+  <h2>Stage 2: Prototype</h2>
   <p class="sp-desc">Stitch the stack together and get off localhost. Railway for the backend, Vercel for the frontend, a real domain, a cron that runs every morning. Thin, but something I could actually push to and pull from anywhere.</p>
 </div>
 
@@ -431,7 +432,7 @@ Finding Greenhouse's structured feed on day one is the decision the next thirty 
 <section class="chapter" id="ch3">
 <div class="superphase">
   <div class="sp-bar" style="background:var(--sp3)"></div>
-  <h2>3. MVP</h2>
+  <h2>Stage 3: MVP</h2>
   <p class="sp-desc">The real features land: scrapers across seven platforms, login, salary data, more companies, a page that loads fast. The first gut-check too, a couple of friends looking at it and asking the only question that matters, does this even make sense?</p>
 </div>
 
@@ -614,7 +615,7 @@ This is the hinge of the whole project. It is the moment the tool stopped being 
 <section class="chapter" id="ch4">
 <div class="superphase">
   <div class="sp-bar" style="background:var(--sp4)"></div>
-  <h2>4. Alpha</h2>
+  <h2>Stage 4: Alpha</h2>
   <p class="sp-desc">The first small open rollout to strangers, 10 to 20 people I did not know. A LinkedIn post, a landing page, a security pass before I shared the link, the first daily emails and the monitoring to know the moment something broke. They told me how it breaks.</p>
 </div>
 
@@ -763,7 +764,7 @@ This is what made "share the link" a safe move instead of a gamble. It also set 
 <section class="chapter" id="ch5">
 <div class="superphase">
   <div class="sp-bar" style="background:var(--sp5)"></div>
-  <h2>5. Hardening<span style="display:inline-block;font-size:.62rem;font-weight:800;letter-spacing:.06em;text-transform:uppercase;background:#dcfce7;color:#047a4e;border-radius:999px;padding:2px 9px;margin-left:10px;vertical-align:middle;">You are here</span></h2>
+  <h2>Stage 5: Hardening<span style="display:inline-block;font-size:.62rem;font-weight:800;letter-spacing:.06em;text-transform:uppercase;background:#dcfce7;color:#047a4e;border-radius:999px;padding:2px 9px;margin-left:10px;vertical-align:middle;">Done</span></h2>
   <p class="sp-desc">This is where I am now. Security audits, scaling, the silent failures, the self-healing scrapers, the deploy gate, the night the daily job died. The thin vertical slice from the MVP gets sturdy and deep, so I can trust it with real users.</p>
 </div>
 
@@ -1276,7 +1277,7 @@ The two holes the outside model found are textbook trust boundaries the author m
 <section class="chapter" id="ch6">
 <div class="superphase">
   <div class="sp-bar" style="background:var(--sp9)"></div>
-  <h2>6. Beta<span style="display:inline-block;font-size:.62rem;font-weight:800;letter-spacing:.06em;text-transform:uppercase;background:#ede9fe;color:#6d28d9;border-radius:999px;padding:2px 9px;margin-left:10px;vertical-align:middle;">In progress</span></h2>
+  <h2>Stage 6: Beta<span style="display:inline-block;font-size:.62rem;font-weight:800;letter-spacing:.06em;text-transform:uppercase;background:#ede9fe;color:#6d28d9;border-radius:999px;padding:2px 9px;margin-left:10px;vertical-align:middle;">In beta</span></h2>
   <p class="sp-desc">In progress, and it grew into the next bet. Finding the job is half the battle; the interview that follows is the other half. So the beta stage became an AI interview coach for the same audience: a voice interviewer, then a video one with a face, then a home for your prep, and finally a tiny invite-only paid beta with real testers.</p>
 </div>
 
@@ -1372,7 +1373,7 @@ The two holes the outside model found are textbook trust boundaries the author m
 <section class="chapter" id="ch7">
 <div class="superphase">
   <div class="sp-bar" style="background:var(--sp6)"></div>
-  <h2>7. Pre-production<span style="display:inline-block;font-size:.62rem;font-weight:800;letter-spacing:.06em;text-transform:uppercase;background:#fee2e2;color:#b42318;border-radius:999px;padding:2px 9px;margin-left:10px;vertical-align:middle;">In progress</span></h2>
+  <h2>Stage 7: Pre-production<span style="display:inline-block;font-size:.62rem;font-weight:800;letter-spacing:.06em;text-transform:uppercase;background:#fee2e2;color:#b42318;border-radius:999px;padding:2px 9px;margin-left:10px;vertical-align:middle;">In progress</span></h2>
   <p class="sp-desc">In progress. This is where the catalog grew broad, the job-first feed landed, the data started writing its own weekly content, and analytics began working end to end, the technical dashboards and the user-facing side both. The product should make sense start to finish, not just function. Still in progress: mobile and UI polish are the work ahead.</p>
 </div>
 
@@ -1572,7 +1573,7 @@ This phase pointed the next stretch of product work at activation, the real leak
 <section class="chapter" id="ch8">
 <div class="superphase">
   <div class="sp-bar" style="background:var(--sp7)"></div>
-  <h2>8. Launch<span style="display:inline-block;font-size:.62rem;font-weight:800;letter-spacing:.06em;text-transform:uppercase;background:#f1f5f9;color:#475569;border-radius:999px;padding:2px 9px;margin-left:10px;vertical-align:middle;">Upcoming, not built yet</span></h2>
+  <h2>Stage 8: Launch<span style="display:inline-block;font-size:.62rem;font-weight:800;letter-spacing:.06em;text-transform:uppercase;background:#f1f5f9;color:#475569;border-radius:999px;padding:2px 9px;margin-left:10px;vertical-align:middle;">Upcoming, not built yet</span></h2>
   <p class="sp-desc">Not built yet. The point where it goes out the door for real, past the small circle of early users.</p>
 </div>
 
@@ -1595,7 +1596,7 @@ This phase pointed the next stretch of product work at activation, the real leak
 <section class="chapter" id="ch9">
 <div class="superphase">
   <div class="sp-bar" style="background:var(--sp8)"></div>
-  <h2>9. Post-launch<span style="display:inline-block;font-size:.62rem;font-weight:800;letter-spacing:.06em;text-transform:uppercase;background:#f1f5f9;color:#475569;border-radius:999px;padding:2px 9px;margin-left:10px;vertical-align:middle;">Upcoming, not built yet</span></h2>
+  <h2>Stage 9: Post-launch<span style="display:inline-block;font-size:.62rem;font-weight:800;letter-spacing:.06em;text-transform:uppercase;background:#f1f5f9;color:#475569;border-radius:999px;padding:2px 9px;margin-left:10px;vertical-align:middle;">Upcoming, not built yet</span></h2>
   <p class="sp-desc">Not built yet either. Keep it live, grow it, and watch real data flow in. One piece that used to sit here as a plan, interview practice, graduated into the Beta stage and is being built now.</p>
 </div>
 
