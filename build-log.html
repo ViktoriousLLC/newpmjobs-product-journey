@@ -317,7 +317,9 @@ body.chapters-on .chapter:not(.active) { display: none; }
 /* ===== journey-page topbar (retheme) ===== */
 .topbar { position: sticky; top: 0; z-index: 50; background: rgba(255,255,255,.96); backdrop-filter: blur(8px); border-bottom: 1px solid var(--border); }
 .topbar .in { max-width: 1500px; margin: 0 auto; display: flex; align-items: center; gap: 8px; padding: 11px 48px; }
-.topbar .brand { font-weight: 800; font-size: 1rem; margin-right: auto; color: var(--ink); white-space: nowrap; }
+.topbar .brand { margin-right: 10px; display: inline-flex; }
+.topbar .bm { width: 32px; height: 32px; border-radius: 9px; background: linear-gradient(135deg,#2d8eec,#4b78ef); color: #fff; font-weight: 800; font-size: .88rem; display: flex; align-items: center; justify-content: center; }
+.topbar .bt { font-weight: 700; font-size: .95rem; color: var(--ink); margin-right: auto; white-space: nowrap; }
 .topbar .brand span { color: var(--muted); font-weight: 600; }
 .topbar a { font-size: .86rem; font-weight: 650; color: #2a2f40; text-decoration: none; padding: 7px 13px; border-radius: 999px; border: 1px solid var(--border); background: #fff; white-space: nowrap; }
 .topbar a:hover { border-color: var(--accent); color: var(--accent); }
@@ -327,12 +329,45 @@ body.chapters-on .chapter:not(.active) { display: none; }
 @media (max-width: 900px) { .topbar .in { padding: 10px 18px; overflow-x: auto; } .topbar .brand span { display: none; } }
 .chapter-nav { display: none !important; }
 [id] { scroll-margin-top: 72px; }
+
+/* ===== stage cards + responsive nav (restructure) ===== */
+.layout { max-width: 1190px; margin: 0 auto; display: grid; grid-template-columns: 280px minmax(0, 830px); gap: 22px; align-items: start; padding: 0 14px; }
+.wrap { margin: 0; }
+.side { position: sticky; top: 66px; max-height: calc(100vh - 80px); overflow-y: auto; background: #fff; border: 1px solid var(--border); border-radius: 14px; padding: 14px 12px; margin-top: 26px; font-size: .84rem; }
+.side-t { font-size: .68rem; font-weight: 800; letter-spacing: .09em; text-transform: uppercase; color: var(--muted); margin: 2px 6px 6px; }
+.side-st { display: flex; align-items: center; gap: 8px; padding: 5px 8px; border-radius: 8px; font-weight: 700; color: #2a2f40; text-decoration: none; border: 0; }
+.side-st:hover { background: #eef2fb; }
+.side-st .dot { width: 9px; height: 9px; border-radius: 99px; background: var(--c); flex: 0 0 9px; }
+.side-ph { display: block; padding: 2px 8px 2px 25px; font-size: .74rem; color: var(--muted); text-decoration: none; border: 0; line-height: 1.35; }
+.side-ph:hover { color: var(--accent); }
+.pills { position: sticky; top: 58px; z-index: 40; display: none; gap: 8px; padding: 9px 16px; background: rgba(255,255,255,.97); border-bottom: 1px solid var(--border); overflow-x: auto; }
+.pill { display: flex; align-items: center; gap: 6px; font-size: .78rem; font-weight: 700; border: 1px solid var(--border); border-radius: 999px; padding: 4px 11px 4px 5px; background: #fff; white-space: nowrap; color: #2a2f40; text-decoration: none; }
+.pill .n { width: 19px; height: 19px; border-radius: 99px; background: var(--c); color: #fff; font-size: .66rem; font-weight: 800; display: flex; align-items: center; justify-content: center; }
+details.stage { border: 1px solid var(--border); border-left: 6px solid var(--c); border-radius: 14px; background: #fff; margin: 1.4em 0; overflow: hidden; }
+details.stage > summary { list-style: none; cursor: pointer; display: flex; align-items: center; gap: 13px; padding: 15px 20px; background: color-mix(in srgb, var(--c) 7%, #fff); }
+details.stage > summary::-webkit-details-marker { display: none; }
+.sg-n { width: 32px; height: 32px; border-radius: 99px; background: var(--c); color: #fff; font-weight: 800; display: flex; align-items: center; justify-content: center; flex: 0 0 32px; }
+.sg-t { min-width: 0; }
+.sg-nm { display: block; font-weight: 800; font-size: 1.08rem; }
+.sg-d { display: block; font-size: .84rem; color: var(--muted); }
+.sg-ct { margin-left: auto; font-size: .76rem; color: var(--muted); white-space: nowrap; }
+.sg-chev { color: var(--muted); font-weight: 800; font-size: 1.1rem; transition: transform .15s; }
+details.stage[open] > .sg-chev, details.stage[open] > summary .sg-chev { transform: rotate(90deg); }
+.stage-body { padding: 4px 20px 14px; }
+.stage-body section.phase { border-left-width: 4px; }
+.xall { text-align: right; font-size: .85rem; margin: -1em 0 0; }
+.xall a { border: 0; }
+@media (max-width: 1000px) {
+  .layout { display: block; padding: 0; }
+  .side { display: none; }
+  .pills { display: flex; }
+}
 </style>
 </head>
 <body>
 <nav class="topbar">
 <div class="in">
-  <span class="brand">NewPMJobs.com <span>&middot; The Full Build Log</span></span>
+  <span class="brand" title="NewPMJobs.com"><span class="bm">PM</span></span><span class="bt">The Full Build Log</span>
   <a href="index.html">Journey page</a>
   <a href="#ch1">The Stages</a>
   <a class="cta" href="#concepts">Concepts Learned</a>
@@ -341,23 +376,96 @@ body.chapters-on .chapter:not(.active) { display: none; }
 </nav>
 
 
+<div class="pills" aria-label="Stage navigation">
+<a class="pill" style="--c:var(--sp1)" href="#ch1"><span class="n">1</span>Concept</a>
+<a class="pill" style="--c:var(--sp2)" href="#ch2"><span class="n">2</span>Prototype</a>
+<a class="pill" style="--c:var(--sp3)" href="#ch3"><span class="n">3</span>MVP</a>
+<a class="pill" style="--c:var(--sp4)" href="#ch4"><span class="n">4</span>Alpha</a>
+<a class="pill" style="--c:var(--sp5)" href="#ch5"><span class="n">5</span>Hardening</a>
+<a class="pill" style="--c:var(--sp9)" href="#ch6"><span class="n">6</span>Beta</a>
+<a class="pill" style="--c:var(--sp6)" href="#ch7"><span class="n">7</span>Pre-production</a>
+<a class="pill" style="--c:var(--sp7)" href="#ch8"><span class="n">8</span>Launch</a>
+<a class="pill" style="--c:var(--sp8)" href="#ch9"><span class="n">9</span>Post-launch</a>
+<a class="pill" style="--c:#64748b" href="#concepts"><span class="n">&#9733;</span>Concepts</a>
+</div>
+<div class="layout">
+<aside class="side" aria-label="Stage navigation">
+<div class="side-t">The Stages</div>
+<a class="side-st" style="--c:var(--sp1)" href="#ch1"><span class="dot"></span>Stage 1: Concept</a>
+<a class="side-ph" href="#p1">Phase 1: The Localhost MVP</a>
+<a class="side-st" style="--c:var(--sp2)" href="#ch2"><span class="dot"></span>Stage 2: Prototype</a>
+<a class="side-ph" href="#p2">Phase 2: Going Live</a>
+<a class="side-st" style="--c:var(--sp3)" href="#ch3"><span class="dot"></span>Stage 3: MVP</a>
+<a class="side-ph" href="#p3">Phase 3: Covering The Companies I Actually Care About</a>
+<a class="side-ph" href="#p4">Phase 4: Turning It Into A Real Product Other People Can Use</a>
+<a class="side-ph" href="#p5">Phase 5: A Safe Way To Add A Company</a>
+<a class="side-ph" href="#p6">Phase 6: Showing What These Roles Actually Pay</a>
+<a class="side-ph" href="#p8">Phase 8: Making It Load Fast</a>
+<a class="side-st" style="--c:var(--sp4)" href="#ch4"><span class="dot"></span>Stage 4: Alpha</a>
+<a class="side-ph" href="#p7">Phase 7: The Landing Page</a>
+<a class="side-ph" href="#p9">Phase 9: Getting Safe For Real Users</a>
+<a class="side-ph" href="#p10">Phase 10: Getting Every Email Delivered</a>
+<a class="side-ph" href="#p11">Phase 11: Knowing The Moment Something Breaks</a>
+<a class="side-ph" href="#p14">Phase 14: Building With AI Tools</a>
+<a class="side-st" style="--c:var(--sp5)" href="#ch5"><span class="dot"></span>Stage 5: Hardening</a>
+<a class="side-ph" href="#p12">Phase 12: Making The Daily Run Dependable</a>
+<a class="side-ph" href="#p13">Phase 13: Keeping It Fast As The Data Grew</a>
+<a class="side-ph" href="#p15">Phase 15: Scrapers That Fix Themselves</a>
+<a class="side-ph" href="#p16">Phase 16: Stopping Bad Data At The Source</a>
+<a class="side-ph" href="#p17">Phase 17: Dropping The Fragile Browser</a>
+<a class="side-ph" href="#p18">Phase 18: A Recovery System, Not A One-Off Patch</a>
+<a class="side-ph" href="#p19">Phase 19: Less Noise, Tighter Security</a>
+<a class="side-ph" href="#p20">Phase 20: A Team Of Specialized AI Helpers</a>
+<a class="side-ph" href="#p21">Phase 21: Catching The Silent Zeros</a>
+<a class="side-ph" href="#p25">Phase 25: The Auth Incident</a>
+<a class="side-ph" href="#p26">Phase 26: Letting The System Decide For Itself</a>
+<a class="side-ph" href="#p29">Phase 29: Auditing The Whole System Before A Major Expansion</a>
+<a class="side-ph" href="#p31">Phase 31: The Night The Daily Job Died Silently</a>
+<a class="side-ph" href="#p33">Phase 33: Three Models Review Every Change</a>
+<a class="side-ph" href="#p34">Phase 34: When The System Watches Itself</a>
+<a class="side-ph" href="#p38">Phase 38: I Outgrew The Staging Branch I Was So Proud Of</a>
+<a class="side-ph" href="#p39">Phase 39: A User Never Got His Login Email, So I Built A Second Front Door</a>
+<a class="side-ph" href="#p40">Phase 40: Then I Made The Second Door The Main One</a>
+<a class="side-ph" href="#p42">Phase 42: "Unable To Log In," And A Quarter Of Sign-Ins Were Quietly Failing</a>
+<a class="side-ph" href="#p46">Phase 46: The Daily Job Got Its Own Home</a>
+<a class="side-ph" href="#p47">Phase 47: The Scrapers Learned To Fix Themselves, And I Replayed My Six Worst Incidents To Prove It</a>
+<a class="side-st" style="--c:var(--sp9)" href="#ch6"><span class="dot"></span>Stage 6: Beta</a>
+<a class="side-ph" href="#p35">Phase 35: The Mock Interview Wasn't Reading My Prep, So I Made It</a>
+<a class="side-ph" href="#p36">Phase 36: I Gave The Interviewer A Face</a>
+<a class="side-ph" href="#p37">Phase 37: The Prep Lived In One Browser Tab, So I Built It A Home</a>
+<a class="side-ph" href="#p41">Phase 41: I Came Back With 28 Complaints, And Found Four Problems</a>
+<a class="side-ph" href="#p43">Phase 43: The First Paid Beta</a>
+<a class="side-ph" href="#p48">Phase 48: The Coach Got A Feedback Loop</a>
+<a class="side-st" style="--c:var(--sp6)" href="#ch7"><span class="dot"></span>Stage 7: Pre-production</a>
+<a class="side-ph" href="#p22">Phase 22: Growing The Catalog The Right Way</a>
+<a class="side-ph" href="#p23">Phase 23: A Job-First Feed</a>
+<a class="side-ph" href="#p24">Phase 24: Turning The Data Into Content</a>
+<a class="side-ph" href="#p28">Phase 28: The Weekly Post Writes Itself, In My Voice</a>
+<a class="side-ph" href="#p30">Phase 30: Doubling The Catalog And Making "Add" Actually Work</a>
+<a class="side-ph" href="#p32">Phase 32: Seeing The Funnel, And Catching Myself Guessing</a>
+<a class="side-ph" href="#p44">Phase 44: I Measured The Filter I'd Been Trusting Blind, Then Grew The Catalog A Hundred Companies In A Night</a>
+<a class="side-ph" href="#p45">Phase 45: The Real Ceiling Was The Daily Scrape, Not The Catalog</a>
+<a class="side-st" style="--c:var(--sp7)" href="#ch8"><span class="dot"></span>Stage 8: Launch</a>
+
+<a class="side-st" style="--c:var(--sp8)" href="#ch9"><span class="dot"></span>Stage 9: Post-launch</a>
+<a class="side-ph" href="#p27">Phase 27: A Planned Next Step</a>
+<div class="side-t" style="margin-top:14px;">Reference</div>
+<a class="side-st" style="--c:#64748b" href="#concepts"><span class="dot"></span>Concepts Learned</a>
+</aside>
 <main class="wrap">
 
 <section class="chapter active" id="ch0">
 <h1>The Full Build Log</h1>
 <p class="subtitle">All 48 phases of NewPMJobs.com, in detail: every decision, every bug, every fix. The short version lives on <a href="index.html">the journey page</a>, and the <a href="#concepts">Summary of Concepts Learned</a> is at the end of this page.</p>
+<p class="xall"><a href="#" id="xall">Expand all stages</a></p>
 </section>
 <!-- /chapter ch0 -->
 
 <!-- ============ STAGE 1: Concept ============ -->
 <section class="chapter" id="ch1">
-<div class="superphase">
-  <div class="sp-bar" style="background:var(--sp1)"></div>
-  <h2>Stage 1: Concept</h2>
-  <p class="sp-desc">You do not know the tool yet, so you poke at it. I wrote the smallest script that could answer one question: are there new PM roles today? It ran on my laptop, and it worked.</p>
-</div>
-
-
+<details class="stage" open style="--c:var(--sp1)">
+<summary><span class="sg-n">1</span><span class="sg-t"><span class="sg-nm">Concept </span><span class="sg-d">You do not know the tool yet, so you poke at it. I wrote the smallest script that could answer one question: are there new PM roles today? It ran on my laptop, and it worked.</span></span><span class="sg-ct">1 phase</span><span class="sg-chev">&#8250;</span></summary>
+<div class="stage-body">
 <section class="phase sp-color-1">
 <h2 id="p1">Phase 1: The Localhost MVP</h2>
 <p><strong>Goal:</strong> Stop manually checking career pages every morning.</p>
@@ -389,19 +497,16 @@ Finding Greenhouse's structured feed on day one is the decision the next thirty 
   <button type="button" class="cn-prev" data-go="ch0"><span class="cn-dir">Previous</span>Overview</button>
   <button type="button" class="cn-next" data-go="ch2"><span class="cn-dir">Next chapter</span>2. Prototype</button>
 </div>
-
+</div>
+</details>
 </section>
 <!-- /chapter ch1 -->
 
 <!-- ============ STAGE 2: Prototype ============ -->
 <section class="chapter" id="ch2">
-<div class="superphase">
-  <div class="sp-bar" style="background:var(--sp2)"></div>
-  <h2>Stage 2: Prototype</h2>
-  <p class="sp-desc">Stitch the stack together and get off localhost. Railway for the backend, Vercel for the frontend, a real domain, a cron that runs every morning. Thin, but something I could actually push to and pull from anywhere.</p>
-</div>
-
-
+<details class="stage" style="--c:var(--sp2)">
+<summary><span class="sg-n">2</span><span class="sg-t"><span class="sg-nm">Prototype </span><span class="sg-d">Stitch the stack together and get off localhost. Railway for the backend, Vercel for the frontend, a real domain, a cron that runs every morning. Thin, but something I could actually push to and pull from anywhere.</span></span><span class="sg-ct">1 phase</span><span class="sg-chev">&#8250;</span></summary>
+<div class="stage-body">
 <section class="phase sp-color-2">
 <h2 id="p2">Phase 2: Going Live</h2>
 <p><strong>Goal:</strong> Access the tool from anywhere, not just my laptop.</p>
@@ -424,19 +529,16 @@ Finding Greenhouse's structured feed on day one is the decision the next thirty 
   <button type="button" class="cn-prev" data-go="ch1"><span class="cn-dir">Previous</span>1. Concept</button>
   <button type="button" class="cn-next" data-go="ch3"><span class="cn-dir">Next chapter</span>3. MVP</button>
 </div>
-
+</div>
+</details>
 </section>
 <!-- /chapter ch2 -->
 
 <!-- ============ STAGE 3: MVP ============ -->
 <section class="chapter" id="ch3">
-<div class="superphase">
-  <div class="sp-bar" style="background:var(--sp3)"></div>
-  <h2>Stage 3: MVP</h2>
-  <p class="sp-desc">The real features land: scrapers across seven platforms, login, salary data, more companies, a page that loads fast. The first gut-check too, a couple of friends looking at it and asking the only question that matters, does this even make sense?</p>
-</div>
-
-
+<details class="stage" style="--c:var(--sp3)">
+<summary><span class="sg-n">3</span><span class="sg-t"><span class="sg-nm">MVP </span><span class="sg-d">The real features land: scrapers across seven platforms, login, salary data, more companies, a page that loads fast. The first gut-check too, a couple of friends looking at it and asking the only question that matters, does this even make sense?</span></span><span class="sg-ct">5 phases</span><span class="sg-chev">&#8250;</span></summary>
+<div class="stage-body">
 <section class="phase sp-color-2">
 <h2 id="p3">Phase 3: Covering The Companies I Actually Care About</h2>
 <p class="phase-sub">expanding scraper coverage</p>
@@ -607,19 +709,16 @@ This is the hinge of the whole project. It is the moment the tool stopped being 
   <button type="button" class="cn-prev" data-go="ch2"><span class="cn-dir">Previous</span>2. Prototype</button>
   <button type="button" class="cn-next" data-go="ch4"><span class="cn-dir">Next chapter</span>4. Alpha</button>
 </div>
-
+</div>
+</details>
 </section>
 <!-- /chapter ch3 -->
 
 <!-- ============ STAGE 4: Alpha ============ -->
 <section class="chapter" id="ch4">
-<div class="superphase">
-  <div class="sp-bar" style="background:var(--sp4)"></div>
-  <h2>Stage 4: Alpha</h2>
-  <p class="sp-desc">The first small open rollout to strangers, 10 to 20 people I did not know. A LinkedIn post, a landing page, a security pass before I shared the link, the first daily emails and the monitoring to know the moment something broke. They told me how it breaks.</p>
-</div>
-
-
+<details class="stage" style="--c:var(--sp4)">
+<summary><span class="sg-n">4</span><span class="sg-t"><span class="sg-nm">Alpha </span><span class="sg-d">The first small open rollout to strangers, 10 to 20 people I did not know. A LinkedIn post, a landing page, a security pass before I shared the link, the first daily emails and the monitoring to know the moment something broke. They told me how it breaks.</span></span><span class="sg-ct">5 phases</span><span class="sg-chev">&#8250;</span></summary>
+<div class="stage-body">
 <section class="phase sp-color-3">
 <h2 id="p7">Phase 7: The Landing Page</h2>
 <p><strong>Goal:</strong> Explain the product to strangers who land on the homepage.</p>
@@ -756,19 +855,16 @@ This is what made "share the link" a safe move instead of a gamble. It also set 
   <button type="button" class="cn-prev" data-go="ch3"><span class="cn-dir">Previous</span>3. MVP</button>
   <button type="button" class="cn-next" data-go="ch5"><span class="cn-dir">Next chapter</span>5. Hardening</button>
 </div>
-
+</div>
+</details>
 </section>
 <!-- /chapter ch4 -->
 
 <!-- ============ STAGE 5: Hardening ============ -->
 <section class="chapter" id="ch5">
-<div class="superphase">
-  <div class="sp-bar" style="background:var(--sp5)"></div>
-  <h2>Stage 5: Hardening<span style="display:inline-block;font-size:.62rem;font-weight:800;letter-spacing:.06em;text-transform:uppercase;background:#dcfce7;color:#047a4e;border-radius:999px;padding:2px 9px;margin-left:10px;vertical-align:middle;">Done</span></h2>
-  <p class="sp-desc">This is where I am now. Security audits, scaling, the silent failures, the self-healing scrapers, the deploy gate, the night the daily job died. The thin vertical slice from the MVP gets sturdy and deep, so I can trust it with real users.</p>
-</div>
-
-
+<details class="stage" style="--c:var(--sp5)">
+<summary><span class="sg-n">5</span><span class="sg-t"><span class="sg-nm">Hardening <span style="display:inline-block;font-size:.62rem;font-weight:800;letter-spacing:.06em;text-transform:uppercase;background:#dcfce7;color:#047a4e;border-radius:999px;padding:2px 9px;margin-left:10px;vertical-align:middle;">Done</span></span><span class="sg-d">This is where I am now. Security audits, scaling, the silent failures, the self-healing scrapers, the deploy gate, the night the daily job died. The thin vertical slice from the MVP gets sturdy and deep, so I can trust it with real users.</span></span><span class="sg-ct">21 phases</span><span class="sg-chev">&#8250;</span></summary>
+<div class="stage-body">
 <section class="phase sp-color-4">
 <h2 id="p12">Phase 12: Making The Daily Run Dependable</h2>
 <p class="phase-sub">cron reliability and operations</p>
@@ -1269,18 +1365,16 @@ The two holes the outside model found are textbook trust boundaries the author m
   <button type="button" class="cn-prev" data-go="ch4"><span class="cn-dir">Previous</span>4. Alpha</button>
   <button type="button" class="cn-next" data-go="ch6"><span class="cn-dir">Next chapter</span>6. Beta</button>
 </div>
-
+</div>
+</details>
 </section>
 <!-- /chapter ch5 -->
 
 <!-- ============ STAGE 6: Beta ============ -->
 <section class="chapter" id="ch6">
-<div class="superphase">
-  <div class="sp-bar" style="background:var(--sp9)"></div>
-  <h2>Stage 6: Beta<span style="display:inline-block;font-size:.62rem;font-weight:800;letter-spacing:.06em;text-transform:uppercase;background:#ede9fe;color:#6d28d9;border-radius:999px;padding:2px 9px;margin-left:10px;vertical-align:middle;">In beta</span></h2>
-  <p class="sp-desc">In progress, and it grew into the next bet. Finding the job is half the battle; the interview that follows is the other half. So the beta stage became an AI interview coach for the same audience: a voice interviewer, then a video one with a face, then a home for your prep, and finally a tiny invite-only paid beta with real testers.</p>
-</div>
-
+<details class="stage" style="--c:var(--sp9)">
+<summary><span class="sg-n">6</span><span class="sg-t"><span class="sg-nm">Beta <span style="display:inline-block;font-size:.62rem;font-weight:800;letter-spacing:.06em;text-transform:uppercase;background:#ede9fe;color:#6d28d9;border-radius:999px;padding:2px 9px;margin-left:10px;vertical-align:middle;">In beta</span></span><span class="sg-d">In progress, and it grew into the next bet. Finding the job is half the battle; the interview that follows is the other half. So the beta stage became an AI interview coach for the same audience: a voice interviewer, then a video one with a face, then a home for your prep, and finally a tiny invite-only paid beta with real testers.</span></span><span class="sg-ct">6 phases</span><span class="sg-chev">&#8250;</span></summary>
+<div class="stage-body">
 <div class="phase sp-color-9">
 <p class="phase-sub">why this stage looks different</p>
 <p>An earlier version of this page held a two-line promise here: an AI interview-practice feature is planned. That plan is now real, and this is its story. I built it the same way I built the job board: dogfood it hard, let the failures write the roadmap, and don't charge anyone a dollar until the thing would survive a stranger. It is still a beta on purpose. Every session costs real money to run, so the door opens one invite at a time.</p>
@@ -1365,19 +1459,16 @@ The two holes the outside model found are textbook trust boundaries the author m
   <button type="button" class="cn-prev" data-go="ch5"><span class="cn-dir">Previous</span>5. Hardening</button>
   <button type="button" class="cn-next" data-go="ch7"><span class="cn-dir">Next chapter</span>7. Pre-production</button>
 </div>
-
+</div>
+</details>
 </section>
 <!-- /chapter ch6 -->
 
 <!-- ============ STAGE 7: Pre-production ============ -->
 <section class="chapter" id="ch7">
-<div class="superphase">
-  <div class="sp-bar" style="background:var(--sp6)"></div>
-  <h2>Stage 7: Pre-production<span style="display:inline-block;font-size:.62rem;font-weight:800;letter-spacing:.06em;text-transform:uppercase;background:#fee2e2;color:#b42318;border-radius:999px;padding:2px 9px;margin-left:10px;vertical-align:middle;">In progress</span></h2>
-  <p class="sp-desc">In progress. This is where the catalog grew broad, the job-first feed landed, the data started writing its own weekly content, and analytics began working end to end, the technical dashboards and the user-facing side both. The product should make sense start to finish, not just function. Still in progress: mobile and UI polish are the work ahead.</p>
-</div>
-
-
+<details class="stage" style="--c:var(--sp6)">
+<summary><span class="sg-n">7</span><span class="sg-t"><span class="sg-nm">Pre-production <span style="display:inline-block;font-size:.62rem;font-weight:800;letter-spacing:.06em;text-transform:uppercase;background:#fee2e2;color:#b42318;border-radius:999px;padding:2px 9px;margin-left:10px;vertical-align:middle;">In progress</span></span><span class="sg-d">In progress. This is where the catalog grew broad, the job-first feed landed, the data started writing its own weekly content, and analytics began working end to end, the technical dashboards and the user-facing side both. The product should make sense start to finish, not just function. Still in progress: mobile and UI polish are the work ahead.</span></span><span class="sg-ct">8 phases</span><span class="sg-chev">&#8250;</span></summary>
+<div class="stage-body">
 <section class="phase sp-color-6">
 <h2 id="p22">Phase 22: Growing The Catalog The Right Way</h2>
 <p class="phase-sub">targeted catalog growth after the Common Crawl detour</p>
@@ -1565,19 +1656,16 @@ This phase pointed the next stretch of product work at activation, the real leak
   <button type="button" class="cn-prev" data-go="ch6"><span class="cn-dir">Previous</span>6. Beta</button>
   <button type="button" class="cn-next" data-go="ch8"><span class="cn-dir">Next chapter</span>8. Launch</button>
 </div>
-
+</div>
+</details>
 </section>
 <!-- /chapter ch7 -->
 
 <!-- ============ STAGE 8: Launch ============ -->
 <section class="chapter" id="ch8">
-<div class="superphase">
-  <div class="sp-bar" style="background:var(--sp7)"></div>
-  <h2>Stage 8: Launch<span style="display:inline-block;font-size:.62rem;font-weight:800;letter-spacing:.06em;text-transform:uppercase;background:#f1f5f9;color:#475569;border-radius:999px;padding:2px 9px;margin-left:10px;vertical-align:middle;">Upcoming, not built yet</span></h2>
-  <p class="sp-desc">Not built yet. The point where it goes out the door for real, past the small circle of early users.</p>
-</div>
-
-
+<details class="stage" style="--c:var(--sp7)">
+<summary><span class="sg-n">8</span><span class="sg-t"><span class="sg-nm">Launch <span style="display:inline-block;font-size:.62rem;font-weight:800;letter-spacing:.06em;text-transform:uppercase;background:#f1f5f9;color:#475569;border-radius:999px;padding:2px 9px;margin-left:10px;vertical-align:middle;">Upcoming, not built yet</span></span><span class="sg-d">Not built yet. The point where it goes out the door for real, past the small circle of early users.</span></span><span class="sg-ct"></span><span class="sg-chev">&#8250;</span></summary>
+<div class="stage-body">
 <div class="phase sp-color-7">
 <p class="phase-sub">upcoming, not built yet</p>
 <p><strong>What is coming:</strong> the real launch. Today the product serves a small circle of early users I rolled out to by hand. Launch is the step where it goes out the door past that circle, with the hardening, beta and pre-production work behind it.</p>
@@ -1588,19 +1676,16 @@ This phase pointed the next stretch of product work at activation, the real leak
   <button type="button" class="cn-prev" data-go="ch7"><span class="cn-dir">Previous</span>7. Pre-production</button>
   <button type="button" class="cn-next" data-go="ch9"><span class="cn-dir">Next chapter</span>9. Post-launch</button>
 </div>
-
+</div>
+</details>
 </section>
 <!-- /chapter ch8 -->
 
 <!-- ============ STAGE 9: Post-launch ============ -->
 <section class="chapter" id="ch9">
-<div class="superphase">
-  <div class="sp-bar" style="background:var(--sp8)"></div>
-  <h2>Stage 9: Post-launch<span style="display:inline-block;font-size:.62rem;font-weight:800;letter-spacing:.06em;text-transform:uppercase;background:#f1f5f9;color:#475569;border-radius:999px;padding:2px 9px;margin-left:10px;vertical-align:middle;">Upcoming, not built yet</span></h2>
-  <p class="sp-desc">Not built yet either. Keep it live, grow it, and watch real data flow in. One piece that used to sit here as a plan, interview practice, graduated into the Beta stage and is being built now.</p>
-</div>
-
-
+<details class="stage" style="--c:var(--sp8)">
+<summary><span class="sg-n">9</span><span class="sg-t"><span class="sg-nm">Post-launch <span style="display:inline-block;font-size:.62rem;font-weight:800;letter-spacing:.06em;text-transform:uppercase;background:#f1f5f9;color:#475569;border-radius:999px;padding:2px 9px;margin-left:10px;vertical-align:middle;">Upcoming, not built yet</span></span><span class="sg-d">Not built yet either. Keep it live, grow it, and watch real data flow in. One piece that used to sit here as a plan, interview practice, graduated into the Beta stage and is being built now.</span></span><span class="sg-ct">1 phase</span><span class="sg-chev">&#8250;</span></summary>
+<div class="stage-body">
 <section class="phase sp-color-6">
 <h2 id="p27">Phase 27: A Planned Next Step</h2>
 <p class="phase-sub">the plan that came true</p>
@@ -1611,7 +1696,8 @@ This phase pointed the next stretch of product work at activation, the real leak
   <button type="button" class="cn-prev" data-go="ch8"><span class="cn-dir">Previous</span>8. Launch</button>
   <button type="button" class="cn-next" disabled></button>
 </div>
-
+</div>
+</details>
 </section>
 <!-- /chapter ch9 -->
 
@@ -1677,6 +1763,29 @@ This phase pointed the next stretch of product work at activation, the real leak
 </div>
 
 </main>
+</div>
 
+<script>
+(function () {
+  var all = false;
+  var xall = document.getElementById('xall');
+  if (xall) xall.addEventListener('click', function (e) {
+    e.preventDefault();
+    all = !all;
+    document.querySelectorAll('details.stage').forEach(function (d) { d.open = all; });
+    xall.textContent = all ? 'Collapse all stages' : 'Expand all stages';
+  });
+  function openFor(hash) {
+    if (!hash || hash.length < 2) return;
+    var el = document.getElementById(hash.slice(1));
+    if (!el) return;
+    var d = el.closest('details') || el.querySelector('details');
+    if (d) d.open = true;
+    setTimeout(function () { el.scrollIntoView(); }, 0);
+  }
+  window.addEventListener('hashchange', function () { openFor(location.hash); });
+  if (location.hash) openFor(location.hash);
+})();
+</script>
 </body>
 </html>
