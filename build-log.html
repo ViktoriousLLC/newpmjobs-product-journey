@@ -328,7 +328,7 @@ body.chapters-on .chapter:not(.active) { display: none; }
 .spectrum span { flex: 1; }
 @media (max-width: 900px) { .topbar .in { padding: 10px 18px; overflow-x: auto; } .topbar .brand span { display: none; } }
 .chapter-nav { display: none !important; }
-[id] { scroll-margin-top: 72px; }
+[id] { scroll-margin-top: 118px; }
 
 /* ===== stage cards + responsive nav (restructure) ===== */
 .layout { max-width: 1190px; margin: 0 auto; display: grid; grid-template-columns: 280px minmax(0, 830px); gap: 22px; align-items: start; padding: 0 14px; }
@@ -340,7 +340,7 @@ body.chapters-on .chapter:not(.active) { display: none; }
 .side-st .dot { width: 9px; height: 9px; border-radius: 99px; background: var(--c); flex: 0 0 9px; }
 .side-ph { display: block; padding: 2px 8px 2px 25px; font-size: .74rem; color: var(--muted); text-decoration: none; border: 0; line-height: 1.35; }
 .side-ph:hover { color: var(--accent); }
-.pills { position: sticky; top: 58px; z-index: 40; display: none; gap: 8px; padding: 9px 16px; background: rgba(255,255,255,.97); border-bottom: 1px solid var(--border); overflow-x: auto; }
+.pills { position: sticky; top: 58px; z-index: 40; display: flex; gap: 8px; padding: 9px 16px; background: rgba(255,255,255,.97); border-bottom: 1px solid var(--border); overflow-x: auto; }
 .pill { display: flex; align-items: center; gap: 6px; font-size: .78rem; font-weight: 700; border: 1px solid var(--border); border-radius: 999px; padding: 4px 11px 4px 5px; background: #fff; white-space: nowrap; color: #2a2f40; text-decoration: none; }
 .pill .n { width: 19px; height: 19px; border-radius: 99px; background: var(--c); color: #fff; font-size: .66rem; font-weight: 800; display: flex; align-items: center; justify-content: center; }
 details.stage { border: 1px solid var(--border); border-left: 6px solid var(--c); border-radius: 14px; background: #fff; margin: 1.4em 0; overflow: hidden; }
@@ -362,14 +362,22 @@ details.stage[open] > .sg-chev, details.stage[open] > summary .sg-chev { transfo
   .side { display: none; }
   .pills { display: flex; }
 }
+
+.pfold > summary { list-style: none; cursor: pointer; display: flex; align-items: center; gap: 10px; }
+.pfold > summary::-webkit-details-marker { display: none; }
+.pfold > summary h2 { margin: .4em 0; padding-top: 0; border-top: 0; font-size: 1.25rem; flex: 1; }
+.pf-chev { color: var(--muted); font-weight: 800; font-size: 1.2rem; transition: transform .15s; }
+.pfold[open] > summary .pf-chev { transform: rotate(90deg); }
+.pfold-bd { padding-bottom: .5em; }
+section.phase { padding: 2px 16px; }
 </style>
 </head>
 <body>
 <nav class="topbar">
 <div class="in">
-  <span class="brand" title="NewPMJobs.com"><span class="bm">PM</span></span><span class="bt">The Full Build Log</span>
-  <a href="index.html">Journey page</a>
-  <a href="#ch1">The Stages</a>
+  <span class="brand" title="NewPMJobs.com"><span class="bm">PM</span></span>
+  <a href="index.html">Home &middot; Product Journey</a>
+  <a href="#ch1">Stages</a>
   <a class="cta" href="#concepts">Concepts Learned</a>
 </div>
 <div class="spectrum"><span style="background:var(--sp1)"></span><span style="background:var(--sp2)"></span><span style="background:var(--sp3)"></span><span style="background:var(--sp4)"></span><span style="background:var(--sp5)"></span><span style="background:var(--sp9)"></span><span style="background:var(--sp6)"></span><span style="background:var(--sp7)"></span><span style="background:var(--sp8)"></span></div>
@@ -467,7 +475,8 @@ details.stage[open] > .sg-chev, details.stage[open] > summary .sg-chev { transfo
 <summary><span class="sg-n">1</span><span class="sg-t"><span class="sg-nm">Concept </span><span class="sg-d">You do not know the tool yet, so you poke at it. I wrote the smallest script that could answer one question: are there new PM roles today? It ran on my laptop, and it worked.</span></span><span class="sg-ct">1 phase</span><span class="sg-chev">&#8250;</span></summary>
 <div class="stage-body">
 <section class="phase sp-color-1">
-<h2 id="p1">Phase 1: The Localhost MVP</h2>
+<details class="pfold"><summary><h2 id="p1">Phase 1: The Localhost MVP</h2><span class="pf-chev">&#8250;</span></summary>
+<div class="pfold-bd">
 <p><strong>Goal:</strong> Stop manually checking career pages every morning.</p>
 <p>I was spending 30+ minutes a day visiting individual company career sites, searching for PM roles and trying to remember which listings were new. The idea was simple: write a script that does the checking for me and emails me when something new shows up.</p>
 
@@ -491,6 +500,7 @@ I could have grabbed a browser extension or a no-code scraper and skipped the ba
 Finding Greenhouse's structured feed on day one is the decision the next thirty phases inherit. Every "API first, browser only as a last resort" call later traces back to that first morning. I picked the reliable data path before I had a single user, so the architecture never had to be torn apart under load.
 </div>
 </div>
+</div></details>
 </section>
 
 <div class="chapter-nav">
@@ -508,7 +518,8 @@ Finding Greenhouse's structured feed on day one is the decision the next thirty 
 <summary><span class="sg-n">2</span><span class="sg-t"><span class="sg-nm">Prototype </span><span class="sg-d">Stitch the stack together and get off localhost. Railway for the backend, Vercel for the frontend, a real domain, a cron that runs every morning. Thin, but something I could actually push to and pull from anywhere.</span></span><span class="sg-ct">1 phase</span><span class="sg-chev">&#8250;</span></summary>
 <div class="stage-body">
 <section class="phase sp-color-2">
-<h2 id="p2">Phase 2: Going Live</h2>
+<details class="pfold"><summary><h2 id="p2">Phase 2: Going Live</h2><span class="pf-chev">&#8250;</span></summary>
+<div class="pfold-bd">
 <p><strong>Goal:</strong> Access the tool from anywhere, not just my laptop.</p>
 <p>Running on localhost meant my computer had to be on. If I was traveling or on my phone, I could not check results. The tool needed to be a real website.</p>
 
@@ -523,6 +534,7 @@ Finding Greenhouse's structured feed on day one is the decision the next thirty 
 <h3>What I Learned</h3>
 <p><strong>Deploy timing matters more than you would think.</strong> After pushing code, Railway takes about 60 seconds and Vercel about 30 seconds to deploy. I kept testing too early and seeing old behavior. Built in a habit of waiting 90+ seconds after every push before verifying.</p>
 <p><strong>Cross-origin requests with www redirects are a trap.</strong> Vercel redirects the root domain to the www subdomain. My backend only allowed the root origin, so authenticated requests from <code>www.</code> were getting blocked. The fix was to auto-detect and allow both origins from a single frontend-URL config value.</p>
+</div></details>
 </section>
 
 <div class="chapter-nav">
@@ -540,7 +552,8 @@ Finding Greenhouse's structured feed on day one is the decision the next thirty 
 <summary><span class="sg-n">3</span><span class="sg-t"><span class="sg-nm">MVP </span><span class="sg-d">The real features land: scrapers across seven platforms, login, salary data, more companies, a page that loads fast. The first gut-check too, a couple of friends looking at it and asking the only question that matters, does this even make sense?</span></span><span class="sg-ct">5 phases</span><span class="sg-chev">&#8250;</span></summary>
 <div class="stage-body">
 <section class="phase sp-color-2">
-<h2 id="p3">Phase 3: Covering The Companies I Actually Care About</h2>
+<details class="pfold"><summary><h2 id="p3">Phase 3: Covering The Companies I Actually Care About</h2><span class="pf-chev">&#8250;</span></summary>
+<div class="pfold-bd">
 <p class="phase-sub">expanding scraper coverage</p>
 <p><strong>Goal:</strong> Cover the companies I actually care about, not just the ones on Greenhouse.</p>
 <p>The MVP only worked for Greenhouse companies. But companies I wanted to track (Stripe, Google, OpenAI, Slack, Netflix) used different ATS platforms or entirely custom career pages.</p>
@@ -582,12 +595,14 @@ The nasty cases were the companies that lie about what they are. Some host their
 Seven scraper types and a detection engine turned "add a company" from a code change into a paste-a-URL action. That is the precondition for everything downstream: the check-then-add flow, the multi-user catalog and eventually letting users add companies themselves. Coverage stopped being the thing that capped growth.
 </div>
 </div>
+</div></details>
 </section>
 
 <hr>
 
 <section class="phase sp-color-2">
-<h2 id="p4">Phase 4: Turning It Into A Real Product Other People Can Use</h2>
+<details class="pfold"><summary><h2 id="p4">Phase 4: Turning It Into A Real Product Other People Can Use</h2><span class="pf-chev">&#8250;</span></summary>
+<div class="pfold-bd">
 <p class="phase-sub">authentication and multi-user architecture</p>
 <p><strong>Goal:</strong> Let other people use the tool, not just me.</p>
 <p>The original version had no login. Every company was mine, every job was mine. To share the tool, I needed authentication, data scoping and a way for each user to track their own set of companies.</p>
@@ -625,12 +640,14 @@ Three boundary failures defined this phase, and all three were silent. The wrong
 This is the hinge of the whole project. It is the moment the tool stopped being mine and became a product other people could use. The shared-catalog call specifically is what made the daily scrape a fixed cost the rest of the journey could build on, instead of a tax that grew with every user.
 </div>
 </div>
+</div></details>
 </section>
 
 <hr>
 
 <section class="phase sp-color-3">
-<h2 id="p5">Phase 5: A Safe Way To Add A Company</h2>
+<details class="pfold"><summary><h2 id="p5">Phase 5: A Safe Way To Add A Company</h2><span class="pf-chev">&#8250;</span></summary>
+<div class="pfold-bd">
 <p class="phase-sub">the check-then-add flow</p>
 <p><strong>Goal:</strong> Do not let users add a company and get garbage results.</p>
 <p>The original "add company" flow was: paste URL, click Add and hope the scraper finds PM roles. If it did not work, the company was already in the database with zero jobs and the user had no idea why.</p>
@@ -652,12 +669,14 @@ This is the hinge of the whole project. It is the moment the tool stopped being 
 <h3>What I Learned</h3>
 <p><strong>Error recovery UX matters more than happy-path UX.</strong> Most users hit the happy path and never think about it. But when the scraper returns zero or wrong results, the user needs a clear way to understand and retry. The "retry with feedback" state turned a dead end into a recoverable flow, and the feedback gave me real data on which companies needed scraper improvements.</p>
 <p><strong>Auto-detecting company names is surprisingly hard.</strong> The same ATS uses different URL patterns. Each needs different parsing to extract a clean name. The 40+ hostname lookup table was built one company at a time as I hit new edge cases.</p>
+</div></details>
 </section>
 
 <hr>
 
 <section class="phase sp-color-3">
-<h2 id="p6">Phase 6: Showing What These Roles Actually Pay</h2>
+<details class="pfold"><summary><h2 id="p6">Phase 6: Showing What These Roles Actually Pay</h2><span class="pf-chev">&#8250;</span></summary>
+<div class="pfold-bd">
 <p class="phase-sub">compensation data integration</p>
 <p><strong>Goal:</strong> Show users what these PM roles actually pay.</p>
 <p>Job listings rarely include salary. But levels.fyi has crowdsourced compensation data for most tech companies. Showing salary ranges alongside listings makes the tool much more useful.</p>
@@ -683,12 +702,14 @@ This is the hinge of the whole project. It is the moment the tool stopped being 
 <h3>What I Learned</h3>
 <p><strong>Fire-and-forget is the right pattern for preloading.</strong> When a user adds a company, they care about seeing jobs, not comp data at that moment. Kicking off the comp fetch after the response is sent means the user does not wait, but by the time they click in, the data is cached.</p>
 <p><strong>Batched cron refreshes prevent rate limiting.</strong> Refreshing every company at once would hit rate limits. Batching a few at a time with short delays keeps requests manageable and still completes within the cron window.</p>
+</div></details>
 </section>
 
 <hr>
 
 <section class="phase sp-color-3">
-<h2 id="p8">Phase 8: Making It Load Fast</h2>
+<details class="pfold"><summary><h2 id="p8">Phase 8: Making It Load Fast</h2><span class="pf-chev">&#8250;</span></summary>
+<div class="pfold-bd">
 <p class="phase-sub">performance optimization</p>
 <p><strong>Goal:</strong> Ship a landing page that loads fast, especially on first visit.</p>
 <p>After building the landing page, Lighthouse desktop score was 49. Too much JavaScript loaded upfront: 1,500+ lines of landing code, brand-color calculations on every render and analytics blocking the main thread before first paint.</p>
@@ -703,6 +724,7 @@ This is the hinge of the whole project. It is the moment the tool stopped being 
 <p><strong>All three fixes came straight from Lighthouse diagnostics.</strong> Without measuring, I might have guessed wrong. The analytics blocking, for example, was not obvious until I looked at the Total Blocking Time breakdown.</p>
 <p><strong>There is a ceiling set by your framework.</strong> On mobile the bottleneck is the React runtime itself. No amount of code-splitting fixes that; the next step would be a larger architectural change.</p>
 <p><strong>Pre-computation is underrated.</strong> Moving brand-color math from render-time to load-time eliminated ~80 calls per render with a one-line change. Always check: is this computation the same every time? If yes, compute it once.</p>
+</div></details>
 </section>
 
 <div class="chapter-nav">
@@ -720,7 +742,8 @@ This is the hinge of the whole project. It is the moment the tool stopped being 
 <summary><span class="sg-n">4</span><span class="sg-t"><span class="sg-nm">Alpha </span><span class="sg-d">The first small open rollout to strangers, 10 to 20 people I did not know. A LinkedIn post, a landing page, a security pass before I shared the link, the first daily emails and the monitoring to know the moment something broke. They told me how it breaks.</span></span><span class="sg-ct">5 phases</span><span class="sg-chev">&#8250;</span></summary>
 <div class="stage-body">
 <section class="phase sp-color-3">
-<h2 id="p7">Phase 7: The Landing Page</h2>
+<details class="pfold"><summary><h2 id="p7">Phase 7: The Landing Page</h2><span class="pf-chev">&#8250;</span></summary>
+<div class="pfold-bd">
 <p><strong>Goal:</strong> Explain the product to strangers who land on the homepage.</p>
 <p>Up to this point, unauthenticated visitors saw a login page. No context about what the product does, who it is for, or why to sign up.</p>
 
@@ -730,12 +753,14 @@ This is the hinge of the whole project. It is the moment the tool stopped being 
 <h3>What I Learned</h3>
 <p><strong>The overlay approach avoids the riskiest refactor.</strong> Instead of restructuring the app to conditionally render different shells for authenticated vs. unauthenticated users, the landing page simply covers everything with a fixed-position, high-layer overlay. The app renders behind it, invisible. When the user logs in, the overlay disappears and the app is already there. It was a deliberate "minimize blast radius" decision.</p>
 <p><strong>Scroll detection on overlays does not use the window.</strong> Because the landing page is a fixed overlay with its own scroll, a window scroll listener does not fire. The nav transition had to listen to the overlay container's scroll instead.</p>
+</div></details>
 </section>
 
 <hr>
 
 <section class="phase sp-color-3">
-<h2 id="p9">Phase 9: Getting Safe For Real Users</h2>
+<details class="pfold"><summary><h2 id="p9">Phase 9: Getting Safe For Real Users</h2><span class="pf-chev">&#8250;</span></summary>
+<div class="pfold-bd">
 <p class="phase-sub">security hardening</p>
 <p><strong>Goal:</strong> Get the app ready for real users who are not me.</p>
 <p>Before sharing the URL publicly, I ran a security audit. Shortcuts I could get away with as the only user would not survive strangers.</p>
@@ -785,12 +810,14 @@ The scariest one was SSRF. My product is, by design, a thing that fetches whatev
 This is what made "share the link" a safe move instead of a gamble. It also set the template every later audit follows: list the things that are silently wrong, fix them in one pass, write down why. The SSRF and input-validation rules in particular became permanent rules the rest of the product is built inside.
 </div>
 </div>
+</div></details>
 </section>
 
 <hr>
 
 <section class="phase sp-color-4">
-<h2 id="p10">Phase 10: Getting Every Email Delivered</h2>
+<details class="pfold"><summary><h2 id="p10">Phase 10: Getting Every Email Delivered</h2><span class="pf-chev">&#8250;</span></summary>
+<div class="pfold-bd">
 <p class="phase-sub">email system and reliability</p>
 <p><strong>Goal:</strong> Deliver daily alerts reliably without hitting rate limits or losing emails.</p>
 
@@ -803,12 +830,14 @@ This is what made "share the link" a safe move instead of a gamble. It also set 
 <h3>What I Learned</h3>
 <p><strong>Rate limits hit before you expect them.</strong> Even with a handful of users, individual email calls exceeded the per-second limit, and some users missed alerts. Batch sending was a day-one necessity, not a scale optimization.</p>
 <p><strong>SMTP and API share the same quota.</strong> Magic link emails go through Supabase's SMTP integration; daily alerts go through the API directly. Both count against the same quota. On high-signup days, there was less room for alert emails.</p>
+</div></details>
 </section>
 
 <hr>
 
 <section class="phase sp-color-4">
-<h2 id="p11">Phase 11: Knowing The Moment Something Breaks</h2>
+<details class="pfold"><summary><h2 id="p11">Phase 11: Knowing The Moment Something Breaks</h2><span class="pf-chev">&#8250;</span></summary>
+<div class="pfold-bd">
 <p class="phase-sub">monitoring and analytics</p>
 <p><strong>Goal:</strong> Know when things break before users tell me, and understand how people use the product.</p>
 
@@ -820,12 +849,14 @@ This is what made "share the link" a safe move instead of a gamble. It also set 
 <h3>What I Learned</h3>
 <p><strong>Hash PII before sending it to analytics.</strong> The analytics tool does not need a user's actual email. A hash lets me track unique behavior without storing identifiable information in a third-party system.</p>
 <p><strong>Error capture requires discipline.</strong> Adding exception capture to 18 catch blocks was tedious but essential. Before this, errors logged silently to the console, which I had to check manually. Now any unhandled error triggers an alert.</p>
+</div></details>
 </section>
 
 <hr>
 
 <section class="phase sp-color-4">
-<h2 id="p14">Phase 14: Building With AI Tools</h2>
+<details class="pfold"><summary><h2 id="p14">Phase 14: Building With AI Tools</h2><span class="pf-chev">&#8250;</span></summary>
+<div class="pfold-bd">
 <p><strong>How I used AI throughout this project.</strong></p>
 <p>This entire product was built using AI coding tools, primarily Claude Code. Here is what that actually looked like in practice.</p>
 
@@ -849,6 +880,7 @@ This is what made "share the link" a safe move instead of a gamble. It also set 
 <h3>What I Learned</h3>
 <p><strong>The PM decisions were all mine; the AI handled the implementation.</strong> This let me move at 5 to 10x the speed of writing every line myself, but only when I was clear about what I wanted. The times I moved slowest were when I was fuzzy on direction, not when the code was complex.</p>
 <p><strong>Context management is a skill.</strong> The difference between productive and frustrating AI coding is how well you maintain context. A well-written context file is the difference between "build the check-then-add flow" and spending 30 minutes re-explaining the project every session.</p>
+</div></details>
 </section>
 
 <div class="chapter-nav">
@@ -866,7 +898,8 @@ This is what made "share the link" a safe move instead of a gamble. It also set 
 <summary><span class="sg-n">5</span><span class="sg-t"><span class="sg-nm">Hardening <span style="display:inline-block;font-size:.62rem;font-weight:800;letter-spacing:.06em;text-transform:uppercase;background:#dcfce7;color:#047a4e;border-radius:999px;padding:2px 9px;margin-left:10px;vertical-align:middle;">Done</span></span><span class="sg-d">This is where I am now. Security audits, scaling, the silent failures, the self-healing scrapers, the deploy gate, the night the daily job died. The thin vertical slice from the MVP gets sturdy and deep, so I can trust it with real users.</span></span><span class="sg-ct">21 phases</span><span class="sg-chev">&#8250;</span></summary>
 <div class="stage-body">
 <section class="phase sp-color-4">
-<h2 id="p12">Phase 12: Making The Daily Run Dependable</h2>
+<details class="pfold"><summary><h2 id="p12">Phase 12: Making The Daily Run Dependable</h2><span class="pf-chev">&#8250;</span></summary>
+<div class="pfold-bd">
 <p class="phase-sub">cron reliability and operations</p>
 <p><strong>Goal:</strong> Make sure the daily scrape actually completes, every day, without manual intervention.</p>
 
@@ -879,12 +912,14 @@ This is what made "share the link" a safe move instead of a gamble. It also set 
 <h3>What I Learned</h3>
 <p><strong>Auto-sleep infrastructure changes the rules.</strong> Railway keeps the backend running while it receives requests but sleeps after inactivity. Fire-and-forget patterns that work on always-on servers fail silently here. The cron endpoint has to hold the connection open until the work is done.</p>
 <p><strong>Duplicate runs are worse than missed runs.</strong> A missed scrape means yesterday's data. A duplicate means two processes fighting over the database, potentially creating duplicates or double emails. The overlap guard was added after I saw double emails during testing.</p>
+</div></details>
 </section>
 
 <hr>
 
 <section class="phase sp-color-4">
-<h2 id="p13">Phase 13: Keeping It Fast As The Data Grew</h2>
+<details class="pfold"><summary><h2 id="p13">Phase 13: Keeping It Fast As The Data Grew</h2><span class="pf-chev">&#8250;</span></summary>
+<div class="pfold-bd">
 <p class="phase-sub">database and query performance</p>
 <p><strong>Goal:</strong> Keep the app fast as the number of companies, jobs and users grows.</p>
 
@@ -897,12 +932,14 @@ This is what made "share the link" a safe move instead of a gamble. It also set 
 <h3>What I Learned</h3>
 <p><strong>Indexes should be added based on actual query patterns, not guesses.</strong> I added the composite index for "new jobs today" after noticing a full table scan as the job count grew. The index made it instant.</p>
 <p><strong>Local token verification is a massive win.</strong> Every authenticated call was adding 100 to 150ms for a round-trip. Verifying locally eliminated it. This is one config value that, if removed, makes every API call noticeably slower.</p>
+</div></details>
 </section>
 
 <hr>
 
 <section class="phase sp-color-4">
-<h2 id="p15">Phase 15: Scrapers That Fix Themselves</h2>
+<details class="pfold"><summary><h2 id="p15">Phase 15: Scrapers That Fix Themselves</h2><span class="pf-chev">&#8250;</span></summary>
+<div class="pfold-bd">
 <p class="phase-sub">self-healing scrapers</p>
 <p><strong>Goal:</strong> Stop scraper failures from being invisible until a user complains.</p>
 
@@ -937,12 +974,14 @@ The cleanest example was a company that moved its entire ATS from one platform t
 This is the first time the system started healing itself instead of paging me, and it set the direction for everything operational that follows. The two-tier "fixed vs. needs-attention" email became the template, and the core insight, that a silent success is more dangerous than a loud failure, becomes the spine of Phases 21, 29 and 31.
 </div>
 </div>
+</div></details>
 </section>
 
 <hr>
 
 <section class="phase sp-color-4">
-<h2 id="p16">Phase 16: Stopping Bad Data At The Source</h2>
+<details class="pfold"><summary><h2 id="p16">Phase 16: Stopping Bad Data At The Source</h2><span class="pf-chev">&#8250;</span></summary>
+<div class="pfold-bd">
 <p class="phase-sub">the data quality pipeline</p>
 <p><strong>Goal:</strong> Stop bad data from reaching users, and give me a daily health report so I catch issues before anyone else does.</p>
 
@@ -960,12 +999,14 @@ This is the first time the system started healing itself instead of paging me, a
 <p><strong>UI filtering is not data filtering.</strong> A filter that only exists in the presentation layer protects one view while leaving every other channel exposed. Data quality rules belong at the source, before storage.</p>
 <p><strong>Negative patterns are as important as positive ones.</strong> Checking only for US patterns would miss a location that contains no US keywords but also is not in any US list. Explicit non-US patterns catch these definitively.</p>
 <p><strong>A daily health report changes how you operate.</strong> The difference is between reactive firefighting and proactive quality management. Even "all checks passed" across the catalog is reassuring.</p>
+</div></details>
 </section>
 
 <hr>
 
 <section class="phase sp-color-4">
-<h2 id="p17">Phase 17: Dropping The Fragile Browser</h2>
+<details class="pfold"><summary><h2 id="p17">Phase 17: Dropping The Fragile Browser</h2><span class="pf-chev">&#8250;</span></summary>
+<div class="pfold-bd">
 <p class="phase-sub">Puppeteer elimination and catalog expansion</p>
 <p><strong>Goal:</strong> Recover 10 broken companies, eliminate the browser dependency where possible and expand the catalog from 55 to 126 companies.</p>
 
@@ -983,12 +1024,14 @@ This is the first time the system started healing itself instead of paging me, a
 <p><strong>The label "generic" was hiding opportunity.</strong> Ten companies were marked "generic," meaning "we do not know the ATS, so use the browser." When I investigated, seven had perfectly usable APIs. "Generic" was not a platform assessment, it was a lack of investigation.</p>
 <p><strong>Docker <code>:latest</code> is a landmine.</strong> The image updated silently, and because I pulled <code>:latest</code>, every deploy got the broken version. Pinning to a specific tag makes updates intentional. This applies to any base image.</p>
 <p><strong>Enterprise ATS platforms have hidden APIs.</strong> Documentation aimed at enterprise customers often hides a clean endpoint that returns structured job data. This pattern works across many sites on the same platform.</p>
+</div></details>
 </section>
 
 <hr>
 
 <section class="phase sp-color-4">
-<h2 id="p18">Phase 18: A Recovery System, Not A One-Off Patch</h2>
+<details class="pfold"><summary><h2 id="p18">Phase 18: A Recovery System, Not A One-Off Patch</h2><span class="pf-chev">&#8250;</span></summary>
+<div class="pfold-bd">
 <p class="phase-sub">the self-healing scraper layer</p>
 <p><strong>Goal:</strong> Stop manually investigating every time a company silently breaks. Build a recovery system that handles platform migrations, dead APIs and lost access automatically.</p>
 
@@ -1006,12 +1049,14 @@ This is the first time the system started healing itself instead of paging me, a
 <p><strong>Structured data sources are far more reliable than rendering a page in a browser.</strong> Some sites simply are not reliably accessible from a server, and the durable answer is to detect that and degrade gracefully rather than keep fighting it. A clean structured feed beats a browser every time it exists.</p>
 <p><strong>The "this one company" trap.</strong> Every break tempts a one-off fix. After about the third, you have a graveyard of bespoke scrapers and still get woken every other week. The right move is to recognize the pattern early and build the recovery system instead.</p>
 <p><strong>Tiered recovery is graceful degradation.</strong> Each tier knows less about the specific company but works for more companies. Failing forward through the tiers means the system can usually find at least some answer. The tiers form a chain of progressively-less-confident answers, and the system trusts the most confident one that succeeds.</p>
+</div></details>
 </section>
 
 <hr>
 
 <section class="phase sp-color-4">
-<h2 id="p19">Phase 19: Less Noise, Tighter Security</h2>
+<details class="pfold"><summary><h2 id="p19">Phase 19: Less Noise, Tighter Security</h2><span class="pf-chev">&#8250;</span></summary>
+<div class="pfold-bd">
 <p><strong>Goal:</strong> Trust the self-healing system to run quietly. Verify the security claims in our docs match what the code does. Surface new vulnerabilities every week instead of hoping someone remembers to audit.</p>
 
 <h3>What I Built</h3>
@@ -1030,12 +1075,14 @@ This is the first time the system started healing itself instead of paging me, a
 <p><strong>Documentation drifts from code during refactors, and audits exist because of that.</strong> Someone added a one-line override during a refactor; it was never reverted; the docs kept claiming the original behavior; from the outside everything looked right. Audits compare what you think is happening against what actually is, because no individual change ever sets out to lie.</p>
 <p><strong>Specialized matters more than thorough.</strong> Twenty surface checks miss what one deep check uncovers.</p>
 <p><strong>Build the monitoring before you need it.</strong> The weekly dependency audit runs in the same cron, costs nothing, and catches the next unknown CVE months earlier than the next manual audit.</p>
+</div></details>
 </section>
 
 <hr>
 
 <section class="phase sp-color-5">
-<h2 id="p20">Phase 20: A Team Of Specialized AI Helpers</h2>
+<details class="pfold"><summary><h2 id="p20">Phase 20: A Team Of Specialized AI Helpers</h2><span class="pf-chev">&#8250;</span></summary>
+<div class="pfold-bd">
 <p class="phase-sub">specialized AI agents and PR-gated deploys</p>
 <p><strong>Goal:</strong> Move from "ask Claude to do everything" to a roster of specialized agents, and put a deploy gate in place so a bad change cannot land on users without me seeing a preview first.</p>
 
@@ -1053,12 +1100,14 @@ This is the first time the system started healing itself instead of paging me, a
 <p><strong>Generic public agents are surprisingly bloated.</strong> Even the highest-quality public agents averaged around fifty to seventy percent bloat for my use case: vendor name-drops, aspirational checklists and "you are a ten-year veteran" roleplay headers. Borrow the bones, throw out the marketing.</p>
 <p><strong>Predictable output contracts matter more than the underlying model.</strong> Once each agent has a predictable shape, reviewing its output is a thirty-second scan instead of reading prose.</p>
 <p><strong>The framework is only as good as the trigger.</strong> Owning thirteen agents is useless if I keep doing every task in the main thread out of habit. The win comes from internalizing the routing.</p>
+</div></details>
 </section>
 
 <hr>
 
 <section class="phase sp-color-5">
-<h2 id="p21">Phase 21: Catching The Silent Zeros</h2>
+<details class="pfold"><summary><h2 id="p21">Phase 21: Catching The Silent Zeros</h2><span class="pf-chev">&#8250;</span></summary>
+<div class="pfold-bd">
 <p class="phase-sub">silent zero failures and three new ATS platforms in one night</p>
 <p><strong>Goal:</strong> Close the silent-zero failure class and recover the catalog companies that had been quietly returning nothing.</p>
 <p>A look at the catalog showed about ninety of two hundred and twenty companies sitting at zero PM jobs. Some genuinely were not hiring; some had been, but the scraper had silently failed. The structural problem was that a scrape returning zero looked identical in our logs to a correct scrape for a company with no open roles. Both showed status success. Both produced quality scores. Neither sent an alert. We had built a system that confidently reported nothing while losing real listings.</p>
@@ -1097,12 +1146,14 @@ The sharpest one was Apple's API silently returning zero records when one requir
 This phase recovered a large slice of the catalog that had been quietly dead, and it turned "silent zero" from an invisible class of bug into a visible daily decision. The verification columns it introduced are the foundation the next phase builds on to take me out of the loop entirely, by teaching the system to make that "is this zero real?" call on its own.
 </div>
 </div>
+</div></details>
 </section>
 
 <hr>
 
 <section class="phase sp-color-5">
-<h2 id="p25">Phase 25: The Auth Incident</h2>
+<details class="pfold"><summary><h2 id="p25">Phase 25: The Auth Incident</h2><span class="pf-chev">&#8250;</span></summary>
+<div class="pfold-bd">
 <p><strong>Goal (in retrospect):</strong> Brand the auth emails to match the rest of the product.</p>
 <p>What it actually became: an incident, a deep cookie-bug discovery, a feedback-workflow migration and a three-layer defense-in-depth infrastructure that did not exist a week earlier.</p>
 
@@ -1146,12 +1197,14 @@ The defining case is "confirmed but no session": a user who, from the database's
 This incident is what turned my auth flow from "tested by hand and hoped" into "watched by three independent alarms." It also produced the admin recover-a-user endpoint, the move to a real feedback workflow, and the principle, repeated in later phases, that prevention is cheapest to build in the hour you are recovering from the failure, not a month later when the urgency is gone.
 </div>
 </div>
+</div></details>
 </section>
 
 <hr>
 
 <section class="phase sp-color-5">
-<h2 id="p26">Phase 26: Letting The System Decide For Itself</h2>
+<details class="pfold"><summary><h2 id="p26">Phase 26: Letting The System Decide For Itself</h2><span class="pf-chev">&#8250;</span></summary>
+<div class="pfold-bd">
 <p class="phase-sub">removing the admin from the operational loop</p>
 <p><strong>Goal:</strong> Stop the system from asking me to confirm things it could decide for itself.</p>
 <p>Two streams of operational noise hit the same morning, and the shape was the same in both. The analytics tool sent me six emails about an auth-conversion drop that was a phantom; the alert math was just unstable. And my daily digest asked me to manually mark twenty-eight companies as legitimate zeros before it would stop bothering me. Both systems were doing exactly what I asked. Both were asking the human to do work the system already had enough information to do itself.</p>
@@ -1170,12 +1223,14 @@ This incident is what turned my auth flow from "tested by hand and hoped" into "
 <p><strong>The flag's blast radius determines whether bold defaults are safe.</strong> I searched the whole codebase for the flag before going aggressive: read in four backend files, nothing user-facing. That bounded downside is what made the aggressive bootstrap safe. The semantics are only safe to relax if you know what is reading the flag.</p>
 <p><strong>Cross-window ratio alerts misfire on low traffic in ways volume alerts do not.</strong> Any rate-of-X alert that divides events-in-window-A by events-in-window-B drifts when matching events land in different windows. For low-traffic metrics, a flat volume floor beats a conversion ratio every time.</p>
 <p><strong>When the data evolves, the workflow has to evolve with it.</strong> The "unverified zeros" email was right when it shipped, then outlived its information environment by months once the system could tell a proven scraper from an unproven one. Every workflow that asks a human to do something the system could do is unpaid tech debt.</p>
+</div></details>
 </section>
 
 <hr>
 
 <section class="phase sp-color-6">
-<h2 id="p29">Phase 29: Auditing The Whole System Before A Major Expansion</h2>
+<details class="pfold"><summary><h2 id="p29">Phase 29: Auditing The Whole System Before A Major Expansion</h2><span class="pf-chev">&#8250;</span></summary>
+<div class="pfold-bd">
 <p><strong>Goal:</strong> before a major expansion, make sure the foundation is sound, and fix the one thing that genuinely scared me.</p>
 <p>I was about to expand the system significantly, which opens new ways for things to go wrong. So before building anything new, I stopped and audited the whole system end to end: the scrapers, the security headers, the login flow, whether one user can see another's data and where the app is slow. I asked for a plain report first, not fixes on the fly, so I could read it and decide what mattered.</p>
 
@@ -1205,12 +1260,14 @@ The silent-failure trio that defined this phase: a query that returns only its f
 This audit is what made the big catalog expansion in Phase 30 safe to attempt. I widened the surface only after hardening the foundation under it. The layered-email pattern and the "new table cannot ship without its access lock" rule became standing rules, and the honest "Scraping blocked" badge replaced a quiet lie with a clear explanation, which is the same honesty principle the measurement phases push even harder.
 </div>
 </div>
+</div></details>
 </section>
 
 <hr>
 
 <section class="phase sp-color-6">
-<h2 id="p31">Phase 31: The Night The Daily Job Died Silently</h2>
+<details class="pfold"><summary><h2 id="p31">Phase 31: The Night The Daily Job Died Silently</h2><span class="pf-chev">&#8250;</span></summary>
+<div class="pfold-bd">
 <p><strong>Goal:</strong> make it impossible for the daily job to fail without me knowing.</p>
 <p>The day after I doubled the catalog, the daily run that scrapes every company and emails everyone their new jobs simply did not happen, and nothing told me. I found out hours later by checking the database by hand. What happened: the bigger catalog made the run take far longer, and while it was still running I shipped an unrelated change, which restarted the server and killed the run partway through. No email went out. No alarm fired.</p>
 <p>Why no alarm fired is the part worth sitting with. Every safeguard I had built lived inside the same job and ran at the very end of it: the email-volume check, the status email to myself, all of it sat after the long scrape that died. And a server being killed is not an error the code can catch, it just stops. So a job that never finished looked exactly like a quiet, healthy day. Broken, still running and never started were all indistinguishable from the outside, and the health check stayed green the whole time because a fresh server had taken over fine.</p>
@@ -1221,12 +1278,14 @@ This audit is what made the big catalog expansion in Phase 30 safe to attempt. I
 
 <h3>What I Learned</h3>
 <p>You have to monitor the monitors. Every guardrail I had checked some specific thing, but nothing checked whether the work even ran, or whether the alarms could still go off. The fix for a silent failure is a witness standing outside it, never another check inside the thing that failed.</p>
+</div></details>
 </section>
 
 <hr>
 
 <section class="phase sp-color-6">
-<h2 id="p33">Phase 33: Three Models Review Every Change</h2>
+<details class="pfold"><summary><h2 id="p33">Phase 33: Three Models Review Every Change</h2><span class="pf-chev">&#8250;</span></summary>
+<div class="pfold-bd">
 <p class="phase-sub">the cross-model eval reviewer</p>
 <p><strong>Goal:</strong> stop the AI that builds this product from being the only thing that checks the AI's work.</p>
 <p>Almost everything in this product is built by an AI assistant, and for months the only review was that same assistant reading back its own diff. That is not a check, it is the same mind, in the same conversation, re-reading its own assumptions and nodding along. It misses whatever it was already blind to. And a different model is blind to different things: the systematic gaps in one are not the gaps in another.</p>
@@ -1256,12 +1315,14 @@ The two holes the outside model found are textbook trust boundaries the author m
 <p>This closed the loop the entire journey had been circling: for months the thing doing most of the building was the one thing I could not independently measure or check. The panel makes every future change get reviewed by minds that do not share the author's blind spots, and the ledger turns "it probably misses things" into a measured, improving record of what actually gets missed. The proof it was worth building: the very first thing it reviewed was itself, and it caught two silent bugs that would have quietly defeated its own purpose.</p>
 </div>
 </div>
+</div></details>
 </section>
 
 <hr>
 
 <section class="phase sp-color-6">
-<h2 id="p34">Phase 34: When The System Watches Itself</h2>
+<details class="pfold"><summary><h2 id="p34">Phase 34: When The System Watches Itself</h2><span class="pf-chev">&#8250;</span></summary>
+<div class="pfold-bd">
 <p class="phase-sub">the .in() scale cliff, security audits in CI, and the Sentry that went dark</p>
 <p><strong>Goal:</strong> Turn "probably working" and "probably secure" into things the system proves for itself.</p>
 <p>Three failures in one week had the same shape. Sentry had been misconfigured for three and a half months; the error tracker was not tracking errors, so crashes that should have paged me were disappearing. A power user tracking 423 companies hit a 500 on the dashboard, which I patched and marked resolved. The same root cause surfaced again on jobs. Then compensation. Then starred jobs. Four separate endpoints, four separate incidents. And a security alarm I relied on had a missing environment variable, so the alarm could not fire. The through-line: the thing supposed to catch the failure had its own silent failure mode.</p>
@@ -1280,12 +1341,14 @@ The two holes the outside model found are textbook trust boundaries the author m
 <h3>What I Learned</h3>
 <p><strong>A safeguard needs its own safeguard.</strong> Sentry was dark for three and a half months before I noticed by looking for data I expected to see and could not find. A liveness probe that sends a real test signal and confirms receipt is how you find out the alarm is broken before you need it.</p>
 <p><strong>Fix the class, not the instance.</strong> The .in() lesson in one sentence: grep the pattern on the first report, not after the fourth. A CI guard that catches the next one at PR time is the only fix that holds.</p>
+</div></details>
 </section>
 
 <hr>
 
 <section class="phase sp-color-5">
-<h2 id="p38">Phase 38: I Outgrew The Staging Branch I Was So Proud Of</h2>
+<details class="pfold"><summary><h2 id="p38">Phase 38: I Outgrew The Staging Branch I Was So Proud Of</h2><span class="pf-chev">&#8250;</span></summary>
+<div class="pfold-bd">
 <p class="phase-sub">trunk-based shipping, with dark launches instead of a staging world</p>
 <p><strong>Goal:</strong> Stop paying for a safety net that had started costing more than it saved.</p>
 <p>A few phases ago I was proud of a new habit: every change landed on a staging copy of the site first, and production stayed untouched until I said promote. Within a couple of weeks that pride curdled into friction. I run several work streams at once, a feature in one window, a bug fix in another, and they all piled onto one long-lived branch. By the time I wanted to ship, staging was fifty-one commits deep and mixed finished work with half-built work, so every release became a careful, error-prone game of picking just the ready parts out of the pile. The safety net had become a second inbox.</p>
@@ -1293,12 +1356,14 @@ The two holes the outside model found are textbook trust boundaries the author m
 <h3>What I Learned</h3>
 <p><strong>A safety net you maintain by hand can become more dangerous than the risk it covers,</strong> because you stop trusting it and start routing around it. The honest version of the story is: I built staging, it was the right instinct, and a few weeks of real use showed it was the wrong fit for how I actually work. Reversing a decision you were proud of is what measurement is for.</p>
 <p><strong>A guardrail can fail silent, and mine did.</strong> Removing the branch exposed a sharp edge: my merge gate skipped its checks on documentation-only changes, and on GitHub a skipped required check quietly counts as passing. I rebuilt the gate so the checks always report, and any uncertainty makes the check run, never lets it pass.</p>
+</div></details>
 </section>
 
 <hr>
 
 <section class="phase sp-color-5">
-<h2 id="p39">Phase 39: A User Never Got His Login Email, So I Built A Second Front Door</h2>
+<details class="pfold"><summary><h2 id="p39">Phase 39: A User Never Got His Login Email, So I Built A Second Front Door</h2><span class="pf-chev">&#8250;</span></summary>
+<div class="pfold-bd">
 <p class="phase-sub">sign in with LinkedIn, and a diagnostic that answers in the moment</p>
 <p><strong>Goal:</strong> Stop losing people at the very first step, where a login email that silently never arrives means a motivated user simply cannot get in.</p>
 <p>It started with one message: a user signed up and never got his login email. I dug in. The email had been sent, our system was sure of it. It just never landed. And it wasn't a one-off: about 15% of the signup emails from the previous three weeks reached no one. The cause wasn't a bug in my code, which is exactly what made it easy to miss. The email provider quietly adds an address to a suppression list the first time it bounces or gets marked as spam, permanently, with no way to take it back off. So for the people most likely to be stuck, "just resend the email" can never work. The channel was reporting "sent" for messages it had already decided never to deliver.</p>
@@ -1306,24 +1371,28 @@ The two holes the outside model found are textbook trust boundaries the author m
 <h3>What I Learned</h3>
 <p><strong>Sometimes the fix is to stop depending on the broken channel, not repair it.</strong> I spent the first hour trying to "fix email," and email was not fixable, because the suppression is the provider's feature, not a fault. A front door with a single lock means a single failure locks everyone out.</p>
 <p><strong>For every report there are silent others who just left.</strong> The most durable thing I shipped wasn't the LinkedIn button. It was the diagnostic that turns a vague "I didn't get it" into a precise, checkable verdict.</p>
+</div></details>
 </section>
 
 <hr>
 
 <section class="phase sp-color-5">
-<h2 id="p40">Phase 40: Then I Made The Second Door The Main One</h2>
+<details class="pfold"><summary><h2 id="p40">Phase 40: Then I Made The Second Door The Main One</h2><span class="pf-chev">&#8250;</span></summary>
+<div class="pfold-bd">
 <p class="phase-sub">the login ladder, and a homepage that stopped arguing with it</p>
 <p><strong>Goal:</strong> Commit to the login path that actually works, and stop nudging people toward the one that silently fails.</p>
 <p>Two real people hit the login within a day of each other, and they made the gap obvious. One had a suppressed address: the magic link he requested was accepted and silently dropped, and he sat on a "check your email" screen waiting for mail that was never coming. The other looked broken in my dashboard but had actually signed in fine in thirty seconds. The "no record" was just my analytics lagging a minute behind. Email fails quietly for a real slice of people, LinkedIn doesn't, and I was still presenting them as equals.</p>
 <p>So the login page became a ladder. LinkedIn is the one real button. Underneath it, a single quiet line opens the email option only if you go looking for it. Below that, smaller still, a help form as the last resort. Each rung only matters if the one above it failed you. Then I noticed the homepage still argued with all of this: it opened with an email box, a holdover from when email was the way in. I pulled it off entirely. The hero is now one "Get Started" button that drops you straight onto the LinkedIn-first login.</p>
 <h3>What I Learned</h3>
 <p><strong>Adding an alternative is easy. Committing to it is the part that moves people.</strong> The previous phase was "I added a second door." This one was "I admitted which door should be the main one." A decision isn't made until the defaults reflect it, all the way up the funnel.</p>
+</div></details>
 </section>
 
 <hr>
 
 <section class="phase sp-color-5">
-<h2 id="p42">Phase 42: "Unable To Log In," And A Quarter Of Sign-Ins Were Quietly Failing</h2>
+<details class="pfold"><summary><h2 id="p42">Phase 42: "Unable To Log In," And A Quarter Of Sign-Ins Were Quietly Failing</h2><span class="pf-chev">&#8250;</span></summary>
+<div class="pfold-bd">
 <p class="phase-sub">the iPhone cookie bug, the link-eating email scanners, and the alarm that was missing</p>
 <p><strong>Goal:</strong> Stop guessing whether the front door works, and put the login numbers in front of me every single day.</p>
 <p>A user emailed the help form three words: "Unable to login." The easy read is one confused person. So I went to the data instead, and the data was ugly. Sign in with LinkedIn was failing about half the time on iPhones. The email magic link was failing over a third of the time. Dozens of people had hit a dead link in three weeks, and only a handful ever got in. And every one of those failures was sitting right there in our analytics. Nobody was watching that one number, so nobody knew.</p>
@@ -1332,12 +1401,14 @@ The two holes the outside model found are textbook trust boundaries the author m
 <h3>What I Learned</h3>
 <p><strong>The gap that lets a core flow rot for weeks is a missing alarm, not missing data.</strong> We had every failed login recorded and still flew blind, because recording a number and watching a number are two completely different jobs.</p>
 <p><strong>A story that fits the data is not the same as a story that's true.</strong> I had a clean theory about which version of the site was broken. One person tested it in sixty seconds and the theory died. When the test is that cheap, run it first, every time.</p>
+</div></details>
 </section>
 
 <hr>
 
 <section class="phase sp-color-5">
-<h2 id="p46">Phase 46: The Daily Job Got Its Own Home</h2>
+<details class="pfold"><summary><h2 id="p46">Phase 46: The Daily Job Got Its Own Home</h2><span class="pf-chev">&#8250;</span></summary>
+<div class="pfold-bd">
 <p class="phase-sub">a dedicated worker service, so a deploy can never kill the daily run</p>
 <p><strong>Goal:</strong> Make it impossible for a routine code deploy to kill the three-hour daily scrape that every subscriber's alert email depends on.</p>
 <p>For most of the product's life, the daily scrape ran inside the same web server that serves the site. That coupling caused real outages twice: merging code redeploys the server, a redeploy restarts the process, and if the scrape was mid-run it simply died, sometimes with no email and no alarm. The workaround was a guard that blocks merging code while the run is in progress, which worked, but it meant I couldn't ship anything for about three hours every afternoon. The scrape and the deploy pipeline were fighting over the same machine.</p>
@@ -1346,12 +1417,14 @@ The two holes the outside model found are textbook trust boundaries the author m
 <p><strong>If the daily job crashes, do not restart it automatically.</strong> The platform's default retries a crashed process up to ten times. For this job that would mean re-running a three-hour scrape from the top, and I traced through the email logic and found a retried run would silently drop every job discovered before the crash. I chose the visible failure with a complete manual recovery over the automatic retry with a silent partial one.</p>
 <h3>What I Learned</h3>
 <p><strong>Default settings encode someone else's assumptions.</strong> Automatic restart is exactly right for a web server and exactly wrong for a batch job that emails people. Every default had to be checked against what this specific job actually does.</p>
+</div></details>
 </section>
 
 <hr>
 
 <section class="phase sp-color-5">
-<h2 id="p47">Phase 47: The Scrapers Learned To Fix Themselves, And I Replayed My Six Worst Incidents To Prove It</h2>
+<details class="pfold"><summary><h2 id="p47">Phase 47: The Scrapers Learned To Fix Themselves, And I Replayed My Six Worst Incidents To Prove It</h2><span class="pf-chev">&#8250;</span></summary>
+<div class="pfold-bd">
 <p class="phase-sub">self-filing tickets, a self-healer with a burden of proof, and a replay harness</p>
 <p><strong>Goal:</strong> Stop being the repair person for my own scrapers. Fix what the system can prove, retire what is genuinely dead, and hand me only what truly needs a human.</p>
 <p>Four pieces, shipped in one night. Broken scrapers now file their own tickets, one per company, carrying the full diagnosis and closing themselves the day the company recovers. My four separate daily alarms collapsed into one morning email whose subject line says how many alarms are inside, so a bad day can't masquerade as a quiet one. And the centerpiece: a self-healer that treats each broken company the way I used to by hand. It re-reads the company's live careers page, works out which job platform they actually use now, verifies the new board really belongs to them and really has roles, and only then rewrites the configuration, with the old one logged so any repair is one command to undo. Everything it can't prove gets escalated with a written explanation of exactly what was checked and why the machine would not act alone.</p>
@@ -1359,6 +1432,7 @@ The two holes the outside model found are textbook trust boundaries the author m
 <h3>What I Learned</h3>
 <p><strong>A dry run against reality beats any amount of testing against fixtures.</strong> The unit tests all passed before the replay, and the replay still caught a trap none of them imagined: an abandoned empty job board that happened to answer to a real company's name came within one rule of being adopted as a "fix."</p>
 <p><strong>The last mile of automation is deciding what not to automate.</strong> The system's most valuable behavior in the replay was not the two repairs. It was the refusal to retire a subscribed company on absence of evidence. Encoding "when you cannot know, stop and explain" took as much design as the repairs themselves.</p>
+</div></details>
 </section>
 
 <div class="chapter-nav">
@@ -1383,31 +1457,36 @@ The two holes the outside model found are textbook trust boundaries the author m
 <hr>
 
 <section class="phase sp-color-9">
-<h2 id="p35">Phase 35: The Mock Interview Wasn't Reading My Prep, So I Made It</h2>
+<details class="pfold"><summary><h2 id="p35">Phase 35: The Mock Interview Wasn't Reading My Prep, So I Made It</h2><span class="pf-chev">&#8250;</span></summary>
+<div class="pfold-bd">
 <p class="phase-sub">forward the source, not a summary of it</p>
 <p><strong>Goal:</strong> Make the practice interview actually use the materials you give it, the job description, the deck, the panel you'll face, instead of running a generic interview that ignores all of it.</p>
 <p>I tested it the way a candidate would: a job description, a case-study deck, and a panel's worth of interviewers. Then I started the mock, and it ran a completely generic behavioral interview. It never asked about the deck. And worst of all, it brought up an interviewer I had already removed from the list. The tool that was supposed to rehearse <em>that</em> interview was rehearsing a stranger's.</p>
 <p>The cause was humbling. A step read all my materials and wrote a tidy "here's what I understood" summary, and then only the <em>summary</em> ever reached the live interviewer. A summary is lossy by design. The deck, full of the specifics worth drilling, got boiled down to a sentence and then squeezed out entirely. So I fixed the whole chain: the interviewer and the graders now get the real text of every file I attach, not a paraphrase of it. I added a Custom interview type that runs the interview I describe in my own words instead of forcing everything into three preset shapes. I built the panel I actually needed, two to four interviewers in one session, each in their own distinct voice, handing off the way a real panel does. And the stale-context leak got the honest fix: the system now refuses to start an interview on a brief that no longer matches the current prep, instead of confidently carrying forward a person who no longer exists.</p>
 <h3>What I Learned</h3>
 <p><strong>Compressing input into a clean summary before the step that depends on the detail is silent data loss,</strong> and it's the most seductive kind, because the summary looks great. The failure only shows up when the interviewer never mentions the thing you uploaded. Forward the source, not your interpretation of it.</p>
+</div></details>
 </section>
 
 <hr>
 
 <section class="phase sp-color-9">
-<h2 id="p36">Phase 36: I Gave The Interviewer A Face</h2>
+<details class="pfold"><summary><h2 id="p36">Phase 36: I Gave The Interviewer A Face</h2><span class="pf-chev">&#8250;</span></summary>
+<div class="pfold-bd">
 <p class="phase-sub">a video interviewer, and two graders judging how I look on camera</p>
 <p><strong>Goal:</strong> Real interviews are video calls, so the mock should be one too. And once there's a camera, grade the thing only video can show: how you actually come across on it.</p>
 <p>I'd built an interviewer that <em>sounded</em> right. Now I wanted a face: a real-time, lip-synced avatar talking in the same voice, so practicing felt like a video call instead of a phone call. The first live test was equal parts thrilling and humbling. The avatar appeared, it lip-synced, it ran the interview, and it opened with "Hello, how can I help you today?" in a voice that wasn't the one I'd picked, while the face was a woman and the voice was a man. The cause was one dumb detail: when one service hands your instructions to another, the receiving one is picky about exactly how the keys are spelled, and I'd spelled them my way instead of its way. One spelling fix repaired both, and tying the avatar's gender to the voice's, structurally, made the mismatch impossible.</p>
 <p>Then the more interesting question: I already score how I sound, so could I score how I <em>look</em>? Eye contact, posture, whether I read as engaged or flat. There were two ways to do it, an on-device tracker or a cloud vision model, and instead of guessing, I built both, ran them on the same captured frames, and let them argue. The comparison taught me more than either score alone: the on-device tracker insisted my eye contact was terrible, and it was <em>wrong</em>. My glasses were throwing off its gaze math, while the cloud model saw straight through the glasses and scored it correctly. Finding exactly that kind of blind spot was the whole reason to run two graders, and it surfaced on the first real test.</p>
 <h3>What I Learned</h3>
 <p><strong>When a judgment is subjective and the approaches are cheap, don't pick one. Run them in parallel and let the disagreement teach you.</strong> The disagreement is the actual signal, and the glasses case is the cleanest example I have.</p>
+</div></details>
 </section>
 
 <hr>
 
 <section class="phase sp-color-9">
-<h2 id="p37">Phase 37: The Prep Lived In One Browser Tab, So I Built It A Home</h2>
+<details class="pfold"><summary><h2 id="p37">Phase 37: The Prep Lived In One Browser Tab, So I Built It A Home</h2><span class="pf-chev">&#8250;</span></summary>
+<div class="pfold-bd">
 <p class="phase-sub">tracks, rounds, documents that persist, and a report with opinions about defaults</p>
 <p><strong>Goal:</strong> Hold my actual situation, several companies, several rounds each, my documents, instead of forgetting everything on every reload.</p>
 <p>The bug report was me, on my laptop. I opened my own tool to show someone the results from the night before, and there was nothing there. No sessions, no files, nothing. Everything I thought was "in the product" was actually sitting in a browser tab on my desktop. For a tool whose whole job is helping you walk into a real conversation prepared, that's the product not existing anywhere except one chair in one room.</p>
@@ -1415,24 +1494,28 @@ The two holes the outside model found are textbook trust boundaries the author m
 <h3>What I Learned</h3>
 <p><strong>The page is a cache, not a home.</strong> If a user needs something twice, it belongs in the database, and "the user needs it twice" describes basically everything in a prep tool. And dogfooding on a second machine is a different test than dogfooding harder on the first one. Same product, and a failure I could not see from my desktop.</p>
 <p><strong>Organizing information is mostly deciding what NOT to show first.</strong> Collapsing a section tells the user what you think matters, and being right about that is product work, not design polish.</p>
+</div></details>
 </section>
 
 <hr>
 
 <section class="phase sp-color-9">
-<h2 id="p41">Phase 41: I Came Back With 28 Complaints, And Found Four Problems</h2>
+<details class="pfold"><summary><h2 id="p41">Phase 41: I Came Back With 28 Complaints, And Found Four Problems</h2><span class="pf-chev">&#8250;</span></summary>
+<div class="pfold-bd">
 <p class="phase-sub">one design foundation instead of 28 patches</p>
 <p><strong>Goal:</strong> Make the practice tool look and behave like one calm, finished product I would trust before a real conversation.</p>
 <p>I sat down and used my own tool the way a stranger would, start to finish, no shortcuts. I came away with 28 things wrong. Almost none were crashes. They were friction and noise: highlight boxes shouting on every screen, buttons and colors that changed from page to page, a results report that buried the verdict under raw model write-ups, an upload that froze the page. Each one was small. Together they made the product feel like a prototype.</p>
 <p>The easy move was to open 28 tickets and grind. I started to, then stopped, because the list didn't actually have 28 problems in it. It had about four, each wearing different clothes on different screens. So I built the foundation first and applied it everywhere: one card, one button, one way to show a score, one calm color story. The report flipped to lead with the verdict. Uploads became a background queue. One complaint taught its own lesson: the interview kept ending around twenty minutes even though I'd set the limit to thirty, and I assumed the setting wasn't saving. It was saving fine. An old instruction told the interviewer to wrap up after eight or nine questions, and it was politely obeying. I almost spent an afternoon fixing a timer that worked.</p>
 <h3>What I Learned</h3>
 <p><strong>A long list of complaints is usually a short list of causes wearing different clothes.</strong> The expensive mistake is treating 28 symptoms as 28 problems. And an hour of using the product like a stranger surfaces what staring at the code for a week never will.</p>
+</div></details>
 </section>
 
 <hr>
 
 <section class="phase sp-color-9">
-<h2 id="p43">Phase 43: The First Paid Beta</h2>
+<details class="pfold"><summary><h2 id="p43">Phase 43: The First Paid Beta</h2><span class="pf-chev">&#8250;</span></summary>
+<div class="pfold-bd">
 <p class="phase-sub">real testers, real money, and a payment that survives its own plumbing breaking</p>
 <p><strong>Goal:</strong> Open the interview tool to a handful of real product managers, paid and invite-only, and make the money path sturdy enough that a real dollar never disappears into a crack.</p>
 <p>For months the tool was mine alone, because every session spends real money on the voice and AI behind it. To find out whether it's worth anything to someone other than me, I opened a tiny paid beta: a secret link, one shared invite code, and a small payment buys one full mock interview. The price sits deliberately below what a session costs me to run, because the point of a beta is signal, not margin, and paying anything at all still tells me something real. A tester gets the exact tool I use, just inside their own sandbox.</p>
@@ -1441,18 +1524,21 @@ The two holes the outside model found are textbook trust boundaries the author m
 <h3>What I Learned</h3>
 <p><strong>A payment isn't real until it can survive its own plumbing breaking.</strong> A flow that hinges on a single message arriving will, sooner or later, lose someone's money silently. Build the path so the credit still lands even when that one message never arrives.</p>
 <p><strong>The closer code sits to money, the less I trust my own read of it.</strong> I caught nothing in my own change. An independent review caught the bug that turned one payment into infinity. On anything that charges a card, that review is not optional.</p>
+</div></details>
 </section>
 
 <hr>
 
 <section class="phase sp-color-9">
-<h2 id="p48">Phase 48: The Coach Got A Feedback Loop</h2>
+<details class="pfold"><summary><h2 id="p48">Phase 48: The Coach Got A Feedback Loop</h2><span class="pf-chev">&#8250;</span></summary>
+<div class="pfold-bd">
 <p class="phase-sub">a star and a sentence, an editable rubric with a seatbelt, and a calibration read</p>
 <p><strong>Goal:</strong> Make the AI interviewer and its scoring trustworthy and self-improving. Not "tweak the prompt and hope," but a real loop: honest feedback on every session, a rubric I can edit safely, and proof a change is better before it ships.</p>
 <p>Five pieces, built to work together. The feedback on a results page stopped being a thumbs up or down and became a star and a sentence per section, because a rating alone tells you nothing about what to fix. The words are the whole point. The interviewer's instructions and the scoring rubric moved out of hard-coded files into a versioned home I can edit live, with one load-bearing rule: an interview can never break because that service is slow, so every fetch falls back to the copy still baked into the code. The interviews people actually rated became a fixed test set, so when I change the rubric I can re-run the exact same interviews and watch the scores move before anything ships. And a calibration read answers the question the whole system exists for: does the machine's score agree with the human "was this fair" star, and when it drifts, is it running generous or harsh?</p>
 <h3>What I Learned</h3>
 <p><strong>Some loops are a solved category, so buy the machine and build only the product.</strong> Capturing human ratings on model output and using them to improve a prompt is a named, mature pattern, so I wired in an existing open-source platform for the storage and experiment machinery and kept as custom only the in-product feedback that is genuinely mine. Recognizing that before writing any of it was the best decision of the night.</p>
 <p><strong>An editable knob is only safe with a proof harness behind it.</strong> The instinct is to celebrate that the rubric is editable without a deploy, but that same freedom is how a quiet regression ships. The test set and the calibration read are the seatbelt.</p>
+</div></details>
 </section>
 
 <div class="chapter-nav">
@@ -1470,7 +1556,8 @@ The two holes the outside model found are textbook trust boundaries the author m
 <summary><span class="sg-n">7</span><span class="sg-t"><span class="sg-nm">Pre-production <span style="display:inline-block;font-size:.62rem;font-weight:800;letter-spacing:.06em;text-transform:uppercase;background:#fee2e2;color:#b42318;border-radius:999px;padding:2px 9px;margin-left:10px;vertical-align:middle;">In progress</span></span><span class="sg-d">In progress. This is where the catalog grew broad, the job-first feed landed, the data started writing its own weekly content, and analytics began working end to end, the technical dashboards and the user-facing side both. The product should make sense start to finish, not just function. Still in progress: mobile and UI polish are the work ahead.</span></span><span class="sg-ct">8 phases</span><span class="sg-chev">&#8250;</span></summary>
 <div class="stage-body">
 <section class="phase sp-color-6">
-<h2 id="p22">Phase 22: Growing The Catalog The Right Way</h2>
+<details class="pfold"><summary><h2 id="p22">Phase 22: Growing The Catalog The Right Way</h2><span class="pf-chev">&#8250;</span></summary>
+<div class="pfold-bd">
 <p class="phase-sub">targeted catalog growth after the Common Crawl detour</p>
 <p><strong>Goal:</strong> Scale the catalog from 216 toward 500-1000 companies, but only with companies the audience actually job-hunts for.</p>
 <p>After the zero-jobs audit closed, the catalog had hit a steady-state of about 216 companies, mostly tech. Two paths surfaced. The first was broad: a pipeline that discovers any company with a public board on the big platforms. The second was narrow: pick verticals the audience cares about and add recognizable companies by hand. I tried both, and the difference between them is the entire game.</p>
@@ -1508,12 +1595,14 @@ The instructive one was the pair of scrapers that passed every technical check a
 Beyond the twenty-nine names, this phase produced a repeatable growth motion: recognize the industry's platform, spin up parallel agents to research, build generic scrapers that cover many tenants at once, and verify real yield before counting any of them. That motion is what makes the catalog-doubling in Phase 30 tractable instead of a slog.
 </div>
 </div>
+</div></details>
 </section>
 
 <hr>
 
 <section class="phase sp-color-6">
-<h2 id="p23">Phase 23: A Job-First Feed</h2>
+<details class="pfold"><summary><h2 id="p23">Phase 23: A Job-First Feed</h2><span class="pf-chev">&#8250;</span></summary>
+<div class="pfold-bd">
 <p class="phase-sub">comp-filterable, and the email-disappearance bug</p>
 <p><strong>Goal:</strong> Turn the catalog into something a real job-hunter would actually browse, fix the slow accumulation of email-quality issues and find out why I stopped getting my own daily email.</p>
 <p>The catalog had grown to 244 companies. Browsing it as a list of cards felt right at 50 and wrong at 250. A real job-hunter wants to see jobs across all companies sorted by what matters to them. In parallel, the daily email was getting noisier. Then on the last day of the sprint, I noticed I had not received my own daily alert. The provider showed zero record of trying to send to me. That kicked off the most consequential bug of the sprint.</p>
@@ -1535,12 +1624,14 @@ Beyond the twenty-nine names, this phase produced a repeatable growth motion: re
 <p><strong>When an external service handles delivery, query that service for ground truth.</strong> Their log is more accurate than ours will ever be. A thin proxy endpoint surfaces it through our auth surface with no PII written down.</p>
 <p><strong>Cheap reversibility beats perfect-on-first-try.</strong> I shipped seventeen changes in two days because most were cheap to roll back. The version that ships just has to be safe to throw away.</p>
 <p><strong>Our query layer has silent failure modes that look like working features.</strong> Sorting by a related table quietly does nothing; a filter breaks if the value contains a comma; a case-insensitive match turned a state abbreviation into a substring match on another state. Each was a one or two line fix once I knew about it; the cost was the half-day spent finding the failure mode.</p>
+</div></details>
 </section>
 
 <hr>
 
 <section class="phase sp-color-6">
-<h2 id="p24">Phase 24: Turning The Data Into Content</h2>
+<details class="pfold"><summary><h2 id="p24">Phase 24: Turning The Data Into Content</h2><span class="pf-chev">&#8250;</span></summary>
+<div class="pfold-bd">
 <p class="phase-sub">the weekly LinkedIn digest</p>
 <p><strong>Goal:</strong> Use the catalog data to drive a weekly LinkedIn post, both for the awareness flywheel and to give my audience a reason to come back every Friday.</p>
 <p>The catalog had matured: 244 companies producing 500+ new PM roles every week, with industry concentration and AI-hiring cross-cuts that genuinely surprised me. None of that signal was visible outside the product. There is a person on LinkedIn I follow who does a weekly "PM roles by level" post; it works. I did not want to copy the format because my data has cross-cuts theirs does not. The differentiation was already in the data; the job was packaging it.</p>
@@ -1560,12 +1651,14 @@ Beyond the twenty-nine names, this phase produced a repeatable growth motion: re
 <p><strong>Proprietary data should be packaged in cuts that are not obvious to outsiders.</strong> Anyone can post "highest-paying PM roles" from a public salary database. Almost nobody can post the industry-concentration cross-cut without the underlying watchlist. The data is the moat; the content is the visible artifact of it.</p>
 <p><strong>AI-assisted content in someone else's voice needs structural guardrails, not stylistic hints.</strong> Telling the assistant "match my voice" does not work, and neither does a memory that says "see the voice doc." The fix is making the voice files required reading at draft time. The honor system does not work for content tone any more than for security.</p>
 <p><strong>The cron-day-of-week pattern is reusable infrastructure.</strong> Once it was clearly a pattern, I wrote it down: hang it inside the daily job with a day-of-week gate. Never add a new scheduler entry.</p>
+</div></details>
 </section>
 
 <hr>
 
 <section class="phase sp-color-6">
-<h2 id="p28">Phase 28: The Weekly Post Writes Itself, In My Voice</h2>
+<details class="pfold"><summary><h2 id="p28">Phase 28: The Weekly Post Writes Itself, In My Voice</h2><span class="pf-chev">&#8250;</span></summary>
+<div class="pfold-bd">
 <p><strong>Goal:</strong> Stop opening every week with the same headline, and stop hand-writing the lead.</p>
 <p>The weekly digest from Phase 24 had a quiet problem: the headline was hardcoded. Every Friday it announced the same lead, no matter what the week actually looked like, because the lead was a fixed line in the code and only the percentage moved. When I finally looked closely, it was not even true. The "surge" it claimed was an artifact of my bulk-adding a batch of companies that week, whose existing openings landed as "new." I was one paste away from publishing my own data-pipeline quirk to my whole network as a market take.</p>
 
@@ -1575,12 +1668,14 @@ Beyond the twenty-nine names, this phase produced a repeatable growth motion: re
 
 <h3>What I Learned</h3>
 <p>Your own data can lie to you in a shape that looks exactly like insight. The headline I had repeated for weeks was a fact about how I grow the catalog, not about the market, and I only caught it because the repetition annoyed me. Lead with the cut nobody else can see, but prove it is real before you publish it.</p>
+</div></details>
 </section>
 
 <hr>
 
 <section class="phase sp-color-6">
-<h2 id="p30">Phase 30: Doubling The Catalog And Making "Add" Actually Work</h2>
+<details class="pfold"><summary><h2 id="p30">Phase 30: Doubling The Catalog And Making "Add" Actually Work</h2><span class="pf-chev">&#8250;</span></summary>
+<div class="pfold-bd">
 <p><strong>Goal:</strong> make the catalog feel like a real database, and make adding a company actually show its jobs.</p>
 <p>Two problems had been nagging. The catalog had stalled around 247 companies, mostly the tech names everyone already knows. And worse, adding a company barely worked: when I added one, nothing showed up until the next day's scrape. The reason was a design knot I had tied early without noticing. Scraping a company and emailing everyone about new jobs were the same job, welded together in the daily run. So there was no way to scrape a newly-added company on its own without also firing a daily email to every user.</p>
 
@@ -1591,12 +1686,14 @@ Beyond the twenty-nine names, this phase produced a repeatable growth motion: re
 
 <h3>What I Learned</h3>
 <p>A catalog you can add to is worthless if adding does not show results. The thing blocking that was not a missing feature, it was an assumption baked into the architecture a long time ago, that scraping and emailing always happen together. The fix was to question the coupling, not add another button. And growth only counts if it is names people recognize and boards that actually return jobs, not a bigger number for its own sake.</p>
+</div></details>
 </section>
 
 <hr>
 
 <section class="phase sp-color-6">
-<h2 id="p32">Phase 32: Seeing The Funnel, And Catching Myself Guessing</h2>
+<details class="pfold"><summary><h2 id="p32">Phase 32: Seeing The Funnel, And Catching Myself Guessing</h2><span class="pf-chev">&#8250;</span></summary>
+<div class="pfold-bd">
 <p class="phase-sub">the funnel dashboard</p>
 <p><strong>Goal:</strong> stop running the product on gut and actually see where people fall off.</p>
 <p>For months I had the basic analytics: pageviews, clicks, the usual. But I could not answer the one question that actually matters. Of the people who sign up, how many do the thing the product is for? I was guessing. And when you guess, you build the wrong stuff.</p>
@@ -1625,24 +1722,28 @@ The signed part of the redirect is the case that mattered. A plain server endpoi
 This phase pointed the next stretch of product work at activation, the real leak, instead of acquisition, the imagined one. It set clicks as the product's honest engagement metric for everything that follows, and it added the first automated test to a codebase that had been getting by on manual checking, which is the seed of the "trust the instrument, not yourself" discipline that culminates in the next phase.
 </div>
 </div>
+</div></details>
 </section>
 
 <hr>
 
 <section class="phase sp-color-6">
-<h2 id="p44">Phase 44: I Measured The Filter I'd Been Trusting Blind, Then Grew The Catalog A Hundred Companies In A Night</h2>
+<details class="pfold"><summary><h2 id="p44">Phase 44: I Measured The Filter I'd Been Trusting Blind, Then Grew The Catalog A Hundred Companies In A Night</h2><span class="pf-chev">&#8250;</span></summary>
+<div class="pfold-bd">
 <p class="phase-sub">a five-thousand-title answer key, and a swarm of research agents</p>
 <p><strong>Goal:</strong> Actually measure the filter at the heart of the product, then use that measurement to scale the catalog with confidence.</p>
 <p>For months the heart of the product was a filter I had hand-tuned: a list of keywords that decided whether a scraped job was a real Product Manager role. It worked well enough that I stopped thinking about it, which is exactly the problem. I had never measured it. I did not know how much junk it let into the feed or how many real PM roles it quietly dropped.</p>
 <p>So I built the test I should have had from the start. I pulled five thousand real job titles the scraper had already accepted, labeled each one, and checked my labels against an independent panel of two other AI models to keep myself honest. The result was reassuring and humbling at once: the filter was already about 98 percent accurate, better than I feared, but the test immediately showed the specific junk slipping through, including manufacturing "Head of Production" roles that matched only because "head of product" hides inside the word "production." An improved version reached 99.9 percent with no real roles lost, and the test now lives in the build so the number can never quietly slide back. With a way to verify quality on demand, I went after quantity: a swarm of parallel research agents over hundreds of candidate companies, each one verified through the real filter before it counted. The catalog grew from 535 to 644 companies in a single night.</p>
 <h3>What I Learned</h3>
 <p><strong>A confident hand-tuned heuristic is the thing most likely to be wrong in ways you cannot see.</strong> And the work that actually scales is never me typing the list. It is building the machine that verifies and adds the list for me.</p>
+</div></details>
 </section>
 
 <hr>
 
 <section class="phase sp-color-6">
-<h2 id="p45">Phase 45: The Real Ceiling Was The Daily Scrape, Not The Catalog</h2>
+<details class="pfold"><summary><h2 id="p45">Phase 45: The Real Ceiling Was The Daily Scrape, Not The Catalog</h2><span class="pf-chev">&#8250;</span></summary>
+<div class="pfold-bd">
 <p class="phase-sub">uncoupling membership from scraping: 644 to 1,281 in a night</p>
 <p><strong>Goal:</strong> Grow the catalog toward thousands of companies without lengthening or endangering the daily scrape that every subscriber's alerts depend on.</p>
 <p>The obvious next move after 644 companies was to add a lot more. But when I measured the daily scrape, the real constraint wasn't discovery. It was time. The job walks every company one at a time with a polite pause between each, so at 644 companies it already ran about three hours against a safety window of roughly three and a half. Adding hundreds more would have blown the window. Growing the catalog and keeping the daily run healthy were pulling in opposite directions.</p>
@@ -1650,6 +1751,7 @@ This phase pointed the next stretch of product work at activation, the real leak
 <h3>What I Learned</h3>
 <p><strong>A ceiling is often an assumption in disguise.</strong> I spent no time making the scrape faster, because the moment I questioned the rule that every listed company gets scraped, the ceiling disappeared. The cheapest performance win was deleting work nobody needed.</p>
 <p><strong>An independent review earns its keep on the changes that feel safe.</strong> My change looked clean and passed its tests, and a separate review still caught that a company losing its last subscriber would leave its old roles frozen on the public feed forever. A one-line fix, and I would not have seen it myself.</p>
+</div></details>
 </section>
 
 <div class="chapter-nav">
@@ -1687,9 +1789,11 @@ This phase pointed the next stretch of product work at activation, the real leak
 <summary><span class="sg-n">9</span><span class="sg-t"><span class="sg-nm">Post-launch <span style="display:inline-block;font-size:.62rem;font-weight:800;letter-spacing:.06em;text-transform:uppercase;background:#f1f5f9;color:#475569;border-radius:999px;padding:2px 9px;margin-left:10px;vertical-align:middle;">Upcoming, not built yet</span></span><span class="sg-d">Not built yet either. Keep it live, grow it, and watch real data flow in. One piece that used to sit here as a plan, interview practice, graduated into the Beta stage and is being built now.</span></span><span class="sg-ct">1 phase</span><span class="sg-chev">&#8250;</span></summary>
 <div class="stage-body">
 <section class="phase sp-color-6">
-<h2 id="p27">Phase 27: A Planned Next Step</h2>
+<details class="pfold"><summary><h2 id="p27">Phase 27: A Planned Next Step</h2><span class="pf-chev">&#8250;</span></summary>
+<div class="pfold-bd">
 <p class="phase-sub">the plan that came true</p>
 <p>When I first wrote this page, this slot held a two-line promise: an AI interview-practice feature is planned as a natural next step for the same audience. That plan is now real and being built in the open. The full story lives in the <a href="#ch6">Beta stage</a>: a voice interviewer, a video interviewer with a face, a home for your prep, and a first paid beta. I'm keeping this phase here on purpose, because a roadmap should show its history, not rewrite it.</p>
+</div></details>
 </section>
 
 <div class="chapter-nav">
@@ -1772,7 +1876,7 @@ This phase pointed the next stretch of product work at activation, the real leak
   if (xall) xall.addEventListener('click', function (e) {
     e.preventDefault();
     all = !all;
-    document.querySelectorAll('details.stage').forEach(function (d) { d.open = all; });
+    document.querySelectorAll('details').forEach(function (d) { d.open = all; });
     xall.textContent = all ? 'Collapse all stages' : 'Expand all stages';
   });
   function openFor(hash) {
@@ -1780,7 +1884,7 @@ This phase pointed the next stretch of product work at activation, the real leak
     var el = document.getElementById(hash.slice(1));
     if (!el) return;
     var d = el.closest('details') || el.querySelector('details');
-    if (d) d.open = true;
+    while (d) { d.open = true; d = d.parentElement ? d.parentElement.closest('details') : null; }
     setTimeout(function () { el.scrollIntoView(); }, 0);
   }
   window.addEventListener('hashchange', function () { openFor(location.hash); });
