@@ -445,6 +445,7 @@ section.phase { padding: 0 8px; margin: 0; }
 <a class="side-ph" href="#p32">Phase 32: Seeing The Funnel, And Catching Myself Guessing</a>
 <a class="side-ph" href="#p44">Phase 44: I Measured The Filter I'd Been Trusting Blind, Then Grew The Catalog A Hundred Companies In A Night</a>
 <a class="side-ph" href="#p45">Phase 45: The Real Ceiling Was The Daily Scrape, Not The Catalog</a>
+<a class="side-ph" href="#p49">Phase 49: The Android Users Saw A Button That Couldn't Work</a>
 <a class="side-st" style="--c:var(--sp7)" href="#ch8"><span class="dot"></span>Stage 8: Launch</a>
 
 <a class="side-st" style="--c:var(--sp8)" href="#ch9"><span class="dot"></span>Stage 9: Post-launch</a>
@@ -1557,7 +1558,7 @@ The two holes the outside model found are textbook trust boundaries the author m
 <!-- ============ STAGE 7: Pre-production ============ -->
 <section class="chapter" id="ch7">
 <details class="stage" style="--c:var(--sp6)">
-<summary><span class="sg-n">7</span><span class="sg-t"><span class="sg-nm">Pre-production <span style="display:inline-block;font-size:.62rem;font-weight:800;letter-spacing:.06em;text-transform:uppercase;background:#fee2e2;color:#b42318;border-radius:999px;padding:2px 9px;margin-left:10px;vertical-align:middle;">In progress</span></span><span class="sg-d">In progress. This is where the catalog grew broad, the job-first feed landed, the data started writing its own weekly content, and analytics began working end to end, the technical dashboards and the user-facing side both. The product should make sense start to finish, not just function. Still in progress: mobile and UI polish are the work ahead.</span></span><span class="sg-ct">8 phases</span><span class="sg-chev">&#8250;</span></summary>
+<summary><span class="sg-n">7</span><span class="sg-t"><span class="sg-nm">Pre-production <span style="display:inline-block;font-size:.62rem;font-weight:800;letter-spacing:.06em;text-transform:uppercase;background:#fee2e2;color:#b42318;border-radius:999px;padding:2px 9px;margin-left:10px;vertical-align:middle;">In progress</span></span><span class="sg-d">In progress. This is where the catalog grew broad, the job-first feed landed, the data started writing its own weekly content, and analytics began working end to end, the technical dashboards and the user-facing side both. The product should make sense start to finish, not just function. Still in progress: mobile and UI polish are the work ahead.</span></span><span class="sg-ct">9 phases</span><span class="sg-chev">&#8250;</span></summary>
 <div class="stage-body">
 <section class="phase sp-color-6">
 <details class="pfold"><summary><h2 id="p22">Phase 22: Growing The Catalog The Right Way</h2><span class="pf-chev">&#8250;</span></summary>
@@ -1758,6 +1759,28 @@ This phase pointed the next stretch of product work at activation, the real leak
 </div></details>
 </section>
 
+<hr>
+
+<section class="phase sp-color-6">
+<details class="pfold"><summary><h2 id="p49">Phase 49: The Android Users Saw A Button That Couldn't Work, And The Test Had Always Said It Was Fine</h2><span class="pf-chev">&#8250;</span></summary>
+<div class="pfold-bd">
+<p class="phase-sub">the LinkedIn Android blind spot, and what four real arrivals proved that the fixture couldn't</p>
+<p><strong>Goal:</strong> Find out why some LinkedIn users couldn't sign in, and fix it without removing the path that works.</p>
+<p>Phase 42 fixed iPhone LinkedIn sign-in and added an alarm for it. What I hadn't fixed, because I didn't know about it: LinkedIn Android. The detection code watches for a <code>LinkedInApp</code> token in the user agent. LinkedIn iOS sends it. LinkedIn Android doesn't, and sends no WebView marker either. So Android users landing from LinkedIn saw the OAuth button, clicked it, and couldn't complete sign-in. No error, no alert, no clue anything was wrong. Just people who tried to sign in and left.</p>
+<p>Four arrivals in PostHog is what surfaced it. Four sessions, each coming from <code>android-app://com.linkedin.android</code>, each hitting the sign-in page. That's the evidence. The test suite had an "Android" fixture that carried the <code>LinkedInApp</code> token, which real Android doesn't send. That test had been certifying detection "on both platforms" for months, against a browser that doesn't exist.</p>
+
+<h3>What I Built</h3>
+<p><strong>A second, independent detection signal: document.referrer.</strong> LinkedIn Android sets it to <code>android-app://com.linkedin.android</code>. Either signal matching is enough to recognise the user is inside the LinkedIn app.</p>
+<p><strong>But I didn't make both signals do the same job.</strong> A reviewer asked the right question: Android might set that referrer even in a full Chrome browser opened from the LinkedIn app, where OAuth works fine. If the referrer hides the button in that case, it breaks a path that was never broken.</p>
+<p>So the two signals do different work. A user-agent token is certain: OAuth definitely won't complete, so the OAuth button is hidden and only the email path shows. A referrer match alone is uncertain: OAuth might not work, so the email path appears AND the button stays. Whichever way Android actually behaves in a Chrome Custom Tab, the user has a working route. Nobody loses the path that works for them.</p>
+<p><strong>One more catch:</strong> the URL parser doesn't fold case in non-http scheme hosts, so an uppercase package name would silently not match. The hostname gets lowercased before comparison, with a test that goes red without it. The old Android fixture is now a real tokenless Android user agent detected through the referrer, not the test encoding what the author assumed.</p>
+
+<h3>What I Learned</h3>
+<p><strong>A fabricated test fixture certifies the author's belief, not reality.</strong> That Android fixture had always carried the iOS token. It was never evidence the Android path worked. Four real arrivals from a device I couldn't control in a test were the only proof that mattered.</p>
+<p><strong>When a detection signal is uncertain, make it additive, not subtractive.</strong> I'm certain the user-agent token means OAuth can't complete. I'm not certain the referrer means the same. So the token removes the failing path; the referrer adds an alternative and keeps the original. Both signals cover the user. Neither blocks a route that's still working.</p>
+</div></details>
+</section>
+
 <div class="chapter-nav">
   <button type="button" class="cn-prev" data-go="ch6"><span class="cn-dir">Previous</span>6. Beta</button>
   <button type="button" class="cn-next" data-go="ch8"><span class="cn-dir">Next chapter</span>8. Launch</button>
@@ -1866,6 +1889,7 @@ This phase pointed the next stretch of product work at activation, the real leak
 <tr><td>47</td><td>Defaults encode assumptions</td><td>Auto-restart is right for a web server and wrong for a batch job that emails people.</td><td>Phase 46</td></tr>
 <tr><td>48</td><td>Replay before trust</td><td>Re-run your worst real incidents through new automation, writes disabled, before it acts alone.</td><td>Phase 47</td></tr>
 <tr><td>49</td><td>Knobs need harnesses</td><td>A live-editable rubric is only safe with a fixed test set and a calibration read behind it.</td><td>Phase 48</td></tr>
+<tr><td>50</td><td>Detection signal tiering</td><td>A certain signal removes the failing path; an uncertain signal adds an alternative instead. Let both provide a route, not just the one you're sure about.</td><td>Phase 49</td></tr>
 </tbody>
 </table>
 </div>
