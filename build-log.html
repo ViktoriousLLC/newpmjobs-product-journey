@@ -445,6 +445,7 @@ section.phase { padding: 0 8px; margin: 0; }
 <a class="side-ph" href="#p32">Phase 32: Seeing The Funnel, And Catching Myself Guessing</a>
 <a class="side-ph" href="#p44">Phase 44: I Measured The Filter I'd Been Trusting Blind, Then Grew The Catalog A Hundred Companies In A Night</a>
 <a class="side-ph" href="#p45">Phase 45: The Real Ceiling Was The Daily Scrape, Not The Catalog</a>
+<a class="side-ph" href="#p49">Phase 49: I Redesigned The Login Email And Pressed Redeploy Three Times Before It Actually Changed</a>
 <a class="side-st" style="--c:var(--sp7)" href="#ch8"><span class="dot"></span>Stage 8: Launch</a>
 
 <a class="side-st" style="--c:var(--sp8)" href="#ch9"><span class="dot"></span>Stage 9: Post-launch</a>
@@ -456,7 +457,7 @@ section.phase { padding: 0 8px; margin: 0; }
 
 <section class="chapter active" id="ch0">
 <h1 id="top">The Full Build Log</h1>
-<p class="subtitle">All 48 phases of NewPMJobs.com, in detail: every decision, every bug, every fix. The short version lives on <a href="index.html">the journey page</a>, and the <a href="#concepts">Summary of Concepts Learned</a> is at the end of this page.</p>
+<p class="subtitle">All 49 phases of NewPMJobs.com, in detail: every decision, every bug, every fix. The short version lives on <a href="index.html">the journey page</a>, and the <a href="#concepts">Summary of Concepts Learned</a> is at the end of this page.</p>
 <div class="pills" aria-label="Stage navigation">
 <a class="pill" style="--c:var(--sp1)" href="#ch1"><span class="n">1</span>Concept</a>
 <a class="pill" style="--c:var(--sp2)" href="#ch2"><span class="n">2</span>Prototype</a>
@@ -1557,7 +1558,7 @@ The two holes the outside model found are textbook trust boundaries the author m
 <!-- ============ STAGE 7: Pre-production ============ -->
 <section class="chapter" id="ch7">
 <details class="stage" style="--c:var(--sp6)">
-<summary><span class="sg-n">7</span><span class="sg-t"><span class="sg-nm">Pre-production <span style="display:inline-block;font-size:.62rem;font-weight:800;letter-spacing:.06em;text-transform:uppercase;background:#fee2e2;color:#b42318;border-radius:999px;padding:2px 9px;margin-left:10px;vertical-align:middle;">In progress</span></span><span class="sg-d">In progress. This is where the catalog grew broad, the job-first feed landed, the data started writing its own weekly content, and analytics began working end to end, the technical dashboards and the user-facing side both. The product should make sense start to finish, not just function. Still in progress: mobile and UI polish are the work ahead.</span></span><span class="sg-ct">8 phases</span><span class="sg-chev">&#8250;</span></summary>
+<summary><span class="sg-n">7</span><span class="sg-t"><span class="sg-nm">Pre-production <span style="display:inline-block;font-size:.62rem;font-weight:800;letter-spacing:.06em;text-transform:uppercase;background:#fee2e2;color:#b42318;border-radius:999px;padding:2px 9px;margin-left:10px;vertical-align:middle;">In progress</span></span><span class="sg-d">In progress. This is where the catalog grew broad, the job-first feed landed, the data started writing its own weekly content, and analytics began working end to end, the technical dashboards and the user-facing side both. The product should make sense start to finish, not just function. Still in progress: mobile and UI polish are the work ahead.</span></span><span class="sg-ct">9 phases</span><span class="sg-chev">&#8250;</span></summary>
 <div class="stage-body">
 <section class="phase sp-color-6">
 <details class="pfold"><summary><h2 id="p22">Phase 22: Growing The Catalog The Right Way</h2><span class="pf-chev">&#8250;</span></summary>
@@ -1758,6 +1759,24 @@ This phase pointed the next stretch of product work at activation, the real leak
 </div></details>
 </section>
 
+<hr>
+
+<section class="phase sp-color-6">
+<details class="pfold"><summary><h2 id="p49">Phase 49: I Redesigned The Login Email And Pressed Redeploy Three Times Before It Actually Changed</h2><span class="pf-chev">&#8250;</span></summary>
+<div class="pfold-bd">
+<p class="phase-sub">sign-in templates in the repo, and the build-time bake trap</p>
+<p><strong>Goal:</strong> Put the numeric code front and center in the sign-in email, so a user on a different device can type it instead of hunting through the message for a buried link.</p>
+<p>The sign-in email had worked fine for months: a magic link with a code buried below it. For a user who opens email on a different device from where they signed up, the link is awkward. The code is what they want. I redesigned the template to put the code on top and the link below, then tried to push the change by pasting the new body into the Supabase dashboard. I read the live template back and got the original text. I tried again. Same. Nothing had changed, twice.</p>
+<p>Rather than try a third paste, I moved the templates into the repo, under <code>.github/ci/auth-templates/</code>, and built a small workflow with three modes: <code>apply</code> writes exactly five fields and reads them all back as proof, <code>rollback</code> restores the originals captured before any edit, and <code>dry-run</code> only prints what it would send. The production email now says exactly what the repo says.</p>
+<p>Then I set <code>NEXT_PUBLIC_EMAIL_CODE=1</code> in the Vercel dashboard and pressed Redeploy. The build cancelled in about five seconds. I pressed it again. Same result. A third time, same five-second cancel.</p>
+<p>The reason was in <code>frontend/vercel.json</code>: an ignore script that cancels any build whose latest commit did not touch the frontend folder. The recent commits were all backend work. <code>NEXT_PUBLIC_*</code> values are baked into the build at compile time, not read at runtime, so setting one in the dashboard and pressing Redeploy cannot work if the build keeps getting cancelled first. The fix was to make a real frontend commit, which produced the build that baked the flag in. The sign-in page's notes now document the trap so I don't step in it again.</p>
+
+<h3>What I Learned</h3>
+<p><strong>NEXT_PUBLIC_* variables are build-time constants, not runtime settings.</strong> Setting one in the dashboard and pressing Redeploy will not reach users if the build is cancelled because nothing in the frontend changed. A real commit touching a frontend file is the only path.</p>
+<p><strong>Moving config into the repo is safer than editing a provider dashboard with no version history.</strong> A workflow with a dry-run mode and a rollback command catches the cases where pasting directly into a UI would leave you guessing what actually landed. The repo is now the source of truth for what the sign-in email says.</p>
+</div></details>
+</section>
+
 <div class="chapter-nav">
   <button type="button" class="cn-prev" data-go="ch6"><span class="cn-dir">Previous</span>6. Beta</button>
   <button type="button" class="cn-next" data-go="ch8"><span class="cn-dir">Next chapter</span>8. Launch</button>
@@ -1866,6 +1885,7 @@ This phase pointed the next stretch of product work at activation, the real leak
 <tr><td>47</td><td>Defaults encode assumptions</td><td>Auto-restart is right for a web server and wrong for a batch job that emails people.</td><td>Phase 46</td></tr>
 <tr><td>48</td><td>Replay before trust</td><td>Re-run your worst real incidents through new automation, writes disabled, before it acts alone.</td><td>Phase 47</td></tr>
 <tr><td>49</td><td>Knobs need harnesses</td><td>A live-editable rubric is only safe with a fixed test set and a calibration read behind it.</td><td>Phase 48</td></tr>
+<tr><td>50</td><td>Build-time env vars</td><td>NEXT_PUBLIC_* values are baked in at compile time; a dashboard env-var change only takes effect in a new build that actually runs.</td><td>Phase 49</td></tr>
 </tbody>
 </table>
 </div>
