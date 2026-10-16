@@ -445,6 +445,8 @@ section.phase { padding: 0 8px; margin: 0; }
 <a class="side-ph" href="#p32">Phase 32: Seeing The Funnel, And Catching Myself Guessing</a>
 <a class="side-ph" href="#p44">Phase 44: I Measured The Filter I'd Been Trusting Blind, Then Grew The Catalog A Hundred Companies In A Night</a>
 <a class="side-ph" href="#p45">Phase 45: The Real Ceiling Was The Daily Scrape, Not The Catalog</a>
+<a class="side-ph" href="#p49">Phase 49: The Backup That Would Have Opened Everything</a>
+<a class="side-ph" href="#p50">Phase 50: The Friday Post Gets A New Angle Every Week</a>
 <a class="side-st" style="--c:var(--sp7)" href="#ch8"><span class="dot"></span>Stage 8: Launch</a>
 
 <a class="side-st" style="--c:var(--sp8)" href="#ch9"><span class="dot"></span>Stage 9: Post-launch</a>
@@ -456,7 +458,7 @@ section.phase { padding: 0 8px; margin: 0; }
 
 <section class="chapter active" id="ch0">
 <h1 id="top">The Full Build Log</h1>
-<p class="subtitle">All 48 phases of NewPMJobs.com, in detail: every decision, every bug, every fix. The short version lives on <a href="index.html">the journey page</a>, and the <a href="#concepts">Summary of Concepts Learned</a> is at the end of this page.</p>
+<p class="subtitle">All 50 phases of NewPMJobs.com, in detail: every decision, every bug, every fix. The short version lives on <a href="index.html">the journey page</a>, and the <a href="#concepts">Summary of Concepts Learned</a> is at the end of this page.</p>
 <div class="pills" aria-label="Stage navigation">
 <a class="pill" style="--c:var(--sp1)" href="#ch1"><span class="n">1</span>Concept</a>
 <a class="pill" style="--c:var(--sp2)" href="#ch2"><span class="n">2</span>Prototype</a>
@@ -1557,7 +1559,7 @@ The two holes the outside model found are textbook trust boundaries the author m
 <!-- ============ STAGE 7: Pre-production ============ -->
 <section class="chapter" id="ch7">
 <details class="stage" style="--c:var(--sp6)">
-<summary><span class="sg-n">7</span><span class="sg-t"><span class="sg-nm">Pre-production <span style="display:inline-block;font-size:.62rem;font-weight:800;letter-spacing:.06em;text-transform:uppercase;background:#fee2e2;color:#b42318;border-radius:999px;padding:2px 9px;margin-left:10px;vertical-align:middle;">In progress</span></span><span class="sg-d">In progress. This is where the catalog grew broad, the job-first feed landed, the data started writing its own weekly content, and analytics began working end to end, the technical dashboards and the user-facing side both. The product should make sense start to finish, not just function. Still in progress: mobile and UI polish are the work ahead.</span></span><span class="sg-ct">8 phases</span><span class="sg-chev">&#8250;</span></summary>
+<summary><span class="sg-n">7</span><span class="sg-t"><span class="sg-nm">Pre-production <span style="display:inline-block;font-size:.62rem;font-weight:800;letter-spacing:.06em;text-transform:uppercase;background:#fee2e2;color:#b42318;border-radius:999px;padding:2px 9px;margin-left:10px;vertical-align:middle;">In progress</span></span><span class="sg-d">In progress. This is where the catalog grew broad, the job-first feed landed, the data started writing its own weekly content with a fresh angle each week, analytics began working end to end, and the product got its first real database backup, proven by a restore drill that immediately found a problem. The product should make sense start to finish, not just function.</span></span><span class="sg-ct">10 phases</span><span class="sg-chev">&#8250;</span></summary>
 <div class="stage-body">
 <section class="phase sp-color-6">
 <details class="pfold"><summary><h2 id="p22">Phase 22: Growing The Catalog The Right Way</h2><span class="pf-chev">&#8250;</span></summary>
@@ -1758,6 +1760,41 @@ This phase pointed the next stretch of product work at activation, the real leak
 </div></details>
 </section>
 
+<hr>
+
+<section class="phase sp-color-6">
+<details class="pfold"><summary><h2 id="p49">Phase 49: The Backup That Would Have Opened Everything</h2><span class="pf-chev">&#8250;</span></summary>
+<div class="pfold-bd">
+<p class="phase-sub">the first real backup, and what the restore drill found</p>
+<p><strong>Goal:</strong> Build a real database backup and prove it works by restoring it.</p>
+<p>Production had no backup. Zero. The Supabase account is on the free plan, which keeps none, and that gap had been on the list for months. So I finally stopped putting it off.</p>
+<p>The build was straightforward: a GitHub Actions job that runs at 07:17 UTC every night, dumps the database with Supabase's own free-plan method, refuses to keep going if the login accounts or the product tables come out empty, encrypts the result with a key only I hold, and stores 14 days' worth. I deliberately called it a "copy" on the ticket, not a backup, because a copy you've never restored is not a backup. It's a file with a hopeful filename.</p>
+<p>So I built the drill. The same job can run with a single extra flag: it makes a fresh copy, replays it into an empty scratch Supabase project, refuses outright if the target is the live database, then checks that every table has exactly the right rows and that the security rules, functions and roles match the live system. The scratch project gets deleted after each drill, pass or fail, so no readable copy of production is left sitting anywhere.</p>
+<p>The first drill ran in 46 seconds. All 94 tables came back with the right row counts. Then it hit a check I had written but did not expect to fail. On the restored database, the public website roles could read and write every table, including the companies catalog, the credit ledger and user data. Production has all of those locked down. A new Supabase project does not. It grants full access by default, and a backup restore only adds grants back, it never revokes the default ones. A real restore would have quietly undone every permission I had spent months building, and nothing would have told me.</p>
+<p>The fix is in Supabase's own documentation: revoke the default grants before restoring. The runbook, the drill and the restore command all do it now. I called it a backup after the second drill passed clean.</p>
+
+<h3>What I Learned</h3>
+<p><strong>Building the backup was easy. Finding out the backup would have opened everything came from running the drill.</strong> A procedure that has never been tested under real conditions is a guess. The drill is not overhead; it is the thing that makes the backup real.</p>
+</div></details>
+</section>
+
+<hr>
+
+<section class="phase sp-color-6">
+<details class="pfold"><summary><h2 id="p50">Phase 50: The Friday Post Gets A New Angle Every Week</h2><span class="pf-chev">&#8250;</span></summary>
+<div class="pfold-bd">
+<p class="phase-sub">themed editions, one data cut per week instead of four fixed blocks</p>
+<p><strong>Goal:</strong> Make the Friday post feel different week to week, not just numerically updated.</p>
+<p>The weekly post from Phase 28 had a problem I had been ignoring. Every Friday the same four stat blocks went out: industry split, top ten companies, AI roles, posts per day. The "Hot Take" headline rotated and the numbers changed, but the structure was identical. I read two consecutive weeks side by side and they looked like the same document with different decimals.</p>
+<p>I stopped treating the post as a fixed template and started treating it as a question: what is the most interesting cut this week? Any given week's roles have a natural angle that is not always the same one. Leadership might have spiked. One company might have posted 30 roles in two days. Remote work might have shown up in a sector that usually does not have it. I built ten of those angles: leadership (VP and Director roles), pay (best-paying companies hiring that week by typical PM salary), an industry spotlight that rotates through sub-sectors, early career, remote, AI, top hirers by volume, companies hiring again after a quiet month, a title term that suddenly jumped, and a catch-all top roles list. The system checks which themes have enough data that week, builds all of them, picks three, rests any theme used in the last two weeks, and prefers the one used longest ago. The Friday email carries those three ready-to-post drafts plus the ChatGPT image prompt for each. The old stats table and product metrics block came out.</p>
+<p>Two things came from the first real week's data: the title level classifier was putting "Senior Product Manager" into the early-career bucket (fixed: early career is now read from the title text, not the level field); and a bank's "Product Manager, Vice President" job title is not a VP of Product role and should not count as one.</p>
+<p>One bug found along the way: the ChatGPT image prompt was naming a different featured writer than the post itself used. The image prompt was written by a second AI call whose rule said skip authors already in the post, while that same call was also asked to write pills for those exact authors. A contradiction in one call. The fix was to have the first call, the one that chose the six post items, write the pill headlines too, and let code match each pill against the post. A mismatch now shows as a red note in the email instead of a silent wrong name.</p>
+
+<h3>What I Learned</h3>
+<p><strong>A format that updates its numbers but not its shape becomes invisible.</strong> The data already had a different story each week; the work was building the engine that finds it instead of defaulting to a fixed cut. The "Hot Take" label stayed: Vik called it the key line, and you keep what works.</p>
+</div></details>
+</section>
+
 <div class="chapter-nav">
   <button type="button" class="cn-prev" data-go="ch6"><span class="cn-dir">Previous</span>6. Beta</button>
   <button type="button" class="cn-next" data-go="ch8"><span class="cn-dir">Next chapter</span>8. Launch</button>
@@ -1866,6 +1903,8 @@ This phase pointed the next stretch of product work at activation, the real leak
 <tr><td>47</td><td>Defaults encode assumptions</td><td>Auto-restart is right for a web server and wrong for a batch job that emails people.</td><td>Phase 46</td></tr>
 <tr><td>48</td><td>Replay before trust</td><td>Re-run your worst real incidents through new automation, writes disabled, before it acts alone.</td><td>Phase 47</td></tr>
 <tr><td>49</td><td>Knobs need harnesses</td><td>A live-editable rubric is only safe with a fixed test set and a calibration read behind it.</td><td>Phase 48</td></tr>
+<tr><td>50</td><td>Backup ordering</td><td>A new project opens every table by default; revoke those grants before restoring, or a restore quietly undoes every lock you built.</td><td>Phase 49</td></tr>
+<tr><td>51</td><td>Theme rotation</td><td>The data has a different story each week; build the engine that finds it rather than defaulting to a fixed template.</td><td>Phase 50</td></tr>
 </tbody>
 </table>
 </div>
