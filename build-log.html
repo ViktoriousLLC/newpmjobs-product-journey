@@ -429,6 +429,9 @@ section.phase { padding: 0 8px; margin: 0; }
 <a class="side-ph" href="#p42">Phase 42: "Unable To Log In," And A Quarter Of Sign-Ins Were Quietly Failing</a>
 <a class="side-ph" href="#p46">Phase 46: The Daily Job Got Its Own Home</a>
 <a class="side-ph" href="#p47">Phase 47: The Scrapers Learned To Fix Themselves, And I Replayed My Six Worst Incidents To Prove It</a>
+<a class="side-ph" href="#p50">Phase 50: One AI Assistant Did All The Work Because Handing Off Took Extra Steps</a>
+<a class="side-ph" href="#p51">Phase 51: Nothing Stopped An AI From Emptying A Folder On My Computer</a>
+<a class="side-ph" href="#p56">Phase 56: Every Serious Review Finding Was In Code Written That Same Hour</a>
 <a class="side-st" style="--c:var(--sp9)" href="#ch6"><span class="dot"></span>Stage 6: Beta</a>
 <a class="side-ph" href="#p35">Phase 35: The Mock Interview Wasn't Reading My Prep, So I Made It</a>
 <a class="side-ph" href="#p36">Phase 36: I Gave The Interviewer A Face</a>
@@ -436,6 +439,10 @@ section.phase { padding: 0 8px; margin: 0; }
 <a class="side-ph" href="#p41">Phase 41: I Came Back With 28 Complaints, And Found Four Problems</a>
 <a class="side-ph" href="#p43">Phase 43: The First Paid Beta</a>
 <a class="side-ph" href="#p48">Phase 48: The Coach Got A Feedback Loop</a>
+<a class="side-ph" href="#p49">Phase 49: The AI Interviewer Felt Fake Because It Complimented Every Answer</a>
+<a class="side-ph" href="#p54">Phase 54: An Account That Never Paid Could Open The Paid Product</a>
+<a class="side-ph" href="#p55">Phase 55: Nobody Started An Interview Because They Had To Wait For Me To Approve Them</a>
+<a class="side-ph" href="#p60">Phase 60: The Report Only Arrived If You Kept The Tab Open</a>
 <a class="side-st" style="--c:var(--sp6)" href="#ch7"><span class="dot"></span>Stage 7: Pre-production</a>
 <a class="side-ph" href="#p22">Phase 22: Growing The Catalog The Right Way</a>
 <a class="side-ph" href="#p23">Phase 23: A Job-First Feed</a>
@@ -445,6 +452,12 @@ section.phase { padding: 0 8px; margin: 0; }
 <a class="side-ph" href="#p32">Phase 32: Seeing The Funnel, And Catching Myself Guessing</a>
 <a class="side-ph" href="#p44">Phase 44: I Measured The Filter I'd Been Trusting Blind, Then Grew The Catalog A Hundred Companies In A Night</a>
 <a class="side-ph" href="#p45">Phase 45: The Real Ceiling Was The Daily Scrape, Not The Catalog</a>
+<a class="side-ph" href="#p52">Phase 52: Switching The Whole Site To The New Design Took One Line</a>
+<a class="side-ph" href="#p53">Phase 53: Half The Broken Job Boards Were Fine</a>
+<a class="side-ph" href="#p57">Phase 57: The Site Felt Slow Because One Screen Made 10 Calls To The Server</a>
+<a class="side-ph" href="#p58">Phase 58: Getting The Weekly Email Meant Giving Up The Daily One</a>
+<a class="side-ph" href="#p59">Phase 59: The Home Page Barely Mentioned Half Of What I Sell</a>
+<a class="side-ph" href="#p61">Phase 61: My Monday Email Showed Every Number And Told Me Nothing</a>
 <a class="side-st" style="--c:var(--sp7)" href="#ch8"><span class="dot"></span>Stage 8: Launch</a>
 
 <a class="side-st" style="--c:var(--sp8)" href="#ch9"><span class="dot"></span>Stage 9: Post-launch</a>
@@ -456,7 +469,7 @@ section.phase { padding: 0 8px; margin: 0; }
 
 <section class="chapter active" id="ch0">
 <h1 id="top">The Full Build Log</h1>
-<p class="subtitle">All 48 phases of NewPMJobs.com, in detail: every decision, every bug, every fix. The short version lives on <a href="index.html">the journey page</a>, and the <a href="#concepts">Summary of Concepts Learned</a> is at the end of this page.</p>
+<p class="subtitle">All 61 phases of NewPMJobs.com, in detail: every decision, every bug, every fix. The short version lives on <a href="index.html">the journey page</a>, and the <a href="#concepts">Summary of Concepts Learned</a> is at the end of this page.</p>
 <div class="pills" aria-label="Stage navigation">
 <a class="pill" style="--c:var(--sp1)" href="#ch1"><span class="n">1</span>Concept</a>
 <a class="pill" style="--c:var(--sp2)" href="#ch2"><span class="n">2</span>Prototype</a>
@@ -899,7 +912,7 @@ This is what made "share the link" a safe move instead of a gamble. It also set 
 <!-- ============ STAGE 5: Hardening ============ -->
 <section class="chapter" id="ch5">
 <details class="stage" style="--c:var(--sp5)">
-<summary><span class="sg-n">5</span><span class="sg-t"><span class="sg-nm">Hardening <span style="display:inline-block;font-size:.62rem;font-weight:800;letter-spacing:.06em;text-transform:uppercase;background:#dcfce7;color:#047a4e;border-radius:999px;padding:2px 9px;margin-left:10px;vertical-align:middle;">Done</span></span><span class="sg-d">This is where I am now. Security audits, scaling, the silent failures, the self-healing scrapers, the deploy gate, the night the daily job died. The thin vertical slice from the MVP gets sturdy and deep, so I can trust it with real users.</span></span><span class="sg-ct">21 phases</span><span class="sg-chev">&#8250;</span></summary>
+<summary><span class="sg-n">5</span><span class="sg-t"><span class="sg-nm">Hardening <span style="display:inline-block;font-size:.62rem;font-weight:800;letter-spacing:.06em;text-transform:uppercase;background:#dcfce7;color:#047a4e;border-radius:999px;padding:2px 9px;margin-left:10px;vertical-align:middle;">Done</span></span><span class="sg-d">Security audits, scaling, the silent failures, the self-healing scrapers, the deploy gate, the night the daily job died. The thin vertical slice from the MVP gets sturdy and deep, so I can trust it with real users.</span></span><span class="sg-ct">24 phases</span><span class="sg-chev">&#8250;</span></summary>
 <div class="stage-body">
 <section class="phase sp-color-4">
 <details class="pfold"><summary><h2 id="p12">Phase 12: Making The Daily Run Dependable</h2><span class="pf-chev">&#8250;</span></summary>
@@ -1439,6 +1452,52 @@ The two holes the outside model found are textbook trust boundaries the author m
 </div></details>
 </section>
 
+<hr>
+
+<section class="phase sp-color-5">
+<details class="pfold"><summary><h2 id="p50">Phase 50: One AI Assistant Did All The Work Because Handing Off Took Extra Steps</h2><span class="pf-chev">&#8250;</span></summary>
+<div class="pfold-bd">
+<p><strong>Goal:</strong> I build with two AI coding subscriptions. For weeks one of them sat near its weekly limit while the other one was barely used, and writing "delegate more" in the instructions stopped working within a few days.</p>
+<h3>What I Built</h3>
+<p>A router that looks at each task (is there a written spec, how many files does it touch, does it need taste, is it security related) and picks which assistant does it, which model, and how hard it should think. A check blocks any handoff the router didn't approve. A second model, which never sees the router's answer, writes down what it would have picked, and I can see how often the two disagree. Two small meters read the real usage on each plan and move flexible work to the one with more room left. Security and design calls always stay with the main assistant.</p>
+<p>Even with all that, in one two-hour stretch the router got asked once out of seven times. Handing work off took extra steps that keeping it didn't. So now the main assistant has to log a decision before it edits a file too, the same as for a handoff.</p>
+<h3>What I Learned</h3>
+<p>The reminder to use the router had been showing up on every single turn for weeks, and repeating it didn't change anything. Making both choices take the same effort did.</p>
+<p>Four AI reviewers read the new check and approved it. Then I ran it for five minutes and found four bugs they had all missed, like a file path that only breaks on Windows.</p>
+<p>With real numbers from both meters, I could also see I didn't need to upgrade a plan yet. I almost had.</p>
+</div></details>
+</section>
+
+<hr>
+
+<section class="phase sp-color-5">
+<details class="pfold"><summary><h2 id="p51">Phase 51: Nothing Stopped An AI From Emptying A Folder On My Computer</h2><span class="pf-chev">&#8250;</span></summary>
+<div class="pfold-bd">
+<p><strong>Goal:</strong> My biggest worry about giving an AI assistant access to my computer was that it would delete something it shouldn't. And in July, that's what happened. A command meant to clear a scratch folder pointed at the wrong place and emptied a different folder on my machine, and nothing stopped it. I had spent months adding checks, and every one of them protected the database or the code. The files on my own computer had nothing.</p>
+<h3>What I Built</h3>
+<p>A check that runs before every shell command and refuses a delete that would land somewhere it shouldn't, like a home folder, the desktop, or the top of a project. It works out where the delete will actually land before deciding. The command that hit me used a variable, and you can't tell by reading it what that variable holds, so the check fills in the variables and follows shortcuts first.</p>
+<p>It also had to stay out of the way, or I'd turn it off within a week. The tests have 41 normal commands that must still work and 58 dangerous ones that must be stopped.</p>
+<h3>What I Learned</h3>
+<p>I had protected the things that already had backups. The folder that got emptied had none, and I'd never thought about it.</p>
+<p>Six rounds of review found 19 ways around a check I thought was finished. Most of them were found by only one of the three AI reviewers, and each one missed different things.</p>
+</div></details>
+</section>
+
+<hr>
+
+<section class="phase sp-color-5">
+<details class="pfold"><summary><h2 id="p56">Phase 56: Every Serious Review Finding Was In Code Written That Same Hour</h2><span class="pf-chev">&#8250;</span></summary>
+<div class="pfold-bd">
+<p><strong>Goal:</strong> My review panel (several AI models that read every change, with one more model judging their findings) found new problems every single round, and I didn't know how I'd ever ship anything.</p>
+<h3>What I Built</h3>
+<p>A panel that's asked to find problems will always find some, so waiting for a clean round meant waiting forever. I changed the rule. A change ships when a round on the final version finds nothing that could hurt someone, and the smaller findings go on a list. I also stopped reviewing code while it was still changing. Every serious finding over four rounds was in code written that same hour, as a fix for the round before.</p>
+<p>Then I wrote down what the review tool is supposed to do, which it never had. Each requirement names the test that proves it, and the build fails if one is missing.</p>
+<h3>What I Learned</h3>
+<p>Until that document existed, the reviews kept finding out what the tool did, with nothing to compare it to.</p>
+<p>That same night, a test showed that one of the reviewers could read files it shouldn't, because it could run commands while holding the job's login. I had blocked it from writing files and assumed that covered reading too. It's fixed now.</p>
+</div></details>
+</section>
+
 <div class="chapter-nav">
   <button type="button" class="cn-prev" data-go="ch4"><span class="cn-dir">Previous</span>4. Alpha</button>
   <button type="button" class="cn-next" data-go="ch6"><span class="cn-dir">Next chapter</span>6. Beta</button>
@@ -1451,7 +1510,7 @@ The two holes the outside model found are textbook trust boundaries the author m
 <!-- ============ STAGE 6: Beta ============ -->
 <section class="chapter" id="ch6">
 <details class="stage" style="--c:var(--sp9)">
-<summary><span class="sg-n">6</span><span class="sg-t"><span class="sg-nm">Beta <span style="display:inline-block;font-size:.62rem;font-weight:800;letter-spacing:.06em;text-transform:uppercase;background:#ede9fe;color:#6d28d9;border-radius:999px;padding:2px 9px;margin-left:10px;vertical-align:middle;">In beta</span></span><span class="sg-d">In progress, and it grew into the next bet. Finding the job is half the battle; the interview that follows is the other half. So the beta stage became an AI interview coach for the same audience: a voice interviewer, then a video one with a face, then a home for your prep, and finally a tiny invite-only paid beta with real testers.</span></span><span class="sg-ct">6 phases</span><span class="sg-chev">&#8250;</span></summary>
+<summary><span class="sg-n">6</span><span class="sg-t"><span class="sg-nm">Beta <span style="display:inline-block;font-size:.62rem;font-weight:800;letter-spacing:.06em;text-transform:uppercase;background:#ede9fe;color:#6d28d9;border-radius:999px;padding:2px 9px;margin-left:10px;vertical-align:middle;">In beta</span></span><span class="sg-d">In progress, and it grew into the next bet. Finding the job is half the battle; the interview that follows is the other half. So the beta stage became an AI interview coach for the same audience: a voice interviewer, then a video one with a face, then a home for your prep, and now an open beta where anyone can try two interviews free.</span></span><span class="sg-ct">10 phases</span><span class="sg-chev">&#8250;</span></summary>
 <div class="stage-body">
 <div class="phase sp-color-9">
 <p class="phase-sub">why this stage looks different</p>
@@ -1545,6 +1604,66 @@ The two holes the outside model found are textbook trust boundaries the author m
 </div></details>
 </section>
 
+<hr>
+
+<section class="phase sp-color-9">
+<details class="pfold"><summary><h2 id="p49">Phase 49: The AI Interviewer Felt Fake Because It Complimented Every Answer</h2><span class="pf-chev">&#8250;</span></summary>
+<div class="pfold-bd">
+<p><strong>Goal:</strong> Make the AI interviewer feel like a real interview before beta testers tried it.</p>
+<h3>What I Built</h3>
+<p>I compared our mock interview with how real interviews go. Ours praised every answer before asking the next question. It asked perfectly formed questions on a fixed rhythm, had no small talk, and stopped the moment it ran out of questions. The candidate never got to ask anything, and real interviewers score that part too.</p>
+<p>I rewrote the interviewer in one batch, about 70% tough and 30% warm. Praise only shows up now when an answer is really strong. A vague answer now gets follow-up questions until a number or an honest "I don't know" comes out. It introduces itself, makes one line of small talk at the start, and always ends with "What questions do you have for me?" The page also tells you it's an AI playing a role and that what it says about the company can be made up.</p>
+<h3>What I Learned</h3>
+<p>Real interviewers barely react to your answers, and ours complimented every one of them. Taking that out made a bigger difference to how it feels than any of the smarter questions did.</p>
+<p>My old instructions told the interviewer not to wrap up before minute 28, but it has no clock, so it could only guess. Every rule I give it now is about something it can actually see, like how many questions it has asked.</p>
+<p>I also set up two AI judges to score every interview and later found they had never scored anything. They existed in the dashboard, but nothing connected them to the interviews.</p>
+</div></details>
+</section>
+
+<hr>
+
+<section class="phase sp-color-9">
+<details class="pfold"><summary><h2 id="p54">Phase 54: An Account That Never Paid Could Open The Paid Product</h2><span class="pf-chev">&#8250;</span></summary>
+<div class="pfold-bd">
+<p><strong>Goal:</strong> I was clicking around my own site with a second email address, the way a new user would. Five minutes in, the paid interview prep page opened for an account that had never paid.</p>
+<h3>What I Built</h3>
+<p>We had checked every protected page, but only while logged out. A logged-out visitor gets refused, so everything looked locked. Nobody had checked what a stranger with an account could open.</p>
+<p>I added the missing test. One file lists who can reach what, for 7 kinds of user (from a brand new stranger to a paying customer who has used up their credits), against every protected page. The test signs in as each one and fails if anyone reaches something they shouldn't, and it runs on every change. To make sure it really works, I put the original bug back on purpose and watched it fail.</p>
+<h3>What I Learned</h3>
+<p>Clicking around like a customer found three bugs that no automatic check had found. One was a fix from the day before that broke the after-interview report for every paying customer. It worked fine for me, because I'm an admin. Another was a waitlist button that had never once shown up for the people it was built for.</p>
+<p>My new test had also recorded the broken behavior as the correct answer, because that's what the code did on the day I wrote the test.</p>
+</div></details>
+</section>
+
+<hr>
+
+<section class="phase sp-color-9">
+<details class="pfold"><summary><h2 id="p55">Phase 55: Nobody Started An Interview Because They Had To Wait For Me To Approve Them</h2><span class="pf-chev">&#8250;</span></summary>
+<div class="pfold-bd">
+<p><strong>Goal:</strong> People were asking for access to the interview product and getting approved, and then almost nobody started an interview. I kept looking for a problem with the interview itself. The problem was getting to it: sign in, ask for access, wait for me to approve, get an email, come back, pay, start. One of those steps was me, and I might be asleep.</p>
+<h3>What I Built</h3>
+<p>I removed the approval step completely. It was checked in four places, and removing it from only three would have been worse than leaving it, because people would get in and then be blocked further along. New users now get two free interviews from a pool with a fixed limit (it can't run up a big bill overnight), and then they pay. The old one-dollar price was only ever a placeholder.</p>
+<p>Soon after, a stranger signed up on their own and finished a full interview, with nobody approving anything! Then I looked at what it cost them. A short false start had used up one of their two free credits, because a credit was spent as soon as you said anything. That was OK when a credit cost a dollar but not at the real price, so a credit now counts only after two minutes.</p>
+<h3>What I Learned</h3>
+<p>I spent weeks looking at the interview, and the real problem was that people needed me to be awake to get to it.</p>
+</div></details>
+</section>
+
+<hr>
+
+<section class="phase sp-color-9">
+<details class="pfold"><summary><h2 id="p60">Phase 60: The Report Only Arrived If You Kept The Tab Open</h2><span class="pf-chev">&#8250;</span></summary>
+<div class="pfold-bd">
+<p><strong>Goal:</strong> After a practice interview, you had to keep the browser tab open while your report was being made. If you closed it, only part of the report arrived, so someone who had paid could get much less than they were promised.</p>
+<h3>What I Built</h3>
+<p>It turned out the browser was the one making the report. Now the server makes it, piece by piece, and emails it to you. You can close the tab.</p>
+<p>Three of the four parts moved to the server: the transcript, the score, and the feedback on how you spoke. The camera feedback didn't. It depends on measurements your browser takes while you talk, and those were never saved anywhere. Without them, the server would score a video it can't see, and that has happened here before: a camera pointed at an empty chair once got 40 out of 100. If you close the tab now, your report comes without the camera section, until those measurements get saved too.</p>
+<h3>What I Learned</h3>
+<p>The review panel read this work 12 times, and each of the first 9 rounds found something that would have shipped broken. The worst one was an email promising a refund when no code anywhere actually gave one.</p>
+<p>A lot of my bugs here were things that produced an answer nobody used: a function nothing called, a result that got thrown away, a counter nobody printed. Breaking what each test protects and watching it fail is how I found them.</p>
+</div></details>
+</section>
+
 <div class="chapter-nav">
   <button type="button" class="cn-prev" data-go="ch5"><span class="cn-dir">Previous</span>5. Hardening</button>
   <button type="button" class="cn-next" data-go="ch7"><span class="cn-dir">Next chapter</span>7. Pre-production</button>
@@ -1557,7 +1676,7 @@ The two holes the outside model found are textbook trust boundaries the author m
 <!-- ============ STAGE 7: Pre-production ============ -->
 <section class="chapter" id="ch7">
 <details class="stage" style="--c:var(--sp6)">
-<summary><span class="sg-n">7</span><span class="sg-t"><span class="sg-nm">Pre-production <span style="display:inline-block;font-size:.62rem;font-weight:800;letter-spacing:.06em;text-transform:uppercase;background:#fee2e2;color:#b42318;border-radius:999px;padding:2px 9px;margin-left:10px;vertical-align:middle;">In progress</span></span><span class="sg-d">In progress. This is where the catalog grew broad, the job-first feed landed, the data started writing its own weekly content, and analytics began working end to end, the technical dashboards and the user-facing side both. The product should make sense start to finish, not just function. Still in progress: mobile and UI polish are the work ahead.</span></span><span class="sg-ct">8 phases</span><span class="sg-chev">&#8250;</span></summary>
+<summary><span class="sg-n">7</span><span class="sg-t"><span class="sg-nm">Pre-production <span style="display:inline-block;font-size:.62rem;font-weight:800;letter-spacing:.06em;text-transform:uppercase;background:#fee2e2;color:#b42318;border-radius:999px;padding:2px 9px;margin-left:10px;vertical-align:middle;">In progress</span></span><span class="sg-d">In progress. This is where the catalog grew broad, the job-first feed landed, the data started writing its own weekly content, and analytics began working end to end, the technical dashboards and the user-facing side both. The product should make sense start to finish, not just function. Still in progress: mobile and UI polish are the work ahead.</span></span><span class="sg-ct">14 phases</span><span class="sg-chev">&#8250;</span></summary>
 <div class="stage-body">
 <section class="phase sp-color-6">
 <details class="pfold"><summary><h2 id="p22">Phase 22: Growing The Catalog The Right Way</h2><span class="pf-chev">&#8250;</span></summary>
@@ -1758,6 +1877,94 @@ This phase pointed the next stretch of product work at activation, the real leak
 </div></details>
 </section>
 
+<hr>
+
+<section class="phase sp-color-6">
+<details class="pfold"><summary><h2 id="p52">Phase 52: Switching The Whole Site To The New Design Took One Line</h2><span class="pf-chev">&#8250;</span></summary>
+<div class="pfold-bd">
+<p><strong>Goal:</strong> I had two finished things that nobody could see yet. The new design was hidden behind a preview switch that only I had, and the interview product could only take test payments with fake cards. This phase put both live.</p>
+<h3>What I Built</h3>
+<p>Switching everyone to the new design took one line. Months earlier I'd made every color go through a shared set of named design values, so I only had to change where they pointed. Then I deleted the preview switch and the old design completely.</p>
+<p>For payments, I turned on real charges and added the pieces around them. I get an email as soon as someone asks for access, with an approve button in it. Every day, a check compares each payment with the credits it should have created, because the worst thing that could happen is someone paying and getting nothing. And there's a real terms page now, which says that if a session fails on our side, you get the credit back.</p>
+<h3>What I Learned</h3>
+<p>Everything in this phase already worked in a demo. What was missing was the stuff around it: the email that makes approvals fast, the alarm when a payment goes wrong, and a line telling a stranger what it costs.</p>
+</div></details>
+</section>
+
+<hr>
+
+<section class="phase sp-color-6">
+<details class="pfold"><summary><h2 id="p53">Phase 53: Half The Broken Job Boards Were Fine</h2><span class="pf-chev">&#8250;</span></summary>
+<div class="pfold-bd">
+<p><strong>Goal:</strong> I had a week of "scraper broken" alerts waiting for me, and I assumed it would be a big fix.</p>
+<h3>What I Built</h3>
+<p>Before changing any code, I had the system check each of those job boards live. Half of them were fine. eBay had recovered on its own, Walmart and Twilio were working normally, and one scare was a typo in my own query.</p>
+<p>The other half had moved. Companies switch job-board vendors without telling anyone. Chegg's board address changed a hyphen to an underscore, and Leidos had left four empty boards on its old vendor while 1,944 jobs sat on the new one. I pointed 13 companies at their new boards, after checking each one live.</p>
+<p>Some companies are just gone, usually because they were acquired. The system can now remove one, but only after it proves the company is gone that same day, and asks me twice on my Monday email, a week apart, with the removal date on the card. If I reply "keep it," it stops for good.</p>
+<h3>What I Learned</h3>
+<p>Checking first saved me a lot of work, because half the alerts didn't need a fix at all.</p>
+<p>I'm happy to let the system handle the routine fixes on its own, as long as it asks me before anything it can't undo.</p>
+</div></details>
+</section>
+
+<hr>
+
+<section class="phase sp-color-6">
+<details class="pfold"><summary><h2 id="p57">Phase 57: The Site Felt Slow Because One Screen Made 10 Calls To The Server</h2><span class="pf-chev">&#8250;</span></summary>
+<div class="pfold-bd">
+<p><strong>Goal:</strong> After a week of work to make the site lighter, it felt slower to me. That's just a feeling, so I wanted to check if I was right before changing anything else.</p>
+<h3>What I Built</h3>
+<p>The first thing I built was a way to measure it. The database was fine: all the work behind my dashboard took about 10 milliseconds. The time went into 10 separate calls to the server, and into sending details for about 1,200 companies to a screen that shows 60. Opening a single company was worse, with about 13 calls, and 9 of them were only there to work out where the "next" arrow should go.</p>
+<p>Now the server sends one page at a time, and the search, sorting and counting moved to the server too. If only the paging had moved, a search would have looked through one page and the counts would have said 60, and nobody would have noticed.</p>
+<h3>What I Learned</h3>
+<p>I almost reported a 30x speedup that wasn't real. The first timing said almost 400 milliseconds, and running the same query again took 8. The data just hadn't been loaded into memory yet the first time.</p>
+<p>A company in our catalog is called Constructor, and in the language this site is written in, looking up "constructor" in a table gives back a built-in function instead of "not found". That took a page down. I'd fixed three places by hand, then a scan found 13 more, and now a check blocks that kind of bug everywhere.</p>
+</div></details>
+</section>
+
+<hr>
+
+<section class="phase sp-color-6">
+<details class="pfold"><summary><h2 id="p58">Phase 58: Getting The Weekly Email Meant Giving Up The Daily One</h2><span class="pf-chev">&#8250;</span></summary>
+<div class="pfold-bd">
+<p><strong>Goal:</strong> If you wanted the weekly digest, you had to give up the daily email to get it, and nobody had asked for that. It happened because one setting held the answer to "how often," so you could only pick one.</p>
+<h3>What I Built</h3>
+<p>A second setting next to the first. If you get the daily email, you can now also get a weekly roundup on Monday, and that Monday you get the roundup in place of the daily, because everything that counts our emails expects one email per person per day. It's off for everyone to start with, and nobody's email changed the day it went out.</p>
+<p>Underneath, three places in the code answered "what does this person get today," and one of them was a copy of another one a few hundred lines further down. If those two had ever disagreed, our own alarm would have fired about a problem we caused. Now there's one function, and everything asks it.</p>
+<h3>What I Learned</h3>
+<p>Four of the bugs found in later review rounds came from my own fixes to earlier rounds. Each one looked right when I wrote it. They were caught by a reviewer, or by breaking the thing a test protects and checking that the test really fails.</p>
+</div></details>
+</section>
+
+<hr>
+
+<section class="phase sp-color-6">
+<details class="pfold"><summary><h2 id="p59">Phase 59: The Home Page Barely Mentioned Half Of What I Sell</h2><span class="pf-chev">&#8250;</span></summary>
+<div class="pfold-bd">
+<p><strong>Goal:</strong> The interview product was live and taking payments, and the home page only mentioned it once, in the third of three cards under a big section about job alerts. I had to decide if it should take over the front page, share it, or stay a link.</p>
+<h3>What I Built</h3>
+<p>It shares it, with both halves the same size. A version that gave two-thirds of the page to interviews was on the table, and I said no, because if the job alerts don't bring people in, nobody ever gets to the interviews.</p>
+<p>The bar at the top has two modes with different colors and you can tell which half you're in, and after your first sign-in it asks you once which one you came for. There's also a two-minute test run now: one real question, no score, no charge. That came from a tester who told me 30 minutes was a lot to give to something they'd never tried. Giving away two free interviews didn't solve that, which is why the two-minute try exists.</p>
+<h3>What I Learned</h3>
+<p>Seven of that week's bugs were the same kind: one fact stored in two places that were allowed to disagree. In one of them, an extra slash at the end of a web address turned the free test run into a paid interview, because one part of the code cleaned up the address before comparing it and another part didn't.</p>
+</div></details>
+</section>
+
+<hr>
+
+<section class="phase sp-color-6">
+<details class="pfold"><summary><h2 id="p61">Phase 61: My Monday Email Showed Every Number And Told Me Nothing</h2><span class="pf-chev">&#8250;</span></summary>
+<div class="pfold-bd">
+<p><strong>Goal:</strong> I had analytics in three places and still couldn't answer the simple questions. How many people actually use this? Who are my best users? Is it getting better or worse?</p>
+<h3>What I Built</h3>
+<p>First, the numbers moved into my own database: signups, email clicks, visits and interviews, every hour. Then one dashboard, rebuilt from scratch in Metabase and written as code, so I can rebuild it with one command.</p>
+<p>Then the Monday email. The first version showed every number with this week, last week and an arrow, and after reading it I still couldn't tell you what was going on. Now it starts with a box called "What to do this week," a short list of what needs me, with one line on what to do about each. Every other number gets a small eight-week chart and one word: up, down or steady.</p>
+<h3>What I Learned</h3>
+<p>I'd been telling everyone that people who sign up and don't follow any company get no email. The review panel asked how I knew. I checked, and almost all of them were getting one, because months earlier we'd decided everyone gets a daily email, even if it only has suggestions.</p>
+<p>For eight days, one of the four AI reviewers hadn't reviewed anything. It was running an old version that couldn't use the newer model, and the error was in a place nobody looked.</p>
+</div></details>
+</section>
+
 <div class="chapter-nav">
   <button type="button" class="cn-prev" data-go="ch6"><span class="cn-dir">Previous</span>6. Beta</button>
   <button type="button" class="cn-next" data-go="ch8"><span class="cn-dir">Next chapter</span>8. Launch</button>
@@ -1866,6 +2073,21 @@ This phase pointed the next stretch of product work at activation, the real leak
 <tr><td>47</td><td>Defaults encode assumptions</td><td>Auto-restart is right for a web server and wrong for a batch job that emails people.</td><td>Phase 46</td></tr>
 <tr><td>48</td><td>Replay before trust</td><td>Re-run your worst real incidents through new automation, writes disabled, before it acts alone.</td><td>Phase 47</td></tr>
 <tr><td>49</td><td>Knobs need harnesses</td><td>A live-editable rubric is only safe with a fixed test set and a calibration read behind it.</td><td>Phase 48</td></tr>
+<tr><td>50</td><td>Rules the AI can check</td><td>Give an AI rules about things it can see, like question counts, not a clock it doesn't have.</td><td>Phase 49</td></tr>
+<tr><td>51</td><td>Task routing</td><td>Pick the assistant and model from facts about the task, and keep a second opinion that can't see the answer.</td><td>Phase 50</td></tr>
+<tr><td>52</td><td>Equal effort for both choices</td><td>If one choice takes extra steps and the other takes none, people and AI both pick the easy one.</td><td>Phase 50</td></tr>
+<tr><td>53</td><td>Check where a delete lands</td><td>Fill in the variables and shortcuts first, then check the real target.</td><td>Phase 51</td></tr>
+<tr><td>54</td><td>Design tokens</td><td>One shared set of named colors turned a full redesign into a one-line switch.</td><td>Phase 52</td></tr>
+<tr><td>55</td><td>Ask before removing</td><td>Automation that asks twice, shows the date and accepts a "keep it" before anything it can't undo.</td><td>Phase 53</td></tr>
+<tr><td>56</td><td>Access tests by user type</td><td>Sign in as every kind of user and try every protected page on every change.</td><td>Phase 54</td></tr>
+<tr><td>57</td><td>Remove a step everywhere</td><td>Removing a check from some places and not others lets people in, then blocks them later.</td><td>Phase 55</td></tr>
+<tr><td>58</td><td>Ship on severity</td><td>A round on the final version that finds nothing harmful ships; smaller findings go on a list.</td><td>Phase 56</td></tr>
+<tr><td>59</td><td>Tests tied to requirements</td><td>Every requirement names its test, and the build fails if one is missing.</td><td>Phase 56</td></tr>
+<tr><td>60</td><td>Own-key lookups</td><td>Looking up a name like "constructor" in a plain table can return a built-in function.</td><td>Phase 57</td></tr>
+<tr><td>61</td><td>One source of truth</td><td>One function answers "what does this person get today," and everything else asks it.</td><td>Phase 58</td></tr>
+<tr><td>62</td><td>Break it first</td><td>Break what a test protects and watch it fail before you trust the test.</td><td>Phase 58</td></tr>
+<tr><td>63</td><td>Server-side reports</td><td>The server makes the report, so closing the tab doesn't lose it.</td><td>Phase 60</td></tr>
+<tr><td>64</td><td>Lead with what to do</td><td>Start a metrics email with what needs action, then show the trends.</td><td>Phase 61</td></tr>
 </tbody>
 </table>
 </div>
