@@ -469,7 +469,7 @@ section.phase { padding: 0 8px; margin: 0; }
 
 <section class="chapter active" id="ch0">
 <h1 id="top">The Full Build Log</h1>
-<p class="subtitle">All 61 phases of NewPMJobs.com, in detail: every decision, every bug, every fix. The short version lives on <a href="index.html">the journey page</a>, and the <a href="#concepts">Summary of Concepts Learned</a> is at the end of this page.</p>
+<p class="subtitle">All 63 phases of NewPMJobs.com, in detail: every decision, every bug, every fix. The short version lives on <a href="index.html">the journey page</a>, and the <a href="#concepts">Summary of Concepts Learned</a> is at the end of this page.</p>
 <div class="pills" aria-label="Stage navigation">
 <a class="pill" style="--c:var(--sp1)" href="#ch1"><span class="n">1</span>Concept</a>
 <a class="pill" style="--c:var(--sp2)" href="#ch2"><span class="n">2</span>Prototype</a>
@@ -1676,7 +1676,7 @@ The two holes the outside model found are textbook trust boundaries the author m
 <!-- ============ STAGE 7: Pre-production ============ -->
 <section class="chapter" id="ch7">
 <details class="stage" style="--c:var(--sp6)">
-<summary><span class="sg-n">7</span><span class="sg-t"><span class="sg-nm">Pre-production <span style="display:inline-block;font-size:.62rem;font-weight:800;letter-spacing:.06em;text-transform:uppercase;background:#fee2e2;color:#b42318;border-radius:999px;padding:2px 9px;margin-left:10px;vertical-align:middle;">In progress</span></span><span class="sg-d">In progress. This is where the catalog grew broad, the job-first feed landed, the data started writing its own weekly content, and analytics began working end to end, the technical dashboards and the user-facing side both. The product should make sense start to finish, not just function. Still in progress: mobile and UI polish are the work ahead.</span></span><span class="sg-ct">14 phases</span><span class="sg-chev">&#8250;</span></summary>
+<summary><span class="sg-n">7</span><span class="sg-t"><span class="sg-nm">Pre-production <span style="display:inline-block;font-size:.62rem;font-weight:800;letter-spacing:.06em;text-transform:uppercase;background:#fee2e2;color:#b42318;border-radius:999px;padding:2px 9px;margin-left:10px;vertical-align:middle;">In progress</span></span><span class="sg-d">In progress. This is where the catalog grew broad, the job-first feed landed, the data started writing its own weekly content, and analytics began working end to end, the technical dashboards and the user-facing side both. The product should make sense start to finish, not just function. Still in progress: mobile and UI polish are the work ahead.</span></span><span class="sg-ct">16 phases</span><span class="sg-chev">&#8250;</span></summary>
 <div class="stage-body">
 <section class="phase sp-color-6">
 <details class="pfold"><summary><h2 id="p22">Phase 22: Growing The Catalog The Right Way</h2><span class="pf-chev">&#8250;</span></summary>
@@ -1965,6 +1965,30 @@ This phase pointed the next stretch of product work at activation, the real leak
 </div></details>
 </section>
 
+<section class="phase sp-color-6">
+<details class="pfold"><summary><h2 id="p62">Phase 62: Nine Signups In Two Weeks, Zero Companies Followed</h2><span class="pf-chev">&#8250;</span></summary>
+<div class="pfold-bd">
+<p><strong>Goal:</strong> Nine people who signed up between October 13 and 26 were following nothing and getting no daily email. Find why, and fix the path so new users get something on day one.</p>
+<h3>What I Built</h3>
+<p>The company picker opens on the home page for an account tracking nothing. But the home page was intercepting those accounts first: an account with no chosen mode hits a "find a job or interviews" choice screen, and most new users never got past it to the picker.</p>
+<p>Two fixes shipped together. The server now auto-follows the Tech category when a sign-in token is accepted for a qualifying new account, on any page they land on. A manual choice overrides it. Alongside that: a server-side mark now records whether a person has saved a preference, even if that preference is "nothing." Once the mark is set, the Tech pre-tick never comes back. This also closed a separate bug where clearing all follows and saving still showed Tech ticked on the next visit.</p>
+<h3>What I Learned</h3>
+<p>"Following nothing" and "never picked" are two different states. The code was treating them as the same. If a default only activates on one specific page in the app, it is not really a default.</p>
+</div></details>
+</section>
+
+<section class="phase sp-color-6">
+<details class="pfold"><summary><h2 id="p63">Phase 63: The Daily Email Was Showing Workday's Logo For AT&amp;T</h2><span class="pf-chev">&#8250;</span></summary>
+<div class="pfold-bd">
+<p><strong>Goal:</strong> The October 27 daily alert showed Workday's "W" for AT&amp;T, NVIDIA, Vanguard and Raytheon, and a grey globe for JPMorgan Chase and Walmart Global Tech. Find why and fix it.</p>
+<h3>What I Built</h3>
+<p>The website had fixed this in May. When a company's careers page runs on a job board like Workday or Oracle, asking Google for a favicon at that URL returns the board's own icon. The fix is to check the company's own domain first (1,111 of 1,303 companies in the catalog have one), then apply the platform-tenant rule on full host names, then fall back to the careers URL.</p>
+<p>The daily email had its own copy of the logo-picking logic, written before May and never updated. Now the email uses the same function as the website. The send loop already fetched the company rows it needed; reading the domain field added no extra database call.</p>
+<h3>What I Learned</h3>
+<p>The website fix shipped in May. The email fix shipped in October, five months later, found by accident when looking at a real sent email. When the same rule lives in two places, fixing one leaves the other broken. One function, two callers.</p>
+</div></details>
+</section>
+
 <div class="chapter-nav">
   <button type="button" class="cn-prev" data-go="ch6"><span class="cn-dir">Previous</span>6. Beta</button>
   <button type="button" class="cn-next" data-go="ch8"><span class="cn-dir">Next chapter</span>8. Launch</button>
@@ -2088,6 +2112,8 @@ This phase pointed the next stretch of product work at activation, the real leak
 <tr><td>62</td><td>Break it first</td><td>Break what a test protects and watch it fail before you trust the test.</td><td>Phase 58</td></tr>
 <tr><td>63</td><td>Server-side reports</td><td>The server makes the report, so closing the tab doesn't lose it.</td><td>Phase 60</td></tr>
 <tr><td>64</td><td>Lead with what to do</td><td>Start a metrics email with what needs action, then show the trends.</td><td>Phase 61</td></tr>
+<tr><td>65</td><td>State vs. intent</td><td>"Following nothing" is not the same as "never chose." A flag that records a deliberate choice stops a default from overriding it.</td><td>Phase 62</td></tr>
+<tr><td>66</td><td>One function, two callers</td><td>Logic copied into two services diverges silently. Share the function; fix it in one place and both stay current.</td><td>Phase 63</td></tr>
 </tbody>
 </table>
 </div>
