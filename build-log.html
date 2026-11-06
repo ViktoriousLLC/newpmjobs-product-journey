@@ -458,6 +458,8 @@ section.phase { padding: 0 8px; margin: 0; }
 <a class="side-ph" href="#p58">Phase 58: Getting The Weekly Email Meant Giving Up The Daily One</a>
 <a class="side-ph" href="#p59">Phase 59: The Home Page Barely Mentioned Half Of What I Sell</a>
 <a class="side-ph" href="#p61">Phase 61: My Monday Email Showed Every Number And Told Me Nothing</a>
+<a class="side-ph" href="#p62">Phase 62: The Daily Email Showed Workday's Logo For AT&amp;T, NVIDIA, And Five Other Companies</a>
+<a class="side-ph" href="#p63">Phase 63: Nine Signups Were Getting No Email Because They Never Found The Company Picker</a>
 <a class="side-st" style="--c:var(--sp7)" href="#ch8"><span class="dot"></span>Stage 8: Launch</a>
 
 <a class="side-st" style="--c:var(--sp8)" href="#ch9"><span class="dot"></span>Stage 9: Post-launch</a>
@@ -469,7 +471,7 @@ section.phase { padding: 0 8px; margin: 0; }
 
 <section class="chapter active" id="ch0">
 <h1 id="top">The Full Build Log</h1>
-<p class="subtitle">All 61 phases of NewPMJobs.com, in detail: every decision, every bug, every fix. The short version lives on <a href="index.html">the journey page</a>, and the <a href="#concepts">Summary of Concepts Learned</a> is at the end of this page.</p>
+<p class="subtitle">All 63 phases of NewPMJobs.com, in detail: every decision, every bug, every fix. The short version lives on <a href="index.html">the journey page</a>, and the <a href="#concepts">Summary of Concepts Learned</a> is at the end of this page.</p>
 <div class="pills" aria-label="Stage navigation">
 <a class="pill" style="--c:var(--sp1)" href="#ch1"><span class="n">1</span>Concept</a>
 <a class="pill" style="--c:var(--sp2)" href="#ch2"><span class="n">2</span>Prototype</a>
@@ -1676,7 +1678,7 @@ The two holes the outside model found are textbook trust boundaries the author m
 <!-- ============ STAGE 7: Pre-production ============ -->
 <section class="chapter" id="ch7">
 <details class="stage" style="--c:var(--sp6)">
-<summary><span class="sg-n">7</span><span class="sg-t"><span class="sg-nm">Pre-production <span style="display:inline-block;font-size:.62rem;font-weight:800;letter-spacing:.06em;text-transform:uppercase;background:#fee2e2;color:#b42318;border-radius:999px;padding:2px 9px;margin-left:10px;vertical-align:middle;">In progress</span></span><span class="sg-d">In progress. This is where the catalog grew broad, the job-first feed landed, the data started writing its own weekly content, and analytics began working end to end, the technical dashboards and the user-facing side both. The product should make sense start to finish, not just function. Still in progress: mobile and UI polish are the work ahead.</span></span><span class="sg-ct">14 phases</span><span class="sg-chev">&#8250;</span></summary>
+<summary><span class="sg-n">7</span><span class="sg-t"><span class="sg-nm">Pre-production <span style="display:inline-block;font-size:.62rem;font-weight:800;letter-spacing:.06em;text-transform:uppercase;background:#fee2e2;color:#b42318;border-radius:999px;padding:2px 9px;margin-left:10px;vertical-align:middle;">In progress</span></span><span class="sg-d">In progress. This is where the catalog grew broad, the job-first feed landed, the data started writing its own weekly content, and analytics began working end to end, the technical dashboards and the user-facing side both. The product should make sense start to finish, not just function. Still in progress: mobile and UI polish are the work ahead.</span></span><span class="sg-ct">16 phases</span><span class="sg-chev">&#8250;</span></summary>
 <div class="stage-body">
 <section class="phase sp-color-6">
 <details class="pfold"><summary><h2 id="p22">Phase 22: Growing The Catalog The Right Way</h2><span class="pf-chev">&#8250;</span></summary>
@@ -1965,6 +1967,34 @@ This phase pointed the next stretch of product work at activation, the real leak
 </div></details>
 </section>
 
+<section class="phase sp-color-6">
+<details class="pfold"><summary><h2 id="p62">Phase 62: The Daily Email Showed Workday's Logo For AT&amp;T, NVIDIA, And Five Other Companies</h2><span class="pf-chev">&#8250;</span></summary>
+<div class="pfold-bd">
+<p><strong>Goal:</strong> Every company in the daily email should show its own logo. Seven were showing someone else's.</p>
+<h3>What I Built</h3>
+<p>The website had fixed this in May. The email had its own copy of the logo rule, and I'd never updated it after that fix.</p>
+<p>The rule now works in three steps: first check the company's own domain (1,111 of 1,303 companies have one); if that's empty, run the job-board tenant rules the website already uses to match Workday, Oracle and similar platforms; last, fall back to the careers page host, using just the company's own suffix where the careers site starts with "careers."</p>
+<p>The email and the website both call the same function now. They won't drift again.</p>
+<h3>What I Learned</h3>
+<p>A rule that lives in two code paths will diverge. The website fixed a logo problem in May. The email's copy of the same rule sat with the old logic for five months, quietly showing Workday's W for AT&amp;T, NVIDIA, Vanguard, PNC and Raytheon, and grey globes for JPMorgan Chase and Walmart Global Tech. I saw it in the Oct 27 send and knew immediately what had happened.</p>
+<p>The company's own domain is almost always the right answer. It was the first check the email had skipped entirely.</p>
+</div></details>
+</section>
+
+<section class="phase sp-color-6">
+<details class="pfold"><summary><h2 id="p63">Phase 63: Nine Signups Were Getting No Email Because They Never Found The Company Picker</h2><span class="pf-chev">&#8250;</span></summary>
+<div class="pfold-bd">
+<p><strong>Goal:</strong> Nine people signed up between Oct 13 and Oct 26 and followed nothing. No daily email for any of them.</p>
+<h3>What I Built</h3>
+<p>The picker, where you choose which companies to track, only opened on the home page, and only if you were logged in and tracking nothing. But the home page sends a new account to a getting-started screen first. So someone who signed up and landed on that screen never saw the picker, never followed anything, and never got an email.</p>
+<p>Two changes. First, a new account that has followed nothing and never saved a preference now auto-follows the Tech category on sign-in. It's one category out of several, easy to undo, and the server marks the account once so it never applies again. Second, the "Add a company" button no longer routes through the getting-started screen. It opens the picker directly.</p>
+<h3>Key Decisions</h3>
+<p>The nine accounts from that window are still empty. I prepared a one-off backfill for Vik to run; the auto-follow code doesn't reach back in time, so it only helps people who sign up going forward.</p>
+<h3>What I Learned</h3>
+<p>A blank first state isn't neutral. Those nine people didn't opt out of the product; they hit a navigation gap they had no reason to know was there. If you can give a new user one sensible default on the spot, that's almost always better than making them find the right screen themselves.</p>
+</div></details>
+</section>
+
 <div class="chapter-nav">
   <button type="button" class="cn-prev" data-go="ch6"><span class="cn-dir">Previous</span>6. Beta</button>
   <button type="button" class="cn-next" data-go="ch8"><span class="cn-dir">Next chapter</span>8. Launch</button>
@@ -2088,6 +2118,8 @@ This phase pointed the next stretch of product work at activation, the real leak
 <tr><td>62</td><td>Break it first</td><td>Break what a test protects and watch it fail before you trust the test.</td><td>Phase 58</td></tr>
 <tr><td>63</td><td>Server-side reports</td><td>The server makes the report, so closing the tab doesn't lose it.</td><td>Phase 60</td></tr>
 <tr><td>64</td><td>Lead with what to do</td><td>Start a metrics email with what needs action, then show the trends.</td><td>Phase 61</td></tr>
+<tr><td>65</td><td>One rule, shared</td><td>A display rule that lives in two code paths will drift; keep one function and call it from everywhere.</td><td>Phase 62</td></tr>
+<tr><td>66</td><td>Default over blank</td><td>A new user with an empty first state doesn't explore; give them a sensible default and let them undo it.</td><td>Phase 63</td></tr>
 </tbody>
 </table>
 </div>
